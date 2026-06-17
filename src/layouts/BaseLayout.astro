@@ -16,15 +16,19 @@ const { title, description } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/assets/logo-shield.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles/global.css" />
   </head>
   <body>
+    <div class="noise-overlay"></div>
+
     <header class="header">
-      <nav class="nav container">
+      <nav class="nav">
         <a href="/" class="logo">
-          <img src="/assets/logo-shield.svg" alt="Trust Para Todos" width="32" height="32" />
-          <span>Trust Para Todos</span>
+          <span class="logo-icon">
+            <img src="/assets/logo-shield.svg" alt="Trust Para Todos" width="28" height="28" />
+          </span>
+          <span class="logo-text">Trust Para Todos</span>
         </a>
         <div class="nav-links">
           <a href="/que-es">¿Qué es?</a>
@@ -41,9 +45,9 @@ const { title, description } = Astro.props;
     </main>
 
     <footer class="footer">
-      <div class="container footer-grid">
+      <div class="footer-grid">
         <div>
-          <h4>Trust Para Todos</h4>
+          <div class="footer-brand">Trust Para Todos</div>
           <p>Protege a tu familia. Asegura tu legado.</p>
           <p class="footer-powered">Powered by <a href="https://trustoffice.app">TrustOffice</a></p>
         </div>
@@ -66,7 +70,7 @@ const { title, description } = Astro.props;
           <a href="/contacto">Formulario de contacto</a>
         </div>
       </div>
-      <div class="container footer-bottom">
+      <div class="footer-bottom">
         <p>© 2026 Trust Para Todos. Todos los derechos reservados.</p>
         <p class="footer-disclaimer">Trust Para Todos proporciona documentos legales preparados por abogados. No somos un bufete de abogados. Este sitio no proporciona asesoramiento legal.</p>
       </div>

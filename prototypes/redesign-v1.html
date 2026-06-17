@@ -1,9 +1,14 @@
-/* === Trust Para Todos — Design System ===
- * Fonts: Playfair Display (headlines) + DM Sans (body)
- * Palette: Teal #04707e, Terracotta #dd7054, Cream #f7f9f1
- * Anti-slop: no Inter, no card grids, no pure white, no emoji-as-icons
- */
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trust Para Todos — Redesign Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+/* === Design Tokens === */
 :root {
   --teal: #04707e;
   --teal-dark: #035a66;
@@ -62,6 +67,13 @@ h1, h2, h3, h4 {
   background-size: 256px 256px;
 }
 
+/* === Dot Grid Background === */
+.dot-grid {
+  background-image: radial-gradient(circle, #c5cdc8 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.12;
+}
+
 /* === Container === */
 .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
 
@@ -90,14 +102,15 @@ h1, h2, h3, h4 {
 .logo-icon {
   width: 36px;
   height: 36px;
+  background: var(--teal);
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.logo-icon img {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
 }
 .logo-text {
   font-family: 'Playfair Display', serif;
@@ -164,7 +177,7 @@ h1, h2, h3, h4 {
   content: '';
   position: absolute;
   inset: 0;
-  background:
+  background: 
     radial-gradient(ellipse 80% 60% at 20% 80%, rgba(221,112,84,0.15) 0%, transparent 60%),
     radial-gradient(ellipse 60% 50% at 80% 20%, rgba(0,0,0,0.1) 0%, transparent 50%);
   pointer-events: none;
@@ -199,7 +212,6 @@ h1, h2, h3, h4 {
   background: var(--terracotta);
 }
 .hero h1 {
-  font-family: 'Playfair Display', Georgia, serif;
   font-size: 3.2rem;
   color: var(--white);
   margin-bottom: 20px;
@@ -280,7 +292,6 @@ h1, h2, h3, h4 {
 .section { padding: 100px 0; }
 .section-alt { background: var(--white); }
 .section h2 {
-  font-family: 'Playfair Display', Georgia, serif;
   font-size: 2.6rem;
   text-align: center;
   margin-bottom: 12px;
@@ -319,7 +330,6 @@ h1, h2, h3, h4 {
   opacity: 0.6;
 }
 .editorial-item h3 {
-  font-family: 'Playfair Display', Georgia, serif;
   font-size: 1.2rem;
   margin-bottom: 6px;
   color: var(--dark);
@@ -361,7 +371,6 @@ h1, h2, h3, h4 {
   font-weight: 600;
 }
 .feature-card h3 {
-  font-family: 'Playfair Display', Georgia, serif;
   font-size: 1.1rem;
   margin-bottom: 10px;
   color: var(--dark);
@@ -385,7 +394,7 @@ h1, h2, h3, h4 {
   content: '';
   position: absolute;
   inset: 0;
-  background:
+  background: 
     radial-gradient(ellipse 70% 50% at 30% 50%, rgba(221,112,84,0.12) 0%, transparent 60%),
     radial-gradient(ellipse 50% 40% at 70% 30%, rgba(0,0,0,0.08) 0%, transparent 50%);
   pointer-events: none;
@@ -397,7 +406,6 @@ h1, h2, h3, h4 {
   margin: 0 auto;
 }
 .cta-section h2 {
-  font-family: 'Playfair Display', Georgia, serif;
   color: var(--white);
   font-size: 2.6rem;
   margin-bottom: 16px;
@@ -465,177 +473,6 @@ h1, h2, h3, h4 {
 .footer-disclaimer { font-size: 0.75rem; opacity: 0.5; max-width: 500px; }
 .whatsapp-link { font-weight: 600; color: #25D366 !important; }
 
-/* === Page Content (inner pages) === */
-.page-content { max-width: 800px; margin: 0 auto; padding: 60px 24px; }
-.page-content h1 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 2.4rem;
-  color: var(--teal);
-  margin-bottom: 16px;
-}
-.page-content h2 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.6rem;
-  color: var(--teal);
-  margin-top: 48px;
-  margin-bottom: 16px;
-}
-.page-content h3 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.2rem;
-  color: var(--teal);
-  margin-top: 32px;
-  margin-bottom: 12px;
-}
-.page-content p { margin-bottom: 16px; color: var(--text-body); line-height: 1.7; }
-.page-content ul, .page-content ol { margin-bottom: 16px; padding-left: 24px; }
-.page-content li { margin-bottom: 8px; }
-.page-content .btn { margin-top: 16px; }
-
-/* === Steps (como-funciona) === */
-.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; counter-reset: step; }
-.step {
-  text-align: center;
-  padding: 24px;
-  position: relative;
-}
-.step::before {
-  counter-increment: step;
-  content: counter(step);
-  display: block;
-  width: 48px;
-  height: 48px;
-  line-height: 48px;
-  border-radius: 50%;
-  background: var(--teal);
-  color: var(--white);
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 700;
-  font-size: 1.2rem;
-  margin: 0 auto 16px;
-}
-.step h3 {
-  font-family: 'Playfair Display', Georgia, serif;
-  color: var(--teal);
-  margin-bottom: 8px;
-  font-size: 1.1rem;
-}
-.step p { color: var(--text-muted); font-size: 0.9rem; }
-
-/* === FAQ === */
-.faq-list { max-width: 800px; margin: 0 auto; }
-.faq-item {
-  background: var(--white);
-  border-radius: var(--radius-sm);
-  margin-bottom: 12px;
-  overflow: hidden;
-  border: 1px solid var(--cream-dark);
-}
-.faq-question {
-  padding: 20px 24px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background 0.2s;
-  color: var(--dark);
-}
-.faq-question:hover { background: var(--cream); }
-.faq-answer { padding: 0 24px 20px; color: var(--text-muted); line-height: 1.7; display: none; }
-.faq-item.open .faq-answer { display: block; }
-
-/* === Forms === */
-.form-group { margin-bottom: 20px; }
-.form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--dark); }
-.form-group input, .form-group textarea, .form-group select {
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px solid var(--cream-dark);
-  border-radius: var(--radius-sm);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1rem;
-  transition: border-color 0.2s;
-}
-.form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--teal); }
-.form-group textarea { min-height: 120px; resize: vertical; }
-
-/* === Questionnaire === */
-.quiz-step { display: none; }
-.quiz-step.active { display: block; }
-.progress-bar {
-  height: 8px;
-  background: var(--cream-dark);
-  border-radius: 4px;
-  margin-bottom: 32px;
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  background: var(--teal);
-  border-radius: 4px;
-  transition: width 0.5s;
-}
-
-/* === Dashboard === */
-.status-tracker { max-width: 600px; margin: 0 auto; }
-.status-step {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px;
-  border-left: 3px solid #ddd;
-  margin-left: 12px;
-  position: relative;
-}
-.status-step:last-child { border-left-color: transparent; }
-.status-step.completed { border-left-color: var(--teal); }
-.status-step.active { border-left-color: var(--terracotta); }
-.status-dot {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #ddd;
-  flex-shrink: 0;
-}
-.status-step.completed .status-dot { background: var(--teal); }
-.status-step.active .status-dot { background: var(--terracotta); animation: pulse 2s infinite; }
-@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
-
-/* === Pricing === */
-.pricing-card {
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: 40px 32px;
-  box-shadow: var(--shadow-lg);
-  text-align: center;
-  max-width: 400px;
-  margin: 0 auto;
-  border: 1px solid var(--cream-dark);
-}
-.pricing-card.featured { border: 2px solid var(--terracotta); position: relative; }
-.pricing-card.featured::before { content: 'MÁS POPULAR'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--terracotta); color: var(--white); padding: 4px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; font-family: 'DM Sans', sans-serif; }
-.pricing-amount { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 800; color: var(--teal); margin: 16px 0; }
-.pricing-amount small { font-size: 1rem; font-weight: 400; }
-.pricing-features { list-style: none; padding: 0; margin: 24px 0; }
-.pricing-features li { padding: 8px 0; border-bottom: 1px solid var(--cream-dark); color: var(--text-muted); }
-.pricing-features li:last-child { border-bottom: none; }
-.pricing-addon { margin-top: 16px; padding: 16px; background: var(--cream); border-radius: var(--radius-sm); }
-.pricing-addon h4 { color: var(--teal); margin-bottom: 4px; }
-.pricing-addon .price { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--teal); }
-
-/* === Testimonials === */
-.testimonial {
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: 32px;
-  border: 1px solid var(--cream-dark);
-  position: relative;
-}
-.testimonial::before { content: '"'; font-size: 4rem; color: var(--teal); opacity: 0.15; position: absolute; top: 8px; left: 16px; font-family: 'Playfair Display', serif; }
-.testimonial p { font-style: italic; margin-bottom: 16px; color: var(--dark); }
-.testimonial-author { font-weight: 600; color: var(--teal); font-size: 0.9rem; }
-
 /* === Responsive === */
 @media (max-width: 1024px) {
   .hero-inner { grid-template-columns: 1fr; text-align: center; padding: 80px 24px; }
@@ -668,3 +505,218 @@ h1, h2, h3, h4 {
   .hero-cta { flex-direction: column; }
   .section h2 { font-size: 1.6rem; }
 }
+</style>
+</head>
+<body>
+
+<div class="noise-overlay"></div>
+
+<!-- Header -->
+<header class="header">
+  <nav class="nav">
+    <a href="/" class="logo">
+      <div class="logo-icon">🛡</div>
+      <span class="logo-text">Trust Para Todos</span>
+    </a>
+    <div class="nav-links">
+      <a href="/que-es">¿Qué es?</a>
+      <a href="/como-funciona">Cómo funciona</a>
+      <a href="/preguntas-frecuentes">FAQ</a>
+      <a href="/evaluacion" class="btn btn-primary btn-sm">Tu evaluación</a>
+    </div>
+    <button class="mobile-menu-btn" aria-label="Menú">☰</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Protección patrimonial</div>
+        <h1>¿Sabías que tus seres queridos podrían perder tu casa por impuestos?</h1>
+        <p>El gobierno cobra hasta el 40% de tu patrimonio cuando tú no estás. Un trust protege a tu familia. Y cuesta menos de lo que piensas.</p>
+        <div class="hero-cta">
+          <a href="/evaluacion" class="btn btn-primary btn-lg">Protege tu hogar ahora</a>
+          <a href="/que-es" class="btn btn-outline btn-lg">¿Qué es un trust?</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-shield-glow"></div>
+        <div class="hero-shield">
+          <svg viewBox="0 0 280 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Shield outline -->
+            <path d="M140 20 L260 80 L260 180 C260 250 200 290 140 310 C80 290 20 250 20 180 L20 80 Z" 
+                  fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+            <!-- Inner shield -->
+            <path d="M140 50 L240 100 L240 170 C240 230 190 260 140 280 C90 260 40 230 40 170 L40 100 Z" 
+                  fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+            <!-- House icon inside shield -->
+            <rect x="110" y="140" width="60" height="50" rx="2" fill="rgba(255,255,255,0.2)"/>
+            <polygon points="140,110 100,145 100,140 140,100 180,140 180,145" fill="rgba(255,255,255,0.25)"/>
+            <rect x="130" y="160" width="20" height="30" fill="rgba(255,255,255,0.15)"/>
+            <!-- Heart -->
+            <path d="M140 200 C140 200 125 190 120 185 C115 180 115 173 120 168 C125 163 135 163 140 170 C145 163 155 163 160 168 C165 173 165 180 160 185 C155 190 140 200 140 200Z" 
+                  fill="rgba(221,112,84,0.4)"/>
+            <!-- Decorative dots -->
+            <circle cx="80" cy="120" r="3" fill="rgba(255,255,255,0.15)"/>
+            <circle cx="200" cy="120" r="3" fill="rgba(255,255,255,0.15)"/>
+            <circle cx="80" cy="200" r="2" fill="rgba(255,255,255,0.1)"/>
+            <circle cx="200" cy="200" r="2" fill="rgba(255,255,255,0.1)"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="trust-bar-section">
+    <div class="container">
+      <div class="trust-bar">
+        <div class="trust-item">
+          <div class="number">$60K</div>
+          <div class="label">Exención de impuestos</div>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <div class="number">5,000+</div>
+          <div class="label">Familias protegidas</div>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <div class="number">3 min</div>
+          <div class="label">Tu evaluación gratuita</div>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <div class="number">$997</div>
+          <div class="label">Protección completa</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section — Editorial List -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2>El problema que nadie te dice</h2>
+      <p class="subtitle">Cuando una persona fallece, sus bienes pasan a sus herederos. Pero el gobierno cobra impuestos antes de que tu familia pueda heredar.</p>
+      <div class="editorial-list">
+        <div class="editorial-item">
+          <div class="editorial-num">01</div>
+          <div>
+            <h3>Tu casa en riesgo</h3>
+            <p>Si tienes una propiedad en Estados Unidos valorada en más de $60,000, el IRS puede cobrar hasta el 40% de su valor en impuestos de herencia.</p>
+          </div>
+        </div>
+        <div class="editorial-item">
+          <div class="editorial-num">02</div>
+          <div>
+            <h3>Tu familia sin protección</h3>
+            <p>Sin un trust, tu familia puede pasar meses o años en procesos legales antes de recibir lo que les dejaste. Y pagando abogados.</p>
+          </div>
+        </div>
+        <div class="editorial-item">
+          <div class="editorial-num">03</div>
+          <div>
+            <h3>Procesos complicados</h3>
+            <p>La corte de sucesiones (probate) es pública, lenta y costosa. Un trust evita todo eso. Tus bienes pasan directamente a quienes elegiste.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section — Feature Grid -->
+  <section class="section">
+    <div class="container">
+      <h2>La solución: Trust Para Todos</h2>
+      <p class="subtitle">Creamos un paquete completo de protección patrimonial diseñado especialmente para la comunidad mexicana en Estados Unidos.</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📄</div>
+          <h3>Documentos legales</h3>
+          <p>Trust revocable redactado por abogados. En inglés (para validez legal) + guía explicativa en español.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✍️</div>
+          <h3>Notaría remota</h3>
+          <p>Todo se hace en línea. Sin viajes, sin filas. Notario bilingüe disponible.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔢</div>
+          <h3>Número de identificación (EIN)</h3>
+          <p>Tramitamos tu EIN ante el IRS. Necesario para que tu trust funcione correctamente.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Panel de control</h3>
+          <p>Dashboard donde ves el estado de tu trust, tus documentos y próximos pasos. Siempre actualizado.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎓</div>
+          <h3>Curso incluido</h3>
+          <p>Trustee 101 en español. Aprende a usar y administrar tu trust correctamente.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3>6 meses de TrustOffice</h3>
+          <p>Plataforma de gobierno del trust. Lleva actas, controla tus activos y recibe recordatorios de cumplimiento.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2>Protege a tu familia hoy</h2>
+      <p>Son solo 3 minutos. Descubre si un trust es adecuado para ti y recibe tu recomendación personalizada.</p>
+      <a href="/evaluacion" class="btn btn-primary btn-lg">Comenzar mi evaluación gratuita</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Trust Para Todos</div>
+      <p>Protege a tu familia. Asegura tu legado.</p>
+      <p class="footer-powered">Powered by <a href="https://trustoffice.app">TrustOffice</a></p>
+    </div>
+    <div>
+      <h4>Enlaces</h4>
+      <a href="/que-es">¿Qué es un trust?</a>
+      <a href="/como-funciona">Cómo funciona</a>
+      <a href="/preguntas-frecuentes">Preguntas frecuentes</a>
+      <a href="/contacto">Contacto</a>
+    </div>
+    <div>
+      <h4>Recursos</h4>
+      <a href="/testimonios">Testimonios</a>
+      <a href="/asociaciones">Asociaciones</a>
+      <a href="/legal">Aviso legal</a>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <a href="https://wa.me/18001234567" class="whatsapp-link">WhatsApp: ¡Escríbenos!</a>
+      <a href="/contacto">Formulario de contacto</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Trust Para Todos. Todos los derechos reservados.</p>
+    <p class="footer-disclaimer">Trust Para Todos proporciona documentos legales preparados por abogados. No somos un bufete de abogados. Este sitio no proporciona asesoramiento legal.</p>
+  </div>
+</footer>
+
+<script>
+document.querySelector('.mobile-menu-btn')?.addEventListener('click', () => {
+  document.querySelector('.nav-links')?.classList.toggle('open');
+});
+</script>
+
+</body>
+</html>

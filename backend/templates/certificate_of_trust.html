@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Certificate of Trust — {{trust_name}}</title>
+<link rel="stylesheet" href="legal-document.css">
+</head>
+<body>
+
+<!-- ============================================================
+     COVER PAGE
+     ============================================================ -->
+<section class="cover-page">
+  <div class="brand-name">Trust Para Todos</div>
+
+  <div class="doc-type">Certificate of Trust</div>
+  <div class="doc-subtitle">Pursuant to the {{governing_state}} Uniform Trust Code</div>
+  <div class="settlor-name">{{trust_name}}</div>
+
+  <div class="cover-date">Dated: {{trust_date}}</div>
+
+  <div class="prepared-by">
+    <strong>Prepared by:</strong><br>
+    Trust Para Todos<br>
+    {{preparer_address}}<br>
+    {{preparer_phone}} | {{preparer_email}}<br>
+    File No. {{file_number}}
+  </div>
+</section>
+
+<!-- ============================================================
+     CERTIFICATE OF TRUST — BODY
+     ============================================================ -->
+<section>
+  <div class="article-heading">Certificate of Trust</div>
+
+  <p class="recital">
+    <span class="recital-label">WHEREAS,</span> a trust known as the &ldquo;{{trust_name}}&rdquo; (hereinafter referred to as the &ldquo;Trust&rdquo;) was established by a written declaration of trust dated {{trust_date}} (hereinafter referred to as the &ldquo;Trust Agreement&rdquo;); and
+  </p>
+
+  <p class="recital">
+    <span class="recital-label">WHEREAS,</span> the undersigned Trustee(s) desire to certify to third parties certain facts regarding the Trust for the purpose of enabling such third parties to deal with the Trustee(s) without requiring a copy of the Trust Agreement; and
+  </p>
+
+  <p class="recital">
+    <span class="recital-label">NOW, THEREFORE,</span> the undersigned Trustee(s), being duly authorized and acting in such capacity, hereby certify as follows:
+  </p>
+
+  <!-- ============================================================
+       SECTION 1 — TRUST NAME AND DATE
+       ============================================================ -->
+  <div class="section-heading">1. Trust Name and Date</div>
+
+  <div class="cert-section">
+    <div class="cert-label">Name of Trust</div>
+    <div class="cert-value">The Trust is known as the &ldquo;{{trust_name}}.&rdquo;</div>
+  </div>
+
+  <div class="cert-section">
+    <div class="cert-label">Date of Execution</div>
+    <div class="cert-value">The Trust Agreement was executed on {{trust_date}}.</div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 2 — IDENTITY OF GRANTOR/SETTLOR
+       ============================================================ -->
+  <div class="section-heading">2. Identity of Grantor / Settlor</div>
+
+  <p>The Grantor(s) (also referred to as the &ldquo;Settlor(s)&rdquo;) of the Trust is/are:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> {{settlor_1_full_name}}, residing at {{settlor_1_address}}; and</li>
+    <li><span class="enum-label">(b)</span> {{settlor_2_full_name}}, residing at {{settlor_1_address}}.</li>
+  </ol>
+
+  <p>The Settlor(s) established the Trust by executing the Trust Agreement and transferring certain property to the Trustee(s) to be held and administered in accordance with the terms of the Trust Agreement.</p>
+
+  <!-- ============================================================
+       SECTION 3 — IDENTITY OF TRUSTEE(S)
+       ============================================================ -->
+  <div class="section-heading">3. Identity of Trustee(s)</div>
+
+  <p>The current Trustee(s) of the Trust is/are:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> {{trustee_1_full_name}}, residing at {{settlor_1_address}}; and</li>
+    <li><span class="enum-label">(b)</span> {{trustee_2_full_name}}, residing at {{settlor_1_address}}.</li>
+  </ol>
+
+  <p>Either Trustee may act alone for routine matters. Both Trustees must act jointly for major decisions, including the sale of real property and distributions exceeding {{major_decision_threshold}} in any calendar year.</p>
+
+  <p>The Trustee(s) named above are duly appointed, qualified, and currently serving in such capacity. No Trustee has been removed, has resigned, or has been determined to be incapacitated, except as disclosed herein.</p>
+
+  <!-- ============================================================
+       SECTION 4 — REVOCABILITY STATUS
+       ============================================================ -->
+  <div class="section-heading">4. Revocability Status</div>
+
+  <div class="cert-section">
+    <div class="cert-label">Section 4. Revocability Status</div>
+    <div class="cert-value">{{revocability_status}}</div>
+    <div class="cert-value">The power to revoke the Trust is held by: {{settlor_1_full_name}} and {{settlor_2_full_name}}.</div>
+  </div>
+  <p>The Trust is {{revocability_status}}. The power to revoke, amend, or modify the Trust is held by {{settlor_1_full_name}} and {{settlor_2_full_name}}. No amendment or revocation of the Trust has been made that would affect the statements contained in this Certificate of Trust, except as disclosed herein.</p>
+
+  <!-- ============================================================
+       SECTION 5 — TRUSTEE AUTHORITY TO CERTIFY
+       ============================================================ -->
+  <div class="section-heading">5. Trustee Authority to Certify</div>
+
+  <p>The undersigned Trustee(s) certify that they are duly authorized under the terms of the Trust Agreement and applicable law to execute this Certificate of Trust on behalf of the Trust and to make the certifications set forth herein. The Trust Agreement provides that the Trustee(s) may furnish a certification of trust to any third party in lieu of providing the full Trust Agreement.</p>
+
+  <p>This Certificate of Trust is provided pursuant to the applicable provisions of the Uniform Trust Code as adopted in the State of {{governing_state}} and any other applicable law permitting certification of trust.</p>
+
+  <!-- ============================================================
+       SECTION 6 — TRUSTEE POWERS (SUMMARY)
+       ============================================================ -->
+  <div class="section-heading">6. Trustee Powers (Summary)</div>
+
+  <p>The Trustee(s) are granted broad powers to manage, invest, and administer the Trust Estate. Without limiting the generality of the foregoing, the Trustee(s) have the power to:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> Acquire, hold, sell, exchange, convey, transfer, lease, and otherwise dispose of real and personal property, whether tangible or intangible;</li>
+    <li><span class="enum-label">(b)</span> Invest and reinvest the Trust Estate in such property and in such manner as the Trustee(s) deem prudent, without the need to diversify;</li>
+    <li><span class="enum-label">(c)</span> Borrow money and mortgage, pledge, or otherwise encumber Trust Property as security;</li>
+    <li><span class="enum-label">(d)</span> Maintain checking, savings, and other accounts in financial institutions and designate signatories therefor;</li>
+    <li><span class="enum-label">(e)</span> Open, maintain, and close brokerage, investment, and retirement accounts and execute all related instruments;</li>
+    <li><span class="enum-label">(f)</span> Employ attorneys, accountants, investment advisors, and other professional agents and pay their reasonable compensation from the Trust Estate;</li>
+    <li><span class="enum-label">(g)</span> Compromise, arbitrate, settle, or abandon claims or causes of action in favor of or against the Trust;</li>
+    <li><span class="enum-label">(h)</span> Make distributions to or for the benefit of beneficiaries as provided in the Trust Agreement; and</li>
+    <li><span class="enum-label">(i)</span> Perform all other acts and execute all other documents that the Trustee(s) deem necessary or appropriate for the proper administration of the Trust.</li>
+  </ol>
+
+  <p>All powers granted to the Trustee(s) under the Trust Agreement may be exercised without court order, approval, or supervision, to the fullest extent permitted by law.</p>
+
+  <!-- ============================================================
+       SECTION 7 — TITLE TO TRUST PROPERTY
+       ============================================================ -->
+  <div class="section-heading">7. Title to Trust Property</div>
+
+  <p>Title to Trust Property may be held in the name of the Trustee(s), in the name of a nominee, or in the name of the Trust, as the Trustee(s) deem appropriate. The Trustee(s) may hold securities in street name or in the name of a nominee without disclosure of the fiduciary relationship.</p>
+
+  <p>Property held in the name of the Trustee(s) in any of the foregoing forms shall be presumed to be held in trust and not individually by the Trustee(s). The Trustee(s) are authorized to execute any and all instruments necessary to establish, transfer, or confirm title to Trust Property in any such form.</p>
+
+  <div class="cert-section">
+    <div class="cert-label">Manner of Holding Title</div>
+    <div class="cert-value">{{manner_of_holding_title}}</div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 8 — TRUST TAX ID
+       ============================================================ -->
+  <div class="section-heading">8. Trust Tax Identification</div>
+
+  <div class="cert-section">
+    <div class="cert-label">Tax Identification Number</div>
+    <div class="cert-value">{{trust_tax_id}}</div>
+  </div>
+
+  <div class="cert-section">
+    <div class="cert-label">Tax Classification</div>
+    <div class="cert-value">Grantor Trust (Sections 671-679 of the Internal Revenue Code)</div>
+  </div>
+
+  <p>For federal income tax purposes, the Trust is treated as a grantor trust. All income, deductions, and credits of the Trust are reportable on the Settlors&rsquo; individual income tax returns. Any person or entity requesting this Certificate of Trust may rely upon the foregoing tax identification information for purposes of information reporting and withholding.</p>
+
+  <!-- ============================================================
+       SECTION 9 — RELIANCE AND INDEMNIFICATION STATEMENT
+       ============================================================ -->
+  <div class="section-heading">9. Reliance and Indemnification Statement</div>
+
+  <p>Any person or entity, including any bank, title company, financial institution, brokerage firm, insurance company, transfer agent, escrow agent, or other third party (collectively, &ldquo;Third Parties&rdquo;), may rely upon this Certificate of Trust and is not required to inspect or obtain a copy of the Trust Agreement. Any Third Party dealing with the Trustee(s) in good faith and in reliance upon this Certificate of Trust shall be fully protected and shall incur no liability for any act taken in such reliance.</p>
+
+  <p>Any Third Party shall not be liable for failing to inquire into the propriety of any act of the Trustee(s) or into the existence or extent of the powers conferred upon the Trustee(s) by the Trust Agreement. Any Third Party shall not be required to ensure the proper application of any funds or property transferred to the Trustee(s).</p>
+
+  <p>The Trustee(s) hereby agree to indemnify and hold harmless any Third Party who relies upon this Certificate of Trust in good faith against any claim, loss, damage, liability, or expense, including reasonable attorneys&rsquo; fees, arising from such reliance, except to the extent resulting from the willful misconduct, gross negligence, or bad faith of the Trustee(s).</p>
+
+  <p>This Certificate of Trust is given under and in accordance with the applicable provisions of the Uniform Trust Code as adopted in the State of {{governing_state}}. The statements contained in this Certificate of Trust are true and correct as of the date set forth below, and the Trustee(s) shall have no obligation to update this Certificate of Trust unless requested by a Third Party in connection with a specific transaction.</p>
+
+  <!-- ============================================================
+       SECTION 10 — ATTESTATION UNDER PENALTY OF PERJURY
+       ============================================================ -->
+  <div class="section-heading">10. Attestation Under Penalty of Perjury</div>
+
+  <p>The undersigned Trustee(s), under penalty of perjury under the laws of the State of {{governing_state}}, hereby declare that the foregoing statements contained in this Certificate of Trust are true and correct to the best of their knowledge, information, and belief, and that they are duly authorized to make this certification on behalf of the Trust.</p>
+
+  <p>The undersigned Trustee(s) understand that any person who knowingly makes a false statement in this Certificate of Trust may be subject to criminal penalties under applicable law, including but not limited to prosecution for perjury.</p>
+</section>
+
+<!-- ============================================================
+     SIGNATURE PAGE
+     ============================================================ -->
+<section class="signature-section page-break">
+  <div class="article-heading">Signature Page</div>
+
+  <p class="signature-closing">
+    <strong>IN WITNESS WHEREOF,</strong> the undersigned Trustee(s) have executed this Certificate of Trust on this <span class="blank-fill"></span> day of <span class="blank-fill"></span>, <span class="blank-fill"></span>.
+  </p>
+
+  <div class="signature-block">
+    <hr class="sig-line">
+    <div class="sig-name">{{trustee_1_full_name}}</div>
+    <div class="sig-role">Trustee of the {{trust_name}}</div>
+    <div class="sig-date">Date: ________________________</div>
+  </div>
+
+  <div class="signature-block">
+    <hr class="sig-line">
+    <div class="sig-name">{{trustee_2_full_name}}</div>
+    <div class="sig-role">Trustee of the {{trust_name}}</div>
+    <div class="sig-date">Date: ________________________</div>
+  </div>
+
+  <div class="witness-block">
+    <div class="witness-title">Witnesses:</div>
+
+    <hr class="wit-line">
+    <div class="wit-name">________________________________</div>
+    <div class="wit-address">Address: ________________________</div>
+
+    <hr class="wit-line">
+    <div class="wit-name">________________________________</div>
+    <div class="wit-address">Address: ________________________</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     NOTARY ACKNOWLEDGMENT
+     ============================================================ -->
+<section class="page-break">
+  <div class="article-heading">Notary Acknowledgment</div>
+
+  <div class="notary-block">
+    <div class="notary-header">
+      <div class="state-line">State of {{governing_state}}</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) ss:</div>
+      <div>County of ________________)</div>
+    </div>
+
+    <div class="notary-body">
+      On this ______ day of ________________, 20____, before me, ______________________________, a Notary Public in and for said State, personally appeared {{trustee_1_full_name}} and {{trustee_2_full_name}}, personally known to me (or proved to me on the basis of satisfactory evidence) to be the person(s) whose name(s) is/are subscribed to the within instrument and acknowledged to me that they executed the same in their authorized capacities as Trustee(s) of the {{trust_name}}, and that by their signatures on the instrument, the person(s), or the entity upon behalf of which the person(s) acted, executed the instrument.
+    </div>
+
+    <div class="notary-body">
+      <strong>WITNESS</strong> my hand and official seal.
+    </div>
+
+    <hr class="notary-sig-line">
+    <div class="notary-name">________________________________</div>
+    <div class="notary-role">Notary Public, State of {{governing_state}}</div>
+    <div class="notary-expires">My Commission Expires: ________________</div>
+
+    <div class="notary-seal">Notary Seal</div>
+  </div>
+</section>
+
+</body>
+</html>

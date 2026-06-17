@@ -1,0 +1,506 @@
+/* ============================================================
+   TRUST PARA TODOS — Legal Document Stylesheet
+   Professional trust document formatting for all templates
+   ============================================================ */
+
+@page {
+  size: letter;
+  margin: 1in;
+}
+
+@page :first {
+  margin-top: 1.5in;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 12pt;
+  line-height: 1.5;
+  color: #000;
+  text-align: justify;
+  orphans: 3;
+  widows: 3;
+}
+
+/* ============================================================
+   COVER PAGE
+   ============================================================ */
+
+.cover-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 9in;
+  page-break-after: always;
+  text-align: center;
+}
+
+.cover-page .brand-name {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 11pt;
+  letter-spacing: 3pt;
+  text-transform: uppercase;
+  color: #555;
+  margin-bottom: 2in;
+}
+
+.cover-page .doc-type {
+  font-size: 18pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2pt;
+  margin-bottom: 24pt;
+}
+
+.cover-page .doc-subtitle {
+  font-size: 14pt;
+  font-style: italic;
+  margin-bottom: 48pt;
+}
+
+.cover-page .settlor-name {
+  font-size: 16pt;
+  font-weight: bold;
+  margin-bottom: 12pt;
+}
+
+.cover-page .cover-date {
+  font-size: 12pt;
+  margin-bottom: 1.5in;
+}
+
+.cover-page .prepared-by {
+  font-size: 10pt;
+  color: #555;
+  line-height: 1.6;
+}
+
+.cover-page .prepared-by strong {
+  font-size: 11pt;
+  color: #000;
+}
+
+/* ============================================================
+   TABLE OF CONTENTS
+   ============================================================ */
+
+.toc-page {
+  page-break-after: always;
+}
+
+.toc-title {
+  font-size: 14pt;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 36pt;
+  letter-spacing: 1pt;
+}
+
+.toc-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6pt;
+  font-size: 12pt;
+  line-height: 1.4;
+}
+
+.toc-entry .toc-dots {
+  flex: 1;
+  border-bottom: 1pt dotted #999;
+  margin: 0 6pt;
+  min-width: 12pt;
+}
+
+.toc-entry .toc-page-num {
+  font-variant-numeric: tabular-nums;
+}
+
+.toc-sub-entry {
+  padding-left: 24pt;
+  font-size: 11pt;
+  margin-bottom: 4pt;
+}
+
+/* ============================================================
+   HEADINGS & STRUCTURE
+   ============================================================ */
+
+.article-heading {
+  font-size: 12pt;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 24pt;
+  margin-bottom: 18pt;
+  page-break-after: avoid;
+}
+
+.section-heading {
+  font-size: 12pt;
+  font-weight: bold;
+  margin-top: 12pt;
+  margin-bottom: 6pt;
+  page-break-after: avoid;
+}
+
+.subsection-heading {
+  font-size: 12pt;
+  font-weight: bold;
+  font-style: italic;
+  margin-top: 8pt;
+  margin-bottom: 4pt;
+}
+
+/* ============================================================
+   BODY TEXT & PARAGRAPHS
+   ============================================================ */
+
+p {
+  margin-bottom: 6pt;
+  text-indent: 0;
+}
+
+p.indent {
+  text-indent: 0.5in;
+}
+
+.recital {
+  margin-bottom: 12pt;
+  margin-left: 0.5in;
+  text-indent: -0.25in;
+}
+
+.recital .recital-label {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   DEFINED TERMS
+   ============================================================ */
+
+.defined-term {
+  font-weight: bold;
+}
+
+.definition-block {
+  margin-left: 0.5in;
+  margin-bottom: 6pt;
+}
+
+.definition-block .term {
+  font-weight: bold;
+  margin-left: -0.5in;
+}
+
+/* ============================================================
+   ENUMERATED LISTS
+   ============================================================ */
+
+.enum-list {
+  margin-left: 0.5in;
+  margin-bottom: 6pt;
+  list-style: none;
+}
+
+.enum-list li {
+  margin-bottom: 4pt;
+  padding-left: 0.25in;
+  text-indent: -0.25in;
+}
+
+.enum-list .enum-label {
+  font-weight: bold;
+}
+
+.sub-enum-list {
+  margin-left: 0.75in;
+  margin-bottom: 4pt;
+  list-style: none;
+}
+
+.sub-enum-list li {
+  margin-bottom: 3pt;
+  padding-left: 0.25in;
+  text-indent: -0.25in;
+}
+
+/* ============================================================
+   SIGNATURE BLOCKS
+   ============================================================ */
+
+.signature-section {
+  margin-top: 36pt;
+  page-break-inside: avoid;
+}
+
+.signature-closing {
+  font-size: 12pt;
+  margin-bottom: 24pt;
+  text-align: left;
+}
+
+.signature-block {
+  margin-bottom: 24pt;
+  page-break-inside: avoid;
+}
+
+.signature-block .sig-line {
+  width: 3in;
+  border: none;
+  border-top: 1pt solid #000;
+  margin-top: 24pt;
+  margin-bottom: 4pt;
+}
+
+.signature-block .sig-name {
+  font-weight: bold;
+  font-size: 12pt;
+}
+
+.signature-block .sig-role {
+  font-size: 11pt;
+  color: #333;
+}
+
+.signature-block .sig-date {
+  font-size: 11pt;
+  margin-top: 4pt;
+}
+
+.witness-block {
+  margin-top: 12pt;
+  margin-bottom: 24pt;
+  page-break-inside: avoid;
+}
+
+.witness-block .witness-title {
+  font-weight: bold;
+  font-size: 11pt;
+  text-transform: uppercase;
+  margin-bottom: 12pt;
+}
+
+.witness-block .wit-line {
+  width: 3in;
+  border: none;
+  border-top: 1pt solid #000;
+  margin-top: 18pt;
+  margin-bottom: 4pt;
+}
+
+.witness-block .wit-name {
+  font-size: 11pt;
+}
+
+.witness-block .wit-address {
+  font-size: 10pt;
+  color: #555;
+}
+
+/* ============================================================
+   NOTARY BLOCK
+   ============================================================ */
+
+.notary-block {
+  margin-top: 24pt;
+  margin-bottom: 24pt;
+  page-break-inside: avoid;
+  border: 1pt solid #ccc;
+  padding: 18pt;
+  background: #fafafa;
+}
+
+.notary-block .notary-header {
+  font-size: 11pt;
+  margin-bottom: 12pt;
+  line-height: 1.4;
+}
+
+.notary-block .notary-header .state-line {
+  font-weight: bold;
+}
+
+.notary-block .notary-body {
+  font-size: 11pt;
+  line-height: 1.6;
+  margin-bottom: 12pt;
+}
+
+.notary-block .notary-sig-line {
+  width: 3in;
+  border: none;
+  border-top: 1pt solid #000;
+  margin-top: 18pt;
+  margin-bottom: 4pt;
+}
+
+.notary-block .notary-name {
+  font-size: 11pt;
+  font-weight: bold;
+}
+
+.notary-block .notary-role {
+  font-size: 10pt;
+  color: #333;
+}
+
+.notary-block .notary-expires {
+  font-size: 10pt;
+  color: #555;
+  margin-top: 4pt;
+}
+
+.notary-block .notary-seal {
+  margin-top: 12pt;
+  width: 1.5in;
+  height: 1.5in;
+  border: 1pt dashed #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8pt;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 1pt;
+}
+
+/* ============================================================
+   SCHEDULES / EXHIBITS
+   ============================================================ */
+
+.schedule-page {
+  page-break-before: always;
+}
+
+.schedule-title {
+  font-size: 14pt;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 24pt;
+  letter-spacing: 1pt;
+}
+
+.schedule-subtitle {
+  font-size: 12pt;
+  text-align: center;
+  margin-bottom: 18pt;
+  font-style: italic;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 18pt;
+  font-size: 11pt;
+}
+
+.schedule-table th {
+  border-bottom: 2pt solid #000;
+  padding: 6pt 8pt;
+  text-align: left;
+  font-weight: bold;
+  font-size: 10pt;
+  text-transform: uppercase;
+  letter-spacing: 0.5pt;
+}
+
+.schedule-table td {
+  border-bottom: 1pt solid #ddd;
+  padding: 6pt 8pt;
+  vertical-align: top;
+}
+
+.schedule-table tr:last-child td {
+  border-bottom: none;
+}
+
+.schedule-item {
+  margin-bottom: 12pt;
+  padding-left: 0.25in;
+}
+
+.schedule-item .item-label {
+  font-weight: bold;
+}
+
+/* ============================================================
+   CERTIFICATION OF TRUST
+   ============================================================ */
+
+.cert-section {
+  margin-bottom: 12pt;
+}
+
+.cert-section .cert-label {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 10pt;
+  letter-spacing: 0.5pt;
+  color: #555;
+  margin-bottom: 2pt;
+}
+
+.cert-section .cert-value {
+  font-size: 12pt;
+  margin-bottom: 6pt;
+}
+
+/* ============================================================
+   MISC
+   ============================================================ */
+
+.page-break {
+  page-break-before: always;
+}
+
+.section-break {
+  margin-top: 18pt;
+}
+
+.signature-line {
+  display: inline-block;
+  width: 2in;
+  border-bottom: 1pt solid #000;
+  margin: 0 4pt;
+}
+
+.blank-fill {
+  display: inline-block;
+  width: 1.5in;
+  border-bottom: 1pt solid #000;
+  margin: 0 4pt;
+}
+
+.instruction-note {
+  font-size: 10pt;
+  color: #888;
+  font-style: italic;
+  margin-bottom: 12pt;
+  border-left: 2pt solid #ddd;
+  padding-left: 8pt;
+}
+
+/* ============================================================
+   PRINT MEDIA
+   ============================================================ */
+
+@media print {
+  body { margin: 0; }
+  .no-print { display: none; }
+  a { color: inherit; text-decoration: none; }
+  a[href]::after { content: none; }
+  .cover-page { page-break-after: always; }
+  .toc-page { page-break-after: always; }
+  .schedule-page { page-break-before: always; }
+}

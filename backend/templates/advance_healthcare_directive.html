@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advance Healthcare Directive — {{principal_full_name}}</title>
+<link rel="stylesheet" href="legal-document.css">
+</head>
+<body>
+
+<!-- ============================================================
+     COVER PAGE
+     ============================================================ -->
+<section class="cover-page">
+  <div class="brand-name">Trust Para Todos</div>
+
+  <div class="doc-type">Advance Healthcare Directive</div>
+  <div class="doc-subtitle">(Healthcare Power of Attorney and Living Will)</div>
+  <div class="settlor-name">of {{principal_full_name}}</div>
+
+  <div class="cover-date">Dated: {{ahcd_date}}</div>
+
+  <div class="prepared-by">
+    <strong>Prepared by:</strong><br>
+    Trust Para Todos<br>
+    {{preparer_address}}<br>
+    {{preparer_phone}} | {{preparer_email}}<br>
+    File No. {{file_number}}
+  </div>
+</section>
+
+<!-- ============================================================
+     ARTICLE I — DESIGNATION OF AGENT
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article I<br>Designation of Healthcare Agent</div>
+
+  <p><strong>Section 1.1 Appointment of Agent.</strong> I, {{principal_full_name}}, of {{principal_city}}, {{governing_state}}, being of sound mind, hereby appoint {{healthcare_agent_name}}, of {{healthcare_agent_address}}, {{healthcare_agent_phone}}, as my agent (my &ldquo;Healthcare Agent&rdquo;) to make healthcare decisions for me as authorized in this Directive.</p>
+
+  <p><strong>Section 1.2 Appointment of Alternate Agent.</strong> If {{healthcare_agent_name}} is unable, unwilling, or unavailable to serve as my Healthcare Agent, I appoint {{alternate_agent_name}}, of {{alternate_agent_address}}, {{alternate_agent_phone}}, as my alternate Healthcare Agent. If {{alternate_agent_name}} is unable, unwilling, or unavailable to serve, I appoint {{second_alternate_agent_name}}, of {{second_alternate_agent_address}}, {{second_alternate_agent_phone}}, as my second alternate Healthcare Agent.</p>
+</section>
+
+<!-- ============================================================
+     ARTICLE II — EFFECTIVE DATE AND AUTHORITY
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article II<br>Effective Date and Agent Authority</div>
+
+  <p><strong>Section 2.1 Effective Date.</strong> My Healthcare Agent&rsquo;s authority to make healthcare decisions for me shall commence when my attending physician certifies in writing that I lack the capacity to make my own healthcare decisions. My Healthcare Agent&rsquo;s authority shall continue until I regain capacity, as determined by my attending physician, or until my death.</p>
+
+  <p><strong>Section 2.2 Scope of Authority.</strong> My Healthcare Agent is authorized to make any and all healthcare decisions for me that I could make if I had capacity, including but not limited to:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> To consent to, refuse, or withdraw any medical treatment, diagnostic procedure, or therapeutic intervention.</li>
+    <li><span class="enum-label">(b)</span> To select and discharge healthcare providers, hospitals, nursing homes, and other healthcare facilities.</li>
+    <li><span class="enum-label">(c)</span> To approve or disapprove diagnostic tests, surgical procedures, and programs of medication.</li>
+    <li><span class="enum-label">(d)</span> To make decisions regarding life-sustaining treatment, including the withholding or withdrawal of such treatment.</li>
+    <li><span class="enum-label">(e)</span> To make decisions regarding artificial nutrition and hydration.</li>
+    <li><span class="enum-label">(f)</span> To authorize the release of my medical records and health information as permitted by law.</li>
+    <li><span class="enum-label">(g)</span> To make decisions regarding organ and tissue donation.</li>
+    <li><span class="enum-label">(h)</span> To make decisions regarding the disposition of my remains, including funeral and burial arrangements.</li>
+    <li><span class="enum-label">(i)</span> To apply for and receive government benefits for which I may be eligible, including Medicare, Medicaid, and Social Security.</li>
+  </ol>
+</section>
+
+<!-- ============================================================
+     ARTICLE III — TREATMENT PREFERENCES
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article III<br>Statement of Wishes Regarding Medical Treatment</div>
+
+  <p>This Article expresses my wishes regarding medical treatment in specific circumstances. My Healthcare Agent shall follow these instructions to the fullest extent possible. If a situation arises that is not addressed by these instructions, my Healthcare Agent shall make decisions in accordance with my known values and beliefs, and in my best interest.</p>
+
+  <p><strong>Section 3.1 General Philosophy.</strong> I believe that quality of life is as important as the prolongation of life. I direct my Healthcare Agent to consider the following values when making decisions on my behalf:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> I wish to be kept comfortable and free from pain to the extent possible.</li>
+    <li><span class="enum-label">(b)</span> I wish to be treated with dignity and respect.</li>
+    <li><span class="enum-label">(c)</span> I wish to have my religious and spiritual beliefs respected.</li>
+    <li><span class="enum-label">(d)</span> I wish to be surrounded by my family and loved ones to the extent possible.</li>
+    <li><span class="enum-label">(e)</span> {{additional_values_statement}}</li>
+  </ol>
+
+  <p><strong>Section 3.2 Terminal Condition.</strong> If I am in a terminal condition, meaning an incurable and irreversible condition that, without the administration of life-sustaining treatment, will result in death within a relatively short time, I direct the following regarding life-sustaining treatment:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> <strong>Life-Sustaining Treatment:</strong> I direct that life-sustaining treatment be withheld or withdrawn, and that I receive only palliative care, comfort care, and pain management.</li>
+    <li><span class="enum-label">(b)</span> <strong>Artificial Nutrition and Hydration:</strong> I direct that artificial nutrition and hydration be withheld or withdrawn if I am in a terminal condition and unable to take food and water by mouth.</li>
+    <li><span class="enum-label">(c)</span> <strong>Pain Management:</strong> I direct that I receive effective pain management and palliative care to keep me comfortable, even if such treatment may hasten my death or mask my condition.</li>
+  </ol>
+
+  <p><strong>Section 3.3 Permanent Unconsciousness.</strong> If I become permanently unconscious, meaning a condition of irreversible loss of consciousness with no reasonable expectation of regaining consciousness, I direct the following:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> <strong>Life-Sustaining Treatment:</strong> I direct that life-sustaining treatment be withheld or withdrawn, and that I receive only palliative care, comfort care, and pain management.</li>
+    <li><span class="enum-label">(b)</span> <strong>Artificial Nutrition and Hydration:</strong> I direct that artificial nutrition and hydration be withheld or withdrawn if I am permanently unconscious and unable to take food and water by mouth.</li>
+  </ol>
+
+  <p><strong>Section 3.4 End-Stage Condition.</strong> If I am in an end-stage condition, meaning a condition caused by injury, disease, or illness that is severe and incurable, and in which I am completely dependent on others for all care, I direct the following:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> <strong>Life-Sustaining Treatment:</strong> I direct that life-sustaining treatment be withheld or withdrawn, and that I receive only palliative care, comfort care, and pain management.</li>
+    <li><span class="enum-label">(b)</span> <strong>Artificial Nutrition and Hydration:</strong> I direct that artificial nutrition and hydration be withheld or withdrawn if I am in an end-stage condition and unable to take food and water by mouth.</li>
+  </ol>
+
+  <p><strong>Section 3.5 Cardiopulmonary Resuscitation (CPR).</strong> If my heart or breathing stops, I direct the following:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> If I am in a terminal condition, permanently unconscious, or in an end-stage condition, I direct that CPR not be administered.</li>
+    <li><span class="enum-label">(b)</span> If I have a reasonable expectation of recovery, I direct that CPR be administered.</li>
+  </ol>
+
+  <p><strong>Section 3.6 Mechanical Ventilation.</strong> I direct that a mechanical ventilator (respirator) be used to assist my breathing only if there is a reasonable expectation of recovery. If I am in a terminal condition, permanently unconscious, or in an end-stage condition, I direct that mechanical ventilation not be used or, if already in use, be withdrawn.</p>
+
+  <p><strong>Section 3.7 Dialysis.</strong> I direct that kidney dialysis be administered only if there is a reasonable expectation of recovery. If I am in a terminal condition, permanently unconscious, or in an end-stage condition, I direct that dialysis not be used or, if already in use, be withdrawn.</p>
+</section>
+
+<!-- ============================================================
+     ARTICLE IV — AGENT LIMITATIONS
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article IV<br>Limitations on Agent&rsquo;s Authority</div>
+
+  <p>Notwithstanding the foregoing, my Healthcare Agent shall not have the authority to:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> Commit me to a mental health facility for more than the period permitted by applicable law, unless I am admitted voluntarily or by court order.</li>
+    <li><span class="enum-label">(b)</span> Consent to psychosurgery, sterilization, or abortion, unless such procedures are necessary to preserve my life or prevent serious and irreversible harm to my health.</li>
+    <li><span class="enum-label">(c)</span> Make decisions that are contrary to my expressed wishes as set forth in this Directive or otherwise known to my Healthcare Agent.</li>
+    <li><span class="enum-label">(d)</span> {{additional_limitation}}</li>
+  </ol>
+</section>
+
+<!-- ============================================================
+     ARTICLE V — HIPAA AUTHORIZATION
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article V<br>Authorization to Access Medical Records</div>
+
+  <p><strong>Section 5.1 HIPAA Authorization.</strong> I authorize my Healthcare Agent to receive, review, and obtain copies of my medical records and health information protected under the Health Insurance Portability and Accountability Act of 1996 (HIPAA) and any applicable state law. This authorization includes all protected health information, including records related to mental health treatment, substance abuse treatment, HIV/AIDS status, and genetic testing, to the fullest extent permitted by law.</p>
+
+  <p><strong>Section 5.2 Duration.</strong> This authorization shall remain in effect during any period in which my Healthcare Agent has authority to make healthcare decisions for me, and shall continue after my death to the extent necessary for the administration of my estate or the disposition of my remains.</p>
+</section>
+
+<!-- ============================================================
+     ARTICLE VI — ORGAN DONATION
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article VI<br>Organ and Tissue Donation</div>
+
+  <p><strong>Section 6.1 Donation Decision.</strong> Upon my death, I make the following decision regarding the donation of my organs and tissues:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> I consent to the donation of any needed organs and tissues for transplantation, research, or educational purposes.</li>
+    <li><span class="enum-label">(b)</span> I consent to the donation of the following organs and tissues only: {{specific_organs_for_donation}}.</li>
+    <li><span class="enum-label">(c)</span> I do not consent to the donation of any organs or tissues.</li>
+  </ol>
+
+  <p><strong>Section 6.2 Authorization.</strong> I authorize my Healthcare Agent to make any and all decisions necessary to effectuate my wishes regarding organ and tissue donation, including the execution of any required documents.</p>
+</section>
+
+<!-- ============================================================
+     ARTICLE VII — DISPOSITION OF REMAINS
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article VII<br>Disposition of Remains</div>
+
+  <p><strong>Section 7.1 Instructions.</strong> I direct that my remains be disposed of as follows:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> <strong>Method:</strong> {{disposition_method}} (burial / cremation / donation to science / other).</li>
+    <li><span class="enum-label">(b)</span> <strong>Location:</strong> {{disposition_location}}.</li>
+    <li><span class="enum-label">(c)</span> <strong>Additional Instructions:</strong> {{additional_disposition_instructions}}.</li>
+  </ol>
+
+  <p><strong>Section 7.2 Authorization.</strong> I authorize my Healthcare Agent to make all arrangements for the disposition of my remains in accordance with my wishes as expressed herein or as otherwise known to my Healthcare Agent.</p>
+</section>
+
+<!-- ============================================================
+     ARTICLE VIII — PRIMARY PHYSICIAN
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article VIII<br>Primary Physician Designation</div>
+
+  <p>I designate {{primary_physician_name}}, of {{primary_physician_address}}, {{primary_physician_phone}}, as my primary physician. If my primary physician is unable or unwilling to serve, I authorize my Healthcare Agent to select a new primary physician.</p>
+</section>
+
+<!-- ============================================================
+     ARTICLE IX — NOTIFICATION OF FAMILY
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article IX<br>Notification of Family</div>
+
+  <p>My Healthcare Agent shall make reasonable efforts to notify the following persons before making a decision to withhold or withdraw life-sustaining treatment:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> {{notification_person_1_name}}, {{notification_person_1_relationship}}, {{notification_person_1_phone}}</li>
+    <li><span class="enum-label">(b)</span> {{notification_person_2_name}}, {{notification_person_2_relationship}}, {{notification_person_2_phone}}</li>
+  </ol>
+</section>
+
+<!-- ============================================================
+     ARTICLE X — DURATION AND REVOCATION
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article X<br>Duration and Revocation</div>
+
+  <p><strong>Section 10.1 Duration.</strong> This Advance Healthcare Directive shall remain in effect until revoked by me. I understand that this Directive does not expire and shall remain in effect indefinitely unless I revoke it.</p>
+
+  <p><strong>Section 10.2 Revocation.</strong> I may revoke this Advance Healthcare Directive at any time, in any manner that communicates my intent to revoke, regardless of my mental or physical condition at the time of revocation. If I revoke this Directive, I will make reasonable efforts to notify my Healthcare Agent and my healthcare providers of the revocation.</p>
+</section>
+
+<!-- ============================================================
+     ARTICLE XI — RELEASE AND INDEMNIFICATION
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article XI<br>Release and Indemnification</div>
+
+  <p><strong>Section 11.1 Release.</strong> I release my Healthcare Agent and all healthcare providers, facilities, and other persons from any and all liability for actions taken in good faith reliance on this Advance Healthcare Directive.</p>
+
+  <p><strong>Section 11.2 Indemnification.</strong> My estate shall indemnify and hold harmless my Healthcare Agent against all claims, liabilities, and expenses, including reasonable attorneys&rsquo; fees, arising from my Healthcare Agent&rsquo;s actions taken in good faith pursuant to this Directive.</p>
+</section>
+
+<!-- ============================================================
+     ARTICLE XII — GOVERNING LAW
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article XII<br>Governing Law</div>
+
+  <p>This Advance Healthcare Directive shall be interpreted in accordance with the laws of the State of {{governing_state}}. If any provision of this Directive is held to be invalid or unenforceable, the remaining provisions shall remain in full force and effect.</p>
+</section>
+
+<!-- ============================================================
+     SIGNATURE PAGE
+     ============================================================ -->
+<section class="signature-section page-break">
+  <div class="article-heading">Signature Page</div>
+
+  <p class="signature-closing">
+    <strong>IN WITNESS WHEREOF,</strong> I have executed this Advance Healthcare Directive on this <span class="blank-fill"></span> day of <span class="blank-fill"></span>, <span class="blank-fill"></span>.
+  </p>
+
+  <div class="signature-block">
+    <hr class="sig-line">
+    <div class="sig-name">{{principal_full_name}}, Principal</div>
+    <div class="sig-date">Date: ________________________</div>
+  </div>
+
+  <div class="witness-block">
+    <div class="witness-title">Witnesses:</div>
+    <p style="font-size: 10pt; color: #555; margin-bottom: 12pt;">We declare that the Principal signed or acknowledged this Advance Healthcare Directive in our presence. The Principal appears to be of sound mind and under no duress, fraud, or undue influence. We are not the Healthcare Agent or alternate agent designated herein, and we are not related to the Principal by blood, marriage, or adoption.</p>
+
+    <hr class="wit-line">
+    <div class="wit-name">________________________________</div>
+    <div class="wit-address">Address: ________________________</div>
+    <div style="font-size: 10pt; color: #555; margin-top: 2pt;">Witness</div>
+
+    <hr class="wit-line" style="margin-top: 24pt;">
+    <div class="wit-name">________________________________</div>
+    <div class="wit-address">Address: ________________________</div>
+    <div style="font-size: 10pt; color: #555; margin-top: 2pt;">Witness</div>
+  </div>
+
+  <div class="signature-block" style="margin-top: 36pt;">
+    <div class="witness-title">Healthcare Agent Acknowledgment:</div>
+    <p style="font-size: 10pt; color: #555; margin-bottom: 12pt;">I, {{healthcare_agent_name}}, acknowledge that I have been appointed as Healthcare Agent under this Advance Healthcare Directive. I understand my fiduciary duties and agree to act in accordance with the Principal&rsquo;s wishes as expressed herein.</p>
+
+    <hr class="sig-line">
+    <div class="sig-name">{{healthcare_agent_name}}, Healthcare Agent</div>
+    <div class="sig-date">Date: ________________________</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     NOTARY ACKNOWLEDGMENT
+     ============================================================ -->
+<section class="page-break">
+  <div class="article-heading">Notary Acknowledgment</div>
+
+  <div class="notary-block">
+    <div class="notary-header">
+      <div class="state-line">State of {{governing_state}}</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) ss:</div>
+      <div>County of ________________)</div>
+    </div>
+
+    <div class="notary-body">
+      On this ______ day of ________________, 20____, before me, ______________________________, a Notary Public in and for said State, personally appeared {{principal_full_name}}, personally known to me (or proved to me on the basis of satisfactory evidence) to be the person whose name is subscribed to the within instrument, and acknowledged to me that he/she executed the same in his/her authorized capacity, and that by his/her signature on the instrument the person, or the entity upon behalf of which the person acted, executed the instrument.
+    </div>
+
+    <div class="notary-body">
+      <strong>WITNESS</strong> my hand and official seal.
+    </div>
+
+    <hr class="notary-sig-line">
+    <div class="notary-name">________________________________</div>
+    <div class="notary-role">Notary Public, State of {{governing_state}}</div>
+    <div class="notary-expires">My Commission Expires: ________________</div>
+
+    <div class="notary-seal">Notary Seal</div>
+  </div>
+</section>
+
+</body>
+</html>

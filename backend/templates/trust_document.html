@@ -1,198 +1,689 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<style>
-  @page { size: letter; margin: 2.5cm 2cm; }
-  body { font-family: 'Times New Roman', Georgia, serif; font-size: 12pt; line-height: 1.6; color: #1a1a1a; }
-  h1 { text-align: center; font-size: 18pt; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 2px; }
-  h2 { font-size: 14pt; margin-top: 24px; margin-bottom: 12px; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
-  .subtitle { text-align: center; font-size: 11pt; color: #555; margin-bottom: 30px; }
-  .recital { margin-left: 20px; text-align: justify; margin-bottom: 10px; }
-  .signature-block { margin-top: 40px; }
-  .signature-line { border-top: 1px solid #000; width: 250px; margin-top: 60px; margin-bottom: 4px; }
-  table { width: 100%; border-collapse: collapse; margin: 16px 0; }
-  td, th { border: 1px solid #999; padding: 8px; text-align: left; }
-  th { background: #f0f0f0; font-weight: 600; }
-  .page-break { page-break-before: always; }
-  .notice { background: #f9f9f9; border-left: 3px solid #999; padding: 12px 16px; margin: 16px 0; font-size: 10pt; }
-  ol { margin-left: 20px; }
-  li { margin-bottom: 6px; }
-</style>
+<title>Revocable Living Trust — {{trust_name}}</title>
+<link rel="stylesheet" href="legal-document.css">
 </head>
 <body>
 
-<h1>DECLARACIÓN DE FIDEICOMISO REVOCABLE<br>REVOCABLE LIVING TRUST</h1>
-<p class="subtitle">
-  Preparado para: <strong>{{ customer_name }}</strong><br>
-  Fecha: <strong>{{ date }}</strong><br>
-  Estado: <strong>{{ state }}</strong>
-</p>
+<!-- ============================================================
+     COVER PAGE
+     ============================================================ -->
+<section class="cover-page">
+  <div class="brand-name">Trust Para Todos</div>
 
-<p style="text-align: justify;">
-  Este documento constituye un fideicomiso revocable (en adelante, el "Trust") creado por
-  <strong>{{ customer_name }}</strong>{% if spouse_name %} y <strong>{{ spouse_name }}</strong>{% endif %}
-  (en adelante, el o los "Fideicomitente" o "Fideicomitentes"). El Trust se rige por las leyes del estado de
-  <strong>{{ state }}</strong> y por los términos establecidos en este documento.
-</p>
+  <div class="doc-type">Revocable Living Trust</div>
+  <div class="doc-subtitle">of</div>
+  <div class="settlor-name">{{settlor_1_full_name}} and {{settlor_2_full_name}}</div>
 
-<h2>Artículo I — Definiciones</h2>
-<p class="recital">
-  <strong>1.1 Fideicomitente (Grantor/Settlor):</strong> {{ customer_name }}{% if spouse_name %} y {{ spouse_name }}{% endif %},
-  la(s) persona(s) que crea(n) este Trust y transfiere(n) bienes al mismo.
-</p>
-<p class="recital">
-  <strong>1.2 Fiduciario (Trustee):</strong> {{ trustee_name }}, la persona designada para administrar los bienes del Trust
-  de acuerdo con los términos de este documento.
-</p>
-<p class="recital">
-  <strong>1.3 Fiduciario Sucesor (Successor Trustee):</strong> {{ successor_trustee_name }},
-  la persona designada para actuar como Fiduciario en caso de que el Fiduciario original fallezca, renuncie o
-  sea incapaz de ejercer sus funciones.
-</p>
-<p class="recital">
-  <strong>1.4 Beneficiarios (Beneficiaries):</strong> Las personas designadas para recibir los beneficios del Trust,
-  incluyendo pero no limitado a:
-</p>
-<ol>
-{% for beneficiary in beneficiaries %}
-  <li>{{ beneficiary }}</li>
-{% endfor %}
-</ol>
-<p class="recital">
-  <strong>1.5 Bienes del Trust (Trust Estate):</strong> Todos los bienes muebles e inmuebles transferidos al Trust
-  por el Fideicomitente, incluyendo los detallados en el Anexo A de este documento.
-</p>
+  <div class="cover-date">Dated: {{trust_date}}</div>
 
-<h2>Artículo II — Creación del Trust</h2>
-<p class="recital">
-  <strong>2.1</strong> El Fideicomitente transfiere al Fiduciario los bienes descritos en el Anexo A,
-  para ser mantenidos, administrados y distribuidos de acuerdo con los términos de este Trust.
-</p>
-<p class="recital">
-  <strong>2.2</strong> Este Trust es revocable durante la vida del Fideicomitente. El Fideicomitente
-  puede modificar, enmendar o revocar este Trust en cualquier momento mediante un instrumento escrito
-  firmado y notariado.
-</p>
-<p class="recital">
-  <strong>2.3</strong> El nombre de este Trust será: <strong>THE {{ customer_name|upper }} REVOCABLE TRUST</strong>,
-  fechado {{ date }}.
-</p>
+  <div class="prepared-by">
+    <strong>Prepared by:</strong><br>
+    Trust Para Todos<br>
+    {{preparer_address}}<br>
+    {{preparer_phone}} | {{preparer_email}}<br>
+    File No. {{file_number}}
+  </div>
+</section>
 
-<h2>Artículo III — Administración del Trust</h2>
-<p class="recital">
-  <strong>3.1</strong> El Fiduciario administrará los bienes del Trust en beneficio exclusivo de los
-  Beneficiarios, actuando con el cuidado, la habilidad y la prudencia de una persona razonable en
-  circunstancias similares.
-</p>
-<p class="recital">
-  <strong>3.2</strong> El Fiduciario tiene la autoridad para:
-</p>
-<ol>
-  <li>Invertir y reinvertir los bienes del Trust</li>
-  <li>Vender, transferir o disponer de cualquier bien del Trust</li>
-  <li>Pagar impuestos, gastos y deudas del Trust y del Fideicomitente</li>
-  <li>Distribuir ingresos y principal a los Beneficiarios</li>
-  <li>Contratar profesionales (abogados, contadores, asesores financieros)</li>
-  <li>Realizar cualquier acto necesario para la administración del Trust</li>
-</ol>
+<!-- ============================================================
+     TABLE OF CONTENTS
+     ============================================================ -->
+<section class="toc-page">
+  <div class="toc-title">Table of Contents</div>
 
-<h2>Artículo IV — Distribuciones</h2>
-<p class="recital">
-  <strong>4.1 Durante la vida del Fideicomitente:</strong> El Fiduciario distribuirá los ingresos del Trust
-  al Fideicomitente según sea necesario para su salud, educación, manutención y bienestar general.
-</p>
-<p class="recital">
-  <strong>4.2 Tras el fallecimiento del Fideicomitente:</strong> Los bienes del Trust serán distribuidos
-  a los Beneficiarios designados, libres de impuestos de herencia y sin necesidad de pasar por el proceso
-  de sucesión testamentaria (probate).
-</p>
+  <div class="toc-entry">
+    <span>Recitals</span>
+    <span class="toc-dots"></span>
+    <span class="toc-page-num">1</span>
+  </div>
+  <div class="toc-entry">
+    <span>Article I &mdash; Definitions and Interpretation</span>
+    <span class="toc-dots"></span>
+    <span class="toc-page-num">1</span>
+  </div>
+  <div class="toc-entry">
+    <span>Article II &mdash; Declaration of Trust</span>
+    <span class="toc-dots"></span>
+    <span class="toc-page-num">3</span>
+  </div>
+  <div class="toc-entry">
+    <span>Article III &mdash; Trust Property</span>
+    <span class="toc-dots"></span>
+    <span class="toc-page-num">4</span>
+  </div>
+  <div class="toc-entry">
+    <span>Article IV &mdash; Distribution During Settlors&rsquo; Lives</span>
+    <span class="toc-dots"></span>
+    <span class="toc-page-num">5</span>
+  </div>
+  <div class="toc-entry">
+    <span>Article V &mdash; Distribution Upon Death</span>
+    <span class="toc-dots"></span>
+    <span class="toc-page-num">6</span>
+  </div>
+  <div class="toc-entry">
+    <span>Article VI &mdash; Trustee Powers</span>
+    <span class="toc-dots"></span>
+    <span class="toc-page-num">8</span>
+  </div>
+  <div class="toc-entry">
+    <span>Article VII &mdash; Beneficiary Provisions</span>
+    <span class="toc-dots"></span>
+    <span class="toc-page-num">10</span>
+  </div>
+  <div class="toc-entry">
+    <span>Article VIII &mdash; Trusteeship and Succession</span>
+    <span class="toc-dots"></span>
+    <span class="toc-page-num">11</span>
+  </div>
+  <div class="toc-entry">
+    <span>Article IX &mdash; Miscellaneous Provisions</span>
+    <span class="toc-dots"></span>
+    <span class="toc-page-num">12</span>
+  </div>
+  <div class="toc-entry">
+    <span>Signature Page</span>
+    <span class="toc-dots"></span>
+    <span class="toc-page-num">14</span>
+  </div>
+  <div class="toc-entry">
+    <span>Notary Acknowledgment</span>
+    <span class="toc-dots"></span>
+    <span class="toc-page-num">15</span>
+  </div>
+  <div class="toc-entry">
+    <span>Schedule A &mdash; Trust Property</span>
+    <span class="toc-dots"></span>
+    <span class="toc-page-num">16</span>
+  </div>
+  <div class="toc-entry">
+    <span>Schedule B &mdash; Separate Property of {{settlor_1_first_name}}</span>
+    <span class="toc-dots"></span>
+    <span class="toc-page-num">17</span>
+  </div>
+  <div class="toc-entry">
+    <span>Schedule C &mdash; Separate Property of {{settlor_2_first_name}}</span>
+    <span class="toc-dots"></span>
+    <span class="toc-page-num">18</span>
+  </div>
+</section>
 
-<div class="page-break"></div>
+<!-- ============================================================
+     RECITALS
+     ============================================================ -->
+<section>
+  <div class="article-heading">Recitals</div>
 
-<h2>Artículo V — Fiduciario Sucesor</h2>
-<p class="recital">
-  <strong>5.1</strong> En caso de que el Fiduciario original fallezca, renuncie o sea incapaz de actuar,
-  el Fiduciario Sucesor asumirá inmediatamente todas las facultades y responsabilidades establecidas en
-  este documento.
-</p>
-<p class="recital">
-  <strong>5.2</strong> El Fiduciario Sucesor nombrado es <strong>{{ successor_trustee_name }}</strong>.
-</p>
-
-<h2>Artículo VI — Disposiciones Generales</h2>
-<p class="recital">
-  <strong>6.1</strong> Este Trust se regirá por las leyes del estado de <strong>{{ state }}</strong>.
-</p>
-<p class="recital">
-  <strong>6.2</strong> Si alguna disposición de este Trust fuera declarada inválida o inaplicable,
-  las disposiciones restantes continuarán en pleno vigor y efecto.
-</p>
-<p class="recital">
-  <strong>6.3</strong> Este documento puede ser ejecutado en copias, cada una de las cuales se considerará
-  un original.
-</p>
-
-<div class="notice">
-  <strong>AVISO IMPORTANTE:</strong> Este documento es un template legal preparado por abogados que requiere
-  firma notariada para ser legalmente vinculante. El Fideicomitente debe firmar este documento
-  en presencia de un notario público y transferir los bienes al Trust para que el mismo esté
-  completamente operativo.
-</div>
-
-<h2>ANEXO A — Bienes del Trust</h2>
-<table>
-  <tr><th>Descripción</th><th>Valor Estimado</th></tr>
-  <tr><td>{% if property_address %}{{ property_address }}{% else %}[Dirección de la propiedad inmueble]{% endif %}</td><td>$__________</td></tr>
-  <tr><td>Cuentas bancarias a nombre del Trust</td><td>$__________</td></tr>
-  <tr><td>Inversiones financieras</td><td>$__________</td></tr>
-  <tr><td>Otros bienes</td><td>$__________</td></tr>
-</table>
-
-<h2>ANEXO B — Beneficiarios y Distribución</h2>
-<p>Tras el fallecimiento del Fideicomitente, los bienes del Trust serán distribuidos de la siguiente manera:</p>
-<ol>
-{% for beneficiary in beneficiaries %}
-  <li><strong>{{ beneficiary }}:</strong> Participación igualitaria junto con los demás beneficiarios.</li>
-{% endfor %}
-</ol>
-
-<div class="signature-block">
-  <h2>FIRMAS</h2>
-  <p>Este documento fue firmado el día {{ date }}.</p>
-
-  <p style="margin-top: 40px;">
-    <strong>FIDEICOMITENTE (GRANTOR/SETTLOR):</strong>
+  <p class="recital">
+    <span class="recital-label">WHEREAS,</span> {{settlor_1_full_name}} and {{settlor_2_full_name}}, husband and wife (collectively referred to as the &ldquo;Settlors&rdquo;), desire to establish a revocable living trust for the benefit of themselves during their lifetimes and for the benefit of their descendants after their deaths; and
   </p>
-  <div class="signature-line"></div>
-  <p>{{ customer_name }}</p>
 
-  {% if spouse_name %}
-  <p style="margin-top: 30px;">
-    <strong>FIDEICOMITENTE (GRANTOR/SETTLOR):</strong>
+  <p class="recital">
+    <span class="recital-label">WHEREAS,</span> the Settlors desire to avoid the expense and delay of probate proceedings, to provide for the management of their property in the event of their incapacity, and to provide for the disposition of their property upon their deaths in accordance with the terms of this Trust; and
   </p>
-  <div class="signature-line"></div>
-  <p>{{ spouse_name }}</p>
-  {% endif %}
 
-  <p style="margin-top: 30px;">
-    <strong>TESTIGO:</strong>
+  <p class="recital">
+    <span class="recital-label">WHEREAS,</span> the Settlors have transferred or will transfer to the Trustee certain property described in Schedule A attached hereto, and may from time to time transfer additional property to the Trustee;
   </p>
-  <div class="signature-line"></div>
-  <p>___________________________</p>
 
-  <p style="margin-top: 30px;">
-    <strong>NOTARIO PÚBLICO:</strong>
+  <p class="recital">
+    <span class="recital-label">NOW, THEREFORE,</span> in consideration of the mutual covenants contained herein, the Settlors declare that they hold such property, and any property hereafter transferred to the Trustee, in trust, subject to the terms and conditions set forth in this Trust Agreement.
   </p>
-  <div class="signature-line"></div>
-  <p>___________________________</p>
-  <p>Mi comisión expira: ___________</p>
-</div>
+</section>
 
-<p style="text-align: center; margin-top: 40px; font-size: 10pt; color: #888;">
-  Documento generado por Trust Para Todos — {{ year }}<br>
-  Powered by TrustOffice
-</p>
+<!-- ============================================================
+     ARTICLE I — DEFINITIONS
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article I<br>Definitions and Interpretation</div>
+
+  <p><strong>Section 1.1 Definitions.</strong> As used in this Trust Agreement, the following terms shall have the meanings set forth below:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a) &ldquo;Settlors&rdquo;</span> shall mean {{settlor_1_full_name}} and {{settlor_2_full_name}}, husband and wife, and any person who subsequently becomes a Settlor of this Trust.</li>
+    <li><span class="enum-label">(b) &ldquo;Trustee&rdquo;</span> shall mean the person or persons serving as trustee of this Trust from time to time, including any successor or substitute trustee appointed in accordance with this Trust Agreement.</li>
+    <li><span class="enum-label">(c) &ldquo;Beneficiary&rdquo; or &ldquo;Beneficiaries&rdquo;</span> shall mean the persons entitled to receive income or principal from this Trust, including the Settlors during their lifetimes and the descendants of the Settlors after the death of both Settlors.</li>
+    <li><span class="enum-label">(d) &ldquo;Descendants&rdquo;</span> shall mean all children, grandchildren, and more remote lineal descendants of a person, including legally adopted persons and persons born out of wedlock. &ldquo;Descendants&rdquo; shall be determined per stirpes by representation.</li>
+    <li><span class="enum-label">(e) &ldquo;Surviving Settlor&rdquo;</span> shall mean the Settlor who survives the other Settlor.</li>
+    <li><span class="enum-label">(f) &ldquo;Deceased Settlor&rdquo;</span> shall mean the Settlor who dies first.</li>
+    <li><span class="enum-label">(g) &ldquo;Community Property&rdquo;</span> shall mean all property acquired by the Settlors during their marriage that is not the separate property of either Settlor, as defined by applicable state law.</li>
+    <li><span class="enum-label">(h) &ldquo;Separate Property&rdquo;</span> shall mean all property owned by a Settlor before marriage, acquired by gift or inheritance during marriage, or otherwise classified as separate property under applicable state law.</li>
+    <li><span class="enum-label">(i) &ldquo;Trust Estate&rdquo; or &ldquo;Trust Property&rdquo;</span> shall mean all property held in this Trust from time to time, including principal, income, and any additions thereto.</li>
+    <li><span class="enum-label">(j) &ldquo;Principal&rdquo; or &ldquo;Corpus&rdquo;</span> shall mean the Trust Property other than income.</li>
+    <li><span class="enum-label">(k) &ldquo;Net Income&rdquo;</span> shall mean the income of the Trust after payment of all expenses properly chargeable against income.</li>
+    <li><span class="enum-label">(l) &ldquo;Incapacitated&rdquo; or &ldquo;Disability&rdquo;</span> shall mean the inability of a person to manage their financial affairs, as determined in writing by two licensed physicians who have examined the person, or by a court of competent jurisdiction.</li>
+    <li><span class="enum-label">(m) &ldquo;Personal Representative&rdquo;</span> shall mean the executor, administrator, or personal representative of a decedent&rsquo;s estate.</li>
+    <li><span class="enum-label">(n) &ldquo;Trust Agreement&rdquo;</span> shall mean this Revocable Living Trust Agreement, as amended from time to time.</li>
+    <li><span class="enum-label">(o) &ldquo;Trust&rdquo;</span> shall mean the trust created by this Trust Agreement.</li>
+  </ol>
+
+  <p><strong>Section 1.2 Interpretation.</strong> In this Trust Agreement, unless the context otherwise requires:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> The singular includes the plural and the plural includes the singular.</li>
+    <li><span class="enum-label">(b)</span> The masculine, feminine, and neuter genders include each other.</li>
+    <li><span class="enum-label">(c)</span> References to statutes include amendments, successor statutes, and regulations promulgated thereunder.</li>
+    <li><span class="enum-label">(d)</span> Article and section headings are for convenience only and shall not affect the interpretation of this Trust Agreement.</li>
+    <li><span class="enum-label">(e)</span> &ldquo;Shall&rdquo; is mandatory, and &ldquo;may&rdquo; is permissive.</li>
+    <li><span class="enum-label">(f)</span> References to &ldquo;this Trust Agreement&rdquo; or &ldquo;herein&rdquo; include all schedules, exhibits, and amendments attached hereto.</li>
+  </ol>
+</section>
+
+<!-- ============================================================
+     ARTICLE II — DECLARATION OF TRUST
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article II<br>Declaration of Trust</div>
+
+  <p><strong>Section 2.1 Creation of Trust.</strong> The Settlors hereby declare that they hold the property described in Schedule A attached hereto, and any property hereafter transferred to the Trustee, in trust, subject to the terms and conditions of this Trust Agreement. This Trust shall be known as the &ldquo;{{trust_name}}&rdquo; and may be referred to herein as the &ldquo;Trust.&rdquo;</p>
+
+  <p><strong>Section 2.2 Primary Purposes.</strong> The primary purposes of this Trust are:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> To provide for the health, education, support, and maintenance of the Settlors during their lifetimes;</li>
+    <li><span class="enum-label">(b)</span> To avoid the expense, delay, and publicity of probate proceedings with respect to property held in this Trust;</li>
+    <li><span class="enum-label">(c)</span> To provide for the management of the Settlors&rsquo; property in the event of their incapacity; and</li>
+    <li><span class="enum-label">(d)</span> To provide for the disposition of the Trust Estate upon the deaths of the Settlors in accordance with the terms of this Trust Agreement.</li>
+  </ol>
+
+  <p><strong>Section 2.3 Revocability.</strong> During the joint lifetimes of the Settlors, this Trust is revocable and amendable. The Settlors reserve the right to amend or revoke this Trust, in whole or in part, by a written instrument signed by both Settlors and delivered to the Trustee. As to the separate property of either Settlor, that Settlor alone may amend or revoke this Trust by a written instrument signed by that Settlor and delivered to the Trustee. Upon the death of a Settlor, this Trust shall become irrevocable as to the property of the Deceased Settlor and may not be amended or revoked by any person.</p>
+
+  <p><strong>Section 2.4 Community Property Declaration.</strong> The Settlors declare that all property transferred to this Trust, unless otherwise specifically designated in writing at the time of transfer, is the community property of the Settlors. Property transferred to the Trustee that is the separate property of either Settlor shall retain its character as separate property and shall be administered as a separate subtrust within this Trust.</p>
+</section>
+
+<!-- ============================================================
+     ARTICLE III — TRUST PROPERTY
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article III<br>Trust Property</div>
+
+  <p><strong>Section 3.1 Initial Funding.</strong> The Settlors have transferred to the Trustee the property described in Schedule A attached hereto and incorporated by reference. Schedule A sets forth the community property of the Settlors transferred to this Trust. Schedules B and C set forth the separate property of each Settlor, if any, transferred to this Trust.</p>
+
+  <p><strong>Section 3.2 Subsequent Additions.</strong> The Settlors may, from time to time, transfer additional property to the Trustee, which shall become part of the Trust Estate and shall be held and administered in accordance with the terms of this Trust Agreement. Such additions may be made by:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> Direct transfer or delivery of property to the Trustee;</li>
+    <li><span class="enum-label">(b)</span> Assignment of personal property to the Trustee;</li>
+    <li><span class="enum-label">(c)</span> Designation of the Trust as beneficiary of a life insurance policy, retirement account, or other contractual right;</li>
+    <li><span class="enum-label">(d)</span> Transfer by will or intestate succession through a pour-over provision; or</li>
+    <li><span class="enum-label">(e)</span> Any other method of transfer permitted by law.</li>
+  </ol>
+
+  <p><strong>Section 3.3 Title to Trust Property.</strong> All Trust Property shall be held, managed, and administered by the Trustee. Title to Trust Property may be held in the name of the Trustee, in the name of a nominee, or in the name of the Trust, as the Trustee deems appropriate. The Trustee may hold securities in street name or in the name of a nominee without disclosure of the fiduciary relationship.</p>
+
+  <p><strong>Section 3.4 Character of Property.</strong> The Trustee shall maintain records sufficient to preserve the character of Trust Property as community property or separate property, as applicable. The Trustee may hold community and separate property in a single trust or in separate subtrusts for administrative convenience, provided that the character of the property is preserved for tax and distribution purposes.</p>
+</section>
+
+<!-- ============================================================
+     ARTICLE IV — DISTRIBUTION DURING SETTLORS' LIVES
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article IV<br>Distribution During the Settlors&rsquo; Lives</div>
+
+  <p><strong>Section 4.1 Distributions to Settlors.</strong> During the joint lifetimes of the Settlors, the Trustee shall pay to or apply for the benefit of the Settlors, or either of them, such amounts of net income and principal as the Settlors, or either of them, may request in writing. The Trustee shall distribute such amounts without regard to the other resources of the Settlors.</p>
+
+  <p><strong>Section 4.2 Distributions for Descendants.</strong> The Trustee may also pay to or apply for the benefit of any Descendant of the Settlors such amounts of net income and principal as the Trustee, in the Trustee&rsquo;s sole and absolute discretion, deems necessary or advisable for the health, education, support, and maintenance of such Descendant, considering all other resources known to the Trustee to be available to such Descendant.</p>
+
+  <p><strong>Section 4.3 Accumulation of Income.</strong> Any net income not distributed pursuant to this Article shall be accumulated and added to principal.</p>
+
+  <p><strong>Section 4.4 Incapacity of a Settlor.</strong> If a Settlor becomes Incapacitated, the Trustee shall pay to or apply for the benefit of the Incapacitated Settlor such amounts of net income and principal as the Trustee, in the Trustee&rsquo;s sole and absolute discretion, deems necessary or advisable for the health, care, support, and maintenance of the Incapacitated Settlor, including but not limited to:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> The cost of care in a hospital, nursing home, assisted living facility, or other residential care setting;</li>
+    <li><span class="enum-label">(b)</span> The cost of home healthcare, personal attendants, and other in-home care services;</li>
+    <li><span class="enum-label">(c)</span> Medical, dental, and therapeutic expenses not covered by insurance;</li>
+    <li><span class="enum-label">(d)</span> Transportation, communication, and other personal needs; and</li>
+    <li><span class="enum-label">(e)</span> Such other expenses as the Trustee deems appropriate for the Incapacitated Settlor&rsquo;s well-being.</li>
+  </ol>
+
+  <p><strong>Section 4.5 Tax Considerations.</strong> The Trustee shall make distributions in a manner that considers the income tax consequences to the Settlors and the Trust, with the objective of minimizing overall taxation. The Settlors acknowledge that this Trust is intended to be a grantor trust under Sections 671 through 679 of the Internal Revenue Code, and all income of the Trust shall be taxed to the Settlors during their lifetimes.</p>
+</section>
+
+<!-- ============================================================
+     ARTICLE V — DISTRIBUTION UPON DEATH
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article V<br>Distribution Upon Death</div>
+
+  <p><strong>Section 5.1 Upon Death of First Settlor.</strong> Upon the death of the first Settlor to die, the Trustee shall administer the Trust Estate as follows:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a) Survivor&rsquo;s Trust.</span> All of the Deceased Settlor&rsquo;s interest in the community property of the Settlors, and all of the Deceased Settlor&rsquo;s separate property, shall be allocated to a Survivor&rsquo;s Trust. The Surviving Settlor shall have the full right to amend, revoke, or terminate the Survivor&rsquo;s Trust as to all property contained therein, and shall have the right to withdraw any portion of the principal of the Survivor&rsquo;s Trust at any time.</li>
+    <li><span class="enum-label">(b) Disclaimer Trust.</span> Notwithstanding the foregoing, the Surviving Settlor may, within nine (9) months of the death of the Deceased Settlor, disclaim all or any portion of the property that would otherwise pass to the Survivor&rsquo;s Trust. Any property so disclaimed shall be held in a separate irrevocable Disclaimer Trust for the benefit of the Surviving Settlor and the Descendants of the Settlors. The Trustee shall pay to or apply for the benefit of the Surviving Settlor all of the net income of the Disclaimer Trust, payable at least annually, and such amounts of principal as the Trustee, in the Trustee&rsquo;s sole and absolute discretion, deems necessary or advisable for the health, education, support, and maintenance of the Surviving Settlor. Upon the death of the Surviving Settlor, the remaining assets of the Disclaimer Trust shall be distributed in accordance with Section 5.2 of this Trust Agreement.</li>
+  </ol>
+
+  <p><strong>Section 5.2 Upon Death of Surviving Settlor.</strong> Upon the death of the Surviving Settlor, or upon the death of the last surviving Settlor if the Settlors die simultaneously, the Trustee shall distribute the remaining Trust Estate as follows:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a) Payment of Debts, Expenses, and Taxes.</span> The Trustee shall first pay, or make reasonable provision for the payment of, all debts of the Surviving Settlor, expenses of last illness and funeral, expenses of administration of the Surviving Settlor&rsquo;s estate, and all estate, inheritance, and other death taxes attributable to the Trust Estate, whether payable by the Trust or by the Surviving Settlor&rsquo;s estate.</li>
+    <li><span class="enum-label">(b) Tangible Personal Property.</span> The Trustee shall distribute the tangible personal property of the Settlors in accordance with any written statement or memorandum prepared by the Settlors and in existence at the time of distribution. If no such statement exists, the Trustee shall distribute the tangible personal property to the Descendants of the Settlors in equal shares, as determined by the Trustee in the Trustee&rsquo;s sole and absolute discretion.</li>
+    <li><span class="enum-label">(c) Distribution to Descendants.</span> The remaining Trust Estate shall be divided into equal shares, one share for each then-living child of the Settlors, and one share for the then-living Descendants of each deceased child of the Settlors, by right of representation. Each such share shall be distributed as follows:</li>
+  </ol>
+
+  <ol class="sub-enum-list">
+    <li><span class="enum-label">(i)</span> If the beneficiary is twenty-five (25) years of age or older at the time of distribution, the beneficiary&rsquo;s share shall be distributed outright to the beneficiary.</li>
+    <li><span class="enum-label">(ii)</span> If the beneficiary is under twenty-five (25) years of age at the time of distribution, the beneficiary&rsquo;s share shall be held in a separate continuing trust for the benefit of that beneficiary until the beneficiary attains the age of twenty-five (25) years. The Trustee shall pay to or apply for the benefit of the beneficiary such amounts of net income and principal as the Trustee, in the Trustee&rsquo;s sole and absolute discretion, deems necessary or advisable for the health, education, support, and maintenance of the beneficiary. When the beneficiary attains the age of twenty-five (25) years, the Trustee shall distribute one-third (1/3) of the remaining principal of the continuing trust to the beneficiary outright. When the beneficiary attains the age of thirty (30) years, the Trustee shall distribute one-half (1/2) of the remaining principal to the beneficiary outright. When the beneficiary attains the age of thirty-five (35) years, the Trustee shall distribute the entire remaining principal to the beneficiary outright.</li>
+  </ol>
+
+  <p><strong>Section 5.3 Alternative Beneficiaries.</strong> If, upon the death of the Surviving Settlor, no Descendant of the Settlors survives, the Trustee shall distribute the remaining Trust Estate to the following beneficiaries, in the following order of priority:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a)</span> To the heirs of {{settlor_1_full_name}}, determined under the laws of the State of {{governing_state}} then in effect; and</li>
+    <li><span class="enum-label">(b)</span> If no such heirs exist, to the heirs of {{settlor_2_full_name}}, determined under the laws of the State of {{governing_state}} then in effect; and</li>
+    <li><span class="enum-label">(c)</span> If no such heirs exist, to {{alternate_beneficiary}}.</li>
+  </ol>
+
+  <p><strong>Section 5.4 Simultaneous Death.</strong> If the Settlors die under circumstances in which the order of death cannot be established, each Settlor shall be deemed to have survived the other for purposes of this Trust Agreement.</p>
+
+  <p><strong>Section 5.5 Survival Requirement.</strong> No beneficiary shall be entitled to receive a distribution under this Trust Agreement unless that beneficiary survives the Settlor whose death triggers the distribution by at least one hundred twenty (120) hours. If a beneficiary fails to survive for such period, the beneficiary shall be deemed to have predeceased the Settlor for purposes of this Trust Agreement.</p>
+</section>
+
+<!-- ============================================================
+     ARTICLE VI — TRUSTEE POWERS
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article VI<br>Trustee Powers</div>
+
+  <p><strong>Section 6.1 General Grant of Powers.</strong> The Trustee shall have all powers necessary or appropriate to manage, invest, and distribute the Trust Estate effectively, without court order or approval, including but not limited to the powers set forth in this Article. The powers granted herein are in addition to, and not in limitation of, any powers granted by law, including the Uniform Prudent Investor Act and any other applicable statutory provisions.</p>
+
+  <p><strong>Section 6.2 Specific Powers.</strong> Without limiting the generality of Section 6.1, the Trustee shall have the following specific powers:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a) Retain Property.</span> To retain any property received by the Trustee, whether or not the property is of a type that would otherwise be considered an imprudent investment, for as long as the Trustee deems advisable.</li>
+    <li><span class="enum-label">(b) Invest and Reinvest.</span> To invest and reinvest the Trust Estate in such property, real or personal, tangible or intangible, as the Trustee deems prudent, without regard to any law restricting investments by fiduciaries, and without the need to diversify.</li>
+    <li><span class="enum-label">(c) Sell, Exchange, and Lease.</span> To sell, exchange, convey, transfer, lease, or otherwise dispose of any Trust Property, at public or private sale, on such terms as the Trustee deems advisable, and to give options for the sale or lease of any Trust Property.</li>
+    <li><span class="enum-label">(d) Borrow and Encumber.</span> To borrow money from any person or entity, including any beneficiary, and to mortgage, pledge, or otherwise encumber any Trust Property as security for such borrowing.</li>
+    <li><span class="enum-label">(e) Manage Real Property.</span> To manage, improve, repair, maintain, insure, and develop real property; to partition, subdivide, or combine parcels; to grant easements and release restrictions; and to pay taxes, assessments, and other charges against real property.</li>
+    <li><span class="enum-label">(f) Operate Businesses.</span> To continue to operate any business interest owned by the Trust, including the power to vote stock, participate in management, hire and fire employees, and incorporate, dissolve, or sell any business entity.</li>
+    <li><span class="enum-label">(g) Maintain Bank Accounts.</span> To maintain checking, savings, money market, and other accounts in financial institutions, and to designate signatories for such accounts.</li>
+    <li><span class="enum-label">(h) Deal with Securities.</span> To hold securities in the name of the Trustee, in street name, or in the name of a nominee; to vote proxies; to participate in reorganizations, mergers, and tender offers; and to exercise all rights of a security holder.</li>
+    <li><span class="enum-label">(i) Employ Professionals.</span> To employ attorneys, accountants, investment advisors, financial planners, real estate agents, and other professional agents and advisors, and to pay their reasonable compensation from the Trust Estate.</li>
+    <li><span class="enum-label">(j) Purchase Insurance.</span> To purchase, maintain, and modify insurance on Trust Property and on the lives of the Settlors or any beneficiary, and to pay premiums from the Trust Estate.</li>
+    <li><span class="enum-label">(k) Handle Tax Matters.</span> To prepare and file tax returns; to make tax elections; to contest, compromise, or settle tax assessments; and to allocate income and principal between income and principal accounts for tax purposes.</li>
+    <li><span class="enum-label">(l) Make Distributions to Minors.</span> To make distributions to a minor beneficiary by paying the funds to the beneficiary&rsquo;s parent, guardian, or custodian under the Uniform Transfers to Minors Act, or by directly expending funds for the beneficiary&rsquo;s benefit. The receipt of the parent, guardian, or custodian shall be a complete discharge to the Trustee.</li>
+    <li><span class="enum-label">(m) Distribute in Kind.</span> To distribute Trust Property in cash or in kind, or partly in cash and partly in kind, and to determine the fair market value of any property distributed in kind. The Trustee may make non-pro rata distributions among beneficiaries.</li>
+    <li><span class="enum-label">(n) Compromise Claims.</span> To compromise, arbitrate, settle, or abandon any claims or causes of action in favor of or against the Trust.</li>
+    <li><span class="enum-label">(o) Lend to Beneficiaries.</span> To lend money to any beneficiary on such terms as the Trustee deems advisable, with or without security, and at such interest rates as the Trustee determines.</li>
+    <li><span class="enum-label">(p) Manage Foreign Property.</span> To hold, manage, and dispose of property located outside the United States, including the power to deal with foreign governments, financial institutions, and legal systems.</li>
+    <li><span class="enum-label">(q) Manage Digital Assets.</span> To access, manage, distribute, and delete digital assets and online accounts, including email, social media, financial accounts, and digital property, as authorized under the Uniform Fiduciary Access to Digital Assets Act and applicable state law.</li>
+    <li><span class="enum-label">(r) Delegate Authority.</span> To delegate investment management and other fiduciary functions to qualified agents, and to pay reasonable compensation for such delegated services.</li>
+    <li><span class="enum-label">(s) Hold Property in Subtrusts.</span> To divide the Trust into separate subtrusts or accounts for administrative convenience, tax planning, or to preserve the character of property as community or separate property.</li>
+    <li><span class="enum-label">(t) General Authority.</span> To perform all other acts and execute all other documents that the Trustee deems necessary or appropriate for the proper administration of the Trust.</li>
+  </ol>
+
+  <p><strong>Section 6.3 Powers Exercisable Without Court Order.</strong> All powers granted to the Trustee under this Trust Agreement may be exercised without court order, approval, or supervision, to the fullest extent permitted by law.</p>
+
+  <p><strong>Section 6.4 Self-Dealing.</strong> The Trustee may deal with Trust Property in which the Trustee has a personal interest, provided that the transaction is fair and reasonable to the beneficiaries and is not otherwise prohibited by applicable law.</p>
+</section>
+
+<!-- ============================================================
+     ARTICLE VII — BENEFICIARY PROVISIONS
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article VII<br>Beneficiary Provisions</div>
+
+  <p><strong>Section 7.1 Primary Beneficiaries.</strong> During the joint lifetimes of the Settlors, the Settlors shall be the primary beneficiaries of this Trust. Upon the death of a Settlor, the Surviving Settlor shall be the primary beneficiary. Upon the death of both Settlors, the Descendants of the Settlors shall be the primary beneficiaries.</p>
+
+  <p><strong>Section 7.2 Spendthrift Provision.</strong> No beneficiary shall have the right to anticipate, assign, pledge, encumber, or otherwise transfer any interest in the Trust Estate before actual distribution. No interest in the Trust shall be subject to the claims of creditors of any beneficiary, including claims for alimony, child support, or spousal support, to the fullest extent permitted by applicable law.</p>
+
+  <p><strong>Section 7.3 Discretionary Distributions.</strong> All distributions to beneficiaries under this Trust Agreement that are subject to the Trustee&rsquo;s discretion shall be made in the Trustee&rsquo;s sole and absolute discretion. No beneficiary shall have any right to compel a distribution, and the Trustee&rsquo;s decisions regarding distributions shall be final and binding on all beneficiaries.</p>
+
+  <p><strong>Section 7.4 Beneficiary as Trustee.</strong> A beneficiary who is also serving as Trustee may participate in decisions affecting other beneficiaries but shall not participate in decisions solely affecting that beneficiary&rsquo;s own beneficial interest, except as permitted by applicable law.</p>
+
+  <p><strong>Section 7.5 Minor and Incapacitated Beneficiaries.</strong> If any beneficiary is a minor or is Incapacitated, the Trustee may distribute funds to a parent, guardian, conservator, or custodian, or may expend funds directly for the beneficiary&rsquo;s benefit. The Trustee shall not be required to see to the application of any funds distributed to a parent, guardian, conservator, or custodian.</p>
+
+  <p><strong>Section 7.6 Adopted Children.</strong> References to &ldquo;children,&rdquo; &ldquo;Descendants,&rdquo; and &ldquo;issue&rdquo; in this Trust Agreement include adopted children and persons born out of wedlock, to the same extent as biological children born in wedlock.</p>
+
+  <p><strong>Section 7.7 No-Contest Clause.</strong> If any beneficiary, without probable cause, contests the validity of this Trust Agreement or any provision hereof, or files a petition to remove the Trustee without reasonable cause, that beneficiary&rsquo;s interest in the Trust shall be forfeited and shall be distributed as if that beneficiary had predeceased the Settlors.</p>
+</section>
+
+<!-- ============================================================
+     ARTICLE VIII — TRUSTEESHIP AND SUCCESSION
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article VIII<br>Trusteeship and Succession</div>
+
+  <p><strong>Section 8.1 Initial Trustees.</strong> The Settlors shall serve as Co-Trustees of this Trust during their joint lifetimes, or until they resign or are unable to serve. Either Co-Trustee may act alone for routine matters, including the management of bank accounts, payment of expenses, and making distributions to the Settlors. Both Co-Trustees must act jointly for major decisions, including the sale of real property, the making of loans, and distributions exceeding {{major_decision_threshold}} in any calendar year.</p>
+
+  <p><strong>Section 8.2 Successor Trustees.</strong> The following persons are designated as Successor Trustees, in the following order of priority:</p>
+
+  <ol class="enum-list">
+    <li><span class="enum-label">(a) First Successor Trustee:</span> {{first_successor_trustee_name}}, of {{first_successor_trustee_address}}.</li>
+    <li><span class="enum-label">(b) Second Successor Trustee:</span> {{second_successor_trustee_name}}, of {{second_successor_trustee_address}}.</li>
+    <li><span class="enum-label">(c) Third Successor Trustee:</span> {{third_successor_trustee_name}}, of {{third_successor_trustee_address}}.</li>
+  </ol>
+
+  <p>A Successor Trustee shall become Trustee upon the death, resignation, or incapacity of all then-serving Trustees. A Successor Trustee may also be appointed by the unanimous written consent of all then-living adult beneficiaries.</p>
+
+  <p><strong>Section 8.3 Trustee Resignation.</strong> Any Trustee may resign at any time by delivering written notice of resignation to the Settlors, if then living and competent, or to the then-serving Co-Trustee and all adult beneficiaries. The resignation shall take effect thirty (30) days after delivery of the notice, or upon the appointment of a Successor Trustee, whichever occurs first.</p>
+
+  <p><strong>Section 8.4 Trustee Compensation.</strong> An individual Trustee shall serve without compensation but shall be entitled to reimbursement of all reasonable expenses incurred in the administration of the Trust. A corporate Trustee shall be entitled to compensation in accordance with its standard fee schedule in effect from time to time.</p>
+
+  <p><strong>Section 8.5 Bond.</strong> No Trustee shall be required to furnish a bond or other security for the faithful performance of the Trustee&rsquo;s duties, in any jurisdiction.</p>
+
+  <p><strong>Section 8.6 Trustee&rsquo;s Standard of Care.</strong> The Trustee shall administer the Trust in accordance with the standard of care set forth in the Uniform Prudent Investor Act and applicable state law. The Trustee shall not be liable for any loss or damage except that resulting from the Trustee&rsquo;s willful misconduct, gross negligence, or bad faith.</p>
+
+  <p><strong>Section 8.7 Indemnification.</strong> The Trust shall indemnify and hold harmless each Trustee against all claims, liabilities, and expenses, including reasonable attorneys&rsquo; fees, arising from the Trustee&rsquo;s administration of the Trust, except those resulting from the Trustee&rsquo;s willful misconduct, gross negligence, or bad faith.</p>
+
+  <p><strong>Section 8.8 Removal of Trustee.</strong> A majority of the then-living adult beneficiaries may remove a Trustee by delivering a written notice of removal to the Trustee. Upon removal, the beneficiaries may appoint a Successor Trustee by unanimous written consent. If the beneficiaries fail to appoint a Successor Trustee within thirty (30) days, the removed Trustee may petition a court of competent jurisdiction for the appointment of a Successor Trustee.</p>
+</section>
+
+<!-- ============================================================
+     ARTICLE IX — MISCELLANEOUS PROVISIONS
+     ============================================================ -->
+<section>
+  <div class="article-heading">Article IX<br>Miscellaneous Provisions</div>
+
+  <p><strong>Section 9.1 Governing Law.</strong> This Trust Agreement shall be governed by, construed, and enforced in accordance with the laws of the State of {{governing_state}}, without regard to its conflict of laws principles.</p>
+
+  <p><strong>Section 9.2 Situs of Administration.</strong> The principal place of administration of this Trust shall be in {{county_name}} County, {{governing_state}}. The Trustee may change the principal place of administration upon written notice to the beneficiaries.</p>
+
+  <p><strong>Section 9.3 Severability.</strong> If any provision of this Trust Agreement is held to be invalid, illegal, or unenforceable, the remaining provisions shall remain in full force and effect, and the invalid provision shall be modified to the minimum extent necessary to make it valid and enforceable.</p>
+
+  <p><strong>Section 9.4 Entire Agreement.</strong> This Trust Agreement, together with the schedules attached hereto, constitutes the entire agreement among the parties with respect to the subject matter hereof and supersedes all prior agreements, understandings, and representations, whether written or oral.</p>
+
+  <p><strong>Section 9.5 Trust Irrevocable Upon Death.</strong> Upon the death of a Settlor, this Trust shall become irrevocable as to the property of the Deceased Settlor, and no person shall have the power to amend or revoke the Trust as to such property, except as expressly provided in this Trust Agreement.</p>
+
+  <p><strong>Section 9.6 Certification of Trust.</strong> The Trustee may provide a Certification of Trust to any third party as permitted by applicable law. Any third party relying on a Certification of Trust in good faith shall be fully protected and shall incur no liability for any action taken in reliance thereon.</p>
+
+  <p><strong>Section 9.7 Accountings.</strong> The Trustee shall provide accountings to the beneficiaries at least annually, upon the termination of the Trust, and upon any change of Trustee. During the joint lifetimes of the Settlors, the Trustee&rsquo;s obligation to account shall be satisfied by providing accountings to the Settlors. After the death of a Settlor, the Trustee shall provide accountings to all then-living adult beneficiaries.</p>
+
+  <p><strong>Section 9.8 Notice to Beneficiaries.</strong> The Trustee shall give notice to the beneficiaries as required by applicable law upon the death of a Settlor. The Trustee&rsquo;s failure to give any required notice shall not affect the validity of any action taken by the Trustee.</p>
+
+  <p><strong>Section 9.9 Merger and Division.</strong> The Trustee may merge this Trust with any other trust having substantially identical terms, or may divide this Trust into separate trusts for administrative convenience or tax planning purposes, provided that such merger or division does not change the beneficial interests of any beneficiary.</p>
+
+  <p><strong>Section 9.10 Relocation.</strong> If the Settlors move to another state, this Trust shall remain valid and shall continue to be governed by the laws of the State of {{governing_state}} unless the Settlors amend this Trust Agreement to designate a different governing law.</p>
+
+  <p><strong>Section 9.11 Perpetuities Savings Clause.</strong> Notwithstanding any other provision of this Trust Agreement, the Trust shall terminate, and all Trust Property shall be distributed outright to the then-living beneficiaries, no later than twenty-one (21) years after the death of the last surviving beneficiary who was living at the time of the creation of this Trust, or such earlier date as may be required to comply with the rule against perpetuities.</p>
+
+  <p><strong>Section 9.12 Trust Termination.</strong> The Trust shall terminate upon the distribution of all Trust Property in accordance with the terms of this Trust Agreement. Upon termination, the Trustee shall distribute any remaining Trust Property to the persons entitled thereto and shall provide a final accounting to the beneficiaries.</p>
+
+  <p><strong>Section 9.13 Privacy.</strong> This Trust Agreement is a private document and shall not be filed with any court or other public body, except as may be required by applicable law or as necessary for the administration of the Trust.</p>
+
+  <p><strong>Section 9.14 Gender and Number.</strong> As provided in Section 1.2, the singular includes the plural, the plural includes the singular, and the masculine, feminine, and neuter genders include each other.</p>
+
+  <p><strong>Section 9.15 Headings.</strong> Article and section headings are for convenience only and shall not affect the interpretation of this Trust Agreement.</p>
+</section>
+
+<!-- ============================================================
+     SIGNATURE PAGE
+     ============================================================ -->
+<section class="signature-section page-break">
+  <div class="article-heading">Signature Page</div>
+
+  <p class="signature-closing">
+    <strong>IN WITNESS WHEREOF,</strong> the Settlors have executed this Revocable Living Trust on this <span class="blank-fill"></span> day of <span class="blank-fill"></span>, <span class="blank-fill"></span>.
+  </p>
+
+  <div class="signature-block">
+    <hr class="sig-line">
+    <div class="sig-name">{{settlor_1_full_name}}, Settlor</div>
+    <div class="sig-role">Settlor and Co-Trustee</div>
+    <div class="sig-date">Date: ________________________</div>
+  </div>
+
+  <div class="signature-block">
+    <hr class="sig-line">
+    <div class="sig-name">{{settlor_2_full_name}}, Settlor</div>
+    <div class="sig-role">Settlor and Co-Trustee</div>
+    <div class="sig-date">Date: ________________________</div>
+  </div>
+
+  <div class="witness-block">
+    <div class="witness-title">Witnesses:</div>
+
+    <hr class="wit-line">
+    <div class="wit-name">________________________________</div>
+    <div class="wit-address">Address: ________________________</div>
+
+    <hr class="wit-line">
+    <div class="wit-name">________________________________</div>
+    <div class="wit-address">Address: ________________________</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     NOTARY ACKNOWLEDGMENT
+     ============================================================ -->
+<section class="page-break">
+  <div class="article-heading">Notary Acknowledgment</div>
+
+  <div class="notary-block">
+    <div class="notary-header">
+      <div class="state-line">State of {{governing_state}}</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) ss:</div>
+      <div>County of ________________)</div>
+    </div>
+
+    <div class="notary-body">
+      On this ______ day of ________________, 20____, before me, ______________________________, a Notary Public in and for said State, personally appeared {{settlor_1_full_name}} and {{settlor_2_full_name}}, personally known to me (or proved to me on the basis of satisfactory evidence) to be the persons whose names are subscribed to the within instrument, and acknowledged to me that they executed the same in their authorized capacities, and that by their signatures on the instrument the persons, or the entity upon behalf of which the persons acted, executed the instrument.
+    </div>
+
+    <div class="notary-body">
+      <strong>WITNESS</strong> my hand and official seal.
+    </div>
+
+    <hr class="notary-sig-line">
+    <div class="notary-name">________________________________</div>
+    <div class="notary-role">Notary Public, State of {{governing_state}}</div>
+    <div class="notary-expires">My Commission Expires: ________________</div>
+
+    <div class="notary-seal">Notary Seal</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SCHEDULE A — TRUST PROPERTY
+     ============================================================ -->
+<section class="schedule-page">
+  <div class="schedule-title">Schedule A</div>
+  <div class="schedule-subtitle">Trust Property &mdash; Community Property of {{settlor_1_first_name}} and {{settlor_2_first_name}}</div>
+
+  <p>The following property has been transferred to the Trustee and shall constitute the initial Trust Estate:</p>
+
+  <p><strong>A. Real Property</strong></p>
+
+  <table class="schedule-table">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Address / Location</th>
+        <th>Approximate Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Primary Residence</td>
+        <td>{{primary_residence_address}}</td>
+        <td>${{primary_residence_value}}</td>
+      </tr>
+      <tr>
+        <td>{{additional_real_property_1_description}}</td>
+        <td>{{additional_real_property_1_address}}</td>
+        <td>${{additional_real_property_1_value}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>B. Financial Accounts</strong></p>
+
+  <table class="schedule-table">
+    <thead>
+      <tr>
+        <th>Account Type</th>
+        <th>Institution</th>
+        <th>Approximate Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Checking Account</td>
+        <td>{{checking_institution}}</td>
+        <td>${{checking_value}}</td>
+      </tr>
+      <tr>
+        <td>Savings Account</td>
+        <td>{{savings_institution}}</td>
+        <td>${{savings_value}}</td>
+      </tr>
+      <tr>
+        <td>{{additional_account_1_type}}</td>
+        <td>{{additional_account_1_institution}}</td>
+        <td>${{additional_account_1_value}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>C. Personal Property</strong></p>
+
+  <table class="schedule-table">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Details</th>
+        <th>Approximate Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Motor Vehicle 1</td>
+        <td>{{vehicle_1_make_model_year}} &bull; VIN: {{vehicle_1_vin}}</td>
+        <td>${{vehicle_1_value}}</td>
+      </tr>
+      <tr>
+        <td>Motor Vehicle 2</td>
+        <td>{{vehicle_2_make_model_year}} &bull; VIN: {{vehicle_2_vin}}</td>
+        <td>${{vehicle_2_value}}</td>
+      </tr>
+      <tr>
+        <td>Household Furnishings</td>
+        <td>All household furniture, furnishings, and personal effects</td>
+        <td>${{household_value}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>D. Other Assets</strong></p>
+
+  <table class="schedule-table">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Details</th>
+        <th>Approximate Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{other_asset_1_description}}</td>
+        <td>{{other_asset_1_details}}</td>
+        <td>${{other_asset_1_value}}</td>
+      </tr>
+      <tr>
+        <td>{{other_asset_2_description}}</td>
+        <td>{{other_asset_2_details}}</td>
+        <td>${{other_asset_2_value}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top: 24pt;"><em>Note: Retirement accounts (IRAs, 401(k)s, etc.) and life insurance policies are not transferred to the Trust but may name the Trust as a beneficiary. Beneficiary designations for such accounts are maintained separately.</em></p>
+
+  <div class="signature-block" style="margin-top: 36pt;">
+    <hr class="sig-line">
+    <div class="sig-name">{{settlor_1_full_name}}, Settlor</div>
+    <div class="sig-date">Date: ________________________</div>
+  </div>
+
+  <div class="signature-block">
+    <hr class="sig-line">
+    <div class="sig-name">{{settlor_2_full_name}}, Settlor</div>
+    <div class="sig-date">Date: ________________________</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SCHEDULE B — SEPARATE PROPERTY OF SETTLOR 1
+     ============================================================ -->
+<section class="schedule-page">
+  <div class="schedule-title">Schedule B</div>
+  <div class="schedule-subtitle">Separate Property of {{settlor_1_first_name}} {{settlor_1_last_name}}</div>
+
+  <p>The following property is the separate property of {{settlor_1_first_name}} {{settlor_1_last_name}} and has been transferred to the Trustee to be held as a separate subtrust within this Trust:</p>
+
+  <table class="schedule-table">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Details</th>
+        <th>Approximate Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{settlor_1_separate_property_1_description}}</td>
+        <td>{{settlor_1_separate_property_1_details}}</td>
+        <td>${{settlor_1_separate_property_1_value}}</td>
+      </tr>
+      <tr>
+        <td>{{settlor_1_separate_property_2_description}}</td>
+        <td>{{settlor_1_separate_property_2_details}}</td>
+        <td>${{settlor_1_separate_property_2_value}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top: 12pt;"><em>If no separate property is listed above, {{settlor_1_first_name}} {{settlor_1_last_name}} has no separate property to transfer to this Trust at this time.</em></p>
+
+  <div class="signature-block" style="margin-top: 36pt;">
+    <hr class="sig-line">
+    <div class="sig-name">{{settlor_1_full_name}}, Settlor</div>
+    <div class="sig-date">Date: ________________________</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SCHEDULE C — SEPARATE PROPERTY OF SETTLOR 2
+     ============================================================ -->
+<section class="schedule-page">
+  <div class="schedule-title">Schedule C</div>
+  <div class="schedule-subtitle">Separate Property of {{settlor_2_first_name}} {{settlor_2_last_name}}</div>
+
+  <p>The following property is the separate property of {{settlor_2_first_name}} {{settlor_2_last_name}} and has been transferred to the Trustee to be held as a separate subtrust within this Trust:</p>
+
+  <table class="schedule-table">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Details</th>
+        <th>Approximate Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{settlor_2_separate_property_1_description}}</td>
+        <td>{{settlor_2_separate_property_1_details}}</td>
+        <td>${{settlor_2_separate_property_1_value}}</td>
+      </tr>
+      <tr>
+        <td>{{settlor_2_separate_property_2_description}}</td>
+        <td>{{settlor_2_separate_property_2_details}}</td>
+        <td>${{settlor_2_separate_property_2_value}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top: 12pt;"><em>If no separate property is listed above, {{settlor_2_first_name}} {{settlor_2_last_name}} has no separate property to transfer to this Trust at this time.</em></p>
+
+  <div class="signature-block" style="margin-top: 36pt;">
+    <hr class="sig-line">
+    <div class="sig-name">{{settlor_2_full_name}}, Settlor</div>
+    <div class="sig-date">Date: ________________________</div>
+  </div>
+</section>
 
 </body>
 </html>

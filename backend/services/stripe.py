@@ -128,7 +128,7 @@ async def create_checkout_session(
                 }
             ],
             "mode": "payment",
-            "success_url": f"{settings.FRONTEND_URL}/panel?session_id={{CHECKOUT_SESSION_ID}}&status=success",
+            "success_url": f"{settings.FRONTEND_URL}/exito?session_id={{CHECKOUT_SESSION_ID}}&status=success",
             "cancel_url": f"{settings.FRONTEND_URL}/pago?plan={plan.value}&status=cancelled",
             "customer_email": customer_email,
             "metadata": metadata,

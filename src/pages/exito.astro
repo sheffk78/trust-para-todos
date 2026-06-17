@@ -1,0 +1,160 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="¡Pago Completado! — Trust Para Todos" description="Tu pago ha sido procesado exitosamente. Estamos preparando tus documentos.">
+
+<style>
+  .success-section { padding: 80px 0 100px; }
+  .success-container { max-width: 600px; margin: 0 auto; padding: 0 24px; text-align: center; }
+
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    background: #166534;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 2.5rem;
+    color: white;
+    animation: scale-in 0.5s ease;
+  }
+  @keyframes scale-in {
+    0% { transform: scale(0); }
+    60% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.2rem;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+
+  .success-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+
+  .next-steps {
+    text-align: left;
+    background: var(--white);
+    border: 1px solid var(--cream-dark);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 32px;
+  }
+  .next-steps h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .next-step {
+    display: flex;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--cream-dark);
+    align-items: flex-start;
+  }
+  .next-step:last-child { border-bottom: none; }
+  .next-step-num {
+    width: 28px;
+    height: 28px;
+    background: var(--teal-light);
+    color: var(--teal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .next-step-content strong { display: block; font-size: 0.95rem; color: var(--dark); }
+  .next-step-content p { font-size: 0.85rem; color: var(--text-muted); margin-top: 2px; }
+
+  .success-actions { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+  .success-actions .btn { min-width: 280px; }
+
+  .order-ref {
+    margin-top: 24px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .order-ref strong { color: var(--dark); }
+</style>
+
+<section class="success-section">
+  <div class="success-container">
+
+    <div class="success-icon">✓</div>
+
+    <h1>¡Pago completado!</h1>
+    <p class="success-subtitle">
+      Gracias por confiar en Trust Para Todos. Estamos preparando tus documentos personalizados. Te enviaremos un correo cuando estén listos.
+    </p>
+
+    <div class="next-steps">
+      <h2>Próximos pasos</h2>
+
+      <div class="next-step">
+        <div class="next-step-num">1</div>
+        <div class="next-step-content">
+          <strong>Revisa tu correo electrónico</strong>
+          <p>Te enviaremos instrucciones detalladas para los siguientes pasos, incluyendo tu cita notarial.</p>
+        </div>
+      </div>
+
+      <div class="next-step">
+        <div class="next-step-num">2</div>
+        <div class="next-step-content">
+          <strong>Generación de documentos</strong>
+          <p>Estamos creando tus documentos de trust personalizados con la información que nos proporcionaste.</p>
+        </div>
+      </div>
+
+      <div class="next-step">
+        <div class="next-step-num">3</div>
+        <div class="next-step-content">
+          <strong>Cita notarial virtual</strong>
+          <p>Te contactaremos para agendar una cita con un notario bilingüe para firmar tus documentos.</p>
+        </div>
+      </div>
+
+      <div class="next-step">
+        <div class="next-step-num">4</div>
+        <div class="next-step-content">
+          <strong>¡Trust activo!</strong>
+          <p>Una vez firmado, tu trust estará activo y tu familia protegida. Recibirás acceso a tu panel de control.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="success-actions">
+      <a href="/panel" class="btn btn-primary btn-lg">Ir a mi panel</a>
+      <a href="/" class="btn btn-back" style="background:var(--white); color:var(--text-body); border:1.5px solid var(--cream-dark); padding:14px 32px; border-radius:100px; font-weight:600; text-decoration:none; font-size:0.95rem;">Volver al inicio</a>
+    </div>
+
+    <p class="order-ref" id="order-ref">Orden: <strong id="order-id-display">—</strong></p>
+
+  </div>
+</section>
+
+<script>
+  // Read order_id from URL params
+  const params = new URLSearchParams(window.location.search);
+  const orderId = params.get('order_id');
+  if (orderId) {
+    document.getElementById('order-id-display').textContent = orderId;
+  }
+</script>
+
+</BaseLayout>

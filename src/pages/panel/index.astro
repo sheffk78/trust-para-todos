@@ -4,194 +4,507 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 <BaseLayout title="Mi Panel — Trust Para Todos" description="Sigue el estado de tu trust, descarga tus documentos y administra tu protección.">
 
-  <section class="section">
-    <div class="container" style="max-width: 700px; margin: 0 auto;">
+<style>
+  .panel-section { padding: 60px 0 100px; }
+  .panel-container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
 
-      <h1 style="text-align: center; margin-bottom: 8px;">Mi Panel</h1>
-      <p style="text-align: center; color: var(--text-muted); margin-bottom: 40px;">
-        Aquí puedes ver el estado de tu trust y seguir tu progreso.
-      </p>
+  /* Welcome Card */
+  .welcome-card {
+    background: var(--teal);
+    color: var(--white);
+    border-radius: var(--radius);
+    padding: 40px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .welcome-card::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 30%;
+    background: radial-gradient(ellipse at center, rgba(221,112,84,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .welcome-card h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.8rem;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .welcome-card p { opacity: 0.85; font-size: 0.95rem; }
 
-      <!-- Order lookup -->
-      <div id="order-lookup" style="margin-bottom: 32px;">
-        <div class="form-group">
-          <label for="email-input">Tu correo electrónico</label>
-          <div style="display: flex; gap: 12px;">
-            <input type="email" id="email-input" placeholder="ejemplo@correo.com" style="flex: 1;" />
-            <button class="btn btn-primary" onclick="lookupOrder()">Buscar</button>
-          </div>
-        </div>
-      </div>
+  /* Email Lookup */
+  .lookup-card {
+    background: var(--white);
+    border: 1px solid var(--cream-dark);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+  .lookup-card h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.3rem;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .lookup-card .lookup-desc {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+  .lookup-row {
+    display: flex;
+    gap: 12px;
+  }
+  .lookup-row input {
+    flex: 1;
+    padding: 14px 16px;
+    border: 1.5px solid var(--cream-dark);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .lookup-row input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(4,112,126,0.1); }
 
-      <!-- Status Tracker (populated by JS) -->
-      <div id="status-container" style="display: none;">
-        <div id="customer-info" style="margin-bottom: 24px; padding: 20px; background: var(--white); border: 1px solid var(--cream-dark); border-radius: var(--radius);">
-          <p><strong id="customer-name"></strong></p>
-          <p style="color: var(--text-muted); font-size: 0.9rem;" id="customer-plan"></p>
-        </div>
+  /* Status Tracker */
+  .status-card {
+    background: var(--white);
+    border: 1px solid var(--cream-dark);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+  .status-card h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin-bottom: 24px;
+  }
+  .status-tracker { position: relative; }
+  .status-tracker::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--cream-dark);
+  }
+  .status-step {
+    display: flex;
+    gap: 16px;
+    padding: 12px 0;
+    position: relative;
+  }
+  .status-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    transition: all 0.3s;
+  }
+  .status-step.completed .status-dot { background: var(--teal) !important; }
+  .status-step.active .status-dot {
+    background: var(--terracotta) !important;
+    box-shadow: 0 0 0 4px rgba(221,112,84,0.2);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(221,112,84,0.2); }
+    50% { box-shadow: 0 0 0 8px rgba(221,112,84,0.1); }
+  }
+  .status-step-content { padding-top: 4px; }
+  .status-step-content strong { display: block; font-size: 0.95rem; color: var(--dark); }
+  .status-step-content p { font-size: 0.85rem; color: var(--text-muted); margin-top: 2px; }
 
-        <div style="background: var(--white); padding: 32px; border-radius: var(--radius); border: 1px solid var(--cream-dark);">
-          <h2 style="font-size: 1.2rem; margin-bottom: 24px; font-family: 'DM Sans', sans-serif;">Estado de tu Trust</h2>
-          <div class="status-tracker" id="status-steps"></div>
-        </div>
+  /* Documents Section */
+  .documents-card {
+    background: var(--white);
+    border: 1px solid var(--cream-dark);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+  .documents-card h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin-bottom: 20px;
+  }
+  .doc-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .doc-item:last-child { border-bottom: none; }
+  .doc-info { display: flex; align-items: center; gap: 12px; }
+  .doc-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--teal-light);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+  .doc-name { font-weight: 600; font-size: 0.9rem; color: var(--dark); }
+  .doc-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .doc-status {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+  .doc-status.ready { background: #e6f7e6; color: #166534; }
+  .doc-status.pending { background: #fef9e7; color: #92400e; }
+  .doc-status.error { background: #fef2f2; color: #991b1b; }
+  .btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: var(--teal);
+    color: var(--white);
+    border: none;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-download:hover { background: var(--teal-dark); transform: translateY(-1px); }
 
-        <div id="documents-section" style="margin-top: 24px; display: none;">
-          <div style="background: var(--white); padding: 32px; border-radius: var(--radius); border: 1px solid var(--cream-dark);">
-            <h2 style="font-size: 1.2rem; margin-bottom: 24px; font-family: 'DM Sans', sans-serif;">Mis Documentos</h2>
-            <div id="documents-list"></div>
-          </div>
-        </div>
+  /* Quick Links */
+  .quick-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .quick-link {
+    background: var(--white);
+    border: 1px solid var(--cream-dark);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: block;
+  }
+  .quick-link:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .quick-link-icon { font-size: 1.5rem; margin-bottom: 8px; }
+  .quick-link h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1rem;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .quick-link p { font-size: 0.85rem; color: var(--text-muted); }
 
-        <div style="margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-          <a href="/que-es" style="background: var(--white); padding: 24px; border-radius: var(--radius); border: 1px solid var(--cream-dark); text-align: center; text-decoration: none; transition: transform 0.3s; display: block;">
-            <div style="font-size: 1.5rem; margin-bottom: 8px;">🎓</div>
-            <h3 style="font-size: 1rem; margin-bottom: 4px; font-family: 'DM Sans', sans-serif; color: var(--dark);">Curso Trustee 101</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">Aprende a usar tu trust</p>
-          </a>
-          <a href="https://wa.me/18001234567" style="background: var(--white); padding: 24px; border-radius: var(--radius); border: 1px solid var(--cream-dark); text-align: center; text-decoration: none; transition: transform 0.3s; display: block;">
-            <div style="font-size: 1.5rem; margin-bottom: 8px;">💬</div>
-            <h3 style="font-size: 1rem; margin-bottom: 4px; font-family: 'DM Sans', sans-serif; color: var(--dark);">Soporte</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">WhatsApp</p>
-          </a>
-        </div>
-      </div>
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    padding: 60px 24px;
+  }
+  .empty-state-icon { font-size: 3rem; margin-bottom: 16px; }
+  .empty-state h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+  .empty-state p { color: var(--text-muted); margin-bottom: 24px; }
 
-      <div id="no-orders" style="display: none; text-align: center; padding: 40px; background: var(--white); border: 1px solid var(--cream-dark); border-radius: var(--radius);">
-        <p style="margin-bottom: 16px;">No encontramos ningún pedido con este correo.</p>
-        <a href="/evaluacion" class="btn btn-primary">Comenzar mi evaluación gratuita</a>
-      </div>
+  /* Success Banner */
+  .success-banner {
+    background: #e6f7e6;
+    border: 1px solid #bbf7bb;
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .success-banner .check-icon {
+    width: 48px;
+    height: 48px;
+    background: #166534;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .success-banner h3 { font-size: 1.1rem; color: #166534; margin-bottom: 2px; }
+  .success-banner p { font-size: 0.9rem; color: #166534; opacity: 0.8; }
 
+  @media (max-width: 640px) {
+    .quick-links { grid-template-columns: 1fr; }
+    .lookup-row { flex-direction: column; }
+  }
+</style>
+
+<section class="panel-section">
+  <div class="panel-container">
+
+    <!-- Welcome -->
+    <div class="welcome-card">
+      <h1>Mi Panel</h1>
+      <p>Aquí puedes ver el estado de tu trust, descargar tus documentos y seguir tu progreso.</p>
     </div>
-  </section>
 
-  <script>
-    const API_BASE = '';  // Same origin in production
+    <!-- Success Banner (shown after payment) -->
+    <div id="success-banner" class="success-banner" style="display:none;">
+      <div class="check-icon">✓</div>
+      <div>
+        <h3>¡Pago completado con éxito!</h3>
+        <p>Estamos preparando tus documentos. Recibirás un correo cuando estén listos.</p>
+      </div>
+    </div>
 
-    // Check URL params for session_id from Stripe redirect
-    const params = new URLSearchParams(window.location.search);
-    const sessionId = params.get('session_id');
-    const status = params.get('status');
-    if (sessionId || status === 'success') {
-      document.getElementById('status-container').style.display = 'block';
-      document.getElementById('order-lookup').style.display = 'none';
-      document.getElementById('customer-info').innerHTML = '<p style="color: var(--teal); font-weight: 600;">✅ ¡Pago completado! Recibirás un correo con los siguientes pasos.</p>';
-      loadDemoStatus();
-    }
+    <!-- Email Lookup -->
+    <div class="lookup-card" id="lookup-card">
+      <h2>Busca tu orden</h2>
+      <p class="lookup-desc">Ingresa el correo que usaste al registrarte para ver el estado de tu trust.</p>
+      <div class="lookup-row">
+        <input type="email" id="email-input" placeholder="ejemplo@correo.com" />
+        <button class="btn btn-primary" onclick="lookupOrder()">Buscar</button>
+      </div>
+    </div>
 
-    async function lookupOrder() {
-      const email = document.getElementById('email-input').value.trim();
-      if (!email) return;
+    <!-- Dashboard Content (hidden until lookup) -->
+    <div id="dashboard-content" style="display:none;">
 
-      try {
-        const res = await fetch(`${API_BASE}/api/orders/by-email/${encodeURIComponent(email)}`);
-        const data = await res.json();
+      <!-- Customer Info -->
+      <div class="status-card" style="padding: 20px 32px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <strong id="customer-name" style="font-size:1.1rem;"></strong>
+          <p style="font-size:0.85rem; color:var(--text-muted);" id="customer-plan"></p>
+        </div>
+        <span id="order-status-badge" style="font-size:0.8rem; font-weight:600; padding:4px 12px; border-radius:100px;"></span>
+      </div>
 
-        if (!data.orders || data.orders.length === 0) {
-          document.getElementById('order-lookup').style.display = 'none';
-          document.getElementById('no-orders').style.display = 'block';
-          return;
-        }
+      <!-- Status Tracker -->
+      <div class="status-card">
+        <h2>Estado de tu Trust</h2>
+        <div class="status-tracker" id="status-steps"></div>
+      </div>
 
-        document.getElementById('order-lookup').style.display = 'none';
-        document.getElementById('status-container').style.display = 'block';
+      <!-- Documents -->
+      <div class="documents-card" id="documents-section" style="display:none;">
+        <h2>Mis Documentos</h2>
+        <div id="documents-list"></div>
+      </div>
 
-        // Show latest order
-        const latest = data.orders[0];
-        document.getElementById('customer-name').textContent = data.customer?.name || 'Cliente';
-        document.getElementById('customer-plan').textContent = `Plan: ${latest.plan_type === 'base' ? 'Trust Para Todos' : 'Paquete Completo'} — Estado: ${translateStatus(latest.status)}`;
+      <!-- Quick Links -->
+      <div class="quick-links">
+        <a href="/que-es" class="quick-link">
+          <div class="quick-link-icon">🎓</div>
+          <h3>Curso Trustee 101</h3>
+          <p>Aprende a usar y administrar tu trust correctamente.</p>
+        </a>
+        <a href="https://wa.me/18001234567" class="quick-link">
+          <div class="quick-link-icon">💬</div>
+          <h3>Soporte por WhatsApp</h3>
+          <p>Habla con nuestro equipo en español.</p>
+        </a>
+      </div>
+    </div>
 
-        loadOrderStatus(latest.id);
-      } catch (e) {
-        alert('Error al buscar: ' + e.message);
-      }
-    }
+    <!-- Empty State -->
+    <div id="empty-state" class="empty-state" style="display:none;">
+      <div class="empty-state-icon">🔍</div>
+      <h2>No encontramos tu orden</h2>
+      <p>No hay ninguna orden asociada a este correo. ¿Quieres comenzar tu evaluación gratuita?</p>
+      <a href="/evaluacion" class="btn btn-primary">Comenzar mi evaluación gratuita</a>
+    </div>
 
-    async function loadOrderStatus(orderId) {
-      try {
-        const res = await fetch(`${API_BASE}/api/orders/${orderId}/status`);
-        const data = await res.json();
-        renderSteps(data.steps || []);
-        renderDocuments(data.documents || []);
-      } catch (e) {
-        // Fallback to demo if API is not available
-        loadDemoStatus();
-      }
-    }
+  </div>
+</section>
 
-    function loadDemoStatus() {
-      renderSteps([
-        { name: 'payment_confirmed', status: 'completed', completed_at: null, notes: null },
-        { name: 'document_generation', status: 'in_progress', completed_at: null, notes: null },
-        { name: 'ein_filing', status: 'pending', completed_at: null, notes: null },
-        { name: 'notary_scheduling', status: 'pending', completed_at: null, notes: null },
-        { name: 'welcome_email', status: 'pending', completed_at: null, notes: null },
-        { name: 'final_delivery', status: 'pending', completed_at: null, notes: null },
-      ]);
-    }
+<script>
+  const API_BASE = '';
 
-    function renderSteps(steps) {
-      const container = document.getElementById('status-steps');
-      const labels = {
-        payment_confirmed: '✅ Pago confirmado',
-        document_generation: '📄 Generación de documentos',
-        ein_filing: '🔢 Trámite de EIN',
-        notary_scheduling: '📅 Cita notarial',
-        welcome_email: '📧 Correo de bienvenida',
-        final_delivery: '🎉 Entrega final',
-      };
-      const descriptions = {
-        payment_confirmed: 'Tu pago ha sido procesado exitosamente.',
-        document_generation: 'Tus documentos de trust están siendo preparados.',
-        ein_filing: 'Estamos tramitando tu EIN ante el IRS.',
-        notary_scheduling: 'Agenda tu cita notarial virtual.',
-        welcome_email: 'Recibirás instrucciones detalladas por correo.',
-        final_delivery: 'Todo está listo. Tu trust está activo.',
-      };
+  // Check URL params for Stripe redirect
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id');
+  const orderId = params.get('order_id');
+  const paymentStatus = params.get('status');
 
-      container.innerHTML = steps.map(s => {
-        let statusClass = '';
-        let dotBg = '#ddd';
-        if (s.status === 'completed') { statusClass = 'completed'; dotBg = 'var(--teal)'; }
-        else if (s.status === 'in_progress') { statusClass = 'active'; dotBg = 'var(--terracotta)'; }
-        else if (s.status === 'failed') { dotBg = '#e74c3c'; }
+  if (sessionId || paymentStatus === 'success') {
+    document.getElementById('success-banner').style.display = 'flex';
+    document.getElementById('lookup-card').style.display = 'none';
+    document.getElementById('dashboard-content').style.display = 'block';
+    loadDemoStatus();
+  }
 
-        return `
-          <div class="status-step ${statusClass}">
-            <div class="status-dot" style="background: ${dotBg};"></div>
-            <div>
-              <strong>${labels[s.name] || s.name}</strong>
-              <p style="font-size: 0.85rem; color: var(--text-muted);">
-                ${s.completed_at ? 'Completado' : (descriptions[s.name] || '')}
-                ${s.notes ? `— ${s.notes}` : ''}
-              </p>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
+  async function lookupOrder() {
+    const email = document.getElementById('email-input').value.trim();
+    if (!email) return;
+    if (!email.includes('@')) { alert('Por favor ingresa un correo válido.'); return; }
 
-    function renderDocuments(docs) {
-      const section = document.getElementById('documents-section');
-      const list = document.getElementById('documents-list');
-      if (!docs || docs.length === 0) {
-        section.style.display = 'none';
+    try {
+      const res = await fetch(`${API_BASE}/api/orders/by-email/${encodeURIComponent(email)}`);
+      const data = await res.json();
+
+      if (!data.orders || data.orders.length === 0) {
+        document.getElementById('lookup-card').style.display = 'none';
+        document.getElementById('empty-state').style.display = 'block';
         return;
       }
-      section.style.display = 'block';
-      const labels = { trust: 'Trust Revocable', ilit: 'ILIT', ein: 'EIN', guide: 'Guía Explicativa' };
-      list.innerHTML = docs.map(d => `
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--cream-dark);">
-          <span>${labels[d.type] || d.type}</span>
-          <span style="color: ${d.status === 'ready' ? 'var(--teal)' : 'var(--text-muted)'}; font-size: 0.85rem;">
-            ${d.status === 'ready' ? '✅ Listo' : d.status === 'pending' ? '⏳ Pendiente' : d.status === 'error' ? '❌ Error' : d.status}
-          </span>
-        </div>
-      `).join('');
-    }
 
-    function translateStatus(s) {
-      return { pending: 'Pendiente', paid: 'Pagado', fulfilling: 'En proceso', complete: 'Completado' }[s] || s;
+      document.getElementById('lookup-card').style.display = 'none';
+      document.getElementById('dashboard-content').style.display = 'block';
+
+      const latest = data.orders[0];
+      document.getElementById('customer-name').textContent = data.customer?.name || 'Cliente';
+      document.getElementById('customer-plan').textContent = `Plan: ${latest.plan_type === 'base' ? 'Trust Para Todos' : 'Paquete Completo'}`;
+
+      const badge = document.getElementById('order-status-badge');
+      const statusColors = { pending: '#fef9e7,#92400e', paid: '#e6f7e6,#166534', fulfilling: '#e6f2f4,#04707e', complete: '#e6f7e6,#166534' };
+      const [bg, color] = (statusColors[latest.status] || '#f4f2eb,#7a7a88').split(',');
+      badge.style.cssText = `background:${bg}; color:${color};`;
+      badge.textContent = translateStatus(latest.status);
+
+      loadOrderStatus(latest.id);
+    } catch (e) {
+      alert('Error al buscar: ' + e.message);
     }
-  </script>
+  }
+
+  async function loadOrderStatus(orderId) {
+    try {
+      const res = await fetch(`${API_BASE}/api/orders/${orderId}/status`);
+      const data = await res.json();
+      renderSteps(data.steps || []);
+      renderDocuments(data.documents || []);
+    } catch (e) {
+      loadDemoStatus();
+    }
+  }
+
+  function loadDemoStatus() {
+    renderSteps([
+      { name: 'payment_confirmed', status: 'completed', completed_at: null, notes: null },
+      { name: 'document_generation', status: 'in_progress', completed_at: null, notes: null },
+      { name: 'ein_filing', status: 'pending', completed_at: null, notes: null },
+      { name: 'notary_scheduling', status: 'pending', completed_at: null, notes: null },
+      { name: 'welcome_email', status: 'pending', completed_at: null, notes: null },
+      { name: 'final_delivery', status: 'pending', completed_at: null, notes: null },
+    ]);
+  }
+
+  function renderSteps(steps) {
+    const container = document.getElementById('status-steps');
+    const labels = {
+      payment_confirmed: 'Pago confirmado',
+      document_generation: 'Generación de documentos',
+      ein_filing: 'Trámite de EIN',
+      notary_scheduling: 'Cita notarial',
+      welcome_email: 'Correo de bienvenida',
+      final_delivery: 'Entrega final',
+    };
+    const icons = {
+      payment_confirmed: '💳',
+      document_generation: '📄',
+      ein_filing: '🔢',
+      notary_scheduling: '📅',
+      welcome_email: '📧',
+      final_delivery: '🎉',
+    };
+    const descriptions = {
+      payment_confirmed: 'Tu pago ha sido procesado exitosamente.',
+      document_generation: 'Tus documentos de trust están siendo preparados.',
+      ein_filing: 'Estamos tramitando tu EIN ante el IRS.',
+      notary_scheduling: 'Agenda tu cita notarial virtual.',
+      welcome_email: 'Recibirás instrucciones detalladas por correo.',
+      final_delivery: 'Todo está listo. Tu trust está activo.',
+    };
+
+    container.innerHTML = steps.map(s => {
+      let dotContent = icons[s.name] || '○';
+      let dotBg = '#e8e4d8';
+      let statusClass = '';
+      if (s.status === 'completed') { statusClass = 'completed'; dotBg = 'var(--teal)'; dotContent = '✓'; }
+      else if (s.status === 'in_progress') { statusClass = 'active'; dotBg = 'var(--terracotta)'; }
+
+      return `
+        <div class="status-step ${statusClass}">
+          <div class="status-dot" style="background:${dotBg};">${dotContent}</div>
+          <div class="status-step-content">
+            <strong>${labels[s.name] || s.name}</strong>
+            <p>${s.completed_at ? 'Completado' : (descriptions[s.name] || '')}${s.notes ? ' — ' + s.notes : ''}</p>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function renderDocuments(docs) {
+    const section = document.getElementById('documents-section');
+    const list = document.getElementById('documents-list');
+    if (!docs || docs.length === 0) { section.style.display = 'none'; return; }
+    section.style.display = 'block';
+
+    const icons = {
+      revocable_living_trust: '📜',
+      pour_over_will: '📝',
+      certificate_of_trust: '🪪',
+      assignment_of_property: '📋',
+      durable_power_of_attorney: '✍️',
+      advance_healthcare_directive: '🏥',
+    };
+    const labels = {
+      revocable_living_trust: 'Trust Revocable',
+      pour_over_will: 'Testamento (Pour-Over Will)',
+      certificate_of_trust: 'Certificado de Trust',
+      assignment_of_property: 'Asignación de Bienes',
+      durable_power_of_attorney: 'Poder Notarial Financiero',
+      advance_healthcare_directive: 'Directiva de Atención Médica',
+    };
+
+    list.innerHTML = docs.map(d => {
+      const isReady = d.status === 'ready';
+      const statusLabel = isReady ? 'Listo' : d.status === 'pending' ? 'Pendiente' : 'Error';
+      const statusClass = isReady ? 'ready' : d.status === 'pending' ? 'pending' : 'error';
+      return `
+        <div class="doc-item">
+          <div class="doc-info">
+            <div class="doc-icon">${icons[d.type] || '📄'}</div>
+            <div>
+              <div class="doc-name">${labels[d.type] || d.type}</div>
+              <div class="doc-meta">${d.created_at ? new Date(d.created_at).toLocaleDateString('es-MX') : ''}</div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span class="doc-status ${statusClass}">${statusLabel}</span>
+            ${isReady && d.file_path ? `<a href="${API_BASE}/api/orders/${d.order_id || ''}/documents/${d.id}/download" class="btn-download">⬇ Descargar</a>` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function translateStatus(s) {
+    return { pending: 'Pendiente', paid: 'Pagado', fulfilling: 'En proceso', complete: 'Completado' }[s] || s;
+  }
+</script>
 
 </BaseLayout>

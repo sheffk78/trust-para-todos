@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page { size: letter; margin: 2.5cm 2cm; }
+  body { font-family: 'Times New Roman', Georgia, serif; font-size: 12pt; line-height: 1.6; color: #1a1a1a; }
+  h1 { text-align: center; font-size: 18pt; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 2px; }
+  h2 { font-size: 14pt; margin-top: 24px; margin-bottom: 12px; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
+  .subtitle { text-align: center; font-size: 11pt; color: #555; margin-bottom: 30px; }
+  .recital { margin-left: 20px; text-align: justify; margin-bottom: 10px; }
+  .signature-block { margin-top: 40px; }
+  .signature-line { border-top: 1px solid #000; width: 250px; margin-top: 60px; margin-bottom: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  td, th { border: 1px solid #999; padding: 8px; text-align: left; }
+  th { background: #f0f0f0; font-weight: 600; }
+  .page-break { page-break-before: always; }
+  .notice { background: #f9f9f9; border-left: 3px solid #999; padding: 12px 16px; margin: 16px 0; font-size: 10pt; }
+  ol { margin-left: 20px; }
+  li { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<h1>DECLARACIÓN DE FIDEICOMISO REVOCABLE<br>REVOCABLE LIVING TRUST</h1>
+<p class="subtitle">
+  Preparado para: <strong>{{ customer_name }}</strong><br>
+  Fecha: <strong>{{ date }}</strong><br>
+  Estado: <strong>{{ state }}</strong>
+</p>
+
+<p style="text-align: justify;">
+  Este documento constituye un fideicomiso revocable (en adelante, el "Trust") creado por
+  <strong>{{ customer_name }}</strong>{% if spouse_name %} y <strong>{{ spouse_name }}</strong>{% endif %}
+  (en adelante, el o los "Fideicomitente" o "Fideicomitentes"). El Trust se rige por las leyes del estado de
+  <strong>{{ state }}</strong> y por los términos establecidos en este documento.
+</p>
+
+<h2>Artículo I — Definiciones</h2>
+<p class="recital">
+  <strong>1.1 Fideicomitente (Grantor/Settlor):</strong> {{ customer_name }}{% if spouse_name %} y {{ spouse_name }}{% endif %},
+  la(s) persona(s) que crea(n) este Trust y transfiere(n) bienes al mismo.
+</p>
+<p class="recital">
+  <strong>1.2 Fiduciario (Trustee):</strong> {{ trustee_name }}, la persona designada para administrar los bienes del Trust
+  de acuerdo con los términos de este documento.
+</p>
+<p class="recital">
+  <strong>1.3 Fiduciario Sucesor (Successor Trustee):</strong> {{ successor_trustee_name }},
+  la persona designada para actuar como Fiduciario en caso de que el Fiduciario original fallezca, renuncie o
+  sea incapaz de ejercer sus funciones.
+</p>
+<p class="recital">
+  <strong>1.4 Beneficiarios (Beneficiaries):</strong> Las personas designadas para recibir los beneficios del Trust,
+  incluyendo pero no limitado a:
+</p>
+<ol>
+{% for beneficiary in beneficiaries %}
+  <li>{{ beneficiary }}</li>
+{% endfor %}
+</ol>
+<p class="recital">
+  <strong>1.5 Bienes del Trust (Trust Estate):</strong> Todos los bienes muebles e inmuebles transferidos al Trust
+  por el Fideicomitente, incluyendo los detallados en el Anexo A de este documento.
+</p>
+
+<h2>Artículo II — Creación del Trust</h2>
+<p class="recital">
+  <strong>2.1</strong> El Fideicomitente transfiere al Fiduciario los bienes descritos en el Anexo A,
+  para ser mantenidos, administrados y distribuidos de acuerdo con los términos de este Trust.
+</p>
+<p class="recital">
+  <strong>2.2</strong> Este Trust es revocable durante la vida del Fideicomitente. El Fideicomitente
+  puede modificar, enmendar o revocar este Trust en cualquier momento mediante un instrumento escrito
+  firmado y notariado.
+</p>
+<p class="recital">
+  <strong>2.3</strong> El nombre de este Trust será: <strong>THE {{ customer_name|upper }} REVOCABLE TRUST</strong>,
+  fechado {{ date }}.
+</p>
+
+<h2>Artículo III — Administración del Trust</h2>
+<p class="recital">
+  <strong>3.1</strong> El Fiduciario administrará los bienes del Trust en beneficio exclusivo de los
+  Beneficiarios, actuando con el cuidado, la habilidad y la prudencia de una persona razonable en
+  circunstancias similares.
+</p>
+<p class="recital">
+  <strong>3.2</strong> El Fiduciario tiene la autoridad para:
+</p>
+<ol>
+  <li>Invertir y reinvertir los bienes del Trust</li>
+  <li>Vender, transferir o disponer de cualquier bien del Trust</li>
+  <li>Pagar impuestos, gastos y deudas del Trust y del Fideicomitente</li>
+  <li>Distribuir ingresos y principal a los Beneficiarios</li>
+  <li>Contratar profesionales (abogados, contadores, asesores financieros)</li>
+  <li>Realizar cualquier acto necesario para la administración del Trust</li>
+</ol>
+
+<h2>Artículo IV — Distribuciones</h2>
+<p class="recital">
+  <strong>4.1 Durante la vida del Fideicomitente:</strong> El Fiduciario distribuirá los ingresos del Trust
+  al Fideicomitente según sea necesario para su salud, educación, manutención y bienestar general.
+</p>
+<p class="recital">
+  <strong>4.2 Tras el fallecimiento del Fideicomitente:</strong> Los bienes del Trust serán distribuidos
+  a los Beneficiarios designados, libres de impuestos de herencia y sin necesidad de pasar por el proceso
+  de sucesión testamentaria (probate).
+</p>
+
+<div class="page-break"></div>
+
+<h2>Artículo V — Fiduciario Sucesor</h2>
+<p class="recital">
+  <strong>5.1</strong> En caso de que el Fiduciario original fallezca, renuncie o sea incapaz de actuar,
+  el Fiduciario Sucesor asumirá inmediatamente todas las facultades y responsabilidades establecidas en
+  este documento.
+</p>
+<p class="recital">
+  <strong>5.2</strong> El Fiduciario Sucesor nombrado es <strong>{{ successor_trustee_name }}</strong>.
+</p>
+
+<h2>Artículo VI — Disposiciones Generales</h2>
+<p class="recital">
+  <strong>6.1</strong> Este Trust se regirá por las leyes del estado de <strong>{{ state }}</strong>.
+</p>
+<p class="recital">
+  <strong>6.2</strong> Si alguna disposición de este Trust fuera declarada inválida o inaplicable,
+  las disposiciones restantes continuarán en pleno vigor y efecto.
+</p>
+<p class="recital">
+  <strong>6.3</strong> Este documento puede ser ejecutado en copias, cada una de las cuales se considerará
+  un original.
+</p>
+
+<div class="notice">
+  <strong>AVISO IMPORTANTE:</strong> Este documento es un template legal preparado por abogados que requiere
+  firma notariada para ser legalmente vinculante. El Fideicomitente debe firmar este documento
+  en presencia de un notario público y transferir los bienes al Trust para que el mismo esté
+  completamente operativo.
+</div>
+
+<h2>ANEXO A — Bienes del Trust</h2>
+<table>
+  <tr><th>Descripción</th><th>Valor Estimado</th></tr>
+  <tr><td>{% if property_address %}{{ property_address }}{% else %}[Dirección de la propiedad inmueble]{% endif %}</td><td>$__________</td></tr>
+  <tr><td>Cuentas bancarias a nombre del Trust</td><td>$__________</td></tr>
+  <tr><td>Inversiones financieras</td><td>$__________</td></tr>
+  <tr><td>Otros bienes</td><td>$__________</td></tr>
+</table>
+
+<h2>ANEXO B — Beneficiarios y Distribución</h2>
+<p>Tras el fallecimiento del Fideicomitente, los bienes del Trust serán distribuidos de la siguiente manera:</p>
+<ol>
+{% for beneficiary in beneficiaries %}
+  <li><strong>{{ beneficiary }}:</strong> Participación igualitaria junto con los demás beneficiarios.</li>
+{% endfor %}
+</ol>
+
+<div class="signature-block">
+  <h2>FIRMAS</h2>
+  <p>Este documento fue firmado el día {{ date }}.</p>
+
+  <p style="margin-top: 40px;">
+    <strong>FIDEICOMITENTE (GRANTOR/SETTLOR):</strong>
+  </p>
+  <div class="signature-line"></div>
+  <p>{{ customer_name }}</p>
+
+  {% if spouse_name %}
+  <p style="margin-top: 30px;">
+    <strong>FIDEICOMITENTE (GRANTOR/SETTLOR):</strong>
+  </p>
+  <div class="signature-line"></div>
+  <p>{{ spouse_name }}</p>
+  {% endif %}
+
+  <p style="margin-top: 30px;">
+    <strong>TESTIGO:</strong>
+  </p>
+  <div class="signature-line"></div>
+  <p>___________________________</p>
+
+  <p style="margin-top: 30px;">
+    <strong>NOTARIO PÚBLICO:</strong>
+  </p>
+  <div class="signature-line"></div>
+  <p>___________________________</p>
+  <p>Mi comisión expira: ___________</p>
+</div>
+
+<p style="text-align: center; margin-top: 40px; font-size: 10pt; color: #888;">
+  Documento generado por Trust Para Todos — {{ year }}<br>
+  Powered by TrustOffice
+</p>
+
+</body>
+</html>

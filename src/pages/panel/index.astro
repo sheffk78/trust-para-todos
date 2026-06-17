@@ -4,77 +4,194 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 <BaseLayout title="Mi Panel — Trust Para Todos" description="Sigue el estado de tu trust, descarga tus documentos y administra tu protección.">
 
-  <section class="hero" style="padding: 40px 20px;">
-    <h1>Mi Panel</h1>
-    <p>Aquí puedes ver el estado de tu trust y seguir tu progreso.</p>
-  </section>
-
   <section class="section">
     <div class="container" style="max-width: 700px; margin: 0 auto;">
 
-      <div style="background: var(--white); padding: 32px; border-radius: var(--radius); box-shadow: var(--shadow);">
-        <h2 style="font-size: 1.2rem; margin-bottom: 24px;">Estado de tu Trust</h2>
+      <h1 style="text-align: center; margin-bottom: 8px;">Mi Panel</h1>
+      <p style="text-align: center; color: var(--text-muted); margin-bottom: 40px;">
+        Aquí puedes ver el estado de tu trust y seguir tu progreso.
+      </p>
 
-        <div class="status-tracker">
-          <div class="status-step completed">
-            <div class="status-dot"></div>
-            <div>
-              <strong>🟢 Recibido</strong>
-              <p style="font-size: 0.85rem; color: var(--gray);">Tu pedido ha sido recibido. Estamos procesándolo.</p>
-            </div>
-          </div>
-          <div class="status-step active">
-            <div class="status-dot"></div>
-            <div>
-              <strong>🟡 En proceso</strong>
-              <p style="font-size: 0.85rem; color: var(--gray);">Tus documentos están siendo preparados.</p>
-            </div>
-          </div>
-          <div class="status-step">
-            <div class="status-dot"></div>
-            <div>
-              <strong>🔵 Listo para notario</strong>
-              <p style="font-size: 0.85rem; color: var(--gray);">Tus documentos están listos. Agenda tu cita notarial.</p>
-            </div>
-          </div>
-          <div class="status-step">
-            <div class="status-dot"></div>
-            <div>
-              <strong>🟢 Completado</strong>
-              <p style="font-size: 0.85rem; color: var(--gray);">Todo listo. Tu trust está activo y protegido.</p>
-            </div>
+      <!-- Order lookup -->
+      <div id="order-lookup" style="margin-bottom: 32px;">
+        <div class="form-group">
+          <label for="email-input">Tu correo electrónico</label>
+          <div style="display: flex; gap: 12px;">
+            <input type="email" id="email-input" placeholder="ejemplo@correo.com" style="flex: 1;" />
+            <button class="btn btn-primary" onclick="lookupOrder()">Buscar</button>
           </div>
         </div>
       </div>
 
-      <div style="margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-        <div style="background: var(--white); padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center;">
-          <div style="font-size: 2rem; margin-bottom: 8px;">📄</div>
-          <h3 style="font-size: 1rem; margin-bottom: 8px;">Mis Documentos</h3>
-          <p style="font-size: 0.85rem; color: var(--gray);">Descarga tus documentos cuando estén listos.</p>
+      <!-- Status Tracker (populated by JS) -->
+      <div id="status-container" style="display: none;">
+        <div id="customer-info" style="margin-bottom: 24px; padding: 20px; background: var(--white); border: 1px solid var(--cream-dark); border-radius: var(--radius);">
+          <p><strong id="customer-name"></strong></p>
+          <p style="color: var(--text-muted); font-size: 0.9rem;" id="customer-plan"></p>
         </div>
-        <div style="background: var(--white); padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center;">
-          <div style="font-size: 2rem; margin-bottom: 8px;">📅</div>
-          <h3 style="font-size: 1rem; margin-bottom: 8px;">Agendar Notaría</h3>
-          <p style="font-size: 0.85rem; color: var(--gray);">Agenda tu cita notarial virtual de 15 minutos.</p>
+
+        <div style="background: var(--white); padding: 32px; border-radius: var(--radius); border: 1px solid var(--cream-dark);">
+          <h2 style="font-size: 1.2rem; margin-bottom: 24px; font-family: 'DM Sans', sans-serif;">Estado de tu Trust</h2>
+          <div class="status-tracker" id="status-steps"></div>
         </div>
-        <div style="background: var(--white); padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center;">
-          <div style="font-size: 2rem; margin-bottom: 8px;">🎓</div>
-          <h3 style="font-size: 1rem; margin-bottom: 8px;">Curso Trustee 101</h3>
-          <p style="font-size: 0.85rem; color: var(--gray);">Aprende a usar y administrar tu trust.</p>
+
+        <div id="documents-section" style="margin-top: 24px; display: none;">
+          <div style="background: var(--white); padding: 32px; border-radius: var(--radius); border: 1px solid var(--cream-dark);">
+            <h2 style="font-size: 1.2rem; margin-bottom: 24px; font-family: 'DM Sans', sans-serif;">Mis Documentos</h2>
+            <div id="documents-list"></div>
+          </div>
         </div>
-        <div style="background: var(--white); padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center;">
-          <div style="font-size: 2rem; margin-bottom: 8px;">💬</div>
-          <h3 style="font-size: 1rem; margin-bottom: 8px;">Soporte</h3>
-          <p style="font-size: 0.85rem; color: var(--gray);">¿Tienes preguntas? Escríbenos.</p>
+
+        <div style="margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <a href="/que-es" style="background: var(--white); padding: 24px; border-radius: var(--radius); border: 1px solid var(--cream-dark); text-align: center; text-decoration: none; transition: transform 0.3s; display: block;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">🎓</div>
+            <h3 style="font-size: 1rem; margin-bottom: 4px; font-family: 'DM Sans', sans-serif; color: var(--dark);">Curso Trustee 101</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Aprende a usar tu trust</p>
+          </a>
+          <a href="https://wa.me/18001234567" style="background: var(--white); padding: 24px; border-radius: var(--radius); border: 1px solid var(--cream-dark); text-align: center; text-decoration: none; transition: transform 0.3s; display: block;">
+            <div style="font-size: 1.5rem; margin-bottom: 8px;">💬</div>
+            <h3 style="font-size: 1rem; margin-bottom: 4px; font-family: 'DM Sans', sans-serif; color: var(--dark);">Soporte</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">WhatsApp</p>
+          </a>
         </div>
       </div>
 
-      <div style="text-align: center; margin-top: 32px;">
-        <a href="https://wa.me/18001234567" class="btn btn-teal">💬 ¿Necesitas ayuda? WhatsApp</a>
+      <div id="no-orders" style="display: none; text-align: center; padding: 40px; background: var(--white); border: 1px solid var(--cream-dark); border-radius: var(--radius);">
+        <p style="margin-bottom: 16px;">No encontramos ningún pedido con este correo.</p>
+        <a href="/evaluacion" class="btn btn-primary">Comenzar mi evaluación gratuita</a>
       </div>
 
     </div>
   </section>
+
+  <script>
+    const API_BASE = '';  // Same origin in production
+
+    // Check URL params for session_id from Stripe redirect
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get('session_id');
+    const status = params.get('status');
+    if (sessionId || status === 'success') {
+      document.getElementById('status-container').style.display = 'block';
+      document.getElementById('order-lookup').style.display = 'none';
+      document.getElementById('customer-info').innerHTML = '<p style="color: var(--teal); font-weight: 600;">✅ ¡Pago completado! Recibirás un correo con los siguientes pasos.</p>';
+      loadDemoStatus();
+    }
+
+    async function lookupOrder() {
+      const email = document.getElementById('email-input').value.trim();
+      if (!email) return;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/orders/by-email/${encodeURIComponent(email)}`);
+        const data = await res.json();
+
+        if (!data.orders || data.orders.length === 0) {
+          document.getElementById('order-lookup').style.display = 'none';
+          document.getElementById('no-orders').style.display = 'block';
+          return;
+        }
+
+        document.getElementById('order-lookup').style.display = 'none';
+        document.getElementById('status-container').style.display = 'block';
+
+        // Show latest order
+        const latest = data.orders[0];
+        document.getElementById('customer-name').textContent = data.customer?.name || 'Cliente';
+        document.getElementById('customer-plan').textContent = `Plan: ${latest.plan_type === 'base' ? 'Trust Para Todos' : 'Paquete Completo'} — Estado: ${translateStatus(latest.status)}`;
+
+        loadOrderStatus(latest.id);
+      } catch (e) {
+        alert('Error al buscar: ' + e.message);
+      }
+    }
+
+    async function loadOrderStatus(orderId) {
+      try {
+        const res = await fetch(`${API_BASE}/api/orders/${orderId}/status`);
+        const data = await res.json();
+        renderSteps(data.steps || []);
+        renderDocuments(data.documents || []);
+      } catch (e) {
+        // Fallback to demo if API is not available
+        loadDemoStatus();
+      }
+    }
+
+    function loadDemoStatus() {
+      renderSteps([
+        { name: 'payment_confirmed', status: 'completed', completed_at: null, notes: null },
+        { name: 'document_generation', status: 'in_progress', completed_at: null, notes: null },
+        { name: 'ein_filing', status: 'pending', completed_at: null, notes: null },
+        { name: 'notary_scheduling', status: 'pending', completed_at: null, notes: null },
+        { name: 'welcome_email', status: 'pending', completed_at: null, notes: null },
+        { name: 'final_delivery', status: 'pending', completed_at: null, notes: null },
+      ]);
+    }
+
+    function renderSteps(steps) {
+      const container = document.getElementById('status-steps');
+      const labels = {
+        payment_confirmed: '✅ Pago confirmado',
+        document_generation: '📄 Generación de documentos',
+        ein_filing: '🔢 Trámite de EIN',
+        notary_scheduling: '📅 Cita notarial',
+        welcome_email: '📧 Correo de bienvenida',
+        final_delivery: '🎉 Entrega final',
+      };
+      const descriptions = {
+        payment_confirmed: 'Tu pago ha sido procesado exitosamente.',
+        document_generation: 'Tus documentos de trust están siendo preparados.',
+        ein_filing: 'Estamos tramitando tu EIN ante el IRS.',
+        notary_scheduling: 'Agenda tu cita notarial virtual.',
+        welcome_email: 'Recibirás instrucciones detalladas por correo.',
+        final_delivery: 'Todo está listo. Tu trust está activo.',
+      };
+
+      container.innerHTML = steps.map(s => {
+        let statusClass = '';
+        let dotBg = '#ddd';
+        if (s.status === 'completed') { statusClass = 'completed'; dotBg = 'var(--teal)'; }
+        else if (s.status === 'in_progress') { statusClass = 'active'; dotBg = 'var(--terracotta)'; }
+        else if (s.status === 'failed') { dotBg = '#e74c3c'; }
+
+        return `
+          <div class="status-step ${statusClass}">
+            <div class="status-dot" style="background: ${dotBg};"></div>
+            <div>
+              <strong>${labels[s.name] || s.name}</strong>
+              <p style="font-size: 0.85rem; color: var(--text-muted);">
+                ${s.completed_at ? 'Completado' : (descriptions[s.name] || '')}
+                ${s.notes ? `— ${s.notes}` : ''}
+              </p>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderDocuments(docs) {
+      const section = document.getElementById('documents-section');
+      const list = document.getElementById('documents-list');
+      if (!docs || docs.length === 0) {
+        section.style.display = 'none';
+        return;
+      }
+      section.style.display = 'block';
+      const labels = { trust: 'Trust Revocable', ilit: 'ILIT', ein: 'EIN', guide: 'Guía Explicativa' };
+      list.innerHTML = docs.map(d => `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--cream-dark);">
+          <span>${labels[d.type] || d.type}</span>
+          <span style="color: ${d.status === 'ready' ? 'var(--teal)' : 'var(--text-muted)'}; font-size: 0.85rem;">
+            ${d.status === 'ready' ? '✅ Listo' : d.status === 'pending' ? '⏳ Pendiente' : d.status === 'error' ? '❌ Error' : d.status}
+          </span>
+        </div>
+      `).join('');
+    }
+
+    function translateStatus(s) {
+      return { pending: 'Pendiente', paid: 'Pagado', fulfilling: 'En proceso', complete: 'Completado' }[s] || s;
+    }
+  </script>
 
 </BaseLayout>

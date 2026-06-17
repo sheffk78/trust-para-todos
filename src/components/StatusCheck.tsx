@@ -59,9 +59,28 @@ export default function StatusCheck() {
 
   const handleNext = () => {
     if (isLastStep) {
-      window.location.href = '/recomendacion?' + new URLSearchParams(formData).toString();
+      // Submit questionnaire to backend API
+      submitQuestionnaire();
     } else {
       setStep(s => Math.min(s + 1, STEPS.length - 1));
+    }
+  };
+
+  const submitQuestionnaire = async () => {
+    try {
+      const res = await fetch('/api/questionnaire', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (res.ok) {
+        window.location.href = '/recomendacion?' + new URLSearchParams(formData).toString();
+      } else {
+        // Fallback: submit via URL params even if API fails
+        window.location.href = '/recomendacion?' + new URLSearchParams(formData).toString();
+      }
+    } catch {
+      window.location.href = '/recomendacion?' + new URLSearchParams(formData).toString();
     }
   };
 

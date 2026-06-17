@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Pago Seguro — Trust Para Todos" description="Paga con tarjeta, OXXO o SPEI. Procesado de forma segura por Stripe.">
+
+  <section class="section">
+    <div class="container" style="max-width: 600px; margin: 0 auto;">
+
+      <div style="background: var(--white); padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow-lg);">
+        <h1 style="text-align: center; color: var(--teal); margin-bottom: 8px;">Completa tu pedido</h1>
+
+        <!-- Order Summary -->
+        <div style="background: var(--cream); padding: 20px; border-radius: var(--radius-sm); margin-bottom: 24px;">
+          <h3 style="font-size: 1rem; color: var(--teal); margin-bottom: 12px;">Resumen de tu pedido</h3>
+          <div id="order-summary">
+            <p>Cargando detalles del pedido...</p>
+          </div>
+        </div>
+
+        <!-- Stripe Checkout -->
+        <div id="checkout-form">
+          <div style="text-align: center; margin-bottom: 24px;">
+            <p style="color: var(--gray); font-size: 0.9rem;">Métodos de pago aceptados:</p>
+            <div style="display: flex; justify-content: center; gap: 16px; margin-top: 12px; font-size: 0.85rem;">
+              <span style="padding: 8px 16px; background: var(--cream); border-radius: var(--radius-sm);">💳 Tarjetas</span>
+              <span style="padding: 8px 16px; background: var(--cream); border-radius: var(--radius-sm);">🏧 OXXO</span>
+              <span style="padding: 8px 16px; background: var(--cream); border-radius: var(--radius-sm);">🏦 SPEI</span>
+            </div>
+          </div>
+
+          <!-- Placeholder for Stripe Elements (will be replaced with actual Stripe integration) -->
+          <div id="stripe-element" style="min-height: 200px; border: 2px dashed var(--cream-dark); border-radius: var(--radius-sm); padding: 24px; text-align: center;">
+            <p style="color: var(--gray); margin-bottom: 16px;">El formulario de pago seguro de Stripe se cargará aquí.</p>
+            <div class="form-group">
+              <label>Número de tarjeta</label>
+              <div id="card-number" style="padding: 12px; border: 2px solid #ddd; border-radius: var(--radius-sm); background: white;"></div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div class="form-group">
+                <label>Fecha de vencimiento</label>
+                <div id="card-expiry" style="padding: 12px; border: 2px solid #ddd; border-radius: var(--radius-sm); background: white;"></div>
+              </div>
+              <div class="form-group">
+                <label>CVC</label>
+                <div id="card-cvc" style="padding: 12px; border: 2px solid #ddd; border-radius: var(--radius-sm); background: white;"></div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-lg" style="width: 100%; margin-top: 16px;" id="submit-payment">
+              Pagar ahora
+            </button>
+          </div>
+
+          <div style="margin-top: 16px; font-size: 0.85rem; color: var(--gray); text-align: center;">
+            <p>🔒 Tu información está protegida con cifrado SSL de 256 bits.</p>
+            <p>Al realizar el pago, aceptas nuestros <a href="/legal" style="color: var(--teal);">términos de servicio</a>.</p>
+          </div>
+        </div>
+
+        <!-- Affiliate code -->
+        <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #eee;">
+          <div class="form-group">
+            <label for="affiliate-code">¿Tienes un código de referido?</label>
+            <input type="text" id="affiliate-code" placeholder="Ej: MATT" />
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align: center; margin-top: 24px;">
+        <a href="/recomendacion" style="color: var(--gray);">← Volver a recomendación</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Parse URL params for plan selection
+    const params = new URLSearchParams(window.location.search);
+    const plan = params.get('plan') || 'base';
+    const summary = document.getElementById('order-summary');
+    if (plan === 'base') {
+      summary.innerHTML = '<p><strong>Trust Para Todos</strong> — $997</p><p style="font-size:0.85rem;color:var(--gray);margin-top:8px;">Trust revocable + EIN + Notaría + 6 meses TrustOffice + Curso</p>';
+    } else {
+      summary.innerHTML = '<p><strong>Paquete Completo</strong> — $1,494</p><p style="font-size:0.85rem;color:var(--gray);margin-top:8px;">Trust Para Todos + ILIT (Trust para seguro de vida)</p>';
+    }
+
+    // Handle affiliate code from URL
+    const ref = params.get('ref');
+    if (ref) {
+      document.getElementById('affiliate-code').value = ref;
+    }
+
+    // Form submit placeholder
+    document.getElementById('submit-payment')?.addEventListener('click', function(e) {
+      e.preventDefault();
+      alert('Stripe integration pending — this will process payments via Stripe Elements with OXXO/SPEI support.');
+    });
+  </script>
+
+</BaseLayout>

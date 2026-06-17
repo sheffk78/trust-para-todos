@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StatusCheck from '../components/StatusCheck';
+---
+
+<BaseLayout title="Evaluación Gratuita — Trust Para Todos" description="Completa tu evaluación de 3 minutos. Descubre si un trust es adecuado para tu situación. Gratis y sin compromiso.">
+
+  <section class="section">
+    <div class="container">
+      <StatusCheck client:load />
+    </div>
+  </section>
+
+</BaseLayout>

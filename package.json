@@ -1,0 +1,21 @@
+{
+  "name": "trust-para-todos",
+  "version": "1.0.0",
+  "description": "Trust Para Todos — Spanish-first trust platform for I-10 visa holders",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "start": "node ./dist/server/entry.mjs"
+  },
+  "dependencies": {
+    "@astrojs/node": "^10.1.4",
+    "@astrojs/react": "^5.0.7",
+    "@stripe/stripe-js": "^9.8.0",
+    "astro": "^6.4.7",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "stripe": "^22.2.1"
+  }
+}

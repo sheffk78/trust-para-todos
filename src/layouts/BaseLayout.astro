@@ -1,0 +1,82 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | Trust Para Todos</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/assets/logo-shield.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles/global.css" />
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav container">
+        <a href="/" class="logo">
+          <img src="/assets/logo-shield.svg" alt="Trust Para Todos" width="32" height="32" />
+          <span>Trust Para Todos</span>
+        </a>
+        <div class="nav-links">
+          <a href="/que-es">¿Qué es?</a>
+          <a href="/como-funciona">Cómo funciona</a>
+          <a href="/preguntas-frecuentes">FAQ</a>
+          <a href="/evaluacion" class="btn btn-primary btn-sm">Tu evaluación</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Menú">☰</button>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <h4>Trust Para Todos</h4>
+          <p>Protege a tu familia. Asegura tu legado.</p>
+          <p class="footer-powered">Powered by <a href="https://trustoffice.app">TrustOffice</a></p>
+        </div>
+        <div>
+          <h4>Enlaces</h4>
+          <a href="/que-es">¿Qué es un trust?</a>
+          <a href="/como-funciona">Cómo funciona</a>
+          <a href="/preguntas-frecuentes">Preguntas frecuentes</a>
+          <a href="/contacto">Contacto</a>
+        </div>
+        <div>
+          <h4>Recursos</h4>
+          <a href="/testimonios">Testimonios</a>
+          <a href="/asociaciones">Asociaciones</a>
+          <a href="/legal">Aviso legal</a>
+        </div>
+        <div>
+          <h4>Contacto</h4>
+          <a href="https://wa.me/18001234567" class="whatsapp-link">WhatsApp: ¡Escríbenos!</a>
+          <a href="/contacto">Formulario de contacto</a>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>© 2026 Trust Para Todos. Todos los derechos reservados.</p>
+        <p class="footer-disclaimer">Trust Para Todos proporciona documentos legales preparados por abogados. No somos un bufete de abogados. Este sitio no proporciona asesoramiento legal.</p>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile menu toggle
+      document.querySelector('.mobile-menu-btn')?.addEventListener('click', () => {
+        document.querySelector('.nav-links')?.classList.toggle('open');
+      });
+    </script>
+  </body>
+</html>

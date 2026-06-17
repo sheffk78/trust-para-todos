@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Tu Recomendación — Trust Para Todos" description="Basado en tu situación, te recomendamos el paquete ideal para proteger tu patrimonio.">
+
+  <section class="hero" style="padding: 60px 20px;">
+    <h1>Tu Recomendación Personalizada</h1>
+    <p>Basado en tu situación, esto es lo que recomendamos para tu familia.</p>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <!-- Primary Package -->
+      <div class="pricing-card featured">
+        <h2 style="color: var(--teal);">Trust Para Todos</h2>
+        <div class="pricing-amount">$997 <small>pago único</small></div>
+        <ul class="pricing-features">
+          <li>✅ Documento de trust revocable (preparado por abogados)</li>
+          <li>✅ Guía explicativa en español</li>
+          <li>✅ Notaría remota bilingüe</li>
+          <li>✅ Trámite de EIN ante el IRS</li>
+          <li>✅ 6 meses de TrustOffice gratis</li>
+          <li>✅ Curso Trustee 101 en español</li>
+          <li>✅ Dashboard de seguimiento</li>
+          <li>✅ Soporte por WhatsApp</li>
+        </ul>
+        <a href="/pago?plan=base" class="btn btn-primary btn-lg" style="width: 100%;">Comprar ahora — $997</a>
+      </div>
+
+      <!-- Add-on -->
+      <div class="pricing-addon" style="max-width: 400px; margin: 24px auto 0;">
+        <h4>🛡️ Protección adicional: ILIT</h4>
+        <p style="font-size: 0.9rem; color: var(--gray); margin-top: 8px;">
+          Trust para seguro de vida (ILIT). Si tienes un seguro de vida, este documento asegura que los beneficios tampoco paguen impuestos.
+        </p>
+        <div class="price" style="margin-top: 8px; font-size: 1.3rem;">+$497</div>
+        <a href="/pago?plan=completo" class="btn btn-teal" style="margin-top: 12px; width: 100%;">
+          Paquete completo — $1,494
+        </a>
+      </div>
+
+      <div style="text-align: center; margin-top: 40px; color: var(--gray); font-size: 0.9rem;">
+        <p>🔒 Pago 100% seguro procesado por Stripe. Aceptamos tarjetas, OXXO y SPEI.</p>
+        <p style="margin-top: 4px;">¿Tienes dudas? <a href="/preguntas-frecuentes" style="color: var(--teal);">Revisa nuestras preguntas frecuentes</a></p>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

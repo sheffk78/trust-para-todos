@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Contacto — Trust Para Todos" description="Contáctanos por WhatsApp, formulario o correo. Estamos aquí para ayudarte en español.">
+
+  <section class="hero" style="padding: 60px 20px;">
+    <h1>Contacto</h1>
+    <p>Estamos aquí para ayudarte. En español, siempre.</p>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width: 600px; margin: 0 auto;">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <a href="https://wa.me/18001234567" class="btn btn-teal btn-lg" style="background: #25D366; width: 100%; max-width: 400px;">
+          💬 Escríbenos por WhatsApp
+        </a>
+        <p style="margin-top: 8px; color: var(--gray);">Respuesta en menos de 1 hora en horario laboral</p>
+      </div>
+
+      <form action="/api/contact" method="POST" style="background: var(--white); padding: 32px; border-radius: var(--radius); box-shadow: var(--shadow);">
+        <div class="form-group">
+          <label for="name">Nombre completo</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Teléfono (opcional)</label>
+          <input type="tel" id="phone" name="phone" />
+        </div>
+        <div class="form-group">
+          <label for="message">Mensaje</label>
+          <textarea id="message" name="message" required placeholder="¿En qué podemos ayudarte?"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Enviar mensaje</button>
+      </form>
+
+      <div style="text-align: center; margin-top: 32px; color: var(--gray);">
+        <p>📧 <a href="mailto:soporte@trustparatodos.com">soporte@trustparatodos.com</a></p>
+        <p>Horario: Lun-Vie 9:00 AM - 6:00 PM (hora del centro)</p>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

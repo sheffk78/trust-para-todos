@@ -390,6 +390,21 @@ h1, h2, h3, h4 {
     radial-gradient(ellipse 50% 40% at 70% 30%, rgba(0,0,0,0.08) 0%, transparent 50%);
   pointer-events: none;
 }
+.cta-section::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 40%;
+  background-image: url('/images/hero-legacy.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+  mask-image: linear-gradient(to left, black 0%, transparent 80%);
+  -webkit-mask-image: linear-gradient(to left, black 0%, transparent 80%);
+  pointer-events: none;
+}
 .cta-inner {
   position: relative;
   z-index: 1;

@@ -17,9 +17,33 @@ from pathlib import Path
 
 logger = logging.getLogger("trust_para_todos.routes.orders")
 
-router = APIRouter()
+# Find Chrome/Chromium for PDF generation
+def _find_chrome() -> str:
+    """Find Chrome or Chromium binary, checking common paths."""
+    candidates = [
+        "/usr/bin/chromium-browser",
+        "/usr/bin/chromium",
+        "/snap/bin/chromium",
+        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "/Applications/Chromium.app/Contents/MacOS/Chromium",
+    ]
+    for path in candidates:
+        if os.path.exists(path):
+            return path
+    # Try which
+    try:
+        result = subprocess.run(["which", "chromium-browser", "chromium", "google-chrome", "google-chrome-stable"],
+                               capture_output=True, text=True, timeout=5)
+        for line in result.stdout.strip().split("\n"):
+            if line and os.path.exists(line):
+                return line
+    except Exception:
+        pass
+    return ""
 
-CHROME_PATH = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+CHROME_PATH = _find_chrome()
+
+router = APIRouter()
 OUTPUT_DIR = Path(__file__).parent.parent / "generated_docs"
 
 # Map document generator keys to DocumentType enum

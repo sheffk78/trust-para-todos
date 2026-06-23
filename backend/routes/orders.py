@@ -165,7 +165,7 @@ async def create_order_direct(data: OrderCreateRequest, db: AsyncSession = Depen
 
     OUTPUT_DIR = Path(__file__).parent.parent / "generated_docs"
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    CHROME_PATH = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+    CHROME_PATH = _find_chrome()
 
     customer_data = {
         "settlor_1_full_name": data.settlor_1_full_name,

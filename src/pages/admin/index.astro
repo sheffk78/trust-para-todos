@@ -1,8 +1,10 @@
 ---
 import AdminLayout from '../../layouts/AdminLayout.astro';
+import { getLocaleFromCookie, t } from '../../lib/i18n';
+const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
 ---
 
-<AdminLayout title="Dashboard">
+<AdminLayout title={t('dashboard.title', locale)}>
   <style>
     .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px; }
     .stat-card {
@@ -77,21 +79,21 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     .error-state { text-align: center; padding: 60px; color: #991b1b; }
   </style>
 
-  <div id="dashboard-loading" class="loading">Cargando dashboard...</div>
+  <div id="dashboard-loading" class="loading" data-i18n="dashboard.loading">{t('dashboard.loading', locale)}</div>
   <div id="dashboard-error" class="error-state" style="display:none;"></div>
   <div id="dashboard-content" style="display:none;">
     <div class="stats-grid" id="stats-grid"></div>
     <div class="section-card">
-      <h2>Órdenes Recientes</h2>
+      <h2 data-i18n="dashboard.recent_orders">{t('dashboard.recent_orders', locale)}</h2>
       <table class="order-table" id="recent-orders">
         <thead>
           <tr>
-            <th>Cliente</th>
-            <th>Email</th>
-            <th>Plan</th>
-            <th>Monto</th>
-            <th>Estado</th>
-            <th>Fecha</th>
+            <th data-i18n="orders.customer">{t('orders.customer', locale)}</th>
+            <th data-i18n="orders.email">{t('orders.email', locale)}</th>
+            <th data-i18n="orders.plan">{t('orders.plan', locale)}</th>
+            <th data-i18n="orders.amount">{t('orders.amount', locale)}</th>
+            <th data-i18n="orders.status">{t('orders.status', locale)}</th>
+            <th data-i18n="orders.date">{t('orders.date', locale)}</th>
           </tr>
         </thead>
         <tbody id="recent-orders-body"></tbody>
@@ -100,62 +102,61 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   </div>
 
   <script>
+    const LOCALE = '{locale}';
+    const i18n = (window as any).__i18n || { t: (k: string) => k, getLocale: () => 'es' };
+
     async function loadDashboard() {
       try {
         const res = await fetch('/api/admin/stats');
         if (!res.ok) {
           if (res.status === 401) { window.location.href = '/admin/login'; return; }
-          throw new Error('Error al cargar');
+          throw new Error(i18n.t('dashboard.error', LOCALE));
         }
         const data = await res.json();
 
         document.getElementById('dashboard-loading').style.display = 'none';
         document.getElementById('dashboard-content').style.display = 'block';
 
-        // Stats cards
         const statsGrid = document.getElementById('stats-grid');
-        const formatCurrency = (cents) => `$${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+        const formatCurrency = (cents: number) => `$${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
         
         statsGrid.innerHTML = `
           <div class="stat-card teal">
-            <div class="stat-label">Total Órdenes</div>
+            <div class="stat-label">${i18n.t('dashboard.total_orders', LOCALE)}</div>
             <div class="stat-value">${data.total_orders}</div>
           </div>
           <div class="stat-card">
-            <div class="stat-label">Órdenes Hoy</div>
+            <div class="stat-label">${i18n.t('dashboard.orders_today', LOCALE)}</div>
             <div class="stat-value">${data.orders_today}</div>
           </div>
           <div class="stat-card terracotta">
-            <div class="stat-label">Pendientes</div>
+            <div class="stat-label">${i18n.t('dashboard.pending', LOCALE)}</div>
             <div class="stat-value">${data.pending_fulfillment}</div>
           </div>
           <div class="stat-card teal">
-            <div class="stat-label">Ingresos</div>
+            <div class="stat-label">${i18n.t('dashboard.revenue', LOCALE)}</div>
             <div class="stat-value">$${Number(data.revenue).toLocaleString('en-US', { minimumFractionDigits: 2 })}</div>
           </div>
         `;
 
-        // Recent orders
         const tbody = document.getElementById('recent-orders-body');
-        const statusLabels: Record<string, string> = { pending: 'Pendiente', paid: 'Pagado', fulfilling: 'En proceso', complete: 'Completo' };
-        const planLabels: Record<string, string> = { base: 'Base', completo: 'Completo' };
-        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;');
 
         tbody.innerHTML = data.recent_orders.map((o: any) => `
           <tr onclick="window.location='/admin/orders/${esc(o.id)}'" style="cursor:pointer;">
             <td><strong>${esc(o.customer_name)}</strong></td>
             <td>${esc(o.customer_email)}</td>
-            <td><span class="plan-badge ${esc(o.plan_type)}">${planLabels[o.plan_type] || esc(o.plan_type)}</span></td>
+            <td><span class="plan-badge ${esc(o.plan_type)}">${i18n.t('plan.' + o.plan_type, LOCALE)}</span></td>
             <td>${formatCurrency(o.amount)}</td>
-            <td><span class="status-badge ${esc(o.status)}">${statusLabels[o.status] || esc(o.status)}</span></td>
-            <td>${new Date(o.created_at).toLocaleDateString('es-MX')}</td>
+            <td><span class="status-badge ${esc(o.status)}">${i18n.t('status.' + o.status, LOCALE)}</span></td>
+            <td>${new Date(o.created_at).toLocaleDateString(LOCALE === 'en' ? 'en-US' : 'es-MX')}</td>
           </tr>
         `).join('');
       } catch (e: any) {
         document.getElementById('dashboard-loading').style.display = 'none';
         const errorEl = document.getElementById('dashboard-error');
         errorEl.style.display = 'block';
-        errorEl.textContent = 'Error: ' + e.message;
+        errorEl.textContent = i18n.t('dashboard.error', LOCALE) + ': ' + e.message;
       }
     }
 

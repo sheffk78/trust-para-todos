@@ -1,8 +1,10 @@
 ---
 import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { getLocaleFromCookie, t } from '../../../lib/i18n';
+const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
 ---
 
-<AdminLayout title="Customer Detail">
+<AdminLayout title={t('customer.title', locale)}>
   <style>
     .back-link {
       display: inline-flex;
@@ -90,34 +92,34 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
     .error-state { text-align: center; padding: 60px; color: #991b1b; }
   </style>
 
-  <a href="/admin/customers" class="back-link">← Volver a clientes</a>
-  <div id="loading" class="loading">Cargando cliente...</div>
+  <a href="/admin/customers" class="back-link" data-i18n="customer.back">{t('customer.back', locale)}</a>
+  <div id="loading" class="loading" data-i18n="customers.loading">{t('customers.loading', locale)}</div>
   <div id="error-state" class="error-state" style="display:none;"></div>
   <div id="detail-content" style="display:none;">
     <div class="detail-grid">
       <div class="section-card">
-        <h2>Información del Cliente</h2>
+        <h2 data-i18n="customer.info">{t('customer.info', locale)}</h2>
         <div id="customer-info"></div>
       </div>
       <div class="section-card">
-        <h2>Cuestionario</h2>
+        <h2 data-i18n="customers.title">{t('customers.title', locale)}</h2>
         <div id="questionnaire-info">
-          <p style="color:var(--text-muted); font-size:0.85rem;">Sin respuestas de cuestionario.</p>
+          <p style="color:var(--text-muted); font-size:0.85rem;" data-i18n="customers.no_results">{t('customers.no_results', locale)}</p>
         </div>
       </div>
     </div>
 
     <div class="section-card">
-      <h2>Historial de Órdenes</h2>
+      <h2 data-i18n="customer.order_history">{t('customer.order_history', locale)}</h2>
       <table class="order-table">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Plan</th>
-            <th>Monto</th>
-            <th>Estado</th>
-            <th>Documentos</th>
-            <th>Fecha</th>
+            <th data-i18n="orders.plan">{t('orders.plan', locale)}</th>
+            <th data-i18n="orders.amount">{t('orders.amount', locale)}</th>
+            <th data-i18n="orders.status">{t('orders.status', locale)}</th>
+            <th data-i18n="order.documents">{t('order.documents', locale)}</th>
+            <th data-i18n="orders.date">{t('orders.date', locale)}</th>
           </tr>
         </thead>
         <tbody id="orders-body"></tbody>
@@ -126,6 +128,8 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
   </div>
 
   <script>
+    const LOCALE = '{locale}';
+    const i18n = (window as any).__i18n || { t: (k: string) => k, getLocale: () => 'es' };
     const customerId = window.location.pathname.split('/').pop();
 
     async function loadCustomer() {
@@ -139,20 +143,15 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 
         const customer = data.customer;
         const formatCurrency = (cents) => `$${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
-        const statusLabels: Record<string, string> = { pending: 'Pendiente', paid: 'Pagado', fulfilling: 'En proceso', complete: 'Completo' };
-        const planLabels: Record<string, string> = { base: 'Trust Para Todos', completo: 'Paquete Completo' };
-        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;');
 
-        // Customer info
         document.getElementById('customer-info').innerHTML = `
-          <div class="info-row"><span class="label">Nombre</span><span class="value">${esc(customer.name)}</span></div>
-          <div class="info-row"><span class="label">Email</span><span class="value">${esc(customer.email)}</span></div>
-          <div class="info-row"><span class="label">Teléfono</span><span class="value">${esc(customer.phone) || '—'}</span></div>
-          <div class="info-row"><span class="label">Visa</span><span class="value">${esc(customer.visa_type) || '—'}</span></div>
-          <div class="info-row"><span class="label">Registrado</span><span class="value">${new Date(customer.created_at).toLocaleString('es-MX')}</span></div>
+          <div class="info-row"><span class="label">${i18n.t('customers.name', LOCALE)}</span><span class="value">${esc(customer.name)}</span></div>
+          <div class="info-row"><span class="label">${i18n.t('customers.email', LOCALE)}</span><span class="value">${esc(customer.email)}</span></div>
+          <div class="info-row"><span class="label">${i18n.t('customers.phone', LOCALE)}</span><span class="value">${esc(customer.phone) || '—'}</span></div>
+          <div class="info-row"><span class="label">${i18n.t('customers.registered', LOCALE)}</span><span class="value">${new Date(customer.created_at).toLocaleString(LOCALE === 'en' ? 'en-US' : 'es-MX')}</span></div>
         `;
 
-        // Questionnaire
         const qResponses = data.questionnaire_responses || [];
         if (qResponses.length > 0) {
           const latest = qResponses[0];
@@ -169,17 +168,16 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
           `).join('');
         }
 
-        // Orders
         const orders = data.orders || [];
         const tbody = document.getElementById('orders-body');
         tbody.innerHTML = orders.map((o: any) => `
           <tr onclick="window.location='/admin/orders/${esc(o.id)}'">
             <td style="font-family:monospace; font-size:0.8rem;">${esc(o.id.substring(0, 8))}...</td>
-            <td><span class="plan-badge ${esc(o.plan_type)}">${planLabels[o.plan_type] || esc(o.plan_type)}</span></td>
+            <td><span class="plan-badge ${esc(o.plan_type)}">${i18n.t('plan.' + o.plan_type, LOCALE)}</span></td>
             <td>${formatCurrency(o.amount)}</td>
-            <td><span class="status-badge ${esc(o.status)}">${statusLabels[o.status] || esc(o.status)}</span></td>
-            <td>${o.document_count || 0} docs</td>
-            <td>${new Date(o.created_at).toLocaleDateString('es-MX')}</td>
+            <td><span class="status-badge ${esc(o.status)}">${i18n.t('status.' + o.status, LOCALE)}</span></td>
+            <td>${o.document_count || 0} ${i18n.t('order.documents', LOCALE)}</td>
+            <td>${new Date(o.created_at).toLocaleDateString(LOCALE === 'en' ? 'en-US' : 'es-MX')}</td>
           </tr>
         `).join('');
       } catch (e: any) {

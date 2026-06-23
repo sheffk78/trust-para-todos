@@ -5,10 +5,12 @@ export interface Props {
 }
 const { title, description } = Astro.props;
 import '../styles/global.css';
+import { getLocaleFromCookie } from '../lib/i18n';
+const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
 ---
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -93,6 +95,28 @@ import '../styles/global.css';
       .logout-btn { color: rgba(221,112,84,0.6) !important; }
       .logout-btn:hover { color: var(--terracotta) !important; }
 
+      /* Language toggle */
+      .lang-toggle {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        background: var(--cream);
+        border: 1px solid var(--cream-dark);
+        border-radius: 100px;
+        cursor: pointer;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--dark);
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+      .lang-toggle:hover {
+        background: var(--cream-dark);
+        transform: translateY(-1px);
+      }
+
       /* Mobile sidebar overlay */
       .mobile-sidebar-toggle {
         display: none;
@@ -166,22 +190,22 @@ import '../styles/global.css';
       <aside class="admin-sidebar">
         <div class="admin-sidebar-header">
           <h2>Trust Para Todos</h2>
-          <p>Admin Panel</p>
+          <p data-i18n="nav.admin_panel">Panel de Administración</p>
         </div>
         <nav class="admin-nav">
           <a href="/admin" class:list={{ active: Astro.url.pathname === '/admin' }}>
-            <span class="nav-icon">📊</span> Dashboard
+            <span class="nav-icon">📊</span> <span data-i18n="nav.dashboard">Dashboard</span>
           </a>
           <a href="/admin/orders" class:list={{ active: Astro.url.pathname.startsWith('/admin/orders') }}>
-            <span class="nav-icon">📋</span> Orders
+            <span class="nav-icon">📋</span> <span data-i18n="nav.orders">Órdenes</span>
           </a>
           <a href="/admin/customers" class:list={{ active: Astro.url.pathname.startsWith('/admin/customers') }}>
-            <span class="nav-icon">👥</span> Customers
+            <span class="nav-icon">👥</span> <span data-i18n="nav.customers">Clientes</span>
           </a>
         </nav>
         <div class="admin-sidebar-footer">
-          <a href="/">← Volver al sitio</a>
-          <a href="/api/admin/logout" class="logout-btn" style="cursor:pointer;">🚪 Cerrar Sesión</a>
+          <a href="/"><span data-i18n="nav.back_to_site">← Volver al sitio</span></a>
+          <a href="/api/admin/logout" class="logout-btn" style="cursor:pointer;">🚪 <span data-i18n="nav.logout">Cerrar Sesión</span></a>
         </div>
       </aside>
 
@@ -191,24 +215,24 @@ import '../styles/global.css';
         <div class="admin-sidebar-header" style="display:flex; justify-content:space-between; align-items:center;">
           <div>
             <h2>Trust Para Todos</h2>
-            <p>Admin Panel</p>
+            <p data-i18n="nav.admin_panel">Panel de Administración</p>
           </div>
           <button onclick="closeMobileSidebar()" style="background:none; border:none; color:rgba(255,255,255,0.6); font-size:1.5rem; cursor:pointer;">✕</button>
         </div>
         <nav class="admin-nav">
           <a href="/admin" onclick="closeMobileSidebar()">
-            <span class="nav-icon">📊</span> Dashboard
+            <span class="nav-icon">📊</span> <span data-i18n="nav.dashboard">Dashboard</span>
           </a>
           <a href="/admin/orders" onclick="closeMobileSidebar()">
-            <span class="nav-icon">📋</span> Orders
+            <span class="nav-icon">📋</span> <span data-i18n="nav.orders">Órdenes</span>
           </a>
           <a href="/admin/customers" onclick="closeMobileSidebar()">
-            <span class="nav-icon">👥</span> Customers
+            <span class="nav-icon">👥</span> <span data-i18n="nav.customers">Clientes</span>
           </a>
         </nav>
         <div class="admin-sidebar-footer">
-          <a href="/" onclick="closeMobileSidebar()">← Volver al sitio</a>
-          <a href="/api/admin/logout" class="logout-btn" style="cursor:pointer;">🚪 Cerrar Sesión</a>
+          <a href="/" onclick="closeMobileSidebar()"><span data-i18n="nav.back_to_site">← Volver al sitio</span></a>
+          <a href="/api/admin/logout" class="logout-btn" style="cursor:pointer;">🚪 <span data-i18n="nav.logout">Cerrar Sesión</span></a>
         </div>
       </aside>
 
@@ -216,6 +240,10 @@ import '../styles/global.css';
         <div class="admin-topbar">
           <button class="mobile-sidebar-toggle" onclick="openMobileSidebar()" aria-label="Menú">☰</button>
           <h1>{title}</h1>
+          <button class="lang-toggle" onclick="toggleLanguage()" id="lang-toggle">
+            <span id="lang-icon">{locale === 'en' ? '🇲🇽' : '🇺🇸'}</span>
+            <span id="lang-label">{locale === 'en' ? 'Español' : 'English'}</span>
+          </button>
         </div>
         <div class="admin-content">
           <slot />
@@ -224,6 +252,14 @@ import '../styles/global.css';
     </div>
 
     <script>
+      const LOCALE = '{locale}';
+
+      function toggleLanguage() {
+        const newLang = LOCALE === 'es' ? 'en' : 'es';
+        document.cookie = `tpt_lang=${newLang}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
+        window.location.reload();
+      }
+
       function openMobileSidebar() {
         document.getElementById('mobile-sidebar').classList.add('open');
         document.getElementById('sidebar-overlay').classList.add('open');

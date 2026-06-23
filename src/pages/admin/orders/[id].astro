@@ -1,8 +1,10 @@
 ---
 import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { getLocaleFromCookie, t } from '../../../lib/i18n';
+const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
 ---
 
-<AdminLayout title="Order Detail">
+<AdminLayout title={t('order.title', locale)}>
   <style>
     .back-link {
       display: inline-flex;
@@ -63,7 +65,6 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
     .status-badge.ready { background: #e6f7e6; color: #166534; }
     .status-badge.error { background: #fef2f2; color: #991b1b; }
 
-    /* Fulfillment tracker */
     .fulfillment-tracker { position: relative; padding-left: 32px; }
     .fulfillment-tracker::before {
       content: '';
@@ -94,7 +95,6 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
     .fulfillment-step .step-name { font-weight: 600; font-size: 0.9rem; color: var(--dark); }
     .fulfillment-step .step-meta { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
 
-    /* Documents */
     .doc-item {
       display: flex;
       justify-content: space-between;
@@ -126,45 +126,47 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
     .error-state { text-align: center; padding: 60px; color: #991b1b; }
   </style>
 
-  <a href="/admin/orders" class="back-link">← Volver a órdenes</a>
-  <div id="loading" class="loading">Cargando orden...</div>
+  <a href="/admin/orders" class="back-link" data-i18n="order.back">{t('order.back', locale)}</a>
+  <div id="loading" class="loading" data-i18n="orders.loading">{t('orders.loading', locale)}</div>
   <div id="error-state" class="error-state" style="display:none;"></div>
   <div id="detail-content" style="display:none;">
     <div class="detail-grid">
       <div class="section-card">
-        <h2>Información de la Orden</h2>
+        <h2 data-i18n="order.title">{t('order.title', locale)}</h2>
         <div id="order-info"></div>
       </div>
       <div class="section-card">
-        <h2>Cliente</h2>
+        <h2 data-i18n="order.customer_info">{t('order.customer_info', locale)}</h2>
         <div id="customer-info"></div>
       </div>
     </div>
 
     <div class="section-card" style="margin-bottom:24px;">
-      <h2>Estado de Cumplimiento</h2>
+      <h2 data-i18n="order.fulfillment">{t('order.fulfillment', locale)}</h2>
       <div class="fulfillment-tracker" id="fulfillment-steps"></div>
     </div>
 
     <div class="section-card" style="margin-bottom:24px;">
-      <h2>Documentos</h2>
+      <h2 data-i18n="order.documents">{t('order.documents', locale)}</h2>
       <div id="documents-list">
-        <p style="color:var(--text-muted); font-size:0.85rem;">No hay documentos generados.</p>
+        <p style="color:var(--text-muted); font-size:0.85rem;" data-i18n="order.documents">{t('order.documents', locale)}</p>
       </div>
     </div>
 
     <div class="action-bar">
-      <button class="btn btn-primary" onclick="generateDocs()">🔄 Regenerar Documentos</button>
+      <button class="btn btn-primary" onclick="generateDocs()" data-i18n="order.generate_docs">{t('order.generate_docs', locale)}</button>
     </div>
   </div>
 
   <script>
+    const LOCALE = '{locale}';
+    const i18n = (window as any).__i18n || { t: (k: string) => k, getLocale: () => 'es' };
     const orderId = window.location.pathname.split('/').pop();
 
     async function loadOrder() {
       try {
         const res = await fetch(`/api/orders/${orderId}`);
-        if (!res.ok) { if (res.status === 401) { window.location.href = '/admin/login'; return; } throw new Error('Error al cargar'); }
+        if (!res.ok) { if (res.status === 401) { window.location.href = '/admin/login'; return; } throw new Error('Error'); }
         const data = await res.json();
 
         document.getElementById('loading').style.display = 'none';
@@ -172,45 +174,28 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 
         const order = data.order;
         const formatCurrency = (cents) => `$${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
-        const statusLabels: Record<string, string> = { pending: 'Pendiente', paid: 'Pagado', fulfilling: 'En proceso', complete: 'Completo' };
-        const planLabels: Record<string, string> = { base: 'Trust Para Todos', completo: 'Paquete Completo' };
+        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;');
 
-        // Order info
         document.getElementById('order-info').innerHTML = `
           <div class="info-row"><span class="label">ID</span><span class="value">${order.id.substring(0, 8)}...</span></div>
-          <div class="info-row"><span class="label">Plan</span><span class="value">${planLabels[order.plan_type] || order.plan_type}</span></div>
-          <div class="info-row"><span class="label">Monto</span><span class="value">${formatCurrency(order.amount)}</span></div>
-          <div class="info-row"><span class="label">Estado</span><span class="value"><span class="status-badge ${order.status}">${statusLabels[order.status] || order.status}</span></span></div>
-          <div class="info-row"><span class="label">Creada</span><span class="value">${new Date(order.created_at).toLocaleString('es-MX')}</span></div>
-          <div class="info-row"><span class="label">Actualizada</span><span class="value">${new Date(order.updated_at).toLocaleString('es-MX')}</span></div>
+          <div class="info-row"><span class="label">${i18n.t('orders.plan', LOCALE)}</span><span class="value">${i18n.t('order.plan_' + order.plan_type, LOCALE)}</span></div>
+          <div class="info-row"><span class="label">${i18n.t('orders.amount', LOCALE)}</span><span class="value">${formatCurrency(order.amount)}</span></div>
+          <div class="info-row"><span class="label">${i18n.t('orders.status', LOCALE)}</span><span class="value"><span class="status-badge ${order.status}">${i18n.t('status.' + order.status, LOCALE)}</span></span></div>
+          <div class="info-row"><span class="label">${i18n.t('order.created', LOCALE)}</span><span class="value">${new Date(order.created_at).toLocaleString(LOCALE === 'en' ? 'en-US' : 'es-MX')}</span></div>
+          <div class="info-row"><span class="label">${i18n.t('order.updated', LOCALE)}</span><span class="value">${new Date(order.updated_at).toLocaleString(LOCALE === 'en' ? 'en-US' : 'es-MX')}</span></div>
         `;
 
-        // Customer info
         document.getElementById('customer-info').innerHTML = `
-          <div class="info-row"><span class="label">Nombre</span><span class="value">${order.customer_name}</span></div>
-          <div class="info-row"><span class="label">Email</span><span class="value">${order.customer_email}</span></div>
-          <div class="info-row"><span class="label">Teléfono</span><span class="value">${order.customer_phone || '—'}</span></div>
+          <div class="info-row"><span class="label">${i18n.t('customers.name', LOCALE)}</span><span class="value">${order.customer_name}</span></div>
+          <div class="info-row"><span class="label">${i18n.t('customers.email', LOCALE)}</span><span class="value">${order.customer_email}</span></div>
+          <div class="info-row"><span class="label">${i18n.t('customers.phone', LOCALE)}</span><span class="value">${order.customer_phone || '—'}</span></div>
         `;
 
-        // Fulfillment steps
         const steps = data.fulfillment_steps || [];
-        const stepLabels: Record<string, string> = {
-          payment_confirmed: 'Pago confirmado',
-          document_generation: 'Generación de documentos',
-          ein_filing: 'Trámite de EIN',
-          notary_scheduling: 'Cita notarial',
-          welcome_email: 'Correo de bienvenida',
-          final_delivery: 'Entrega final',
-        };
         const stepIcons: Record<string, string> = {
           payment_confirmed: '💳', document_generation: '📄', ein_filing: '🔢',
           notary_scheduling: '📅', welcome_email: '📧', final_delivery: '🎉',
         };
-        const stepStatusLabels: Record<string, string> = {
-          pending: 'Pendiente', in_progress: 'En progreso', completed: 'Completado', failed: 'Falló', skipped: 'Saltado',
-        };
-
-        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 
         const tracker = document.getElementById('fulfillment-steps');
         tracker.innerHTML = steps.map((s: any) => {
@@ -224,39 +209,31 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
           return `
             <div class="fulfillment-step">
               <div class="step-dot" style="background:${dotBg}; color:white;">${dotContent}</div>
-              <div class="step-name">${esc(stepLabels[s.step_name] || s.step_name)}</div>
+              <div class="step-name">${esc(i18n.t('step.' + s.step_name, LOCALE))}</div>
               <div class="step-meta">
-                <span class="status-badge ${esc(s.status)}">${esc(stepStatusLabels[s.status] || s.status)}</span>
-                ${s.completed_at ? ' — ' + new Date(s.completed_at).toLocaleString('es-MX') : ''}
+                <span class="status-badge ${esc(s.status)}">${esc(i18n.t('status.' + s.status, LOCALE))}</span>
+                ${s.completed_at ? ' — ' + new Date(s.completed_at).toLocaleString(LOCALE === 'en' ? 'en-US' : 'es-MX') : ''}
                 ${s.notes ? ' — ' + esc(s.notes) : ''}
               </div>
             </div>
           `;
         }).join('');
 
-        // Documents
         const docs = data.documents || [];
-        const docLabels: Record<string, string> = {
-          trust: 'Trust Document', ilit: 'ILIT', ein: 'EIN', guide: 'Guía',
-        };
-        const docStatusLabels: Record<string, string> = {
-          pending: 'Pendiente', generating: 'Generando...', ready: 'Listo', error: 'Error',
-        };
-
         const docsList = document.getElementById('documents-list');
         if (docs.length === 0) {
-          docsList.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">No hay documentos generados.</p>';
+          docsList.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">' + i18n.t('order.documents', LOCALE) + '</p>';
         } else {
           docsList.innerHTML = docs.map((d: any) => `
             <div class="doc-item">
               <div class="doc-info">
                 <div class="doc-icon">📄</div>
                 <div>
-                  <div class="doc-name">${esc(docLabels[d.document_type] || d.document_type)}</div>
-                  <div class="doc-meta">${new Date(d.created_at).toLocaleString('es-MX')}</div>
+                  <div class="doc-name">${esc(i18n.t('doc.' + d.document_type, LOCALE))}</div>
+                  <div class="doc-meta">${new Date(d.created_at).toLocaleString(LOCALE === 'en' ? 'en-US' : 'es-MX')}</div>
                 </div>
               </div>
-              <span class="status-badge ${esc(d.status)}">${esc(docStatusLabels[d.status] || d.status)}</span>
+              <span class="status-badge ${esc(d.status)}">${esc(i18n.t('doc.' + d.status, LOCALE))}</span>
             </div>
           `).join('');
         }
@@ -269,12 +246,12 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
     }
 
     async function generateDocs() {
-      if (!confirm('¿Regenerar todos los documentos para esta orden?')) return;
+      if (!confirm(i18n.t('order.generate_docs', LOCALE) + '?')) return;
       try {
         const res = await fetch(`/api/orders/${orderId}/generate-docs`, { method: 'POST' });
-        if (!res.ok) throw new Error('Error al generar');
+        if (!res.ok) throw new Error('Error');
         const data = await res.json();
-        alert(`Documentos en generación: ${data.documents?.length || 0}`);
+        alert(i18n.t('order.documents', LOCALE) + ': ' + (data.documents?.length || 0));
         loadOrder();
       } catch (e: any) {
         alert('Error: ' + e.message);

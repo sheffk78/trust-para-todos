@@ -1,8 +1,10 @@
 ---
 import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { getLocaleFromCookie, t } from '../../../lib/i18n';
+const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
 ---
 
-<AdminLayout title="Customers">
+<AdminLayout title={t('customers.title', locale)}>
   <style>
     .toolbar {
       display: flex;
@@ -93,24 +95,23 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 
   <div class="toolbar">
     <div class="search-box">
-      <input type="text" id="search-input" placeholder="Buscar por nombre o email..." />
-      <button class="btn btn-primary btn-sm" onclick="loadCustomers()">Buscar</button>
+      <input type="text" id="search-input" data-i18n="customers.search" placeholder={t('customers.search', locale)} />
+      <button class="btn btn-primary btn-sm" onclick="loadCustomers()" data-i18n="customers.search">{t('customers.search', locale)}</button>
     </div>
   </div>
 
-  <div id="loading" class="loading">Cargando clientes...</div>
-  <div id="empty-state" class="empty-state" style="display:none;">No se encontraron clientes.</div>
+  <div id="loading" class="loading" data-i18n="customers.loading">{t('customers.loading', locale)}</div>
+  <div id="empty-state" class="empty-state" style="display:none;" data-i18n="customers.no_results">{t('customers.no_results', locale)}</div>
 
   <div class="section-card" id="customers-table-container" style="display:none;">
     <table class="customer-table">
       <thead>
         <tr>
-          <th>Nombre</th>
-          <th>Email</th>
-          <th>Teléfono</th>
-          <th>Visa</th>
-          <th>Órdenes</th>
-          <th>Registro</th>
+          <th data-i18n="customers.name">{t('customers.name', locale)}</th>
+          <th data-i18n="customers.email">{t('customers.email', locale)}</th>
+          <th data-i18n="customers.phone">{t('customers.phone', locale)}</th>
+          <th data-i18n="customers.orders">{t('customers.orders', locale)}</th>
+          <th data-i18n="customers.registered">{t('customers.registered', locale)}</th>
         </tr>
       </thead>
       <tbody id="customers-body"></tbody>
@@ -119,6 +120,8 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
   </div>
 
   <script>
+    const LOCALE = '{locale}';
+    const i18n = (window as any).__i18n || { t: (k: string) => k, getLocale: () => 'es' };
     let currentPage = 1;
 
     async function loadCustomers() {
@@ -145,24 +148,23 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
         document.getElementById('customers-table-container').style.display = 'block';
 
         const tbody = document.getElementById('customers-body');
-        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;');
         tbody.innerHTML = data.customers.map((c: any) => `
           <tr onclick="window.location='/admin/customers/${esc(c.id)}'">
             <td><strong>${esc(c.name)}</strong></td>
             <td>${esc(c.email)}</td>
             <td>${esc(c.phone) || '—'}</td>
-            <td>${esc(c.visa_type) || '—'}</td>
-            <td><span class="order-count">${c.order_count} órdenes</span></td>
-            <td>${new Date(c.created_at).toLocaleDateString('es-MX')}</td>
+            <td><span class="order-count">${c.order_count} ${i18n.t('customers.orders', LOCALE)}</span></td>
+            <td>${new Date(c.created_at).toLocaleDateString(LOCALE === 'en' ? 'en-US' : 'es-MX')}</td>
           </tr>
         `).join('');
 
         const totalPages = Math.ceil(data.total / data.limit);
         const pagination = document.getElementById('pagination');
         pagination.innerHTML = `
-          <button onclick="changePage(${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>← Anterior</button>
-          <span>Página ${data.page} de ${totalPages || 1} (${data.total} total)</span>
-          <button onclick="changePage(${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>Siguiente →</button>
+          <button onclick="changePage(${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>← ${i18n.t('orders.all', LOCALE) === 'All' ? 'Previous' : 'Anterior'}</button>
+          <span>${i18n.t('orders.all', LOCALE) === 'All' ? 'Page' : 'Página'} ${data.page} ${i18n.t('orders.all', LOCALE) === 'All' ? 'of' : 'de'} ${totalPages || 1} (${data.total} ${i18n.t('orders.all', LOCALE) === 'All' ? 'total' : 'total'})</span>
+          <button onclick="changePage(${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>${i18n.t('orders.all', LOCALE) === 'All' ? 'Next' : 'Siguiente'} →</button>
         `;
       } catch (e: any) {
         document.getElementById('loading').style.display = 'none';

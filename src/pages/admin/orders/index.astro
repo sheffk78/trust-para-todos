@@ -1,8 +1,10 @@
 ---
 import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { getLocaleFromCookie, t } from '../../../lib/i18n';
+const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
 ---
 
-<AdminLayout title="Orders">
+<AdminLayout title={t('orders.title', locale)}>
   <style>
     .toolbar {
       display: flex;
@@ -116,38 +118,38 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 
   <div class="toolbar">
     <div class="search-box">
-      <input type="text" id="search-input" placeholder="Buscar por nombre o email..." />
-      <button class="btn btn-primary btn-sm" onclick="loadOrders()">Buscar</button>
+      <input type="text" id="search-input" data-i18n="orders.search" placeholder={t('orders.search', locale)} />
+      <button class="btn btn-primary btn-sm" onclick="loadOrders()" data-i18n="orders.search">{t('orders.search', locale)}</button>
     </div>
     <div class="filter-group">
       <select id="status-filter" onchange="loadOrders()">
-        <option value="">Todos los estados</option>
-        <option value="pending">Pendiente</option>
-        <option value="paid">Pagado</option>
-        <option value="fulfilling">En proceso</option>
-        <option value="complete">Completo</option>
+        <option value="" data-i18n="orders.all">{t('orders.all', locale)}</option>
+        <option value="pending" data-i18n="status.pending">{t('status.pending', locale)}</option>
+        <option value="paid" data-i18n="status.paid">{t('status.paid', locale)}</option>
+        <option value="fulfilling" data-i18n="status.fulfilling">{t('status.fulfilling', locale)}</option>
+        <option value="complete" data-i18n="status.complete">{t('status.complete', locale)}</option>
       </select>
       <select id="plan-filter" onchange="loadOrders()">
-        <option value="">Todos los planes</option>
-        <option value="base">Base</option>
-        <option value="completo">Completo</option>
+        <option value="" data-i18n="orders.all">{t('orders.all', locale)}</option>
+        <option value="base" data-i18n="plan.base">{t('plan.base', locale)}</option>
+        <option value="completo" data-i18n="plan.completo">{t('plan.completo', locale)}</option>
       </select>
     </div>
   </div>
 
-  <div id="loading" class="loading">Cargando órdenes...</div>
-  <div id="empty-state" class="empty-state" style="display:none;">No se encontraron órdenes.</div>
+  <div id="loading" class="loading" data-i18n="orders.loading">{t('orders.loading', locale)}</div>
+  <div id="empty-state" class="empty-state" style="display:none;" data-i18n="orders.no_results">{t('orders.no_results', locale)}</div>
 
   <div class="section-card" id="orders-table-container" style="display:none;">
     <table class="order-table">
       <thead>
         <tr>
-          <th>Cliente</th>
-          <th>Email</th>
-          <th>Plan</th>
-          <th>Monto</th>
-          <th>Estado</th>
-          <th>Fecha</th>
+          <th data-i18n="orders.customer">{t('orders.customer', locale)}</th>
+          <th data-i18n="orders.email">{t('orders.email', locale)}</th>
+          <th data-i18n="orders.plan">{t('orders.plan', locale)}</th>
+          <th data-i18n="orders.amount">{t('orders.amount', locale)}</th>
+          <th data-i18n="orders.status">{t('orders.status', locale)}</th>
+          <th data-i18n="orders.date">{t('orders.date', locale)}</th>
         </tr>
       </thead>
       <tbody id="orders-body"></tbody>
@@ -156,6 +158,8 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
   </div>
 
   <script>
+    const LOCALE = '{locale}';
+    const i18n = (window as any).__i18n || { t: (k: string) => k, getLocale: () => 'es' };
     let currentPage = 1;
 
     async function loadOrders() {
@@ -187,29 +191,26 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
         document.getElementById('orders-table-container').style.display = 'block';
 
         const tbody = document.getElementById('orders-body');
-        const statusLabels: Record<string, string> = { pending: 'Pendiente', paid: 'Pagado', fulfilling: 'En proceso', complete: 'Completo' };
-        const planLabels: Record<string, string> = { base: 'Base', completo: 'Completo' };
         const formatCurrency = (cents: number) => `$${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
-        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;');
 
         tbody.innerHTML = data.orders.map((o: any) => `
           <tr onclick="window.location='/admin/orders/${esc(o.id)}'">
             <td><strong>${esc(o.customer_name)}</strong></td>
             <td>${esc(o.customer_email)}</td>
-            <td><span class="plan-badge ${esc(o.plan_type)}">${planLabels[o.plan_type] || esc(o.plan_type)}</span></td>
+            <td><span class="plan-badge ${esc(o.plan_type)}">${i18n.t('plan.' + o.plan_type, LOCALE)}</span></td>
             <td>${formatCurrency(o.amount)}</td>
-            <td><span class="status-badge ${esc(o.status)}">${statusLabels[o.status] || esc(o.status)}</span></td>
-            <td>${new Date(o.created_at).toLocaleDateString('es-MX')}</td>
+            <td><span class="status-badge ${esc(o.status)}">${i18n.t('status.' + o.status, LOCALE)}</span></td>
+            <td>${new Date(o.created_at).toLocaleDateString(LOCALE === 'en' ? 'en-US' : 'es-MX')}</td>
           </tr>
         `).join('');
 
-        // Pagination
         const totalPages = Math.ceil(data.total / data.limit);
         const pagination = document.getElementById('pagination');
         pagination.innerHTML = `
-          <button onclick="changePage(${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>← Anterior</button>
-          <span>Página ${data.page} de ${totalPages || 1} (${data.total} total)</span>
-          <button onclick="changePage(${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>Siguiente →</button>
+          <button onclick="changePage(${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>← ${i18n.t('orders.all', LOCALE) === 'All' ? 'Previous' : 'Anterior'}</button>
+          <span>${i18n.t('orders.all', LOCALE) === 'All' ? 'Page' : 'Página'} ${data.page} ${i18n.t('orders.all', LOCALE) === 'All' ? 'of' : 'de'} ${totalPages || 1} (${data.total} ${i18n.t('orders.all', LOCALE) === 'All' ? 'total' : 'total'})</span>
+          <button onclick="changePage(${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>${i18n.t('orders.all', LOCALE) === 'All' ? 'Next' : 'Siguiente'} →</button>
         `;
       } catch (e: any) {
         document.getElementById('loading').style.display = 'none';

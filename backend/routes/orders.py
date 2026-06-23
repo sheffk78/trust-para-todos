@@ -105,10 +105,10 @@ def html_to_pdf(html_content: str, output_path: str) -> str:
 
 @router.post("/orders/create-direct")
 async def create_order_direct(data: OrderCreateRequest, db: AsyncSession = Depends(get_db)):
-    """Create customer, save questionnaire, create order, generate docs — no payment required.
+    """Create customer, save questionnaire, create order — returns immediately.
     
-    Bypasses Stripe entirely. Marks order as PAID immediately and triggers
-    document generation. Use for testing the full flow without a Stripe account.
+    Document generation runs in the background. The panel page polls
+    /api/orders/{id}/status to see when docs are ready.
     """
     # 1. Create or update customer
     result = await db.execute(select(Customer).where(Customer.email == data.email))
@@ -156,97 +156,114 @@ async def create_order_direct(data: OrderCreateRequest, db: AsyncSession = Depen
     ]
     for s in steps:
         db.add(s)
-    await db.flush()
-
-    # 5. Generate documents immediately
-    from services.document_generator import generate_document, DOCUMENT_NAMES
-    import os, subprocess, tempfile
-    from pathlib import Path
-
-    OUTPUT_DIR = Path(__file__).parent.parent / "generated_docs"
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    CHROME_PATH = _find_chrome()
-
-    customer_data = {
-        "settlor_1_full_name": data.settlor_1_full_name,
-        "settlor_2_full_name": data.settlor_2_full_name,
-        "settlor_1_address": "",
-        "settlor_1_city": "",
-        "governing_state": "California",
-        "county_name": "",
-        "number_of_children": data.number_of_children,
-        "children_names": data.children_names,
-        "first_successor_trustee_name": "",
-        "first_successor_trustee_address": "",
-        "second_successor_trustee_name": "",
-        "second_successor_trustee_address": "",
-        "executor_name": "",
-        "guardian_name": "",
-        "guardian_address": "",
-        "agent_name": "",
-        "healthcare_agent_name": "",
-        "trustee_1_full_name": data.settlor_1_full_name,
-        "trustee_2_full_name": data.settlor_2_full_name,
-        "grantor_name": data.settlor_1_full_name,
-        "trustee_name": data.settlor_1_full_name,
-        "principal_full_name": data.settlor_1_full_name,
-        "major_decision_threshold": "$10,000",
-    }
-
-    doc_types = list(DOCUMENT_NAMES.keys()) if plan == PlanType.COMPLETO else ["revocable_living_trust"]
-    generated = []
-
-    for dt in doc_types:
-        try:
-            html = generate_document(dt, customer_data)
-            doc_name = DOCUMENT_NAMES.get(dt, dt).replace(" ", "_").lower()
-            pdf_path = str(OUTPUT_DIR / f"{order.id}_{doc_name}.pdf")
-
-            with tempfile.NamedTemporaryFile(suffix=".html", delete=False, mode="w") as f:
-                f.write(html)
-                html_path = f.name
-            try:
-                subprocess.run(
-                    [CHROME_PATH, "--headless", "--no-sandbox", "--disable-gpu",
-                     "--disable-dev-shm-usage", f"--print-to-pdf={pdf_path}",
-                     "--print-to-pdf-no-header", "--no-margins", f"file://{html_path}"],
-                    check=True, capture_output=True, timeout=30,
-                )
-            finally:
-                os.unlink(html_path)
-
-            doc = Document(
-                order_id=order.id,
-                document_type=DOC_TYPE_MAP.get(dt, DocumentType.TRUST),
-                status=DocumentStatus.READY,
-                file_path=pdf_path,
-            )
-            db.add(doc)
-            generated.append({"type": dt, "path": pdf_path})
-        except Exception as e:
-            logger.error("Failed to generate %s for order %s: %s", dt, order.id, e)
-            doc = Document(
-                order_id=order.id,
-                document_type=DOC_TYPE_MAP.get(dt, DocumentType.TRUST),
-                status=DocumentStatus.ERROR,
-                file_path=None,
-            )
-            db.add(doc)
-
-    # Mark document generation step as completed
-    step_result = await db.execute(
-        select(FulfillmentStep).where(
-            FulfillmentStep.order_id == order.id,
-            FulfillmentStep.step_name == FulfillmentStepName.DOCUMENT_GENERATION,
-        )
-    )
-    doc_step = step_result.scalar_one_or_none()
-    if doc_step:
-        doc_step.status = FulfillmentStepStatus.COMPLETED
-
     await db.commit()
 
-    logger.info("Direct order created: customer=%s order=%s plan=%s docs=%d", customer.email, order.id, data.plan_type, len(generated))
+    # 5. Spawn background document generation
+    from services.document_generator import generate_document, DOCUMENT_NAMES
+    import os, subprocess, tempfile, asyncio
+    from pathlib import Path
+    from database import AsyncSessionLocal
+
+    async def _generate_docs_background():
+        """Generate documents in background so the API returns instantly."""
+        async with AsyncSessionLocal() as bg_db:
+            try:
+                bg_order = await bg_db.get(Order, order.id)
+                bg_customer = await bg_db.get(Customer, customer.id)
+                if not bg_order or not bg_customer:
+                    logger.error("Background doc gen: order/customer not found")
+                    return
+
+                OUTPUT_DIR = Path(__file__).parent.parent / "generated_docs"
+                OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+                chrome_path = _find_chrome()
+
+                customer_data = {
+                    "settlor_1_full_name": data.settlor_1_full_name,
+                    "settlor_2_full_name": data.settlor_2_full_name,
+                    "settlor_1_address": "",
+                    "settlor_1_city": "",
+                    "governing_state": "California",
+                    "county_name": "",
+                    "number_of_children": data.number_of_children,
+                    "children_names": data.children_names,
+                    "first_successor_trustee_name": "",
+                    "first_successor_trustee_address": "",
+                    "second_successor_trustee_name": "",
+                    "second_successor_trustee_address": "",
+                    "executor_name": "",
+                    "guardian_name": "",
+                    "guardian_address": "",
+                    "agent_name": "",
+                    "healthcare_agent_name": "",
+                    "trustee_1_full_name": data.settlor_1_full_name,
+                    "trustee_2_full_name": data.settlor_2_full_name,
+                    "grantor_name": data.settlor_1_full_name,
+                    "trustee_name": data.settlor_1_full_name,
+                    "principal_full_name": data.settlor_1_full_name,
+                    "major_decision_threshold": "$10,000",
+                }
+
+                doc_types = list(DOCUMENT_NAMES.keys()) if plan == PlanType.COMPLETO else ["revocable_living_trust"]
+                generated = []
+
+                for dt in doc_types:
+                    try:
+                        html = generate_document(dt, customer_data)
+                        doc_name = DOCUMENT_NAMES.get(dt, dt).replace(" ", "_").lower()
+                        pdf_path = str(OUTPUT_DIR / f"{order.id}_{doc_name}.pdf")
+
+                        with tempfile.NamedTemporaryFile(suffix=".html", delete=False, mode="w") as f:
+                            f.write(html)
+                            html_path = f.name
+                        try:
+                            subprocess.run(
+                                [chrome_path, "--headless", "--no-sandbox", "--disable-gpu",
+                                 "--disable-dev-shm-usage", f"--print-to-pdf={pdf_path}",
+                                 "--print-to-pdf-no-header", "--no-margins", f"file://{html_path}"],
+                                check=True, capture_output=True, timeout=30,
+                            )
+                        finally:
+                            os.unlink(html_path)
+
+                        doc = Document(
+                            order_id=order.id,
+                            document_type=DOC_TYPE_MAP.get(dt, DocumentType.TRUST),
+                            status=DocumentStatus.READY,
+                            file_path=pdf_path,
+                        )
+                        bg_db.add(doc)
+                        generated.append({"type": dt, "path": pdf_path})
+                    except Exception as e:
+                        logger.error("Failed to generate %s for order %s: %s", dt, order.id, e)
+                        doc = Document(
+                            order_id=order.id,
+                            document_type=DOC_TYPE_MAP.get(dt, DocumentType.TRUST),
+                            status=DocumentStatus.ERROR,
+                            file_path=None,
+                        )
+                        bg_db.add(doc)
+
+                # Mark document generation step as completed
+                step_result = await bg_db.execute(
+                    select(FulfillmentStep).where(
+                        FulfillmentStep.order_id == order.id,
+                        FulfillmentStep.step_name == FulfillmentStepName.DOCUMENT_GENERATION,
+                    )
+                )
+                doc_step = step_result.scalar_one_or_none()
+                if doc_step:
+                    doc_step.status = FulfillmentStepStatus.COMPLETED
+
+                await bg_db.commit()
+                logger.info("Background doc gen complete: order=%s docs=%d", order.id, len(generated))
+            except Exception as e:
+                logger.error("Background doc gen failed for order %s: %s", order.id, e)
+                await bg_db.rollback()
+
+    asyncio.create_task(_generate_docs_background())
+
+    logger.info("Direct order created (async): customer=%s order=%s plan=%s", customer.email, order.id, data.plan_type)
 
     return {
         "order_id": order.id,
@@ -254,8 +271,8 @@ async def create_order_direct(data: OrderCreateRequest, db: AsyncSession = Depen
         "customer_email": customer.email,
         "plan_type": plan.value,
         "status": "paid",
-        "documents_generated": len(generated),
-        "documents": generated,
+        "documents_generated": 0,
+        "documents": [],
         "panel_url": f"/panel?email={customer.email}",
     }
 

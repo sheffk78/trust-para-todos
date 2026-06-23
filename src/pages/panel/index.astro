@@ -389,12 +389,27 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     }
   }
 
+  let statusPollInterval = null;
+
   async function loadOrderStatus(orderId) {
     try {
       const res = await fetch(`${API_BASE}/api/orders/${orderId}/status`);
       const data = await res.json();
       renderSteps(data.steps || []);
       renderDocuments(data.documents || []);
+
+      // Check if document generation is still in progress — poll if so
+      const docStep = (data.steps || []).find(s => s.name === 'document_generation');
+      if (docStep && docStep.status === 'in_progress') {
+        // Poll every 5 seconds until docs are ready
+        if (statusPollInterval) clearInterval(statusPollInterval);
+        statusPollInterval = setInterval(() => loadOrderStatus(orderId), 5000);
+      } else {
+        if (statusPollInterval) {
+          clearInterval(statusPollInterval);
+          statusPollInterval = null;
+        }
+      }
     } catch (e) {
       loadDemoStatus();
     }

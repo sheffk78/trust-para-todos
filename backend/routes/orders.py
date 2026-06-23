@@ -75,13 +75,16 @@ class OrderCreateRequest(BaseModel):
 
 
 def html_to_pdf(html_content: str, output_path: str) -> str:
-    """Convert HTML to PDF using headless Chrome."""
+    """Convert HTML to PDF using headless Chrome (with container-safe flags)."""
+    if not CHROME_PATH:
+        raise RuntimeError("No Chrome/Chromium binary found. Cannot generate PDFs.")
     with tempfile.NamedTemporaryFile(suffix=".html", delete=False, mode="w") as f:
         f.write(html_content)
         html_path = f.name
     try:
         subprocess.run(
-            [CHROME_PATH, "--headless", f"--print-to-pdf={output_path}",
+            [CHROME_PATH, "--headless", "--no-sandbox", "--disable-gpu",
+             "--disable-dev-shm-usage", f"--print-to-pdf={output_path}",
              "--print-to-pdf-no-header", "--no-margins", f"file://{html_path}"],
             check=True, capture_output=True, timeout=30,
         )
@@ -194,7 +197,8 @@ async def create_order_direct(data: OrderCreateRequest, db: AsyncSession = Depen
                 html_path = f.name
             try:
                 subprocess.run(
-                    [CHROME_PATH, "--headless", f"--print-to-pdf={pdf_path}",
+                    [CHROME_PATH, "--headless", "--no-sandbox", "--disable-gpu",
+                     "--disable-dev-shm-usage", f"--print-to-pdf={pdf_path}",
                      "--print-to-pdf-no-header", "--no-margins", f"file://{html_path}"],
                     check=True, capture_output=True, timeout=30,
                 )

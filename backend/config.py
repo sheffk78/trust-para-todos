@@ -87,6 +87,7 @@ class Settings(BaseSettings):
     # ---- Auth (stub) ----
     AUTH_SECRET: str = "change-me-in-production"
     AUTH_CODE_TTL_SECONDS: int = 600  # 10 minutes
+    ADMIN_PASSWORD: str = ""  # Must be set in production
 
     # ---- Pricing (mirror of frontend; kept in sync for validation) ----
     PLAN_BASE_PRICE_CENTS: int = 99_700   # $997.00

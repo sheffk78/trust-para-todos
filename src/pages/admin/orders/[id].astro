@@ -1,0 +1,286 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Order Detail">
+  <style>
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+    }
+    .back-link:hover { color: var(--teal); }
+
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+    @media (max-width: 768px) { .detail-grid { grid-template-columns: 1fr; } }
+
+    .section-card {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .section-card h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.1rem;
+      color: var(--dark);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--cream-warm);
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row .label { color: var(--text-muted); font-weight: 500; }
+    .info-row .value { color: var(--dark); font-weight: 600; }
+
+    .status-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+    .status-badge.pending { background: #fef9e7; color: #92400e; }
+    .status-badge.paid { background: #e6f7e6; color: #166534; }
+    .status-badge.fulfilling { background: #e6f2f4; color: #04707e; }
+    .status-badge.complete { background: #e6f7e6; color: #166534; }
+    .status-badge.in_progress { background: #e6f2f4; color: #04707e; }
+    .status-badge.completed { background: #e6f7e6; color: #166534; }
+    .status-badge.skipped { background: #f4f2eb; color: #7a7a88; }
+    .status-badge.failed { background: #fef2f2; color: #991b1b; }
+    .status-badge.generating { background: #e6f2f4; color: #04707e; }
+    .status-badge.ready { background: #e6f7e6; color: #166534; }
+    .status-badge.error { background: #fef2f2; color: #991b1b; }
+
+    /* Fulfillment tracker */
+    .fulfillment-tracker { position: relative; padding-left: 32px; }
+    .fulfillment-tracker::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--cream-dark);
+    }
+    .fulfillment-step {
+      position: relative;
+      padding: 12px 0 12px 20px;
+    }
+    .fulfillment-step .step-dot {
+      position: absolute;
+      left: -25px;
+      top: 14px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      z-index: 1;
+    }
+    .fulfillment-step .step-name { font-weight: 600; font-size: 0.9rem; color: var(--dark); }
+    .fulfillment-step .step-meta { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* Documents */
+    .doc-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--cream-warm);
+    }
+    .doc-item:last-child { border-bottom: none; }
+    .doc-info { display: flex; align-items: center; gap: 10px; }
+    .doc-icon {
+      width: 36px; height: 36px;
+      background: var(--teal-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+    .doc-name { font-weight: 600; font-size: 0.85rem; color: var(--dark); }
+    .doc-meta { font-size: 0.8rem; color: var(--text-muted); }
+
+    .action-bar {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .loading { text-align: center; padding: 60px; color: var(--text-muted); }
+    .error-state { text-align: center; padding: 60px; color: #991b1b; }
+  </style>
+
+  <a href="/admin/orders" class="back-link">← Volver a órdenes</a>
+  <div id="loading" class="loading">Cargando orden...</div>
+  <div id="error-state" class="error-state" style="display:none;"></div>
+  <div id="detail-content" style="display:none;">
+    <div class="detail-grid">
+      <div class="section-card">
+        <h2>Información de la Orden</h2>
+        <div id="order-info"></div>
+      </div>
+      <div class="section-card">
+        <h2>Cliente</h2>
+        <div id="customer-info"></div>
+      </div>
+    </div>
+
+    <div class="section-card" style="margin-bottom:24px;">
+      <h2>Estado de Cumplimiento</h2>
+      <div class="fulfillment-tracker" id="fulfillment-steps"></div>
+    </div>
+
+    <div class="section-card" style="margin-bottom:24px;">
+      <h2>Documentos</h2>
+      <div id="documents-list">
+        <p style="color:var(--text-muted); font-size:0.85rem;">No hay documentos generados.</p>
+      </div>
+    </div>
+
+    <div class="action-bar">
+      <button class="btn btn-primary" onclick="generateDocs()">🔄 Regenerar Documentos</button>
+    </div>
+  </div>
+
+  <script>
+    const orderId = window.location.pathname.split('/').pop();
+
+    async function loadOrder() {
+      try {
+        const res = await fetch(`/api/orders/${orderId}`);
+        if (!res.ok) { if (res.status === 401) { window.location.href = '/admin/login'; return; } throw new Error('Error al cargar'); }
+        const data = await res.json();
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('detail-content').style.display = 'block';
+
+        const order = data.order;
+        const formatCurrency = (cents) => `$${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+        const statusLabels: Record<string, string> = { pending: 'Pendiente', paid: 'Pagado', fulfilling: 'En proceso', complete: 'Completo' };
+        const planLabels: Record<string, string> = { base: 'Trust Para Todos', completo: 'Paquete Completo' };
+
+        // Order info
+        document.getElementById('order-info').innerHTML = `
+          <div class="info-row"><span class="label">ID</span><span class="value">${order.id.substring(0, 8)}...</span></div>
+          <div class="info-row"><span class="label">Plan</span><span class="value">${planLabels[order.plan_type] || order.plan_type}</span></div>
+          <div class="info-row"><span class="label">Monto</span><span class="value">${formatCurrency(order.amount)}</span></div>
+          <div class="info-row"><span class="label">Estado</span><span class="value"><span class="status-badge ${order.status}">${statusLabels[order.status] || order.status}</span></span></div>
+          <div class="info-row"><span class="label">Creada</span><span class="value">${new Date(order.created_at).toLocaleString('es-MX')}</span></div>
+          <div class="info-row"><span class="label">Actualizada</span><span class="value">${new Date(order.updated_at).toLocaleString('es-MX')}</span></div>
+        `;
+
+        // Customer info
+        document.getElementById('customer-info').innerHTML = `
+          <div class="info-row"><span class="label">Nombre</span><span class="value">${order.customer_name}</span></div>
+          <div class="info-row"><span class="label">Email</span><span class="value">${order.customer_email}</span></div>
+          <div class="info-row"><span class="label">Teléfono</span><span class="value">${order.customer_phone || '—'}</span></div>
+        `;
+
+        // Fulfillment steps
+        const steps = data.fulfillment_steps || [];
+        const stepLabels: Record<string, string> = {
+          payment_confirmed: 'Pago confirmado',
+          document_generation: 'Generación de documentos',
+          ein_filing: 'Trámite de EIN',
+          notary_scheduling: 'Cita notarial',
+          welcome_email: 'Correo de bienvenida',
+          final_delivery: 'Entrega final',
+        };
+        const stepIcons: Record<string, string> = {
+          payment_confirmed: '💳', document_generation: '📄', ein_filing: '🔢',
+          notary_scheduling: '📅', welcome_email: '📧', final_delivery: '🎉',
+        };
+        const stepStatusLabels: Record<string, string> = {
+          pending: 'Pendiente', in_progress: 'En progreso', completed: 'Completado', failed: 'Falló', skipped: 'Saltado',
+        };
+
+        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+
+        const tracker = document.getElementById('fulfillment-steps');
+        tracker.innerHTML = steps.map((s: any) => {
+          let dotBg = '#e8e4d8';
+          let dotContent = stepIcons[s.step_name] || '○';
+          if (s.status === 'completed') { dotBg = 'var(--teal)'; dotContent = '✓'; }
+          else if (s.status === 'in_progress') { dotBg = 'var(--terracotta)'; }
+          else if (s.status === 'failed') { dotBg = '#991b1b'; dotContent = '✗'; }
+          else if (s.status === 'skipped') { dotBg = '#7a7a88'; dotContent = '—'; }
+
+          return `
+            <div class="fulfillment-step">
+              <div class="step-dot" style="background:${dotBg}; color:white;">${dotContent}</div>
+              <div class="step-name">${esc(stepLabels[s.step_name] || s.step_name)}</div>
+              <div class="step-meta">
+                <span class="status-badge ${esc(s.status)}">${esc(stepStatusLabels[s.status] || s.status)}</span>
+                ${s.completed_at ? ' — ' + new Date(s.completed_at).toLocaleString('es-MX') : ''}
+                ${s.notes ? ' — ' + esc(s.notes) : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Documents
+        const docs = data.documents || [];
+        const docLabels: Record<string, string> = {
+          trust: 'Trust Document', ilit: 'ILIT', ein: 'EIN', guide: 'Guía',
+        };
+        const docStatusLabels: Record<string, string> = {
+          pending: 'Pendiente', generating: 'Generando...', ready: 'Listo', error: 'Error',
+        };
+
+        const docsList = document.getElementById('documents-list');
+        if (docs.length === 0) {
+          docsList.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">No hay documentos generados.</p>';
+        } else {
+          docsList.innerHTML = docs.map((d: any) => `
+            <div class="doc-item">
+              <div class="doc-info">
+                <div class="doc-icon">📄</div>
+                <div>
+                  <div class="doc-name">${esc(docLabels[d.document_type] || d.document_type)}</div>
+                  <div class="doc-meta">${new Date(d.created_at).toLocaleString('es-MX')}</div>
+                </div>
+              </div>
+              <span class="status-badge ${esc(d.status)}">${esc(docStatusLabels[d.status] || d.status)}</span>
+            </div>
+          `).join('');
+        }
+      } catch (e: any) {
+        document.getElementById('loading').style.display = 'none';
+        const errorEl = document.getElementById('error-state');
+        errorEl.style.display = 'block';
+        errorEl.textContent = 'Error: ' + e.message;
+      }
+    }
+
+    async function generateDocs() {
+      if (!confirm('¿Regenerar todos los documentos para esta orden?')) return;
+      try {
+        const res = await fetch(`/api/orders/${orderId}/generate-docs`, { method: 'POST' });
+        if (!res.ok) throw new Error('Error al generar');
+        const data = await res.json();
+        alert(`Documentos en generación: ${data.documents?.length || 0}`);
+        loadOrder();
+      } catch (e: any) {
+        alert('Error: ' + e.message);
+      }
+    }
+
+    loadOrder();
+  </script>
+</AdminLayout>

@@ -1,0 +1,195 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Customer Detail">
+  <style>
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+    }
+    .back-link:hover { color: var(--teal); }
+
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+    @media (max-width: 768px) { .detail-grid { grid-template-columns: 1fr; } }
+
+    .section-card {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .section-card h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.1rem;
+      color: var(--dark);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--cream-warm);
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row .label { color: var(--text-muted); font-weight: 500; }
+    .info-row .value { color: var(--dark); font-weight: 600; }
+
+    .order-table { width: 100%; border-collapse: collapse; }
+    .order-table th {
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .order-table td {
+      padding: 12px;
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .order-table tr:last-child td { border-bottom: none; }
+    .order-table tr:hover td { background: var(--cream); cursor: pointer; }
+
+    .status-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+    .status-badge.pending { background: #fef9e7; color: #92400e; }
+    .status-badge.paid { background: #e6f7e6; color: #166534; }
+    .status-badge.fulfilling { background: #e6f2f4; color: #04707e; }
+    .status-badge.complete { background: #e6f7e6; color: #166534; }
+
+    .plan-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: var(--teal-light);
+      color: var(--teal);
+    }
+    .plan-badge.completo { background: var(--terracotta-light); color: var(--terracotta-dark); }
+
+    .loading { text-align: center; padding: 60px; color: var(--text-muted); }
+    .error-state { text-align: center; padding: 60px; color: #991b1b; }
+  </style>
+
+  <a href="/admin/customers" class="back-link">← Volver a clientes</a>
+  <div id="loading" class="loading">Cargando cliente...</div>
+  <div id="error-state" class="error-state" style="display:none;"></div>
+  <div id="detail-content" style="display:none;">
+    <div class="detail-grid">
+      <div class="section-card">
+        <h2>Información del Cliente</h2>
+        <div id="customer-info"></div>
+      </div>
+      <div class="section-card">
+        <h2>Cuestionario</h2>
+        <div id="questionnaire-info">
+          <p style="color:var(--text-muted); font-size:0.85rem;">Sin respuestas de cuestionario.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <h2>Historial de Órdenes</h2>
+      <table class="order-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Plan</th>
+            <th>Monto</th>
+            <th>Estado</th>
+            <th>Documentos</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody id="orders-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const customerId = window.location.pathname.split('/').pop();
+
+    async function loadCustomer() {
+      try {
+        const res = await fetch(`/api/customers/${customerId}`);
+        if (!res.ok) { if (res.status === 401) { window.location.href = '/admin/login'; return; } throw new Error('Error'); }
+        const data = await res.json();
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('detail-content').style.display = 'block';
+
+        const customer = data.customer;
+        const formatCurrency = (cents) => `$${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+        const statusLabels: Record<string, string> = { pending: 'Pendiente', paid: 'Pagado', fulfilling: 'En proceso', complete: 'Completo' };
+        const planLabels: Record<string, string> = { base: 'Trust Para Todos', completo: 'Paquete Completo' };
+        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+
+        // Customer info
+        document.getElementById('customer-info').innerHTML = `
+          <div class="info-row"><span class="label">Nombre</span><span class="value">${esc(customer.name)}</span></div>
+          <div class="info-row"><span class="label">Email</span><span class="value">${esc(customer.email)}</span></div>
+          <div class="info-row"><span class="label">Teléfono</span><span class="value">${esc(customer.phone) || '—'}</span></div>
+          <div class="info-row"><span class="label">Visa</span><span class="value">${esc(customer.visa_type) || '—'}</span></div>
+          <div class="info-row"><span class="label">Registrado</span><span class="value">${new Date(customer.created_at).toLocaleString('es-MX')}</span></div>
+        `;
+
+        // Questionnaire
+        const qResponses = data.questionnaire_responses || [];
+        if (qResponses.length > 0) {
+          const latest = qResponses[0];
+          const rawData = typeof latest.raw_data === 'string' ? JSON.parse(latest.raw_data) : latest.raw_data;
+          const fields = [
+            { label: 'Cónyuge', key: 'settlor_2_full_name' },
+            { label: 'Ciudadanía', key: 'citizenship' },
+            { label: 'Estado civil', key: 'marital_status' },
+            { label: 'Hijos', key: 'number_of_children' },
+            { label: 'Plan', key: 'plan_type' },
+          ];
+          document.getElementById('questionnaire-info').innerHTML = fields.map(f => `
+            <div class="info-row"><span class="label">${f.label}</span><span class="value">${esc(rawData[f.key]) || '—'}</span></div>
+          `).join('');
+        }
+
+        // Orders
+        const orders = data.orders || [];
+        const tbody = document.getElementById('orders-body');
+        tbody.innerHTML = orders.map((o: any) => `
+          <tr onclick="window.location='/admin/orders/${esc(o.id)}'">
+            <td style="font-family:monospace; font-size:0.8rem;">${esc(o.id.substring(0, 8))}...</td>
+            <td><span class="plan-badge ${esc(o.plan_type)}">${planLabels[o.plan_type] || esc(o.plan_type)}</span></td>
+            <td>${formatCurrency(o.amount)}</td>
+            <td><span class="status-badge ${esc(o.status)}">${statusLabels[o.status] || esc(o.status)}</span></td>
+            <td>${o.document_count || 0} docs</td>
+            <td>${new Date(o.created_at).toLocaleDateString('es-MX')}</td>
+          </tr>
+        `).join('');
+      } catch (e: any) {
+        document.getElementById('loading').style.display = 'none';
+        const errorEl = document.getElementById('error-state');
+        errorEl.style.display = 'block';
+        errorEl.textContent = 'Error: ' + e.message;
+      }
+    }
+
+    loadCustomer();
+  </script>
+</AdminLayout>

@@ -9,6 +9,9 @@ backend/services/__pycache__/
 backend/*.db
 backend/generated_documents/
 
+# astro
+.astro/settings.json
+
 # wrangler files
 .wrangler
 .dev.vars*

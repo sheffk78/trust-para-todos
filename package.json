@@ -6,23 +6,20 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "npm run build && wrangler dev",
-    "start": "node ./dist/server/entry.mjs",
-    "generate-types": "wrangler types",
-    "deploy": "npm run build && wrangler deploy"
+    "start": "node ./dist/server/entry.mjs"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^13.7.0",
     "@astrojs/node": "^10.1.4",
     "@astrojs/react": "^5.0.7",
     "@stripe/stripe-js": "^9.8.0",
     "astro": "^6.4.7",
+    "pg": "^8.22.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "stripe": "^22.2.1"
   },
   "devDependencies": {
-    "wrangler": "^4.101.0"
+    "@types/pg": "^8.20.0"
   },
   "overrides": {
     "vite": "^7"

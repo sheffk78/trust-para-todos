@@ -1,0 +1,228 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Orders">
+  <style>
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .search-box {
+      display: flex;
+      gap: 8px;
+      flex: 1;
+      max-width: 400px;
+    }
+    .search-box input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .search-box input:focus { border-color: var(--teal); }
+    .filter-group { display: flex; gap: 8px; }
+    .filter-group select {
+      padding: 10px 14px;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      background: var(--white);
+      outline: none;
+    }
+
+    .section-card {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--radius);
+      padding: 0;
+      overflow: hidden;
+    }
+    .order-table { width: 100%; border-collapse: collapse; }
+    .order-table th {
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--cream-dark);
+      background: var(--cream);
+    }
+    .order-table td {
+      padding: 14px 16px;
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .order-table tr:last-child td { border-bottom: none; }
+    .order-table tr:hover td { background: var(--cream); cursor: pointer; }
+
+    .status-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+    .status-badge.pending { background: #fef9e7; color: #92400e; }
+    .status-badge.paid { background: #e6f7e6; color: #166534; }
+    .status-badge.fulfilling { background: #e6f2f4; color: #04707e; }
+    .status-badge.complete { background: #e6f7e6; color: #166534; }
+
+    .plan-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: var(--teal-light);
+      color: var(--teal);
+    }
+    .plan-badge.completo { background: var(--terracotta-light); color: var(--terracotta-dark); }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .pagination button {
+      padding: 6px 14px;
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+    }
+    .pagination button:hover { background: var(--cream); }
+    .pagination button:disabled { opacity: 0.4; cursor: default; }
+
+    .loading { text-align: center; padding: 60px; color: var(--text-muted); }
+    .empty-state { text-align: center; padding: 60px; color: var(--text-muted); }
+  </style>
+
+  <div class="toolbar">
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="Buscar por nombre o email..." />
+      <button class="btn btn-primary btn-sm" onclick="loadOrders()">Buscar</button>
+    </div>
+    <div class="filter-group">
+      <select id="status-filter" onchange="loadOrders()">
+        <option value="">Todos los estados</option>
+        <option value="pending">Pendiente</option>
+        <option value="paid">Pagado</option>
+        <option value="fulfilling">En proceso</option>
+        <option value="complete">Completo</option>
+      </select>
+      <select id="plan-filter" onchange="loadOrders()">
+        <option value="">Todos los planes</option>
+        <option value="base">Base</option>
+        <option value="completo">Completo</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="loading" class="loading">Cargando órdenes...</div>
+  <div id="empty-state" class="empty-state" style="display:none;">No se encontraron órdenes.</div>
+
+  <div class="section-card" id="orders-table-container" style="display:none;">
+    <table class="order-table">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Email</th>
+          <th>Plan</th>
+          <th>Monto</th>
+          <th>Estado</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody id="orders-body"></tbody>
+    </table>
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <script>
+    let currentPage = 1;
+
+    async function loadOrders() {
+      const search = (document.getElementById('search-input') as HTMLInputElement).value;
+      const status = (document.getElementById('status-filter') as HTMLSelectElement).value;
+      const plan = (document.getElementById('plan-filter') as HTMLSelectElement).value;
+
+      const params = new URLSearchParams({ page: String(currentPage), limit: '50' });
+      if (search) params.set('search', search);
+      if (status) params.set('status', status);
+      if (plan) params.set('plan', plan);
+
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('orders-table-container').style.display = 'none';
+      document.getElementById('empty-state').style.display = 'none';
+
+      try {
+        const res = await fetch(`/api/orders?${params}`);
+        if (!res.ok) { if (res.status === 401) { window.location.href = '/admin/login'; return; } throw new Error('Error'); }
+        const data = await res.json();
+
+        document.getElementById('loading').style.display = 'none';
+
+        if (data.orders.length === 0) {
+          document.getElementById('empty-state').style.display = 'block';
+          return;
+        }
+
+        document.getElementById('orders-table-container').style.display = 'block';
+
+        const tbody = document.getElementById('orders-body');
+        const statusLabels: Record<string, string> = { pending: 'Pendiente', paid: 'Pagado', fulfilling: 'En proceso', complete: 'Completo' };
+        const planLabels: Record<string, string> = { base: 'Base', completo: 'Completo' };
+        const formatCurrency = (cents: number) => `$${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+
+        tbody.innerHTML = data.orders.map((o: any) => `
+          <tr onclick="window.location='/admin/orders/${esc(o.id)}'">
+            <td><strong>${esc(o.customer_name)}</strong></td>
+            <td>${esc(o.customer_email)}</td>
+            <td><span class="plan-badge ${esc(o.plan_type)}">${planLabels[o.plan_type] || esc(o.plan_type)}</span></td>
+            <td>${formatCurrency(o.amount)}</td>
+            <td><span class="status-badge ${esc(o.status)}">${statusLabels[o.status] || esc(o.status)}</span></td>
+            <td>${new Date(o.created_at).toLocaleDateString('es-MX')}</td>
+          </tr>
+        `).join('');
+
+        // Pagination
+        const totalPages = Math.ceil(data.total / data.limit);
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = `
+          <button onclick="changePage(${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>← Anterior</button>
+          <span>Página ${data.page} de ${totalPages || 1} (${data.total} total)</span>
+          <button onclick="changePage(${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>Siguiente →</button>
+        `;
+      } catch (e: any) {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('empty-state').style.display = 'block';
+        document.getElementById('empty-state').textContent = 'Error: ' + e.message;
+      }
+    }
+
+    function changePage(page: number) {
+      currentPage = page;
+      loadOrders();
+    }
+
+    loadOrders();
+  </script>
+</AdminLayout>

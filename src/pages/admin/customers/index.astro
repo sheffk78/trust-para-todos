@@ -1,0 +1,181 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Customers">
+  <style>
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .search-box {
+      display: flex;
+      gap: 8px;
+      flex: 1;
+      max-width: 400px;
+    }
+    .search-box input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .search-box input:focus { border-color: var(--teal); }
+
+    .section-card {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--radius);
+      padding: 0;
+      overflow: hidden;
+    }
+    .customer-table { width: 100%; border-collapse: collapse; }
+    .customer-table th {
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--cream-dark);
+      background: var(--cream);
+    }
+    .customer-table td {
+      padding: 14px 16px;
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .customer-table tr:last-child td { border-bottom: none; }
+    .customer-table tr:hover td { background: var(--cream); cursor: pointer; }
+
+    .order-count {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 100px;
+      background: var(--teal-light);
+      color: var(--teal);
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .pagination button {
+      padding: 6px 14px;
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+    }
+    .pagination button:hover { background: var(--cream); }
+    .pagination button:disabled { opacity: 0.4; cursor: default; }
+
+    .loading { text-align: center; padding: 60px; color: var(--text-muted); }
+    .empty-state { text-align: center; padding: 60px; color: var(--text-muted); }
+  </style>
+
+  <div class="toolbar">
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="Buscar por nombre o email..." />
+      <button class="btn btn-primary btn-sm" onclick="loadCustomers()">Buscar</button>
+    </div>
+  </div>
+
+  <div id="loading" class="loading">Cargando clientes...</div>
+  <div id="empty-state" class="empty-state" style="display:none;">No se encontraron clientes.</div>
+
+  <div class="section-card" id="customers-table-container" style="display:none;">
+    <table class="customer-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Visa</th>
+          <th>Órdenes</th>
+          <th>Registro</th>
+        </tr>
+      </thead>
+      <tbody id="customers-body"></tbody>
+    </table>
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <script>
+    let currentPage = 1;
+
+    async function loadCustomers() {
+      const search = (document.getElementById('search-input') as HTMLInputElement).value;
+      const params = new URLSearchParams({ page: String(currentPage), limit: '50' });
+      if (search) params.set('search', search);
+
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('customers-table-container').style.display = 'none';
+      document.getElementById('empty-state').style.display = 'none';
+
+      try {
+        const res = await fetch(`/api/customers?${params}`);
+        if (!res.ok) { if (res.status === 401) { window.location.href = '/admin/login'; return; } throw new Error('Error'); }
+        const data = await res.json();
+
+        document.getElementById('loading').style.display = 'none';
+
+        if (data.customers.length === 0) {
+          document.getElementById('empty-state').style.display = 'block';
+          return;
+        }
+
+        document.getElementById('customers-table-container').style.display = 'block';
+
+        const tbody = document.getElementById('customers-body');
+        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+        tbody.innerHTML = data.customers.map((c: any) => `
+          <tr onclick="window.location='/admin/customers/${esc(c.id)}'">
+            <td><strong>${esc(c.name)}</strong></td>
+            <td>${esc(c.email)}</td>
+            <td>${esc(c.phone) || '—'}</td>
+            <td>${esc(c.visa_type) || '—'}</td>
+            <td><span class="order-count">${c.order_count} órdenes</span></td>
+            <td>${new Date(c.created_at).toLocaleDateString('es-MX')}</td>
+          </tr>
+        `).join('');
+
+        const totalPages = Math.ceil(data.total / data.limit);
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = `
+          <button onclick="changePage(${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>← Anterior</button>
+          <span>Página ${data.page} de ${totalPages || 1} (${data.total} total)</span>
+          <button onclick="changePage(${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>Siguiente →</button>
+        `;
+      } catch (e: any) {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('empty-state').style.display = 'block';
+        document.getElementById('empty-state').textContent = 'Error: ' + e.message;
+      }
+    }
+
+    function changePage(page: number) {
+      currentPage = page;
+      loadCustomers();
+    }
+
+    loadCustomers();
+  </script>
+</AdminLayout>

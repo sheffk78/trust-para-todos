@@ -19,12 +19,15 @@ logger = logging.getLogger("trust_para_todos.routes.orders")
 
 # Find Chrome/Chromium for PDF generation
 def _find_chrome() -> str:
-    """Find Chrome or Chromium binary, checking common paths."""
+    """Find Chrome or Chromium binary, checking common paths and CHROME_PATH env var."""
+    # 1. Check env var first (set in Dockerfile)
+    env_path = os.environ.get("CHROME_PATH", "")
+    if env_path and os.path.exists(env_path):
+        return env_path
+    # 2. Check common paths
     candidates = [
         "/usr/bin/chromium",
         "/usr/bin/chromium-browser",
-        "/usr/bin/chromium-browser",
-        "/usr/bin/chromium",
         "/snap/bin/chromium",
         "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
         "/Applications/Chromium.app/Contents/MacOS/Chromium",

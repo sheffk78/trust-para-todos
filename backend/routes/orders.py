@@ -22,6 +22,16 @@ router = APIRouter()
 CHROME_PATH = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 OUTPUT_DIR = Path(__file__).parent.parent / "generated_docs"
 
+# Map document generator keys to DocumentType enum
+DOC_TYPE_MAP = {
+    "revocable_living_trust": DocumentType.TRUST,
+    "pour_over_will": DocumentType.TRUST,
+    "certificate_of_trust": DocumentType.TRUST,
+    "assignment_of_property": DocumentType.TRUST,
+    "durable_power_of_attorney": DocumentType.TRUST,
+    "advance_healthcare_directive": DocumentType.TRUST,
+}
+
 
 class OrderCreateRequest(BaseModel):
     settlor_1_full_name: str
@@ -169,7 +179,7 @@ async def create_order_direct(data: OrderCreateRequest, db: AsyncSession = Depen
 
             doc = Document(
                 order_id=order.id,
-                document_type=DocumentType(dt),
+                document_type=DOC_TYPE_MAP.get(dt, DocumentType.TRUST),
                 status=DocumentStatus.READY,
                 file_path=pdf_path,
             )
@@ -179,7 +189,7 @@ async def create_order_direct(data: OrderCreateRequest, db: AsyncSession = Depen
             logger.error("Failed to generate %s for order %s: %s", dt, order.id, e)
             doc = Document(
                 order_id=order.id,
-                document_type=DocumentType(dt),
+                document_type=DOC_TYPE_MAP.get(dt, DocumentType.TRUST),
                 status=DocumentStatus.ERROR,
                 file_path=None,
             )
@@ -385,7 +395,7 @@ async def generate_order_documents(order_id: str, db: AsyncSession = Depends(get
             # Save document record
             doc = Document(
                 order_id=order.id,
-                document_type=DocumentType(dt),
+                document_type=DOC_TYPE_MAP.get(dt, DocumentType.TRUST),
                 status=DocumentStatus.READY,
                 file_path=pdf_path,
             )
@@ -395,7 +405,7 @@ async def generate_order_documents(order_id: str, db: AsyncSession = Depends(get
             logger.error("Failed to generate %s for order %s: %s", dt, order_id, e)
             doc = Document(
                 order_id=order.id,
-                document_type=DocumentType(dt),
+                document_type=DOC_TYPE_MAP.get(dt, DocumentType.TRUST),
                 status=DocumentStatus.ERROR,
                 file_path=None,
             )

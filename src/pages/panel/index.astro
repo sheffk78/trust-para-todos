@@ -1,5 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// Prevent CDN caching of this dynamic page
+Astro.response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+Astro.response.headers.set('Pragma', 'no-cache');
+Astro.response.headers.set('Expires', '0');
 ---
 
 <BaseLayout title="Mi Panel — Trust Para Todos" description="Sigue el estado de tu trust, descarga tus documentos y administra tu protección.">

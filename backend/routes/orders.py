@@ -19,31 +19,36 @@ logger = logging.getLogger("trust_para_todos.routes.orders")
 
 # Find Chrome/Chromium for PDF generation
 def _find_chrome() -> str:
-    """Find Chrome or Chromium binary, checking common paths and CHROME_PATH env var."""
+    """Find Chrome or Chromium binary, checking CHROME_PATH env var and common paths."""
     # 1. Check env var first (set in Dockerfile)
     env_path = os.environ.get("CHROME_PATH", "")
-    if env_path and os.path.exists(env_path):
-        return env_path
+    if env_path:
+        logger.info("CHROME_PATH env var set to: %s", env_path)
+        if os.path.exists(env_path):
+            logger.info("Found Chrome at CHROME_PATH: %s", env_path)
+            return env_path
+        logger.warning("CHROME_PATH set to %s but file does not exist", env_path)
     # 2. Check common paths
     candidates = [
         "/usr/bin/chromium",
         "/usr/bin/chromium-browser",
         "/snap/bin/chromium",
-        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-        "/Applications/Chromium.app/Contents/MacOS/Chromium",
     ]
     for path in candidates:
         if os.path.exists(path):
+            logger.info("Found Chrome at: %s", path)
             return path
-    # Try which
+    # 3. Try which
     try:
         result = subprocess.run(["which", "chromium-browser", "chromium", "google-chrome", "google-chrome-stable"],
                                capture_output=True, text=True, timeout=5)
         for line in result.stdout.strip().split("\n"):
             if line and os.path.exists(line):
+                logger.info("Found Chrome via which: %s", line)
                 return line
     except Exception:
         pass
+    logger.error("No Chrome/Chromium binary found anywhere!")
     return ""
 
 CHROME_PATH = _find_chrome()

@@ -27,7 +27,7 @@ export const GET: APIRoute = async (context) => {
 
     // Get documents
     const docsResult = await query(
-      `SELECT id, order_id, document_type as type, status, file_path, created_at
+      `SELECT id, order_id, document_type, status, file_path, created_at
        FROM documents WHERE order_id = $1
        ORDER BY created_at ASC`,
       [orderId]

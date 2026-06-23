@@ -468,19 +468,33 @@ Astro.response.headers.set('Expires', '0');
   }
 
   let statusPollInterval = null;
+  let pollStartTime = null;
+  const POLL_TIMEOUT_MS = 5 * 60 * 1000; // 5 minutes max
+  const POLL_INTERVAL_MS = 5000;
 
   async function loadOrderStatus(orderId) {
     try {
+      if (!pollStartTime) pollStartTime = Date.now();
+
+      // Check timeout
+      if (Date.now() - pollStartTime > POLL_TIMEOUT_MS) {
+        if (statusPollInterval) {
+          clearInterval(statusPollInterval);
+          statusPollInterval = null;
+        }
+        return;
+      }
+
       const res = await fetch(`${API_BASE}/api/orders/${orderId}/status`);
       const data = await res.json();
       renderSteps(data.steps || []);
       renderDocuments(data.documents || []);
-      renderNextStep(data.steps || []);
+      renderNextStep(data.steps || [], data.documents || []);
 
       const docStep = (data.steps || []).find(s => s.name === 'document_generation');
       if (docStep && docStep.status === 'in_progress') {
         if (statusPollInterval) clearInterval(statusPollInterval);
-        statusPollInterval = setInterval(() => loadOrderStatus(orderId), 5000);
+        statusPollInterval = setInterval(() => loadOrderStatus(orderId), POLL_INTERVAL_MS);
       } else {
         if (statusPollInterval) {
           clearInterval(statusPollInterval);
@@ -493,17 +507,19 @@ Astro.response.headers.set('Expires', '0');
   }
 
   function loadDemoStatus() {
-    renderSteps([
+    const steps = [
       { name: 'payment_confirmed', status: 'completed', completed_at: null, notes: null },
       { name: 'document_generation', status: 'in_progress', completed_at: null, notes: null },
       { name: 'ein_filing', status: 'pending', completed_at: null, notes: null },
       { name: 'notary_scheduling', status: 'pending', completed_at: null, notes: null },
       { name: 'welcome_email', status: 'pending', completed_at: null, notes: null },
       { name: 'final_delivery', status: 'pending', completed_at: null, notes: null },
-    ]);
+    ];
+    renderSteps(steps);
+    renderNextStep(steps, []);
   }
 
-  function renderNextStep(steps) {
+  function renderNextStep(steps, docs) {
     const card = document.getElementById('next-step-card');
     const number = document.getElementById('next-step-number');
     const title = document.getElementById('next-step-title');
@@ -542,11 +558,31 @@ Astro.response.headers.set('Expires', '0');
     title.textContent = `Siguiente: ${labels[next.name] || next.name}`;
     desc.textContent = descriptions[next.name] || '';
 
-    const act = actions[next.name];
-    if (act && next.status === 'pending') {
+    // Dynamic action button — check step-specific actions first, then document availability
+    let act = actions[next.name];
+    let dynamicLabel = null;
+    let dynamicUrl = null;
+
+    // If documents are ready for the current step, show a "View documents" action
+    if (next.name === 'document_generation' || next.name === 'welcome_email') {
+      const readyDocs = (docs || []).filter(d => d.status === 'ready');
+      if (readyDocs.length > 0) {
+        dynamicLabel = 'Ver documentos';
+        // Scroll to documents section
+        dynamicUrl = '#documents-section';
+      }
+    }
+    // If EIN is in progress and has documents, offer guidance
+    if (next.name === 'ein_filing') {
+      dynamicLabel = 'Más información sobre el EIN';
+      dynamicUrl = '/que-es#ein';
+    }
+
+    const finalAct = dynamicLabel ? { label: dynamicLabel, url: dynamicUrl } : act;
+    if (finalAct && next.status === 'pending') {
       action.style.display = 'inline-block';
-      action.textContent = act.label;
-      action.href = act.url;
+      action.textContent = finalAct.label;
+      action.href = finalAct.url;
     } else {
       action.style.display = 'none';
     }

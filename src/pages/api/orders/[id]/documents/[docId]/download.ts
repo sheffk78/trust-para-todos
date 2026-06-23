@@ -7,7 +7,8 @@ import { existsSync } from 'fs';
  * GET /api/orders/:orderId/documents/:docId/download
  *
  * Public endpoint (no auth) used by the customer panel at /panel.
- * Serves the generated PDF document.
+ * Serves the generated PDF document if available on disk.
+ * Returns a helpful message if the file hasn't been generated yet.
  */
 export const GET: APIRoute = async (context) => {
   try {
@@ -34,16 +35,31 @@ export const GET: APIRoute = async (context) => {
 
     const doc = docResult.rows[0];
 
+    // If still being generated, return a clear message
+    if (doc.status === 'generating' || doc.status === 'pending') {
+      return new Response(JSON.stringify({
+        error: 'Document is still being generated',
+        status: doc.status,
+        message: 'Este documento aún está en proceso. Intenta de nuevo en unos minutos.',
+      }), {
+        status: 202,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
     if (doc.status !== 'ready' || !doc.file_path) {
-      return new Response(JSON.stringify({ error: 'Document not ready' }), {
+      return new Response(JSON.stringify({ error: 'Document not available' }), {
         status: 404,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    // Check file exists on disk
+    // Check file exists on disk (ephemeral on Railway — may be missing after redeploy)
     if (!existsSync(doc.file_path)) {
-      return new Response(JSON.stringify({ error: 'Document file not found on disk' }), {
+      return new Response(JSON.stringify({
+        error: 'Document file not found on disk',
+        message: 'El archivo no está disponible en este momento. Contacta a soporte para recibir tu documento.',
+      }), {
         status: 404,
         headers: { 'Content-Type': 'application/json' },
       });

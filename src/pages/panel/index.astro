@@ -417,7 +417,7 @@ Astro.response.headers.set('Expires', '0');
   </div>
 </section>
 
-<script>
+<script is:inline>
   const API_BASE = '';
 
   // Check URL params for Stripe redirect
@@ -456,7 +456,7 @@ Astro.response.headers.set('Expires', '0');
       document.getElementById('customer-plan').textContent = `Plan: ${latest.plan_type === 'base' ? 'Trust Para Todos' : 'Paquete Completo'}`;
 
       const badge = document.getElementById('order-status-badge');
-      const statusColors: Record<string, string> = { pending: '#fef9e7,#92400e', paid: '#e6f7e6,#166534', fulfilling: '#e6f2f4,#04707e', complete: '#e6f7e6,#166534' };
+      const statusColors = { pending: '#fef9e7,#92400e', paid: '#e6f7e6,#166534', fulfilling: '#e6f2f4,#04707e', complete: '#e6f7e6,#166534' };
       const [bg, color] = (statusColors[latest.status] || '#f4f2eb,#7a7a88').split(',');
       badge.style.cssText = `background:${bg}; color:${color};`;
       badge.textContent = translateStatus(latest.status);
@@ -518,7 +518,7 @@ Astro.response.headers.set('Expires', '0');
     const stepIndex = stepOrder.indexOf(next.name);
     const stepNum = stepIndex >= 0 ? stepIndex + 1 : '?';
 
-    const labels: Record<string, string> = {
+    const labels = {
       payment_confirmed: 'Pago confirmado',
       document_generation: 'Generación de documentos',
       ein_filing: 'Trámite de EIN',
@@ -526,7 +526,7 @@ Astro.response.headers.set('Expires', '0');
       welcome_email: 'Correo de bienvenida',
       final_delivery: 'Entrega final',
     };
-    const descriptions: Record<string, string> = {
+    const descriptions = {
       payment_confirmed: 'Tu pago ha sido procesado. Estamos preparando tus documentos.',
       document_generation: 'Tus documentos de trust están siendo preparados. Este proceso toma de 1 a 3 días hábiles.',
       ein_filing: 'Estamos tramitando tu EIN ante el IRS. Te notificaremos cuando esté listo.',
@@ -534,7 +534,7 @@ Astro.response.headers.set('Expires', '0');
       welcome_email: 'Recibirás un correo con instrucciones detalladas sobre tu trust.',
       final_delivery: 'Todo está listo. Tu trust está activo y protegido.',
     };
-    const actions: Record<string, { label: string; url: string } | null> = {
+    const actions = {
       notary_scheduling: { label: 'Agendar cita', url: 'https://calendly.com/trustparatodos/notaria' },
     };
 
@@ -556,7 +556,7 @@ Astro.response.headers.set('Expires', '0');
 
   function renderSteps(steps) {
     const container = document.getElementById('status-steps');
-    const labels: Record<string, string> = {
+    const labels = {
       payment_confirmed: 'Pago confirmado',
       document_generation: 'Generación de documentos',
       ein_filing: 'Trámite de EIN',
@@ -564,7 +564,7 @@ Astro.response.headers.set('Expires', '0');
       welcome_email: 'Correo de bienvenida',
       final_delivery: 'Entrega final',
     };
-    const descriptions: Record<string, string> = {
+    const descriptions = {
       payment_confirmed: 'Tu pago ha sido procesado exitosamente.',
       document_generation: 'Tus documentos de trust están siendo preparados.',
       ein_filing: 'Estamos tramitando tu EIN ante el IRS.',
@@ -602,7 +602,7 @@ Astro.response.headers.set('Expires', '0');
     const legalDocs = docs.filter(d => ['trust', 'ilit'].includes(d.document_type));
     const supportDocs = docs.filter(d => ['ein', 'guide'].includes(d.document_type));
 
-    const docLabels: Record<string, string> = {
+    const docLabels = {
       trust: 'Trust Revocable',
       ilit: 'ILIT (Seguro de Vida)',
       ein: 'EIN (Identificación Fiscal)',
@@ -630,7 +630,7 @@ Astro.response.headers.set('Expires', '0');
     const isReady = d.status === 'ready';
     const statusLabel = isReady ? 'Listo' : d.status === 'pending' ? 'Pendiente' : 'Error';
     const statusClass = isReady ? 'ready' : d.status === 'pending' ? 'pending' : 'error';
-    const docLabels: Record<string, string> = {
+    const docLabels = {
       trust: 'Trust Revocable',
       ilit: 'ILIT (Seguro de Vida)',
       ein: 'EIN (Identificación Fiscal)',

@@ -119,9 +119,9 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
     <div class="pagination" id="pagination"></div>
   </div>
 
-  <script>
+  <script is:inline>
     const LOCALE = '{locale}';
-    const i18n = (window as any).__i18n || { t: (k: string) => k, getLocale: () => 'es' };
+    const i18n = window.__i18n || { t: function(k) { return k; }, getLocale: function() { return 'es'; } };
     let currentPage = 1;
 
     async function loadCustomers() {
@@ -148,8 +148,9 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
         document.getElementById('customers-table-container').style.display = 'block';
 
         const tbody = document.getElementById('customers-body');
-        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;');
-        tbody.innerHTML = data.customers.map((c: any) => `
+        var esc = function(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); };
+        tbody.innerHTML = data.customers.map(function(c) {
+          return `
           <tr onclick="window.location='/admin/customers/${esc(c.id)}'">
             <td><strong>${esc(c.name)}</strong></td>
             <td>${esc(c.email)}</td>
@@ -157,23 +158,23 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
             <td><span class="order-count">${c.order_count} ${i18n.t('customers.orders', LOCALE)}</span></td>
             <td>${new Date(c.created_at).toLocaleDateString(LOCALE === 'en' ? 'en-US' : 'es-MX')}</td>
           </tr>
-        `).join('');
+        `;}).join('');
 
-        const totalPages = Math.ceil(data.total / data.limit);
-        const pagination = document.getElementById('pagination');
+        var totalPages = Math.ceil(data.total / data.limit);
+        var pagination = document.getElementById('pagination');
         pagination.innerHTML = `
           <button onclick="changePage(${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>← ${i18n.t('orders.all', LOCALE) === 'All' ? 'Previous' : 'Anterior'}</button>
           <span>${i18n.t('orders.all', LOCALE) === 'All' ? 'Page' : 'Página'} ${data.page} ${i18n.t('orders.all', LOCALE) === 'All' ? 'of' : 'de'} ${totalPages || 1} (${data.total} ${i18n.t('orders.all', LOCALE) === 'All' ? 'total' : 'total'})</span>
           <button onclick="changePage(${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>${i18n.t('orders.all', LOCALE) === 'All' ? 'Next' : 'Siguiente'} →</button>
         `;
-      } catch (e: any) {
+      } catch (e) {
         document.getElementById('loading').style.display = 'none';
         document.getElementById('empty-state').style.display = 'block';
         document.getElementById('empty-state').textContent = 'Error: ' + e.message;
       }
     }
 
-    function changePage(page: number) {
+    function changePage(page) {
       currentPage = page;
       loadCustomers();
     }

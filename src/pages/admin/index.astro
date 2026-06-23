@@ -101,9 +101,9 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
     </div>
   </div>
 
-  <script>
+  <script is:inline>
     const LOCALE = '{locale}';
-    const i18n = (window as any).__i18n || { t: (k: string) => k, getLocale: () => 'es' };
+    const i18n = window.__i18n || { t: function(k) { return k; }, getLocale: function() { return 'es'; } };
 
     async function loadDashboard() {
       try {
@@ -118,7 +118,7 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
         document.getElementById('dashboard-content').style.display = 'block';
 
         const statsGrid = document.getElementById('stats-grid');
-        const formatCurrency = (cents: number) => `$${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+        const formatCurrency = function(cents) { return '$' + (cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 }); };
         
         statsGrid.innerHTML = `
           <div class="stat-card teal">
@@ -140,9 +140,10 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
         `;
 
         const tbody = document.getElementById('recent-orders-body');
-        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;');
+        var esc = function(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); };
 
-        tbody.innerHTML = data.recent_orders.map((o: any) => `
+        tbody.innerHTML = data.recent_orders.map(function(o) {
+          return `
           <tr onclick="window.location='/admin/orders/${esc(o.id)}'" style="cursor:pointer;">
             <td><strong>${esc(o.customer_name)}</strong></td>
             <td>${esc(o.customer_email)}</td>
@@ -151,8 +152,8 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
             <td><span class="status-badge ${esc(o.status)}">${i18n.t('status.' + o.status, LOCALE)}</span></td>
             <td>${new Date(o.created_at).toLocaleDateString(LOCALE === 'en' ? 'en-US' : 'es-MX')}</td>
           </tr>
-        `).join('');
-      } catch (e: any) {
+        `;}).join('');
+      } catch (e) {
         document.getElementById('dashboard-loading').style.display = 'none';
         const errorEl = document.getElementById('dashboard-error');
         errorEl.style.display = 'block';

@@ -7,7 +7,7 @@
 
 export type Locale = 'es' | 'en';
 
-const DICTIONARY: Record<string, { es: string; en: string }> = {
+export const DICT: Record<string, { es: string; en: string }> = {
   // Admin nav
   'nav.dashboard': { es: 'Dashboard', en: 'Dashboard' },
   'nav.orders': { es: 'Órdenes', en: 'Orders' },
@@ -125,7 +125,7 @@ const DICTIONARY: Record<string, { es: string; en: string }> = {
 };
 
 export function t(key: string, locale: Locale): string {
-  const entry = DICTIONARY[key];
+  const entry = DICT[key];
   if (!entry) return key;
   return entry[locale];
 }

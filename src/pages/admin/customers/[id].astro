@@ -102,9 +102,9 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
         <div id="customer-info"></div>
       </div>
       <div class="section-card">
-        <h2 data-i18n="customers.title">{t('customers.title', locale)}</h2>
+        <h2>Cuestionario</h2>
         <div id="questionnaire-info">
-          <p style="color:var(--text-muted); font-size:0.85rem;" data-i18n="customers.no_results">{t('customers.no_results', locale)}</p>
+          <p style="color:var(--text-muted); font-size:0.85rem;">Cargando datos del cuestionario...</p>
         </div>
       </div>
     </div>
@@ -127,23 +127,23 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
     </div>
   </div>
 
-  <script>
+  <script is:inline>
     const LOCALE = '{locale}';
-    const i18n = (window as any).__i18n || { t: (k: string) => k, getLocale: () => 'es' };
+    const i18n = window.__i18n || { t: function(k) { return k; }, getLocale: function() { return 'es'; } };
     const customerId = window.location.pathname.split('/').pop();
 
     async function loadCustomer() {
       try {
-        const res = await fetch(`/api/customers/${customerId}`);
+        var res = await fetch('/api/customers/' + customerId);
         if (!res.ok) { if (res.status === 401) { window.location.href = '/admin/login'; return; } throw new Error('Error'); }
-        const data = await res.json();
+        var data = await res.json();
 
         document.getElementById('loading').style.display = 'none';
         document.getElementById('detail-content').style.display = 'block';
 
-        const customer = data.customer;
-        const formatCurrency = (cents) => `$${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
-        const esc = (s: any) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;');
+        var customer = data.customer;
+        var formatCurrency = function(cents) { return '$' + (cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 }); };
+        var esc = function(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); };
 
         document.getElementById('customer-info').innerHTML = `
           <div class="info-row"><span class="label">${i18n.t('customers.name', LOCALE)}</span><span class="value">${esc(customer.name)}</span></div>
@@ -152,25 +152,28 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
           <div class="info-row"><span class="label">${i18n.t('customers.registered', LOCALE)}</span><span class="value">${new Date(customer.created_at).toLocaleString(LOCALE === 'en' ? 'en-US' : 'es-MX')}</span></div>
         `;
 
-        const qResponses = data.questionnaire_responses || [];
+        var qResponses = data.questionnaire_responses || [];
         if (qResponses.length > 0) {
-          const latest = qResponses[0];
-          const rawData = typeof latest.raw_data === 'string' ? JSON.parse(latest.raw_data) : latest.raw_data;
-          const fields = [
+          var latest = qResponses[0];
+          var rawData = typeof latest.raw_data === 'string' ? JSON.parse(latest.raw_data) : latest.raw_data;
+          var fields = [
             { label: 'Cónyuge', key: 'settlor_2_full_name' },
             { label: 'Ciudadanía', key: 'citizenship' },
             { label: 'Estado civil', key: 'marital_status' },
             { label: 'Hijos', key: 'number_of_children' },
             { label: 'Plan', key: 'plan_type' },
           ];
-          document.getElementById('questionnaire-info').innerHTML = fields.map(f => `
-            <div class="info-row"><span class="label">${f.label}</span><span class="value">${esc(rawData[f.key]) || '—'}</span></div>
-          `).join('');
+          document.getElementById('questionnaire-info').innerHTML = fields.map(function(f) {
+            return '<div class="info-row"><span class="label">' + f.label + '</span><span class="value">' + (esc(rawData[f.key]) || '—') + '</span></div>';
+          }).join('');
+        } else {
+          document.getElementById('questionnaire-info').innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">Sin respuestas de cuestionario.</p>';
         }
 
-        const orders = data.orders || [];
-        const tbody = document.getElementById('orders-body');
-        tbody.innerHTML = orders.map((o: any) => `
+        var orders = data.orders || [];
+        var tbody = document.getElementById('orders-body');
+        tbody.innerHTML = orders.map(function(o) {
+          return `
           <tr onclick="window.location='/admin/orders/${esc(o.id)}'">
             <td style="font-family:monospace; font-size:0.8rem;">${esc(o.id.substring(0, 8))}...</td>
             <td><span class="plan-badge ${esc(o.plan_type)}">${i18n.t('plan.' + o.plan_type, LOCALE)}</span></td>
@@ -179,10 +182,10 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
             <td>${o.document_count || 0} ${i18n.t('order.documents', LOCALE)}</td>
             <td>${new Date(o.created_at).toLocaleDateString(LOCALE === 'en' ? 'en-US' : 'es-MX')}</td>
           </tr>
-        `).join('');
-      } catch (e: any) {
+        `;}).join('');
+      } catch (e) {
         document.getElementById('loading').style.display = 'none';
-        const errorEl = document.getElementById('error-state');
+        var errorEl = document.getElementById('error-state');
         errorEl.style.display = 'block';
         errorEl.textContent = 'Error: ' + e.message;
       }

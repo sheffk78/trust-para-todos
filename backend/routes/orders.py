@@ -355,7 +355,7 @@ async def get_order_documents(order_id: str, db: AsyncSession = Depends(get_db))
 
 
 @router.get("/orders/{order_id}/documents/{doc_id}/download")
-async def download_document(order_id: str, doc_id: int, db: AsyncSession = Depends(get_db)):
+async def download_document(order_id: str, doc_id: str, db: AsyncSession = Depends(get_db)):
     """Download a generated document PDF."""
     result = await db.execute(
         select(Document).where(Document.id == doc_id, Document.order_id == order_id)

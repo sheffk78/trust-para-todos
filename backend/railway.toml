@@ -1,10 +1,10 @@
 # Railway service config — Trust Para Todos Backend (FastAPI)
-# Deploy this as a separate Railway service pointing at the `backend/` directory.
+# Uses Dockerfile for Chromium-based PDF generation
 
 [build]
-builder = "NIXPACKS"
+builder = "DOCKERFILE"
 buildCommand = ""
-startCommand = "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"
+startCommand = ""
 
 [deploy]
 healthcheckPath = "/health"

@@ -21,6 +21,8 @@ logger = logging.getLogger("trust_para_todos.routes.orders")
 def _find_chrome() -> str:
     """Find Chrome or Chromium binary, checking common paths."""
     candidates = [
+        "/usr/bin/chromium",
+        "/usr/bin/chromium-browser",
         "/usr/bin/chromium-browser",
         "/usr/bin/chromium",
         "/snap/bin/chromium",

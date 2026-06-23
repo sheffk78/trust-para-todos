@@ -858,7 +858,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     };
 
     try {
-      const res = await fetch('/api/orders/create', {
+      const res = await fetch('/api/orders/create-direct', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -871,14 +871,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       const result = await res.json();
 
-      // Redirect to Stripe Checkout
-      if (result.checkout_url) {
+      // Redirect to panel with the order
+      if (result.panel_url) {
+        window.location.href = result.panel_url;
+      } else if (result.checkout_url) {
         window.location.href = result.checkout_url;
       } else if (result.url) {
         window.location.href = result.url;
       } else {
-        // Fallback: redirect to pago page
-        window.location.href = '/pago?session_id=' + (result.session_id || '') + '&status=success';
+        window.location.href = '/panel?email=' + encodeURIComponent(data.email);
       }
     } catch (e) {
       overlay.classList.remove('active');

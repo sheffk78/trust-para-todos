@@ -666,6 +666,9 @@ Astro.response.headers.set('Expires', '0');
   function translateStatus(s) {
     return { pending: 'Pendiente', paid: 'Pagado', fulfilling: 'En proceso', complete: 'Completado' }[s] || s;
   }
+
+  // Expose to window so Astro's module bundler doesn't tree-shake onclick handlers
+  window.lookupOrder = lookupOrder;
 </script>
 
 </BaseLayout>

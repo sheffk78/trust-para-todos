@@ -12,7 +12,7 @@ import { existsSync } from 'fs';
  */
 export const GET: APIRoute = async (context) => {
   try {
-    const { orderId, docId } = context.params;
+    const { id: orderId, docId } = context.params;
     if (!orderId || !docId) {
       return new Response(JSON.stringify({ error: 'Order ID and Document ID required' }), {
         status: 400,

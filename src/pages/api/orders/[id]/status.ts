@@ -9,8 +9,8 @@ import { query } from '../../../../lib/db';
  */
 export const GET: APIRoute = async (context) => {
   try {
-    const { orderId } = context.params;
-    if (!orderId) {
+    const { id } = context.params;
+    if (!id) {
       return new Response(JSON.stringify({ error: 'Order ID required' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
@@ -22,7 +22,7 @@ export const GET: APIRoute = async (context) => {
       `SELECT step_name as name, status, completed_at, notes
        FROM fulfillment_steps WHERE order_id = $1
        ORDER BY created_at ASC`,
-      [orderId]
+      [id]
     );
 
     // Get documents
@@ -30,7 +30,7 @@ export const GET: APIRoute = async (context) => {
       `SELECT id, order_id, document_type, status, file_path, created_at
        FROM documents WHERE order_id = $1
        ORDER BY created_at ASC`,
-      [orderId]
+      [id]
     );
 
     return new Response(JSON.stringify({

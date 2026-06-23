@@ -10,23 +10,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
   /* Welcome Card */
   .welcome-card {
-    background: var(--teal);
-    color: var(--white);
-    border-radius: var(--radius);
+    background: #0d2b2e;
+    color: rgba(255,255,255,0.9);
+    border-radius: 12px;
     padding: 40px;
     margin-bottom: 32px;
-    position: relative;
-    overflow: hidden;
-  }
-  .welcome-card::before {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 30%;
-    background: radial-gradient(ellipse at center, rgba(221,112,84,0.15) 0%, transparent 70%);
-    pointer-events: none;
   }
   .welcome-card h1 {
     font-family: 'Playfair Display', Georgia, serif;
@@ -34,24 +22,24 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     color: var(--white);
     margin-bottom: 4px;
   }
-  .welcome-card p { opacity: 0.85; font-size: 0.95rem; }
+  .welcome-card p { opacity: 0.75; font-size: 0.95rem; }
 
   /* Email Lookup */
   .lookup-card {
-    background: var(--white);
-    border: 1px solid var(--cream-dark);
-    border-radius: var(--radius);
+    background: #faf9f7;
+    border: 1px solid #e5e0d6;
+    border-radius: 12px;
     padding: 32px;
     margin-bottom: 24px;
   }
   .lookup-card h2 {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 1.3rem;
-    color: var(--dark);
+    color: #1a1a1a;
     margin-bottom: 4px;
   }
   .lookup-card .lookup-desc {
-    color: var(--text-muted);
+    color: #7a7a88;
     font-size: 0.9rem;
     margin-bottom: 20px;
   }
@@ -62,38 +50,38 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   .lookup-row input {
     flex: 1;
     padding: 14px 16px;
-    border: 1.5px solid var(--cream-dark);
-    border-radius: var(--radius-sm);
+    border: 1.5px solid #e5e0d6;
+    border-radius: 8px;
     font-family: 'DM Sans', sans-serif;
     font-size: 1rem;
     outline: none;
     transition: border-color 0.2s;
   }
-  .lookup-row input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(4,112,126,0.1); }
+  .lookup-row input:focus { border-color: #04707e; box-shadow: 0 0 0 3px rgba(4,112,126,0.1); }
 
   /* Status Tracker */
   .status-card {
-    background: var(--white);
-    border: 1px solid var(--cream-dark);
-    border-radius: var(--radius);
+    background: #faf9f7;
+    border: 1px solid #e5e0d6;
+    border-radius: 12px;
     padding: 32px;
     margin-bottom: 24px;
   }
   .status-card h2 {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 1.2rem;
-    color: var(--dark);
+    color: #1a1a1a;
     margin-bottom: 24px;
   }
   .status-tracker { position: relative; }
   .status-tracker::before {
     content: '';
     position: absolute;
-    left: 15px;
+    left: 19px;
     top: 0;
     bottom: 0;
     width: 2px;
-    background: var(--cream-dark);
+    background: #e5e0d6;
   }
   .status-step {
     display: flex;
@@ -102,8 +90,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     position: relative;
   }
   .status-dot {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     flex-shrink: 0;
     position: relative;
@@ -111,58 +99,115 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8rem;
     transition: all 0.3s;
   }
-  .status-step.completed .status-dot { background: var(--teal) !important; }
+  .status-dot svg { width: 20px; height: 20px; }
+  .status-step.completed .status-dot { background: #04707e; }
   .status-step.active .status-dot {
-    background: var(--terracotta) !important;
+    background: #dd7054;
     box-shadow: 0 0 0 4px rgba(221,112,84,0.2);
     animation: pulse-dot 2s ease-in-out infinite;
   }
+  .status-step.pending .status-dot { background: #e5e0d6; }
   @keyframes pulse-dot {
     0%, 100% { box-shadow: 0 0 0 4px rgba(221,112,84,0.2); }
     50% { box-shadow: 0 0 0 8px rgba(221,112,84,0.1); }
   }
-  .status-step-content { padding-top: 4px; }
-  .status-step-content strong { display: block; font-size: 0.95rem; color: var(--dark); }
-  .status-step-content p { font-size: 0.85rem; color: var(--text-muted); margin-top: 2px; }
+  .status-step-content { padding-top: 6px; }
+  .status-step-content strong { display: block; font-size: 0.95rem; color: #1a1a1a; }
+  .status-step-content p { font-size: 0.85rem; color: #7a7a88; margin-top: 2px; }
+
+  /* Next Step Callout */
+  .next-step-card {
+    background: #fef9e7;
+    border: 1px solid #f0e6b8;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .next-step-card .step-number {
+    width: 36px;
+    height: 36px;
+    background: #dd7054;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .next-step-card h3 { font-size: 1rem; color: #92400e; margin-bottom: 4px; }
+  .next-step-card p { font-size: 0.85rem; color: #92400e; opacity: 0.8; }
+  .next-step-card .btn-small {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 8px 20px;
+    background: #dd7054;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .next-step-card .btn-small:hover { background: #c45a3e; transform: translateY(-1px); }
 
   /* Documents Section */
   .documents-card {
-    background: var(--white);
-    border: 1px solid var(--cream-dark);
-    border-radius: var(--radius);
+    background: #faf9f7;
+    border: 1px solid #e5e0d6;
+    border-radius: 12px;
     padding: 32px;
     margin-bottom: 24px;
   }
   .documents-card h2 {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 1.2rem;
-    color: var(--dark);
+    color: #1a1a1a;
     margin-bottom: 20px;
+  }
+  .doc-group { margin-bottom: 20px; }
+  .doc-group:last-child { margin-bottom: 0; }
+  .doc-group-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #7a7a88;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e5e0d6;
   }
   .doc-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--cream-dark);
+    padding: 12px 0;
+    border-bottom: 1px solid #ede9e0;
   }
   .doc-item:last-child { border-bottom: none; }
   .doc-info { display: flex; align-items: center; gap: 12px; }
   .doc-icon {
-    width: 40px;
-    height: 40px;
-    background: var(--teal-light);
-    border-radius: 10px;
+    width: 36px;
+    height: 36px;
+    background: #e6f2f4;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    flex-shrink: 0;
   }
-  .doc-name { font-weight: 600; font-size: 0.9rem; color: var(--dark); }
-  .doc-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .doc-icon svg { width: 18px; height: 18px; stroke: #04707e; }
+  .doc-name { font-weight: 600; font-size: 0.9rem; color: #1a1a1a; }
+  .doc-meta { font-size: 0.8rem; color: #7a7a88; }
   .doc-status {
     font-size: 0.8rem;
     font-weight: 600;
@@ -177,8 +222,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     align-items: center;
     gap: 6px;
     padding: 8px 16px;
-    background: var(--teal);
-    color: var(--white);
+    background: #04707e;
+    color: white;
     border: none;
     border-radius: 100px;
     font-family: 'DM Sans', sans-serif;
@@ -188,7 +233,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     text-decoration: none;
     transition: all 0.2s;
   }
-  .btn-download:hover { background: var(--teal-dark); transform: translateY(-1px); }
+  .btn-download:hover { background: #035a66; transform: translateY(-1px); }
+  .btn-download svg { width: 14px; height: 14px; }
 
   /* Quick Links */
   .quick-links {
@@ -197,43 +243,45 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     gap: 16px;
   }
   .quick-link {
-    background: var(--white);
-    border: 1px solid var(--cream-dark);
-    border-radius: var(--radius);
+    background: #faf9f7;
+    border: 1px solid #e5e0d6;
+    border-radius: 12px;
     padding: 24px;
     text-decoration: none;
     transition: all 0.2s;
     display: block;
   }
-  .quick-link:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-  .quick-link-icon { font-size: 1.5rem; margin-bottom: 8px; }
+  .quick-link:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+  .quick-link-icon { margin-bottom: 12px; }
+  .quick-link-icon svg { width: 24px; height: 24px; stroke: #04707e; }
   .quick-link h3 {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 1rem;
-    color: var(--dark);
+    color: #1a1a1a;
     margin-bottom: 4px;
   }
-  .quick-link p { font-size: 0.85rem; color: var(--text-muted); }
+  .quick-link p { font-size: 0.85rem; color: #7a7a88; }
 
   /* Empty State */
   .empty-state {
     text-align: center;
     padding: 60px 24px;
   }
-  .empty-state-icon { font-size: 3rem; margin-bottom: 16px; }
+  .empty-state-icon { margin-bottom: 16px; }
+  .empty-state-icon svg { width: 48px; height: 48px; stroke: #7a7a88; }
   .empty-state h2 {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 1.5rem;
-    color: var(--dark);
+    color: #1a1a1a;
     margin-bottom: 8px;
   }
-  .empty-state p { color: var(--text-muted); margin-bottom: 24px; }
+  .empty-state p { color: #7a7a88; margin-bottom: 24px; }
 
   /* Success Banner */
   .success-banner {
     background: #e6f7e6;
     border: 1px solid #bbf7bb;
-    border-radius: var(--radius);
+    border-radius: 12px;
     padding: 24px;
     margin-bottom: 24px;
     display: flex;
@@ -248,10 +296,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    font-size: 1.5rem;
     flex-shrink: 0;
   }
+  .success-banner .check-icon svg { width: 24px; height: 24px; stroke: white; }
   .success-banner h3 { font-size: 1.1rem; color: #166534; margin-bottom: 2px; }
   .success-banner p { font-size: 0.9rem; color: #166534; opacity: 0.8; }
 
@@ -267,15 +314,19 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     <!-- Welcome -->
     <div class="welcome-card">
       <h1>Mi Panel</h1>
-      <p>Aquí puedes ver el estado de tu trust, descargar tus documentos y seguir tu progreso.</p>
+      <p>Revisa el estado de tu trust, descarga tus documentos y sigue cada paso del proceso.</p>
     </div>
 
     <!-- Success Banner (shown after payment) -->
     <div id="success-banner" class="success-banner" style="display:none;">
-      <div class="check-icon">✓</div>
+      <div class="check-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
       <div>
-        <h3>¡Pago completado con éxito!</h3>
-        <p>Estamos preparando tus documentos. Recibirás un correo cuando estén listos.</p>
+        <h3>Pago completado</h3>
+        <p>Estamos preparando tus documentos. Te notificaremos por correo cuando estén listos.</p>
       </div>
     </div>
 
@@ -296,41 +347,63 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       <div class="status-card" style="padding: 20px 32px; display: flex; justify-content: space-between; align-items: center;">
         <div>
           <strong id="customer-name" style="font-size:1.1rem;"></strong>
-          <p style="font-size:0.85rem; color:var(--text-muted);" id="customer-plan"></p>
+          <p style="font-size:0.85rem; color:#7a7a88;" id="customer-plan"></p>
         </div>
         <span id="order-status-badge" style="font-size:0.8rem; font-weight:600; padding:4px 12px; border-radius:100px;"></span>
       </div>
 
+      <!-- Next Step Callout -->
+      <div id="next-step-card" class="next-step-card" style="display:none;">
+        <div class="step-number" id="next-step-number">1</div>
+        <div>
+          <h3 id="next-step-title">Siguiente paso</h3>
+          <p id="next-step-description">Completa este paso para continuar con tu proceso.</p>
+          <a id="next-step-action" class="btn-small" href="#" style="display:none;">Continuar</a>
+        </div>
+      </div>
+
       <!-- Status Tracker -->
       <div class="status-card">
-        <h2>Estado de tu Trust</h2>
+        <h2>Progreso de tu trust</h2>
         <div class="status-tracker" id="status-steps"></div>
       </div>
 
       <!-- Documents -->
       <div class="documents-card" id="documents-section" style="display:none;">
-        <h2>Mis Documentos</h2>
+        <h2>Documentos</h2>
         <div id="documents-list"></div>
       </div>
 
       <!-- Quick Links -->
       <div class="quick-links">
         <a href="/que-es" class="quick-link">
-          <div class="quick-link-icon">🎓</div>
-          <h3>Curso Trustee 101</h3>
-          <p>Aprende a usar y administrar tu trust correctamente.</p>
+          <div class="quick-link-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <h3>Guía del trust</h3>
+          <p>Entiende cómo funciona tu trust y cómo usarlo correctamente.</p>
         </a>
         <a href="https://wa.me/18001234567" class="quick-link">
-          <div class="quick-link-icon">💬</div>
-          <h3>Soporte por WhatsApp</h3>
-          <p>Habla con nuestro equipo en español.</p>
+          <div class="quick-link-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <h3>Soporte</h3>
+          <p>Habla con nuestro equipo por WhatsApp en español.</p>
         </a>
       </div>
     </div>
 
     <!-- Empty State -->
     <div id="empty-state" class="empty-state" style="display:none;">
-      <div class="empty-state-icon">🔍</div>
+      <div class="empty-state-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </div>
       <h2>No encontramos tu orden</h2>
       <p>No hay ninguna orden asociada a este correo. ¿Quieres comenzar tu evaluación gratuita?</p>
       <a href="/evaluacion" class="btn btn-primary">Comenzar mi evaluación gratuita</a>
@@ -378,7 +451,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       document.getElementById('customer-plan').textContent = `Plan: ${latest.plan_type === 'base' ? 'Trust Para Todos' : 'Paquete Completo'}`;
 
       const badge = document.getElementById('order-status-badge');
-      const statusColors = { pending: '#fef9e7,#92400e', paid: '#e6f7e6,#166534', fulfilling: '#e6f2f4,#04707e', complete: '#e6f7e6,#166534' };
+      const statusColors: Record<string, string> = { pending: '#fef9e7,#92400e', paid: '#e6f7e6,#166534', fulfilling: '#e6f2f4,#04707e', complete: '#e6f7e6,#166534' };
       const [bg, color] = (statusColors[latest.status] || '#f4f2eb,#7a7a88').split(',');
       badge.style.cssText = `background:${bg}; color:${color};`;
       badge.textContent = translateStatus(latest.status);
@@ -397,11 +470,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       const data = await res.json();
       renderSteps(data.steps || []);
       renderDocuments(data.documents || []);
+      renderNextStep(data.steps || []);
 
-      // Check if document generation is still in progress — poll if so
       const docStep = (data.steps || []).find(s => s.name === 'document_generation');
       if (docStep && docStep.status === 'in_progress') {
-        // Poll every 5 seconds until docs are ready
         if (statusPollInterval) clearInterval(statusPollInterval);
         statusPollInterval = setInterval(() => loadOrderStatus(orderId), 5000);
       } else {
@@ -426,9 +498,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     ]);
   }
 
-  function renderSteps(steps) {
-    const container = document.getElementById('status-steps');
-    const labels = {
+  function renderNextStep(steps) {
+    const card = document.getElementById('next-step-card');
+    const number = document.getElementById('next-step-number');
+    const title = document.getElementById('next-step-title');
+    const desc = document.getElementById('next-step-description');
+    const action = document.getElementById('next-step-action');
+
+    // Find the first pending or in_progress step
+    const next = steps.find(s => s.status === 'in_progress' || s.status === 'pending');
+    if (!next) { card.style.display = 'none'; return; }
+
+    const stepOrder = ['payment_confirmed', 'document_generation', 'ein_filing', 'notary_scheduling', 'welcome_email', 'final_delivery'];
+    const stepIndex = stepOrder.indexOf(next.name);
+    const stepNum = stepIndex >= 0 ? stepIndex + 1 : '?';
+
+    const labels: Record<string, string> = {
       payment_confirmed: 'Pago confirmado',
       document_generation: 'Generación de documentos',
       ein_filing: 'Trámite de EIN',
@@ -436,15 +521,45 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       welcome_email: 'Correo de bienvenida',
       final_delivery: 'Entrega final',
     };
-    const icons = {
-      payment_confirmed: '💳',
-      document_generation: '📄',
-      ein_filing: '🔢',
-      notary_scheduling: '📅',
-      welcome_email: '📧',
-      final_delivery: '🎉',
+    const descriptions: Record<string, string> = {
+      payment_confirmed: 'Tu pago ha sido procesado. Estamos preparando tus documentos.',
+      document_generation: 'Tus documentos de trust están siendo preparados. Este proceso toma de 1 a 3 días hábiles.',
+      ein_filing: 'Estamos tramitando tu EIN ante el IRS. Te notificaremos cuando esté listo.',
+      notary_scheduling: 'Agenda tu cita notarial virtual para firmar tus documentos.',
+      welcome_email: 'Recibirás un correo con instrucciones detalladas sobre tu trust.',
+      final_delivery: 'Todo está listo. Tu trust está activo y protegido.',
     };
-    const descriptions = {
+    const actions: Record<string, { label: string; url: string } | null> = {
+      notary_scheduling: { label: 'Agendar cita', url: 'https://calendly.com/trustparatodos/notaria' },
+    };
+
+    number.textContent = String(stepNum);
+    title.textContent = `Siguiente: ${labels[next.name] || next.name}`;
+    desc.textContent = descriptions[next.name] || '';
+
+    const act = actions[next.name];
+    if (act && next.status === 'pending') {
+      action.style.display = 'inline-block';
+      action.textContent = act.label;
+      action.href = act.url;
+    } else {
+      action.style.display = 'none';
+    }
+
+    card.style.display = 'flex';
+  }
+
+  function renderSteps(steps) {
+    const container = document.getElementById('status-steps');
+    const labels: Record<string, string> = {
+      payment_confirmed: 'Pago confirmado',
+      document_generation: 'Generación de documentos',
+      ein_filing: 'Trámite de EIN',
+      notary_scheduling: 'Cita notarial',
+      welcome_email: 'Correo de bienvenida',
+      final_delivery: 'Entrega final',
+    };
+    const descriptions: Record<string, string> = {
       payment_confirmed: 'Tu pago ha sido procesado exitosamente.',
       document_generation: 'Tus documentos de trust están siendo preparados.',
       ein_filing: 'Estamos tramitando tu EIN ante el IRS.',
@@ -454,15 +569,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     };
 
     container.innerHTML = steps.map(s => {
-      let dotContent = icons[s.name] || '○';
-      let dotBg = '#e8e4d8';
-      let statusClass = '';
-      if (s.status === 'completed') { statusClass = 'completed'; dotBg = 'var(--teal)'; dotContent = '✓'; }
-      else if (s.status === 'in_progress') { statusClass = 'active'; dotBg = 'var(--terracotta)'; }
+      let statusClass = 'pending';
+      let dotContent = '';
+      if (s.status === 'completed') { statusClass = 'completed'; dotContent = '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'; }
+      else if (s.status === 'in_progress') { statusClass = 'active'; dotContent = '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/></svg>'; }
+      else { dotContent = '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>'; }
 
       return `
         <div class="status-step ${statusClass}">
-          <div class="status-dot" style="background:${dotBg};">${dotContent}</div>
+          <div class="status-dot">${dotContent}</div>
           <div class="status-step-content">
             <strong>${labels[s.name] || s.name}</strong>
             <p>${s.completed_at ? 'Completado' : (descriptions[s.name] || '')}${s.notes ? ' — ' + s.notes : ''}</p>
@@ -478,43 +593,69 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     if (!docs || docs.length === 0) { section.style.display = 'none'; return; }
     section.style.display = 'block';
 
-    const icons = {
-      revocable_living_trust: '📜',
-      pour_over_will: '📝',
-      certificate_of_trust: '🪪',
-      assignment_of_property: '📋',
-      durable_power_of_attorney: '✍️',
-      advance_healthcare_directive: '🏥',
-    };
-    const labels = {
-      revocable_living_trust: 'Trust Revocable',
-      pour_over_will: 'Testamento (Pour-Over Will)',
-      certificate_of_trust: 'Certificado de Trust',
-      assignment_of_property: 'Asignación de Bienes',
-      durable_power_of_attorney: 'Poder Notarial Financiero',
-      advance_healthcare_directive: 'Directiva de Atención Médica',
+    // Group documents by type category
+    const legalDocs = docs.filter(d => ['trust', 'ilit'].includes(d.document_type));
+    const supportDocs = docs.filter(d => ['ein', 'guide'].includes(d.document_type));
+
+    const docLabels: Record<string, string> = {
+      trust: 'Trust Revocable',
+      ilit: 'ILIT (Seguro de Vida)',
+      ein: 'EIN (Identificación Fiscal)',
+      guide: 'Guía Explicativa',
     };
 
-    list.innerHTML = docs.map(d => {
-      const isReady = d.status === 'ready';
-      const statusLabel = isReady ? 'Listo' : d.status === 'pending' ? 'Pendiente' : 'Error';
-      const statusClass = isReady ? 'ready' : d.status === 'pending' ? 'pending' : 'error';
-      return `
-        <div class="doc-item">
-          <div class="doc-info">
-            <div class="doc-icon">${icons[d.type] || '📄'}</div>
-            <div>
-              <div class="doc-name">${labels[d.type] || d.type}</div>
-              <div class="doc-meta">${d.created_at ? new Date(d.created_at).toLocaleDateString('es-MX') : ''}</div>
-            </div>
+    let html = '';
+
+    if (legalDocs.length > 0) {
+      html += `<div class="doc-group"><div class="doc-group-label">Documentos legales</div>`;
+      html += legalDocs.map(d => renderDocItem(d)).join('');
+      html += `</div>`;
+    }
+
+    if (supportDocs.length > 0) {
+      html += `<div class="doc-group"><div class="doc-group-label">Documentos de soporte</div>`;
+      html += supportDocs.map(d => renderDocItem(d)).join('');
+      html += `</div>`;
+    }
+
+    list.innerHTML = html;
+  }
+
+  function renderDocItem(d) {
+    const isReady = d.status === 'ready';
+    const statusLabel = isReady ? 'Listo' : d.status === 'pending' ? 'Pendiente' : 'Error';
+    const statusClass = isReady ? 'ready' : d.status === 'pending' ? 'pending' : 'error';
+    const docLabels: Record<string, string> = {
+      trust: 'Trust Revocable',
+      ilit: 'ILIT (Seguro de Vida)',
+      ein: 'EIN (Identificación Fiscal)',
+      guide: 'Guía Explicativa',
+    };
+
+    return `
+      <div class="doc-item">
+        <div class="doc-info">
+          <div class="doc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
           </div>
-          <div style="display:flex; align-items:center; gap:12px;">
-            <span class="doc-status ${statusClass}">${statusLabel}</span>
-            ${isReady && d.file_path ? `<a href="${API_BASE}/api/orders/${d.order_id || ''}/documents/${d.id}/download" class="btn-download">⬇ Descargar</a>` : ''}
+          <div>
+            <div class="doc-name">${docLabels[d.document_type] || d.document_type}</div>
+            <div class="doc-meta">${d.created_at ? new Date(d.created_at).toLocaleDateString('es-MX') : ''}</div>
           </div>
         </div>
-      `;
-    }).join('');
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span class="doc-status ${statusClass}">${statusLabel}</span>
+          ${isReady && d.file_path ? `<a href="${API_BASE}/api/orders/${d.order_id || ''}/documents/${d.id}/download" class="btn-download">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Descargar
+          </a>` : ''}
+        </div>
+      </div>
+    `;
   }
 
   function translateStatus(s) {

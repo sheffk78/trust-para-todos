@@ -201,6 +201,21 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
       margin-top: 24px;
     }
 
+    .order-summary-header {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .order-summary-header .btn-sm {
+      padding: 6px 14px !important;
+      font-size: 0.75rem !important;
+    }
     .loading { text-align: center; padding: 60px; color: var(--text-muted); }
     .error-state { text-align: center; padding: 60px; color: #991b1b; }
   </style>
@@ -289,7 +304,7 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
         var sum = document.getElementById('order-summary-header');
         if (sum) {
           sum.style.display = 'flex';
-          sum.innerHTML = '<div><h3 style="font-family:DM Sans,sans-serif;font-size:1.05rem;margin:0;color:var(--dark);">' + esc(order.customer_name) + '</h3><div style="display:flex;align-items:center;gap:10px;margin-top:6px;"><span class="plan-badge ' + esc(order.plan_type) + '">' + i18n.t('plan.' + order.plan_type, LOCALE) + '</span><span class="status-badge ' + esc(order.status) + '">' + i18n.t('status.' + order.status, LOCALE) + '</span><span style="font-size:1rem;font-weight:700;color:var(--dark);">' + formatCurrency(order.amount) + '</span></div></div><div style="display:flex;gap:8px;"><button class="btn btn-primary btn-sm" onclick="generateDocs()" style="padding:8px 18px;font-size:0.8rem;">' + i18n.t('order.generate_docs', LOCALE) + '</button></div>';
+          sum.innerHTML = '<div><h3 style="font-family:DM Sans,sans-serif;font-size:1.05rem;margin:0;color:var(--dark);">' + esc(order.customer_name) + '</h3><div style="display:flex;align-items:center;gap:10px;margin-top:6px;"><span class="plan-badge ' + esc(order.plan_type) + '">' + i18n.t('plan.' + order.plan_type, LOCALE) + '</span><span class="status-badge ' + esc(order.status) + '">' + i18n.t('status.' + order.status, LOCALE) + '</span><span style="font-size:1rem;font-weight:700;color:var(--dark);">' + formatCurrency(order.amount) + '</span></div></div><div><button class="btn btn-primary btn-sm" onclick="generateDocs()">' + i18n.t('order.generate_docs', LOCALE) + '</button></div>';
         }
 
         var steps = data.fulfillment_steps || [];

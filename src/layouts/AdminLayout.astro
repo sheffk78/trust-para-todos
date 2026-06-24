@@ -343,19 +343,19 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
     <!-- Layout helpers -->
     <script is:inline>
       var LOCALE = window.__i18n ? window.__i18n.getLocale() : 'es';
-      function toggleLanguage() {
+      window.toggleLanguage = function() {
         var newLang = LOCALE === 'es' ? 'en' : 'es';
         document.cookie = 'tpt_lang=' + newLang + '; path=/; max-age=' + (60 * 60 * 24 * 365) + '; SameSite=Lax';
         window.location.reload();
-      }
-      function openMobileSidebar() {
+      };
+      window.openMobileSidebar = function() {
         document.getElementById('mobile-sidebar').classList.add('open');
         document.getElementById('sidebar-overlay').classList.add('open');
-      }
-      function closeMobileSidebar() {
+      };
+      window.closeMobileSidebar = function() {
         document.getElementById('mobile-sidebar').classList.remove('open');
         document.getElementById('sidebar-overlay').classList.remove('open');
-      }
+      };
     </script>
   </body>
 </html>

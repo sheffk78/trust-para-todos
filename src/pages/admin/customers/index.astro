@@ -120,7 +120,7 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
   </div>
 
   <script is:inline>
-    const LOCALE = '{locale}';
+    const LOCALE = window.__i18n ? window.__i18n.getLocale() : '{locale}';
     const i18n = window.__i18n || { t: function(k) { return k; }, getLocale: function() { return 'es'; } };
     let currentPage = 1;
 

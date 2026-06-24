@@ -35,6 +35,11 @@ import '../styles/global.css';
           <a href="/como-funciona">Cómo funciona</a>
           <a href="/preguntas-frecuentes">FAQ</a>
           <a href="/evaluacion" class="btn btn-primary btn-sm">Tu evaluación</a>
+          <div class="lang-toggle">
+            <a href="#" data-lang="es" class="lang-link active">ES</a>
+            <span class="lang-sep">|</span>
+            <a href="#" data-lang="en" class="lang-link">EN</a>
+          </div>
         </div>
         <button class="mobile-menu-btn" aria-label="Menú">☰</button>
       </nav>
@@ -80,6 +85,24 @@ import '../styles/global.css';
       // Mobile menu toggle
       document.querySelector('.mobile-menu-btn')?.addEventListener('click', () => {
         document.querySelector('.nav-links')?.classList.toggle('open');
+      });
+
+      // Language toggle
+      document.querySelectorAll('.lang-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const lang = link.dataset.lang;
+          if (!lang) return;
+          document.cookie = `tpt_lang=${lang}; path=/; max-age=${365 * 24 * 60 * 60}`;
+          window.location.reload();
+        });
+      });
+
+      // Set active class based on current cookie
+      const match = document.cookie.match(/tpt_lang=([^;]+)/);
+      const currentLang = match?.[1] || 'es';
+      document.querySelectorAll('.lang-link').forEach(link => {
+        link.classList.toggle('active', link.dataset.lang === currentLang);
       });
     </script>
   </body>

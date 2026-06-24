@@ -127,6 +127,28 @@ h1, h2, h3, h4 {
 }
 .nav-links a:hover { color: var(--teal); }
 .nav-links a:hover::after { width: 100%; }
+
+/* Language toggle */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+  padding-left: 12px;
+  border-left: 1px solid var(--cream-dark);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.lang-link {
+  color: var(--text-muted) !important;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.lang-link:hover { color: var(--teal) !important; }
+.lang-link.active { color: var(--teal) !important; }
+.lang-link::after { display: none !important; }
+.lang-sep { color: var(--cream-dark); }
 .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--dark); }
 
 /* === Buttons === */

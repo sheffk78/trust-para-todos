@@ -56,17 +56,20 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--text-muted);
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--cream-dark);
-      background: var(--cream);
+      padding: 12px 14px;
+      border-bottom: 2px solid var(--cream-dark);
+      background: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 1;
     }
     .order-table td {
-      padding: 14px 16px;
-      font-size: 0.85rem;
+      padding: 14px 14px;
+      font-size: 0.875rem;
       border-bottom: 1px solid var(--cream-dark);
     }
-    .order-table tr:last-child td { border-bottom: none; }
-    .order-table tr:hover td { background: var(--cream); cursor: pointer; }
+    .order-table tbody tr:nth-child(even) td { background: var(--cream-warm); }
+    .order-table tbody tr:hover td { background: var(--cream); cursor: pointer; }
 
     .status-badge {
       display: inline-block;
@@ -114,12 +117,14 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
 
     .loading { text-align: center; padding: 60px; color: var(--text-muted); }
     .empty-state { text-align: center; padding: 60px; color: var(--text-muted); }
+    .result-count { margin-left: auto; font-size: 0.85rem; color: var(--text-muted); white-space: nowrap; }
+    .result-count strong { color: var(--dark); font-weight: 700; }
   </style>
 
   <div class="toolbar">
     <div class="search-box">
       <input type="text" id="search-input" data-i18n="orders.search" placeholder={t('orders.search', locale)} />
-      <button class="btn btn-primary btn-sm" onclick="loadOrders()" data-i18n="orders.search">{t('orders.search', locale)}</button>
+      <button class="btn btn-primary btn-sm" onclick="loadOrders()" style="padding:10px 14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
     </div>
     <div class="filter-group">
       <select id="status-filter" onchange="loadOrders()">
@@ -212,6 +217,14 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
 
         var totalPages = Math.ceil(data.total / data.limit);
         var pagination = document.getElementById('pagination');
+        var rc = document.getElementById('result-count');
+        if (!rc) {
+          rc = document.createElement('div');
+          rc.id = 'result-count';
+          rc.className = 'result-count';
+          document.querySelector('.toolbar').appendChild(rc);
+        }
+        rc.innerHTML = '<strong>' + data.total + '</strong> ' + (LOCALE === 'en' ? 'orders' : 'ordenes') + (data.orders.length < data.total ? ' &mdash; ' + (LOCALE === 'en' ? 'showing ' : 'mostrando ') + data.orders.length : '');
         pagination.innerHTML = `
           <button onclick="changePage(${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>← ${i18n.t('orders.all', LOCALE) === 'All' ? 'Previous' : 'Anterior'}</button>
           <span>${i18n.t('orders.all', LOCALE) === 'All' ? 'Page' : 'Página'} ${data.page} ${i18n.t('orders.all', LOCALE) === 'All' ? 'of' : 'de'} ${totalPages || 1} (${data.total} ${i18n.t('orders.all', LOCALE) === 'All' ? 'total' : 'total'})</span>

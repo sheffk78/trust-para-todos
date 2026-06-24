@@ -91,6 +91,13 @@ export const DICT: Record<string, { es: string; en: string }> = {
   'step.welcome_email': { es: 'Correo de bienvenida', en: 'Welcome Email' },
   'step.final_delivery': { es: 'Entrega final', en: 'Final Delivery' },
 
+  // Fulfillment step statuses (separate from order status)
+  'step.completed': { es: 'Completado', en: 'Completed' },
+  'step.in_progress': { es: 'En progreso', en: 'In Progress' },
+  'step.skipped': { es: 'Omitido', en: 'Skipped' },
+  'step.failed': { es: 'Falló', en: 'Failed' },
+  'step.generating': { es: 'Generando...', en: 'Generating...' },
+
   // Step descriptions
   'step.desc.payment_confirmed': { es: 'Tu pago ha sido procesado exitosamente.', en: 'Your payment has been processed successfully.' },
   'step.desc.document_generation': { es: 'Tus documentos de trust están siendo preparados.', en: 'Your trust documents are being prepared.' },

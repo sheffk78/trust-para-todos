@@ -6,6 +6,42 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
 
 <AdminLayout title={t('customer.title', locale)}>
   <style>
+    .customer-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+    }
+    .customer-summary-left { display: flex; align-items: center; gap: 16px; }
+    .customer-avatar-lg {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-family: DM Sans, sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .customer-summary h3 { font-family: DM Sans, sans-serif; font-size: 1.1rem; margin: 0; color: var(--dark); }
+    .customer-meta { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
+    .customer-summary-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .customer-summary-actions a {
+      padding: 6px 14px;
+      border: 1px solid var(--cream-dark);
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text-body);
+      transition: all 0.2s;
+    }
+    .customer-summary-actions a:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-light); }
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -54,16 +90,20 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--text-muted);
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--cream-dark);
+      padding: 12px 14px;
+      border-bottom: 2px solid var(--cream-dark);
+      background: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 1;
     }
     .order-table td {
-      padding: 12px;
-      font-size: 0.85rem;
+      padding: 14px 14px;
+      font-size: 0.875rem;
       border-bottom: 1px solid var(--cream-dark);
     }
-    .order-table tr:last-child td { border-bottom: none; }
-    .order-table tr:hover td { background: var(--cream); cursor: pointer; }
+    .order-table tbody tr:nth-child(even) td { background: var(--cream-warm); }
+    .order-table tbody tr:hover td { background: var(--cream); cursor: pointer; }
 
     .status-badge {
       display: inline-block;
@@ -96,12 +136,13 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
   <div id="loading" class="loading" data-i18n="customers.loading">{t('customers.loading', locale)}</div>
   <div id="error-state" class="error-state" style="display:none;"></div>
   <div id="detail-content" style="display:none;">
+    <div class="customer-summary" id="customer-summary" style="display:none;"></div>
     <div class="detail-grid">
       <div class="section-card">
         <h2 data-i18n="customer.info">{t('customer.info', locale)}</h2>
         <div id="customer-info"></div>
       </div>
-      <div class="section-card">
+      <div class="section-card" id="questionnaire-card">
         <h2>Cuestionario</h2>
         <div id="questionnaire-info">
           <p style="color:var(--text-muted); font-size:0.85rem;">Cargando datos del cuestionario...</p>
@@ -144,6 +185,16 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
         var customer = data.customer;
         var formatCurrency = function(cents) { return '$' + (cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 }); };
         var esc = function(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); };
+
+        // Customer summary header
+        var initials = (customer.name || '').split(' ').map(function(w) { return w.charAt(0); }).join('').substring(0, 2).toUpperCase();
+        var totalSpent = (data.orders || []).reduce(function(sum, o) { return sum + (o.amount || 0); }, 0);
+        var orderCount = (data.orders || []).length;
+        var sumEl = document.getElementById('customer-summary');
+        if (sumEl) {
+          sumEl.style.display = 'flex';
+          sumEl.innerHTML = '<div class="customer-summary-left"><div class="customer-avatar-lg">' + esc(initials) + '</div><div><h3>' + esc(customer.name) + '</h3><div class="customer-meta"><span>' + (orderCount === 1 ? '1 ' + (LOCALE === 'en' ? 'order' : 'orden') : orderCount + ' ' + (LOCALE === 'en' ? 'orders' : 'ordenes')) + '</span><span style="opacity:0.3;">·</span><span>' + formatCurrency(totalSpent) + '</span><span style="opacity:0.3;">·</span><span>' + (LOCALE === 'en' ? 'Client since ' : 'Cliente desde ') + new Date(customer.created_at).toLocaleDateString(LOCALE === 'en' ? 'en-US' : 'es-MX') + '</span></div></div></div><div class="customer-summary-actions">' + (customer.email ? '<a href="mailto:' + esc(customer.email) + '">✉ Email</a>' : '') + (customer.phone ? '<a href="tel:' + esc(customer.phone) + '">' + esc(customer.phone) + '</a>' : '') + '</div>';
+        }
 
         document.getElementById('customer-info').innerHTML = `
           <div class="info-row"><span class="label">${i18n.t('customers.name', LOCALE)}</span><span class="value">${esc(customer.name)}</span></div>

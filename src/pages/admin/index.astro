@@ -12,12 +12,25 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
       border: 1px solid var(--cream-dark);
       border-radius: var(--radius);
       padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
-    .stat-card .stat-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
-    .stat-card .stat-value { font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; font-weight: 700; color: var(--dark); }
-    .stat-card .stat-sub { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
+    .stat-card-header { display: flex; justify-content: space-between; align-items: center; }
+    .stat-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: inherit;
+    }
+    .stat-card.teal .stat-icon { background: var(--teal-light); color: var(--teal); }
+    .stat-card.terracotta .stat-icon { background: var(--terracotta-light); color: var(--terracotta); }
+    .stat-card .stat-icon { background: var(--cream-warm); color: var(--text-muted); }
+    .stat-card .stat-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .stat-card .stat-value { font-family: 'DM Sans', sans-serif; font-size: 2rem; font-weight: 700; color: var(--dark); letter-spacing: -0.02em; }
     .stat-card.teal .stat-value { color: var(--teal); }
     .stat-card.terracotta .stat-value { color: var(--terracotta); }
+    .stat-card .stat-sub { font-size: 0.78rem; color: var(--text-muted); }
 
     .section-card {
       background: var(--white);
@@ -41,16 +54,20 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--text-muted);
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--cream-dark);
+      padding: 12px 14px;
+      border-bottom: 2px solid var(--cream-dark);
+      background: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 1;
     }
     .order-table td {
-      padding: 12px;
-      font-size: 0.85rem;
+      padding: 14px 14px;
+      font-size: 0.875rem;
       border-bottom: 1px solid var(--cream-dark);
     }
-    .order-table tr:last-child td { border-bottom: none; }
-    .order-table tr:hover td { background: var(--cream); }
+    .order-table tbody tr:nth-child(even) td { background: var(--cream-warm); }
+    .order-table tbody tr:hover td { background: var(--cream); }
 
     .status-badge {
       display: inline-block;
@@ -120,24 +137,28 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
         const statsGrid = document.getElementById('stats-grid');
         const formatCurrency = function(cents) { return '$' + (cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 }); };
         
-        statsGrid.innerHTML = `
-          <div class="stat-card teal">
-            <div class="stat-label">${i18n.t('dashboard.total_orders', LOCALE)}</div>
-            <div class="stat-value">${data.total_orders}</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">${i18n.t('dashboard.orders_today', LOCALE)}</div>
-            <div class="stat-value">${data.orders_today}</div>
-          </div>
-          <div class="stat-card terracotta">
-            <div class="stat-label">${i18n.t('dashboard.pending', LOCALE)}</div>
-            <div class="stat-value">${data.pending_fulfillment}</div>
-          </div>
-          <div class="stat-card teal">
-            <div class="stat-label">${i18n.t('dashboard.revenue', LOCALE)}</div>
-            <div class="stat-value">$${Number(data.revenue).toLocaleString('en-US', { minimumFractionDigits: 2 })}</div>
-          </div>
-        `;
+        statsGrid.innerHTML = [
+          '<div class="stat-card teal">',
+            '<div class="stat-card-header"><span class="stat-label">' + i18n.t('dashboard.total_orders', LOCALE) + '</span><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span></div>',
+            '<div class="stat-value">' + data.total_orders + '</div>',
+            '<div class="stat-sub">' + data.pending_fulfillment + ' ' + (LOCALE === 'en' ? 'pending' : 'pendientes') + '</div>',
+          '</div>',
+          '<div class="stat-card">',
+            '<div class="stat-card-header"><span class="stat-label">' + i18n.t('dashboard.orders_today', LOCALE) + '</span><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span></div>',
+            '<div class="stat-value">' + data.orders_today + '</div>',
+            '<div class="stat-sub">' + (data.orders_today === 0 ? (LOCALE === 'en' ? 'No orders yet' : 'Sin ordenes hoy') : (data.orders_today === 1 ? '1 ' + (LOCALE === 'en' ? 'order' : 'orden') : data.orders_today + ' ' + (LOCALE === 'en' ? 'orders' : 'ordenes'))) + '</div>',
+          '</div>',
+          '<div class="stat-card terracotta">',
+            '<div class="stat-card-header"><span class="stat-label">' + i18n.t('dashboard.pending', LOCALE) + '</span><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span></div>',
+            '<div class="stat-value">' + data.pending_fulfillment + '</div>',
+            '<div class="stat-sub">' + (LOCALE === 'en' ? 'awaiting fulfillment' : 'en espera') + '</div>',
+          '</div>',
+          '<div class="stat-card teal">',
+            '<div class="stat-card-header"><span class="stat-label">' + i18n.t('dashboard.revenue', LOCALE) + '</span><span class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span></div>',
+            '<div class="stat-value">$' + Number(data.revenue).toLocaleString('en-US', { minimumFractionDigits: 2 }) + '</div>',
+            '<div class="stat-sub">' + (LOCALE === 'en' ? 'all-time revenue' : 'ingresos totales') + '</div>',
+          '</div>'
+        ].join('');
 
         const tbody = document.getElementById('recent-orders-body');
         var esc = function(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); };
@@ -153,6 +174,15 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
             <td>${new Date(o.created_at).toLocaleDateString(LOCALE === 'en' ? 'en-US' : 'es-MX')}</td>
           </tr>
         `;}).join('');
+
+        // Add "View all" link
+        var container = document.querySelector('.section-card');
+        if (container) {
+          var viewAll = document.createElement('div');
+          viewAll.style.cssText = 'text-align:center;padding:16px 0 0;border-top:1px solid var(--cream-dark);margin-top:8px;';
+          viewAll.innerHTML = '<a href="/admin/orders" style="font-size:0.85rem;color:var(--teal);text-decoration:none;font-weight:600;">' + (LOCALE === 'en' ? 'View all orders →' : 'Ver todas las órdenes →') + '</a>';
+          container.appendChild(viewAll);
+        }
       } catch (e) {
         document.getElementById('dashboard-loading').style.display = 'none';
         const errorEl = document.getElementById('dashboard-error');

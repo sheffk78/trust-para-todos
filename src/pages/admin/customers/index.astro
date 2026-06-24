@@ -46,17 +46,32 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--text-muted);
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--cream-dark);
-      background: var(--cream);
+      padding: 12px 14px;
+      border-bottom: 2px solid var(--cream-dark);
+      background: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 1;
     }
     .customer-table td {
-      padding: 14px 16px;
-      font-size: 0.85rem;
+      padding: 14px 14px;
+      font-size: 0.875rem;
       border-bottom: 1px solid var(--cream-dark);
     }
-    .customer-table tr:last-child td { border-bottom: none; }
-    .customer-table tr:hover td { background: var(--cream); cursor: pointer; }
+    .customer-table tbody tr:nth-child(even) td { background: var(--cream-warm); }
+    .customer-table tbody tr:hover td { background: var(--cream); cursor: pointer; }
+    .customer-cell { display: flex; align-items: center; gap: 10px; }
+    .customer-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--teal-light);
+      color: var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .order-count { font-size: 0.8rem; font-weight: 600; padding: 2px 10px; border-radius: 100px; background: var(--teal-light); color: var(--teal); }
 
     .order-count {
       display: inline-block;
@@ -91,12 +106,14 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
 
     .loading { text-align: center; padding: 60px; color: var(--text-muted); }
     .empty-state { text-align: center; padding: 60px; color: var(--text-muted); }
+    .result-count { margin-left: auto; font-size: 0.85rem; color: var(--text-muted); white-space: nowrap; }
+    .result-count strong { color: var(--dark); font-weight: 700; }
   </style>
 
   <div class="toolbar">
     <div class="search-box">
       <input type="text" id="search-input" data-i18n="customers.search" placeholder={t('customers.search', locale)} />
-      <button class="btn btn-primary btn-sm" onclick="loadCustomers()" data-i18n="customers.search">{t('customers.search', locale)}</button>
+      <button class="btn btn-primary btn-sm" onclick="loadCustomers()" style="padding:10px 14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
     </div>
   </div>
 
@@ -154,10 +171,10 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
         tbody.innerHTML = data.customers.map(function(c) {
           return `
           <tr onclick="window.location='/admin/customers/${esc(c.id)}'">
-            <td><strong>${esc(c.name)}</strong></td>
+            <td class="customer-cell"><span class="customer-avatar">${esc((c.name || "").split(" ").map(function(w) { return w.charAt(0); }).join("").substring(0, 2).toUpperCase())}</span><strong>${esc(c.name)}</strong></td>
             <td>${esc(c.email)}</td>
             <td>${esc(c.phone) || '—'}</td>
-            <td><span class="order-count">${c.order_count} ${i18n.t('customers.orders', LOCALE)}</span></td>
+            <td><span class="order-count">${c.order_count === 1 ? "1 " + (LOCALE === "en" ? "order" : "orden") : c.order_count + " " + (LOCALE === "en" ? "orders" : "ordenes")}</span></td>
             <td>${new Date(c.created_at).toLocaleDateString(LOCALE === 'en' ? 'en-US' : 'es-MX')}</td>
           </tr>
         `;}).join('');

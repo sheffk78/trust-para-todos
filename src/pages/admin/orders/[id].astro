@@ -16,6 +16,10 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
       margin-bottom: 20px;
     }
     .back-link:hover { color: var(--teal); }
+    .customer-link { color: var(--teal); text-decoration: none; font-weight: 600; }
+    .customer-link:hover { text-decoration: underline; }
+    .contact-link { color: var(--text-body); text-decoration: none; }
+    .contact-link:hover { color: var(--teal); text-decoration: underline; }
 
     .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
     @media (max-width: 768px) { .detail-grid { grid-template-columns: 1fr; } }
@@ -65,6 +69,35 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
     .status-badge.ready { background: #e6f7e6; color: #166534; }
     .status-badge.error { background: #fef2f2; color: #991b1b; }
 
+    .fulfillment-progress {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 16px 20px;
+      background: var(--cream-warm);
+      border-radius: var(--radius-sm);
+    }
+    .fulfillment-progress-bar {
+      flex: 1;
+      height: 8px;
+      background: var(--cream-dark);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .fulfillment-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--teal), var(--terracotta));
+      border-radius: 4px;
+      transition: width 0.6s ease;
+    }
+    .fulfillment-progress-text {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--dark);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
     .fulfillment-tracker { position: relative; padding-left: 32px; }
     .fulfillment-tracker::before {
       content: '';
@@ -73,7 +106,7 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
       top: 0;
       bottom: 0;
       width: 2px;
-      background: var(--cream-dark);
+      background: var(--tracker-line, var(--cream-dark));
     }
     .fulfillment-step {
       position: relative;
@@ -147,6 +180,7 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
   <div id="loading" class="loading" data-i18n="orders.loading">{t('orders.loading', locale)}</div>
   <div id="error-state" class="error-state" style="display:none;"></div>
   <div id="detail-content" style="display:none;">
+    <div class="order-summary-header" id="order-summary-header" style="display:none;"></div>
     <div class="detail-grid">
       <div class="section-card">
         <h2 data-i18n="order.title">{t('order.title', locale)}</h2>
@@ -160,6 +194,12 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
 
     <div class="section-card" style="margin-bottom:24px;">
       <h2 data-i18n="order.fulfillment">{t('order.fulfillment', locale)}</h2>
+      <div class="fulfillment-progress" id="fulfillment-progress" style="display:none;">
+        <div class="fulfillment-progress-bar">
+          <div class="fulfillment-progress-fill" id="fulfillment-progress-fill" style="width:0%;"></div>
+        </div>
+        <span class="fulfillment-progress-text" id="fulfillment-progress-text"></span>
+      </div>
       <div class="fulfillment-tracker" id="fulfillment-steps"></div>
     </div>
 
@@ -170,9 +210,7 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
       </div>
     </div>
 
-    <div class="action-bar">
-      <button class="btn btn-primary" onclick="generateDocs()" data-i18n="order.generate_docs">{t('order.generate_docs', locale)}</button>
-    </div>
+
   </div>
 
   <script is:inline>
@@ -212,15 +250,36 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
           <div class="info-row"><span class="label">${i18n.t('order.updated', LOCALE)}</span><span class="value">${new Date(order.updated_at).toLocaleString(LOCALE === 'en' ? 'en-US' : 'es-MX')}</span></div>
         `;
 
-        document.getElementById('customer-info').innerHTML = `
-          <div class="info-row"><span class="label">${i18n.t('customers.name', LOCALE)}</span><span class="value">${esc(order.customer_name)}</span></div>
-          <div class="info-row"><span class="label">${i18n.t('customers.email', LOCALE)}</span><span class="value">${esc(order.customer_email)}</span></div>
-          <div class="info-row"><span class="label">${i18n.t('customers.phone', LOCALE)}</span><span class="value">${esc(order.customer_phone) || '—'}</span></div>
-        `;
+        document.getElementById('customer-info').innerHTML = [
+          '<div class="info-row"><span class="label">' + i18n.t('customers.name', LOCALE) + '</span><span class="value"><a href="/admin/customers/' + esc(order.customer_id) + '" class="customer-link">' + esc(order.customer_name) + '</a></span></div>',
+          '<div class="info-row"><span class="label">' + i18n.t('customers.email', LOCALE) + '</span><span class="value"><a href="mailto:' + esc(order.customer_email) + '" class="contact-link">' + esc(order.customer_email) + '</a></span></div>',
+          '<div class="info-row"><span class="label">' + i18n.t('customers.phone', LOCALE) + '</span><span class="value">' + (order.customer_phone ? '<a href="tel:' + esc(order.customer_phone) + '" class="contact-link">' + esc(order.customer_phone) + '</a>' : '—') + '</span></div>'
+        ].join('');
+
+        // Order summary header
+        var sum = document.getElementById('order-summary-header');
+        if (sum) {
+          sum.style.display = 'flex';
+          sum.innerHTML = '<div><h3 style="font-family:DM Sans,sans-serif;font-size:1.05rem;margin:0;color:var(--dark);">' + esc(order.customer_name) + '</h3><div style="display:flex;align-items:center;gap:10px;margin-top:6px;"><span class="plan-badge ' + esc(order.plan_type) + '">' + i18n.t('plan.' + order.plan_type, LOCALE) + '</span><span class="status-badge ' + esc(order.status) + '">' + i18n.t('status.' + order.status, LOCALE) + '</span><span style="font-size:1rem;font-weight:700;color:var(--dark);">' + formatCurrency(order.amount) + '</span></div></div><div style="display:flex;gap:8px;"><button class="btn btn-primary btn-sm" onclick="generateDocs()" style="padding:8px 18px;font-size:0.8rem;">' + i18n.t('order.generate_docs', LOCALE) + '</button></div>';
+        }
 
         var steps = data.fulfillment_steps || [];
 
         var tracker = document.getElementById('fulfillment-steps');
+        var progressEl = document.getElementById('fulfillment-progress');
+        var progressFill = document.getElementById('fulfillment-progress-fill');
+        var progressText = document.getElementById('fulfillment-progress-text');
+        if (steps.length > 0 && progressEl) {
+          var completedCount = steps.filter(function(s) { return s.status === 'completed' || s.status === 'skipped'; }).length;
+          var pct = Math.round(completedCount / steps.length * 100);
+          progressEl.style.display = 'flex';
+          progressFill.style.width = pct + '%';
+          progressText.textContent = completedCount + ' de ' + steps.length + ' (' + pct + '%)';
+          // Dynamic line
+          var stepPct = 100 / steps.length;
+          var tealPct = completedCount * stepPct;
+          tracker.style.setProperty('--tracker-line', 'linear-gradient(to bottom, var(--teal) 0%, var(--teal) ' + tealPct + '%, var(--cream-dark) ' + tealPct + '%, var(--cream-dark) 100%)');
+        }
         tracker.innerHTML = steps.map(function(s) {
           var dotBg = '#e8e4d8';
           var dotContent = stepSvgIcons[s.step_name] || '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><circle cx="12" cy="12" r="10"/></svg>';
@@ -234,7 +293,7 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
               <div class="step-dot" style="background:${dotBg}; color:white; display:flex; align-items:center; justify-content:center;">${dotContent}</div>
               <div class="step-name">${esc(i18n.t('step.' + s.step_name, LOCALE))}</div>
               <div class="step-meta">
-                <span class="status-badge ${esc(s.status)}">${esc(i18n.t('status.' + s.status, LOCALE))}</span>
+                <span class="status-badge ${esc(s.status)}">${esc(i18n.t('step.' + s.status, LOCALE))}</span>
                 ${s.completed_at ? ' &mdash; ' + new Date(s.completed_at).toLocaleString(LOCALE === 'en' ? 'en-US' : 'es-MX') : ''}
                 ${s.notes ? ' &mdash; ' + esc(s.notes) : ''}
               </div>

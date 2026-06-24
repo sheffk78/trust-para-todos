@@ -5,7 +5,7 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
 ---
 
 <AdminLayout title={t('order.title', locale)}>
-  <style>
+  <style is:global>
     .back-link {
       display: inline-flex;
       align-items: center;

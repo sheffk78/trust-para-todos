@@ -5,7 +5,7 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
 ---
 
 <AdminLayout title={t('orders.title', locale)}>
-  <style>
+  <style is:global>
     .toolbar {
       display: flex;
       justify-content: space-between;

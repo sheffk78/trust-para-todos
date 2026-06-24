@@ -98,35 +98,46 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
       white-space: nowrap;
       flex-shrink: 0;
     }
-    .fulfillment-tracker { position: relative; padding-left: 32px; }
+    .fulfillment-tracker {
+      display: flex;
+      justify-content: space-between;
+      gap: 0;
+      position: relative;
+      padding: 32px 24px 16px;
+    }
     .fulfillment-tracker::before {
       content: '';
       position: absolute;
-      left: 11px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
+      top: 48px;
+      left: 48px;
+      right: 48px;
+      height: 2px;
       background: var(--tracker-line, var(--cream-dark));
+      z-index: 0;
     }
     .fulfillment-step {
       position: relative;
-      padding: 12px 0 12px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex: 1;
+      min-width: 0;
+      z-index: 1;
     }
     .fulfillment-step .step-dot {
-      position: absolute;
-      left: -25px;
-      top: 14px;
-      width: 24px;
-      height: 24px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.7rem;
-      z-index: 1;
+      font-size: 0.75rem;
+      margin-bottom: 8px;
+      flex-shrink: 0;
     }
-    .fulfillment-step .step-name { font-weight: 600; font-size: 0.9rem; color: var(--dark); }
-    .fulfillment-step .step-meta { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+    .fulfillment-step .step-name { font-weight: 600; font-size: 0.75rem; color: var(--dark); line-height: 1.2; max-width: 100px; }
+    .fulfillment-step .step-meta { font-size: 0.7rem; color: var(--text-muted); margin-top: 4px; max-width: 120px; }
 
     .doc-item {
       display: flex;
@@ -166,6 +177,24 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
     }
     .btn-download:hover { background: var(--teal-dark); transform: translateY(-1px); }
 
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 768px) { .doc-grid { grid-template-columns: 1fr; } }
+    .doc-section { margin-bottom: 20px; }
+    .doc-section-title {
+      grid-column: 1 / -1;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--cream-dark);
+      margin-bottom: 8px;
+    }
     .action-bar {
       display: flex;
       gap: 12px;
@@ -278,7 +307,7 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
           // Dynamic line
           var stepPct = 100 / steps.length;
           var tealPct = completedCount * stepPct;
-          tracker.style.setProperty('--tracker-line', 'linear-gradient(to bottom, var(--teal) 0%, var(--teal) ' + tealPct + '%, var(--cream-dark) ' + tealPct + '%, var(--cream-dark) 100%)');
+          tracker.style.setProperty('--tracker-line', 'linear-gradient(to right, var(--teal) 0%, var(--teal) ' + tealPct + '%, var(--cream-dark) ' + tealPct + '%, var(--cream-dark) 100%)');
         }
         tracker.innerHTML = steps.map(function(s) {
           var dotBg = '#e8e4d8';
@@ -334,22 +363,20 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
             '</div>';
           }
 
-          var html = '';
+          var html = '<div class="doc-grid">';
           if (legalDocs.length > 0) {
-            html += '<div style="margin-bottom:20px;"><div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--cream-dark);">Documentos Legales</div>';
+            html += '<div class="doc-section-title">Legal Documents</div>';
             html += legalDocs.map(renderDocItem).join('');
-            html += '</div>';
           }
           if (supportDocs.length > 0) {
-            html += '<div style="margin-bottom:20px;"><div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--cream-dark);">Documentos de Soporte</div>';
+            html += '<div class="doc-section-title">Supporting Documents</div>';
             html += supportDocs.map(renderDocItem).join('');
-            html += '</div>';
           }
           if (otherDocs.length > 0) {
-            html += '<div><div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--cream-dark);">Otros</div>';
+            html += '<div class="doc-section-title">Otros</div>';
             html += otherDocs.map(renderDocItem).join('');
-            html += '</div>';
           }
+          html += '</div>';
           docsList.innerHTML = html;
         }
       } catch (e) {

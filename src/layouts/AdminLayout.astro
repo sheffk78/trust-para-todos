@@ -20,6 +20,36 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+    <!-- i18n setup: must run BEFORE any page inline scripts in the slot -->
+    <script is:inline define:vars={{ DICT, locale }}>
+      window.__i18n = {
+        DICT: DICT,
+        getLocale: function() {
+          var m = document.cookie.match(/tpt_lang=([^;]+)/);
+          var v = m ? m[1] : null;
+          return (v === 'en' || v === 'es') ? v : 'es';
+        },
+        t: function(key, loc) {
+          var l = loc || this.getLocale();
+          var entry = this.DICT[key];
+          if (!entry) return key;
+          return entry[l] || key;
+        }
+      };
+      // Translate all data-i18n elements on DOMContentLoaded
+      function translatePage() {
+        var l = window.__i18n.getLocale();
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          var key = el.getAttribute('data-i18n');
+          if (key) { el.textContent = window.__i18n.t(key, l); }
+        });
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', translatePage);
+      } else {
+        translatePage();
+      }
+    </script>
   </head>
   <body>
     <style>
@@ -310,38 +340,9 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
       </div>
     </div>
 
-    <!-- i18n: set up window.__i18n synchronously so inline page scripts can use it -->
-    <script is:inline define:vars={{ DICT, locale }}>
-      window.__i18n = {
-        DICT: DICT,
-        getLocale: function() {
-          var m = document.cookie.match(/tpt_lang=([^;]+)/);
-          var v = m ? m[1] : null;
-          return (v === 'en' || v === 'es') ? v : 'es';
-        },
-        t: function(key, loc) {
-          var l = loc || this.getLocale();
-          var entry = this.DICT[key];
-          if (!entry) return key;
-          return entry[l] || key;
-        }
-      };
-      // Translate all data-i18n elements on DOMContentLoaded
-      function translatePage() {
-        var l = window.__i18n.getLocale();
-        document.querySelectorAll('[data-i18n]').forEach(function(el) {
-          var key = el.getAttribute('data-i18n');
-          if (key) { el.textContent = window.__i18n.t(key, l); }
-        });
-      }
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', translatePage);
-      } else {
-        translatePage();
-      }
-
-      // Layout helpers
-      var LOCALE = locale;
+    <!-- Layout helpers -->
+    <script is:inline>
+      var LOCALE = '{locale}';
       function toggleLanguage() {
         var newLang = LOCALE === 'es' ? 'en' : 'es';
         document.cookie = 'tpt_lang=' + newLang + '; path=/; max-age=' + (60 * 60 * 24 * 365) + '; SameSite=Lax';

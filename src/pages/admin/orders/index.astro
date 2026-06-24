@@ -163,9 +163,13 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
     let currentPage = 1;
 
     async function loadOrders() {
-      const search = (document.getElementById('search-input') as HTMLInputElement).value;
-      const status = (document.getElementById('status-filter') as HTMLSelectElement).value;
-      const plan = (document.getElementById('plan-filter') as HTMLSelectElement).value;
+      var $search = document.getElementById('search-input');
+      var $status = document.getElementById('status-filter');
+      var $plan = document.getElementById('plan-filter');
+      if (!$search || !$status || !$plan) return;
+      var search = $search.value;
+      var status = $status.value;
+      var plan = $plan.value;
 
       const params = new URLSearchParams({ page: String(currentPage), limit: '50' });
       if (search) params.set('search', search);

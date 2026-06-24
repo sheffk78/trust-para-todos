@@ -125,7 +125,9 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
     let currentPage = 1;
 
     async function loadCustomers() {
-      const search = (document.getElementById('search-input') as HTMLInputElement).value;
+      var $search = document.getElementById('search-input');
+      if (!$search) return;
+      var search = $search.value;
       const params = new URLSearchParams({ page: String(currentPage), limit: '50' });
       if (search) params.set('search', search);
 

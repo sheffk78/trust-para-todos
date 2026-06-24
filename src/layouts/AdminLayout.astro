@@ -342,9 +342,9 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
 
     <!-- Layout helpers -->
     <script is:inline>
-      var LOCALE = window.__i18n ? window.__i18n.getLocale() : 'es';
+      var adminLocale = window.__i18n ? window.__i18n.getLocale() : 'es';
       window.toggleLanguage = function() {
-        var newLang = LOCALE === 'es' ? 'en' : 'es';
+        var newLang = adminLocale === 'es' ? 'en' : 'es';
         document.cookie = 'tpt_lang=' + newLang + '; path=/; max-age=' + (60 * 60 * 24 * 365) + '; SameSite=Lax';
         window.location.reload();
       };

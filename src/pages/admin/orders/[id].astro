@@ -216,6 +216,44 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
       padding: 6px 14px !important;
       font-size: 0.75rem !important;
     }
+
+    .step-actions {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .step-actions .btn-sm {
+      padding: 3px 10px !important;
+      font-size: 0.65rem !important;
+      border-radius: 100px;
+      background: var(--teal);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      transition: all 0.15s;
+      white-space: nowrap;
+      line-height: 1.4;
+    }
+    .step-actions .btn-sm:hover { background: var(--teal-dark); }
+    .step-actions .btn-sm.btn-terracotta { background: var(--terracotta); }
+    .step-actions .btn-sm.btn-terracotta:hover { background: var(--terracotta-dark); }
+    .step-actions .btn-sm:disabled { opacity: 0.4; cursor: default; }
+    .step-actions .ein-input {
+      width: 80px;
+      padding: 3px 6px;
+      border: 1px solid var(--cream-dark);
+      border-radius: 6px;
+      font-size: 0.65rem;
+      font-family: 'DM Sans', sans-serif;
+      text-align: center;
+      outline: none;
+    }
+    .step-actions .ein-input:focus { border-color: var(--teal); }
+
     .loading { text-align: center; padding: 60px; color: var(--text-muted); }
     .error-state { text-align: center; padding: 60px; color: #991b1b; }
   </style>
@@ -304,7 +342,12 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
         var sum = document.getElementById('order-summary-header');
         if (sum) {
           sum.style.display = 'flex';
-          sum.innerHTML = '<div><h3 style="font-family:DM Sans,sans-serif;font-size:1.05rem;margin:0;color:var(--dark);">' + esc(order.customer_name) + '</h3><div style="display:flex;align-items:center;gap:10px;margin-top:6px;"><span class="plan-badge ' + esc(order.plan_type) + '">' + i18n.t('plan.' + order.plan_type, LOCALE) + '</span><span class="status-badge ' + esc(order.status) + '">' + i18n.t('status.' + order.status, LOCALE) + '</span><span style="font-size:1rem;font-weight:700;color:var(--dark);">' + formatCurrency(order.amount) + '</span></div></div><div><button class="btn btn-primary btn-sm" onclick="generateDocs()">' + i18n.t('order.generate_docs', LOCALE) + '</button></div>';
+          sum.innerHTML = '<div><h3 style="font-family:DM Sans,sans-serif;font-size:1.05rem;margin:0;color:var(--dark);">' + esc(order.customer_name) + '</h3><div style="display:flex;align-items:center;gap:10px;margin-top:6px;"><span class="plan-badge ' + esc(order.plan_type) + '">' + i18n.t('plan.' + order.plan_type, LOCALE) + '</span><span class="status-badge ' + esc(order.status) + '">' + i18n.t('status.' + order.status, LOCALE) + '</span><span style="font-size:1rem;font-weight:700;color:var(--dark);">' + formatCurrency(order.amount) + '</span></div></div><div style="display:flex;align-items:center;gap:8px;"><select id="order-status-select" onchange="updateOrderStatus(this.value)" style="padding:6px 10px;border:1px solid var(--cream-dark);border-radius:8px;font-size:0.75rem;font-family:DM Sans,sans-serif;background:var(--white);color:var(--dark);outline:none;">' +
+    '<option value="pending"' + (order.status === 'pending' ? ' selected' : '') + '>' + i18n.t('status.pending', LOCALE) + '</option>' +
+    '<option value="paid"' + (order.status === 'paid' ? ' selected' : '') + '>' + i18n.t('status.paid', LOCALE) + '</option>' +
+    '<option value="fulfilling"' + (order.status === 'fulfilling' ? ' selected' : '') + '>' + i18n.t('status.fulfilling', LOCALE) + '</option>' +
+    '<option value="complete"' + (order.status === 'complete' ? ' selected' : '') + '>' + i18n.t('status.complete', LOCALE) + '</option>' +
+'</select><button class="btn btn-primary btn-sm" onclick="generateDocs()">' + i18n.t('order.generate_docs', LOCALE) + '</button></div>';
         }
 
         var steps = data.fulfillment_steps || [];
@@ -332,6 +375,13 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
           else if (s.status === 'failed') { dotBg = '#991b1b'; dotContent = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'; }
           else if (s.status === 'skipped') { dotBg = '#7a7a88'; dotContent = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><line x1="5" y1="12" x2="19" y2="12"/></svg>'; }
 
+          var actionHtml = '';
+          if (s.status !== 'completed' && s.status !== 'skipped') {
+            var cLabel = LOCALE === 'en' ? '✓ Complete' : '✓ Completar';
+            var sLabel = LOCALE === 'en' ? 'Skip' : 'Saltar';
+            actionHtml = '<div class="step-actions"><button class="btn-sm step-action-btn" data-step="' + s.step_name + '" data-action="complete">' + cLabel + '</button><button class="btn-sm btn-terracotta step-action-btn" data-step="' + s.step_name + '" data-action="skip">' + sLabel + '</button></div>';
+          }
+
           return `
             <div class="fulfillment-step">
               <div class="step-dot" style="background:${dotBg}; color:white; display:flex; align-items:center; justify-content:center;">${dotContent}</div>
@@ -341,9 +391,25 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
                 ${s.completed_at ? ' &mdash; ' + new Date(s.completed_at).toLocaleString(LOCALE === 'en' ? 'en-US' : 'es-MX') : ''}
                 ${s.notes ? ' &mdash; ' + esc(s.notes) : ''}
               </div>
+              ${actionHtml}
             </div>
           `;
         }).join('');
+
+        // Attach click handlers to action buttons after rendering
+        document.querySelectorAll('.step-action-btn').forEach(function(btn) {
+          btn.addEventListener('click', function(e) {
+            var stepName = this.getAttribute('data-step');
+            var action = this.getAttribute('data-action');
+            if (action === 'complete') {
+              updateStep(stepName, 'completed');
+            } else if (action === 'skip') {
+              updateStep(stepName, 'skipped');
+            } else if (action === 'fail') {
+              updateStep(stepName, 'failed');
+            }
+          });
+        });
 
         var docs = data.documents || [];
         var docsList = document.getElementById('documents-list');
@@ -409,6 +475,40 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
         if (!res.ok) throw new Error('Error');
         var data = await res.json();
         alert(i18n.t('order.documents', LOCALE) + ': ' + (data.documents ? data.documents.length : 0));
+        loadOrder();
+      } catch (e) {
+        alert('Error: ' + e.message);
+      }
+    }
+
+    async function updateStep(stepName, newStatus) {
+      try {
+        var res = await fetch('/api/orders/' + orderId, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fulfillment_step: { step_name: stepName, status: newStatus } })
+        });
+        if (!res.ok) { 
+          var errData = await res.json().catch(function(){return null;});
+          throw new Error(errData && errData.error ? errData.error : 'Error');
+        }
+        loadOrder();
+      } catch (e) {
+        alert('Error: ' + e.message);
+      }
+    }
+
+    async function updateOrderStatus(newStatus) {
+      try {
+        var res = await fetch('/api/orders/' + orderId, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus })
+        });
+        if (!res.ok) { 
+          var errData = await res.json().catch(function(){return null;});
+          throw new Error(errData && errData.error ? errData.error : 'Error');
+        }
         loadOrder();
       } catch (e) {
         alert('Error: ' + e.message);

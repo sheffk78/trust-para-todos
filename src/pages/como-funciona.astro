@@ -1,8 +1,27 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Cómo funciona Trust Para Todos',
+  serviceType: 'Trust creation and estate planning process',
+  description: '5 pasos simples para proteger tu patrimonio: evaluación gratuita, recomendación, compra en línea, documentos y notaría, trust activo. Todo en español, 100% en línea, 3-5 días hábiles.',
+  provider: {
+    '@type': 'Organization',
+    name: 'Trust Para Todos',
+    url: 'https://trustparatodos.com'
+  },
+  areaServed: 'United States',
+  offers: {
+    '@type': 'Offer',
+    price: '997',
+    priceCurrency: 'USD'
+  }
+};
 ---
 
-<BaseLayout title="Cómo funciona — Trust Para Todos" description="5 pasos simples para proteger tu patrimonio. Desde tu evaluación gratuita hasta recibir tu trust completo. Todo en español.">
+<BaseLayout title="Cómo funciona — Trust Para Todos" description="5 pasos simples para proteger tu patrimonio. Desde tu evaluación gratuita hasta recibir tu trust completo. Todo en español." canonicalPath="/como-funciona" jsonLd={serviceSchema}>
 
   <section class="hero" style="padding: 60px 20px;">
     <h1>Cómo funciona</h1>

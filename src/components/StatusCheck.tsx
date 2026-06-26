@@ -147,6 +147,7 @@ export default function StatusCheck() {
       </div>
 
       <div style={{ textAlign: 'center', marginTop: 24 }}>
+        {/* TODO: Replace with real WhatsApp number */}
         <a href="https://wa.me/18001234567" style={{ color: '#25D366', fontWeight: 600, textDecoration: 'none' }}>
           💬 ¿Necesitas ayuda? Escríbenos por WhatsApp
         </a>

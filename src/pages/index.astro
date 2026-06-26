@@ -1,8 +1,32 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Trust Para Todos — Protección Patrimonial con Trust',
+  serviceType: 'Estate planning and trust document preparation',
+  description: 'Plataforma que crea trusts revocables para familias mexicanas en Estados Unidos. Incluye documentos legales, notaría remota, trámite de EIN, curso en español y plataforma de administración.',
+  provider: {
+    '@type': 'Organization',
+    name: 'Trust Para Todos',
+    url: 'https://trustparatodos.com'
+  },
+  areaServed: 'United States',
+  audience: {
+    '@type': 'Audience',
+    audienceType: 'Mexican families with I-10 visas in the United States'
+  },
+  offers: {
+    '@type': 'Offer',
+    price: '997',
+    priceCurrency: 'USD',
+    description: 'Paquete completo de trust revocable con documentos, notaría, EIN, curso y 6 meses de TrustOffice'
+  }
+};
 ---
 
-<BaseLayout title="Trust Para Todos — Protege a tu familia" description="¿Sabías que el gobierno puede quedarse hasta el 40% de tu patrimonio? Trust Para Todos te ayuda a proteger tu hogar y asegurar el futuro de tu familia. Comienza hoy.">
+<BaseLayout title="Trust Para Todos — Protege a tu familia" description="¿Sabías que el gobierno puede quedarse hasta el 40% de tu patrimonio? Trust Para Todos te ayuda a proteger tu hogar y asegurar el futuro de tu familia. Comienza hoy." canonicalPath="/" jsonLd={serviceSchema}>
   
   <!-- Hero -->
   <section class="hero">

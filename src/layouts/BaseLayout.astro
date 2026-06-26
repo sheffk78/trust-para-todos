@@ -2,8 +2,47 @@
 export interface Props {
   title: string;
   description: string;
+  canonicalPath?: string;
+  /** Optional JSON-LD structured data objects to inject into the page */
+  jsonLd?: object[] | object;
 }
-const { title, description } = Astro.props;
+
+const { title, description, canonicalPath, jsonLd } = Astro.props;
+
+const SITE_URL = 'https://trustparatodos.com';
+const OG_IMAGE = `${SITE_URL}/og-image.png`;
+
+// Determine canonical URL — use provided path or fall back to current URL path
+const path = canonicalPath ?? Astro.url.pathname;
+const canonicalURL = new URL(path, SITE_URL).href;
+
+const ogType = path === '/' ? 'website' : 'article';
+
+// Organization JSON-LD — present on all pages
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Trust Para Todos',
+  url: SITE_URL,
+  logo: `${SITE_URL}/assets/logo-shield.svg`,
+  description: 'Plataforma de protección patrimonial con trusts para familias mexicanas en Estados Unidos.',
+  sameAs: [
+    'https://trustoffice.app',
+    'https://wingpointtrust.com'
+  ]
+};
+
+// Collect all JSON-LD objects
+const allSchemas = [orgSchema];
+if (jsonLd) {
+  if (Array.isArray(jsonLd)) {
+    allSchemas.push(...jsonLd);
+  } else {
+    allSchemas.push(jsonLd);
+  }
+}
+
+import '../styles/fonts.css';
 import '../styles/global.css';
 ---
 
@@ -15,9 +54,38 @@ import '../styles/global.css';
     <title>{title} | Trust Para Todos</title>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/assets/logo-shield.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph tags -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={OG_IMAGE} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Trust Para Todos" />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter Card tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={OG_IMAGE} />
+
+    <!-- hreflang tags — Spanish is canonical, English available via cookie toggle -->
+    <link rel="alternate" hreflang="es" href={canonicalURL} />
+    <link rel="alternate" hreflang="en" href={canonicalURL} />
+    <link rel="alternate" hreflang="x-default" href={canonicalURL} />
+
+    <!-- JSON-LD Structured Data -->
+    {allSchemas.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
+
+    <!-- Plausible Analytics -->
+    <!-- TODO: Verify the Plausible instance URL — if using self-hosted, change src to your instance -->
+    <script defer data-domain="trustparatodos.com" src="https://plausible.io/js/script.js"></script>
   </head>
   <body>
     <div class="noise-overlay"></div>
@@ -71,6 +139,7 @@ import '../styles/global.css';
         </div>
         <div>
           <h4>Contacto</h4>
+          <!-- TODO: Replace with real WhatsApp number -->
           <a href="https://wa.me/18001234567" class="whatsapp-link">WhatsApp: ¡Escríbenos!</a>
           <a href="/contacto">Formulario de contacto</a>
         </div>

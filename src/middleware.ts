@@ -4,6 +4,7 @@
  * Proxies /api/* requests to the FastAPI backend if BACKEND_URL is set.
  * Handles /api/admin/*, /api/orders/*, /api/customers/* routes directly (no proxy).
  * Protects /admin/* page routes with session check.
+ * Adds security headers to all responses.
  * 
  * Public API endpoints (no auth required):
  *   - GET /api/orders/by-email/:email
@@ -27,6 +28,16 @@ function isPublicApiPath(pathname: string): boolean {
   return PUBLIC_API_PATHS.some(p => pathname.startsWith(p)) || orderPattern.test(pathname);
 }
 
+/** Add security headers to any Response object */
+function addSecurityHeaders(response: Response): Response {
+  response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=(), usb=()');
+  return response;
+}
+
 export const onRequest = defineMiddleware(async (context, next) => {
   const url = new URL(context.request.url);
   const pathname = url.pathname;
@@ -36,32 +47,34 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const session = await getSession(context);
     if (!session) {
       if (context.request.headers.get('accept')?.includes('text/html')) {
-        return context.redirect('/admin/login');
+        return addSecurityHeaders(context.redirect('/admin/login'));
       }
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+      return addSecurityHeaders(new Response(JSON.stringify({ error: 'Unauthorized' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' },
-      });
+      }));
     }
   }
 
   // Admin API routes and order/customer API routes — handle directly (not proxied)
   if (pathname.startsWith('/api/admin') || pathname.startsWith('/api/orders') || pathname.startsWith('/api/customers')) {
-    return next();
+    const response = await next();
+    return addSecurityHeaders(response);
   }
 
   // Only proxy /api/* calls that aren't handled above
   if (!pathname.startsWith('/api/')) {
-    return next();
+    const response = await next();
+    return addSecurityHeaders(response);
   }
 
   if (!BACKEND_URL) {
-    return new Response(JSON.stringify({ 
+    return addSecurityHeaders(new Response(JSON.stringify({ 
       error: 'Backend not configured. Set BACKEND_URL env var or start the FastAPI server.'
     }), {
       status: 502,
       headers: { 'Content-Type': 'application/json' },
-    });
+    }));
   }
 
   const targetUrl = `${BACKEND_URL}${pathname}${url.search}`;
@@ -70,7 +83,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const headers = new Headers(context.request.headers);
     headers.delete('host');
 
-    const response = await fetch(targetUrl, {
+    const proxyResponse = await fetch(targetUrl, {
       method: context.request.method,
       headers,
       body: ['GET', 'HEAD'].includes(context.request.method) 
@@ -78,18 +91,18 @@ export const onRequest = defineMiddleware(async (context, next) => {
         : await context.request.text(),
     });
 
-    const responseHeaders = new Headers(response.headers);
+    const responseHeaders = new Headers(proxyResponse.headers);
     responseHeaders.delete('transfer-encoding');
     responseHeaders.delete('connection');
 
-    return new Response(response.body, {
-      status: response.status,
+    return addSecurityHeaders(new Response(proxyResponse.body, {
+      status: proxyResponse.status,
       headers: responseHeaders,
-    });
+    }));
   } catch (e) {
-    return new Response(JSON.stringify({ error: 'Backend service unavailable' }), {
+    return addSecurityHeaders(new Response(JSON.stringify({ error: 'Backend service unavailable' }), {
       status: 502,
       headers: { 'Content-Type': 'application/json' },
-    });
+    }));
   }
 });

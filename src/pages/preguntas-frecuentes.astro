@@ -1,8 +1,60 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '¿Qué es exactamente un trust?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Un trust es un acuerdo legal que protege tus bienes (tu casa, tu dinero, tus inversiones) para que cuando tú no estés, tu familia los reciba sin pagar impuestos ni pasar por la corte. Es como una caja fuerte legal para tu patrimonio.' }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Necesito ser ciudadano estadounidense?',
+      acceptedAnswer: { '@type': 'Answer', text: 'No. Trust Para Todos está diseñado específicamente para personas con visa I-10 (mexicanos que viven y trabajan en EE.UU.). No necesitas ser ciudadano ni residente permanente. Mientras tengas bienes en Estados Unidos, un trust te protege.' }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Cuánto cuesta?',
+      acceptedAnswer: { '@type': 'Answer', text: 'El paquete básico cuesta $997 e incluye: documento de trust, notaría remota, trámite de EIN ante el IRS, 6 meses de TrustOffice, curso Trustee 101 en español y guía explicativa. También ofrecemos un add-on de trust para seguro de vida (ILIT) por $497 adicionales.' }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Cuánto tiempo toma el proceso?',
+      acceptedAnswer: { '@type': 'Answer', text: 'De principio a fin: 3-5 días hábiles. Tu evaluación toma 3 minutos. Los documentos están listos en 24-48 horas. La cita notarial dura 15 minutos. El EIN del IRS llega en 1-2 días hábiles.' }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Es legal? ¿Esto es "asesoría legal"?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Trust Para Todos no es un bufete de abogados. No proporcionamos asesoramiento legal. Lo que hacemos es preparar documentos legales basados en plantillas creadas por abogados y revisadas por un abogado contratado. Cada documento es revisado para cumplir con las leyes del estado correspondiente.' }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Puedo perder mi casa si no pago después?',
+      acceptedAnswer: { '@type': 'Answer', text: 'No. Pagas una vez y el trust es tuyo para siempre. No hay cuotas mensuales ni renovaciones obligatorias. La suscripción a TrustOffice es gratuita por los primeros 6 meses; después puedes renovarla por $297/año si quieres seguir usando la plataforma de administración, pero no es obligatoria para que tu trust siga siendo válido.' }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Qué pasa si quiero cancelar?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Si cancelas antes de que los documentos sean generados, te reembolsamos el 100%. Una vez que los documentos están listos, no podemos ofrecer reembolso porque el trabajo legal ya está hecho.' }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Necesito ir a una oficina?',
+      acceptedAnswer: { '@type': 'Answer', text: 'No. Todo el proceso es 100% en línea. Desde tu casa, desde tu celular. La cita notarial es virtual (por videollamada).' }
+    },
+    {
+      '@type': 'Question',
+      name: '¿El trust funciona en mi estado?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Sí. Trabajamos con todos los estados de EE.UU. Los documentos se preparan según las leyes del estado donde está tu propiedad.' }
+    }
+  ]
+};
 ---
 
-<BaseLayout title="Preguntas Frecuentes — Trust Para Todos" description="Respuestas a tus preguntas sobre trusts, costos, proceso y protección patrimonial para familias mexicanas en Estados Unidos.">
+<BaseLayout title="Preguntas Frecuentes — Trust Para Todos" description="Respuestas a tus preguntas sobre trusts, costos, proceso y protección patrimonial para familias mexicanas en Estados Unidos." canonicalPath="/preguntas-frecuentes" jsonLd={faqSchema}>
 
   <section class="hero" style="padding: 60px 20px;">
     <h1>Preguntas Frecuentes</h1>
@@ -95,6 +147,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <h2>No temas. Estamos aquí para ayudarte.</h2>
       <p>Sabemos que hablar de herencias y protección patrimonial puede ser abrumador. Por eso todo está en español, explicado simple, y tienes acceso a soporte por WhatsApp si tienes dudas.</p>
       <br />
+      <!-- TODO: Replace with real WhatsApp number -->
       <a href="https://wa.me/18001234567" class="btn btn-teal btn-lg">Escríbenos por WhatsApp</a>
     </div>
   </section>

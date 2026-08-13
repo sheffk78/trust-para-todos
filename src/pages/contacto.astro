@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Contacto — Trust Para Todos" description="Contáctanos por WhatsApp, formulario o correo. Estamos aquí para ayudarte en español." canonicalPath="/contacto">
+<BaseLayout title="Contacto — Trust Para Todos" description="Contáctanos por WhatsApp, formulario o correo. Estamos aquí para ayudarte en español." canonicalPath="/contacto" ogImage="og-contacto.png">
 
   <section class="hero" style="padding: 60px 20px;">
     <h1>Contacto</h1>
@@ -42,6 +42,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div style="text-align: center; margin-top: 32px; color: var(--gray);">
         <p>📧 <a href="mailto:soporte@trustparatodos.com">soporte@trustparatodos.com</a></p>
         <p>Horario: Lun-Vie 9:00 AM - 6:00 PM (hora del centro)</p>
+      </div>
+
+      <!-- Legacy Foundation Group partner section -->
+      <div style="margin-top: 40px; padding: 28px; background: #faf9f7; border: 1.5px solid var(--cream-dark); border-radius: var(--radius);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #1a3a5c 0%, #0d2b2e 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            <span style="color: white; font-weight: 700; font-size: 1.1rem; font-family: 'Playfair Display', Georgia, serif;">LF</span>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 1rem; color: var(--dark); font-family: 'Playfair Display', Georgia, serif;">Legacy Foundation Group</h3>
+            <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">Seguro de vida — nuestro partner de confianza</p>
+          </div>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-body); margin-bottom: 16px;">Para consultas sobre seguro de vida, contacta directamente a Legacy Foundation Group:</p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <a href="https://legacyfoundationgroup.net/book?ref=trustparatodos" target="_blank" rel="noopener" style="display: inline-block; padding: 10px 24px; background: var(--terracotta, #dd7054); color: white; border-radius: 100px; font-weight: 600; text-decoration: none; font-size: 0.85rem;">
+            Agendar consulta gratuita →
+          </a>
+          <a href="tel:8445341677" style="display: inline-block; padding: 10px 24px; background: white; color: var(--terracotta, #dd7054); border: 1.5px solid var(--terracotta, #dd7054); border-radius: 100px; font-weight: 600; text-decoration: none; font-size: 0.85rem;">
+            📞 (844) 534-1677
+          </a>
+        </div>
       </div>
     </div>
   </section>

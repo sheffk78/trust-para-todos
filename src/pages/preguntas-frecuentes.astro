@@ -54,7 +54,7 @@ const faqSchema = {
 };
 ---
 
-<BaseLayout title="Preguntas Frecuentes — Trust Para Todos" description="Respuestas a tus preguntas sobre trusts, costos, proceso y protección patrimonial para familias mexicanas en Estados Unidos." canonicalPath="/preguntas-frecuentes" jsonLd={faqSchema}>
+<BaseLayout title="Preguntas Frecuentes — Trust Para Todos" description="Respuestas a tus preguntas sobre trusts, costos, proceso y protección patrimonial para familias mexicanas en Estados Unidos." canonicalPath="/preguntas-frecuentes" ogImage="og-faq.png" jsonLd={faqSchema}>
 
   <section class="hero" style="padding: 60px 20px;">
     <h1>Preguntas Frecuentes</h1>
@@ -64,6 +64,38 @@ const faqSchema = {
   <section class="section">
     <div class="container">
       <div class="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            ¿Por qué necesito seguro de vida antes de crear un trust?
+            <span>▼</span>
+          </div>
+          <div class="faq-answer">El seguro de vida protege a tu familia <strong>de inmediato</strong> si algo te ocurre — cubre gastos funerarios, deudas, y reemplaza tus ingresos. El trust protege tus bienes a largo plazo. Juntos forman una protección completa. Sin seguro, tu familia podría enfrentar dificultades económicas mientras el trust se procesa.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            ¿Qué es Legacy Foundation Group?
+            <span>▼</span>
+          </div>
+          <div class="faq-answer">Legacy Foundation Group es nuestro partner de confianza para soluciones de seguro de vida. Tienen acceso a más de <strong>150 compañías aseguradoras</strong>, lo que significa que encuentran el plan ideal para tu situación y presupuesto. Ofrecen una consulta <strong>gratuita</strong>, confidencial y sin compromiso. Puedes agendar en <a href="https://legacyfoundationgroup.net/book?ref=trustparatodos" target="_blank" rel="noopener" style="color: var(--teal);">legacyfoundationgroup.net/book</a> o llamando al <a href="tel:8445341677" style="color: var(--teal);">(844) 534-1677</a>.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            Ya tengo seguro de vida, ¿qué hago?
+            <span>▼</span>
+          </div>
+          <div class="faq-answer">¡Excelente! Puedes continuar directamente con tu evaluación. Te recomendamos una consulta gratuita de verificación con Legacy Foundation Group para asegurarte de que tu cobertura actual es suficiente para proteger a tu familia y complementar tu trust.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            ¿La consulta con Legacy Foundation Group es gratis?
+            <span>▼</span>
+          </div>
+          <div class="faq-answer">Sí. La consulta con Legacy Foundation Group es <strong>completamente gratuita</strong>, confidencial y sin ningún compromiso. No te cobran por analizar tus necesidades ni por recomendarte un plan de seguro.</div>
+        </div>
 
         <div class="faq-item">
           <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">

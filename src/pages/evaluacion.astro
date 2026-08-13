@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Tu Evaluación Gratuita — Trust Para Todos" description="Descubre en 3 minutos si un trust es adecuado para ti. Evaluación gratuita y sin compromiso." canonicalPath="/evaluacion">
+<BaseLayout title="Tu Evaluación Gratuita — Trust Para Todos" description="Descubre en 3 minutos si un trust es adecuado para ti. Evaluación gratuita y sin compromiso." canonicalPath="/evaluacion" ogImage="og-evaluacion.png">
 
 <style>
   /* === Multi-Step Form === */
@@ -424,10 +424,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
       <div class="progress-step" data-step="4">
         <div class="progress-dot"><span>4</span></div>
-        <span class="progress-label">Plan</span>
+        <span class="progress-label">🛡️ Seguro</span>
       </div>
       <div class="progress-step" data-step="5">
         <div class="progress-dot"><span>5</span></div>
+        <span class="progress-label">Plan</span>
+      </div>
+      <div class="progress-step" data-step="6">
+        <div class="progress-dot"><span>6</span></div>
         <span class="progress-label">Confirmar</span>
       </div>
     </div>
@@ -633,8 +637,105 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
     </div>
 
-    <!-- Step 4: Choose Plan -->
+    <!-- Step 4: Insurance Gate -->
     <div class="form-step" data-step="4">
+      <div class="step-header">
+        <h2>🛡️ Tu seguro de vida</h2>
+        <p>Antes de crear tu trust, necesitas seguro de vida. Esto protege a tu familia inmediatamente.</p>
+      </div>
+
+      <div class="form-group">
+        <label>¿Tienes seguro de vida?</label>
+        <div class="radio-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+          <label class="radio-card">
+            <input type="radio" name="has_insurance" value="yes" />
+            <div class="radio-card-content">
+              <div class="radio-emoji">✅</div>
+              <div class="radio-title">Sí, tengo seguro</div>
+              <div class="radio-desc">Tengo una póliza activa</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="has_insurance" value="no" />
+            <div class="radio-card-content">
+              <div class="radio-emoji">❌</div>
+              <div class="radio-title">No tengo seguro</div>
+              <div class="radio-desc">Necesito obtener cobertura</div>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="has_insurance" value="not_sure" />
+            <div class="radio-card-content">
+              <div class="radio-emoji">🤔</div>
+              <div class="radio-title">No estoy seguro</div>
+              <div class="radio-desc">Tengo dudas sobre mi cobertura</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- If user HAS insurance: soft gate -->
+      <div id="insurance-yes-block" style="display:none; background: #e6f7e6; border: 1px solid #bbf7bb; border-radius: var(--radius); padding: 24px; margin-top: 20px;">
+        <div style="display: flex; align-items: start; gap: 12px;">
+          <span style="font-size: 1.5rem;">✅</span>
+          <div>
+            <h3 style="font-size: 1rem; color: #166534; margin-bottom: 4px;">¡Excelente! Tienes seguro de vida.</h3>
+            <p style="font-size: 0.9rem; color: #166534; opacity: 0.8; margin-bottom: 12px;">Para asegurarnos de que tu cobertura es suficiente para tu trust, te recomendamos una consulta gratuita de verificación con Legacy Foundation Group.</p>
+            <a href="https://legacyfoundationgroup.net/book?ref=trustparatodos" target="_blank" rel="noopener" style="display: inline-block; padding: 8px 20px; background: #166534; color: white; border-radius: 100px; font-weight: 600; text-decoration: none; font-size: 0.85rem;">
+              Verificar mi cobertura (gratis) →
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- If user does NOT have insurance: HARD GATE -->
+      <div id="insurance-no-block" style="display:none; background: #fef3e7; border: 1px solid #f0c6a0; border-radius: var(--radius); padding: 24px; margin-top: 20px;">
+        <div style="display: flex; align-items: start; gap: 12px;">
+          <span style="font-size: 1.5rem;">🛡️</span>
+          <div style="flex: 1;">
+            <h3 style="font-size: 1rem; color: #92400e; margin-bottom: 4px;">Necesitas seguro de vida antes de crear tu trust</h3>
+            <p style="font-size: 0.9rem; color: #92400e; opacity: 0.8; margin-bottom: 16px;">El seguro de vida protege a tu familia <strong>de inmediato</strong>. El trust protege tus bienes a largo plazo. Juntos forman una protección completa. Agenda tu consulta <strong>gratuita</strong> con Legacy Foundation Group, nuestro partner de confianza.</p>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px;">
+              <a href="https://legacyfoundationgroup.net/book?ref=trustparatodos" target="_blank" rel="noopener" style="display: inline-block; padding: 12px 28px; background: var(--terracotta, #dd7054); color: white; border-radius: 100px; font-weight: 600; text-decoration: none; font-size: 0.9rem;">
+                Agendar consulta gratuita →
+              </a>
+              <a href="tel:8445341677" style="display: inline-block; padding: 12px 24px; background: white; color: #c45a3e; border: 1.5px solid var(--terracotta, #dd7054); border-radius: 100px; font-weight: 600; text-decoration: none; font-size: 0.9rem;">
+                📞 (844) 534-1677
+              </a>
+            </div>
+            <div style="border-top: 1px solid #f0c6a0; padding-top: 16px;">
+              <p style="font-size: 0.85rem; color: #92400e; margin-bottom: 8px;">¿Ya completaste tu consulta de seguro con Legacy Foundation Group?</p>
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.9rem; color: #92400e;">
+                <input type="checkbox" id="insurance-consulted" style="width: 18px; height: 18px; cursor: pointer;" />
+                <span>Sí, ya completé mi consulta de seguro y puedo continuar.</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- If user is NOT SURE: soft gate -->
+      <div id="insurance-notsure-block" style="display:none; background: #fef9e7; border: 1px solid #f0e6b8; border-radius: var(--radius); padding: 24px; margin-top: 20px;">
+        <div style="display: flex; align-items: start; gap: 12px;">
+          <span style="font-size: 1.5rem;">🤔</span>
+          <div>
+            <h3 style="font-size: 1rem; color: #92400e; margin-bottom: 4px;">Verifica tu cobertura</h3>
+            <p style="font-size: 0.9rem; color: #92400e; opacity: 0.8; margin-bottom: 12px;">Te recomendamos una consulta gratuita con Legacy Foundation Group para revisar tu cobertura actual y asegurarte de que es suficiente para proteger a tu familia.</p>
+            <a href="https://legacyfoundationgroup.net/book?ref=trustparatodos" target="_blank" rel="noopener" style="display: inline-block; padding: 8px 20px; background: #92400e; color: white; border-radius: 100px; font-weight: 600; text-decoration: none; font-size: 0.85rem;">
+              Agendar consulta de verificación →
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn btn-back" onclick="prevStep(4)">← Atrás</button>
+        <button class="btn btn-primary" onclick="nextStep(4)">Continuar →</button>
+      </div>
+    </div>
+
+    <!-- Step 5: Choose Plan -->
+    <div class="form-step" data-step="5">
       <div class="step-header">
         <h2>Elige tu plan</h2>
         <p>Selecciona el nivel de protección que necesitas.</p>
@@ -679,13 +780,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
 
       <div class="step-nav">
-        <button class="btn btn-back" onclick="prevStep(4)">← Atrás</button>
-        <button class="btn btn-primary" onclick="nextStep(4)">Continuar →</button>
+        <button class="btn btn-back" onclick="prevStep(5)">← Atrás</button>
+        <button class="btn btn-primary" onclick="nextStep(5)">Continuar →</button>
       </div>
     </div>
 
-    <!-- Step 5: Confirm & Submit -->
-    <div class="form-step" data-step="5">
+    <!-- Step 6: Confirm & Submit -->
+    <div class="form-step" data-step="6">
       <div class="step-header">
         <h2>Confirma tu información</h2>
         <p>Revisa que todo esté correcto antes de continuar.</p>
@@ -722,6 +823,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <span class="value" id="summary-home">—</span>
         </div>
         <div class="summary-row">
+          <span class="label">Seguro de vida</span>
+          <span class="value" id="summary-insurance">—</span>
+        </div>
+        <div class="summary-row">
           <span class="label">Plan</span>
           <span class="value" id="summary-plan">—</span>
         </div>
@@ -732,7 +837,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
 
       <div class="step-nav">
-        <button class="btn btn-back" onclick="prevStep(5)">← Editar</button>
+        <button class="btn btn-back" onclick="prevStep(6)">← Editar</button>
         <button class="btn btn-primary btn-lg" onclick="submitForm()" style="flex:1;">
           Ir a pago seguro →
         </button>
@@ -753,7 +858,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <script>
   let currentStep = 1;
-  const totalSteps = 5;
+  const totalSteps = 6;
 
   function showError(msg) {
     const el = document.getElementById('error-message');
@@ -779,6 +884,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  // Insurance radio handler — show/hide conditional blocks
+  document.querySelectorAll('input[name="has_insurance"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const val = document.querySelector('input[name="has_insurance"]:checked')?.value;
+      document.getElementById('insurance-yes-block').style.display = val === 'yes' ? 'block' : 'none';
+      document.getElementById('insurance-no-block').style.display = val === 'no' ? 'block' : 'none';
+      document.getElementById('insurance-notsure-block').style.display = val === 'not_sure' ? 'block' : 'none';
+    });
+  });
+
   function nextStep(from) {
     // Validate current step
     if (from === 1) {
@@ -799,11 +914,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       if (!home) { showError('Indica si tienes casa en Estados Unidos.'); return; }
     }
     if (from === 4) {
+      // Insurance gate validation
+      const insurance = document.querySelector('input[name="has_insurance"]:checked');
+      if (!insurance) { showError('Por favor indica si tienes seguro de vida.'); return; }
+      if (insurance.value === 'no') {
+        // Hard gate — must check the self-attest checkbox
+        const consulted = document.getElementById('insurance-consulted');
+        if (!consulted.checked) {
+          showError('Para continuar sin seguro, debes agendar tu consulta con Legacy Foundation Group y marcar la casilla de confirmación.');
+          return;
+        }
+      }
+    }
+    if (from === 5) {
       const plan = document.querySelector('input[name="plan"]:checked');
       if (!plan) { showError('Selecciona un plan.'); return; }
-    }
 
-    if (from === 4) {
       // Populate summary
       document.getElementById('summary-name').textContent = document.getElementById('name').value.trim();
       document.getElementById('summary-spouse').textContent = document.getElementById('spouse_name').value.trim() || 'No aplica';
@@ -816,6 +942,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         document.querySelector('input[name="citizenship"]:checked')?.value === 'citizen' ? 'Ciudadano o Residente' : 'No residente';
       document.getElementById('summary-home').textContent =
         document.querySelector('input[name="has_home"]:checked')?.value === 'yes' ? 'Sí' : 'No';
+      const insuranceVal = document.querySelector('input[name="has_insurance"]:checked')?.value;
+      const insuranceLabels = { yes: 'Sí, tiene seguro', no: 'No tiene (consulta LFG)', not_sure: 'No seguro (verificar)' };
+      document.getElementById('summary-insurance').textContent = insuranceLabels[insuranceVal] || '—';
       const planVal = document.querySelector('input[name="plan"]:checked')?.value;
       document.getElementById('summary-plan').textContent = planVal === 'base' ? 'Trust Para Todos' : 'Paquete Completo';
       document.getElementById('summary-total').textContent = planVal === 'base' ? '$997' : '$1,497';
@@ -841,6 +970,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     const overlay = document.getElementById('loading-overlay');
     overlay.classList.add('active');
 
+    const insuranceVal = document.querySelector('input[name="has_insurance"]:checked')?.value;
+
     const data = {
       settlor_1_full_name: document.getElementById('name').value.trim(),
       settlor_2_full_name: document.getElementById('spouse_name').value.trim() || '',
@@ -854,6 +985,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       home_value: document.getElementById('home_value').value,
       has_accounts: document.querySelector('input[name="has_accounts"]:checked')?.value,
       has_foreign: document.querySelector('input[name="has_foreign"]:checked')?.value,
+      has_insurance: insuranceVal,
+      insurance_consulted: insuranceVal === 'no' ? document.getElementById('insurance-consulted').checked : false,
       plan_type: document.querySelector('input[name="plan"]:checked')?.value,
     };
 

@@ -3,14 +3,16 @@ export interface Props {
   title: string;
   description: string;
   canonicalPath?: string;
+  /** Per-page OG image filename (e.g., "og-home.png"). If omitted, falls back to default og-image.png */
+  ogImage?: string;
   /** Optional JSON-LD structured data objects to inject into the page */
   jsonLd?: object[] | object;
 }
 
-const { title, description, canonicalPath, jsonLd } = Astro.props;
+const { title, description, canonicalPath, ogImage, jsonLd } = Astro.props;
 
 const SITE_URL = 'https://trustparatodos.com';
-const OG_IMAGE = `${SITE_URL}/og-image.png`;
+const OG_IMAGE = `${SITE_URL}/${ogImage ?? 'og-image.png'}`;
 
 // Determine canonical URL — use provided path or fall back to current URL path
 const path = canonicalPath ?? Astro.url.pathname;

@@ -26,7 +26,7 @@ const serviceSchema = {
 };
 ---
 
-<BaseLayout title="Trust Para Todos — Protege a tu familia" description="¿Sabías que el gobierno puede quedarse hasta el 40% de tu patrimonio? Trust Para Todos te ayuda a proteger tu hogar y asegurar el futuro de tu familia. Comienza hoy." canonicalPath="/" jsonLd={serviceSchema}>
+<BaseLayout title="Trust Para Todos — Protege a tu familia" description="¿Sabías que el gobierno puede quedarse hasta el 40% de tu patrimonio? Trust Para Todos te ayuda a proteger tu hogar y asegurar el futuro de tu familia. Comienza hoy." canonicalPath="/" ogImage="og-home.png" jsonLd={serviceSchema}>
   
   <!-- Hero -->
   <section class="hero">
@@ -43,6 +43,20 @@ const serviceSchema = {
       <div class="hero-visual">
         <img src="/images/hero-family.jpg" alt="Familia hispana protegiendo su legado" width="500" height="281" style="border-radius: 16px; object-fit: cover; width: 100%; max-width: 500px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);" />
       </div>
+    </div>
+  </section>
+
+  <!-- Insurance-First Banner -->
+  <section style="background: linear-gradient(135deg, #dd7054 0%, #c45a3e 100%); color: white; padding: 24px 0;">
+    <div class="container" style="max-width: 1100px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+      <div style="font-size: 2rem; flex-shrink: 0;">🛡️</div>
+      <div style="flex: 1; min-width: 280px;">
+        <strong style="font-size: 1.05rem;">Primer paso: Seguro de vida antes del trust.</strong>
+        <span style="opacity: 0.9; font-size: 0.9rem; display: block; margin-top: 2px;">Antes de crear tu trust, necesitas seguro de vida. Trabajamos con Legacy Foundation Group para asegurarte la mejor cobertura.</span>
+      </div>
+      <a href="#legacy-section" style="display: inline-block; padding: 10px 24px; background: white; color: #c45a3e; border-radius: 100px; font-weight: 700; text-decoration: none; font-size: 0.85rem; white-space: nowrap; flex-shrink: 0;">
+        Conoce Legacy Foundation Group →
+      </a>
     </div>
   </section>
 
@@ -139,6 +153,63 @@ const serviceSchema = {
           <div class="feature-icon">🛡️</div>
           <h3>6 meses de TrustOffice</h3>
           <p>Plataforma de gobierno del trust. Lleva actas, controla tus activos y recibe recordatorios de cumplimiento.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Legacy Foundation Group — Insurance Partner Section -->
+  <section id="legacy-section" class="section section-alt" style="background: #faf9f7;">
+    <div class="container">
+      <h2 style="text-align: center;">¿Por qué necesitas seguro de vida primero?</h2>
+      <p class="subtitle" style="text-align: center; max-width: 600px; margin: 0 auto 40px;">El seguro de vida protege a tu familia inmediatamente. El trust protege tus bienes a largo plazo. Juntos forman una protección completa.</p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 900px; margin: 0 auto; align-items: start;">
+        <!-- Left: Why insurance first -->
+        <div>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+            <div style="font-size: 2.5rem;">🛡️</div>
+            <h3 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; color: var(--teal);">Protección inmediata</h3>
+          </div>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 8px 0; display: flex; gap: 10px; align-items: start;">
+              <span style="color: var(--teal); font-weight: 700;">✓</span>
+              <span>El seguro paga a tu familia <strong>de inmediato</strong> si algo te ocurre</span>
+            </li>
+            <li style="padding: 8px 0; display: flex; gap: 10px; align-items: start;">
+              <span style="color: var(--teal); font-weight: 700;">✓</span>
+              <span>Cubre gastos que el trust no puede cubrir (funerales, deudas, ingresos perdidos)</span>
+            </li>
+            <li style="padding: 8px 0; display: flex; gap: 10px; align-items: start;">
+              <span style="color: var(--teal); font-weight: 700;">✓</span>
+              <span>Los beneficios del seguro pasan <strong>sin impuestos</strong> a tu familia</span>
+            </li>
+            <li style="padding: 8px 0; display: flex; gap: 10px; align-items: start;">
+              <span style="color: var(--teal); font-weight: 700;">✓</span>
+              <span>El trust protege tus bienes; el seguro protege a tus seres queridos</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Right: Legacy Foundation Group card -->
+        <div style="background: white; border: 1.5px solid var(--cream-dark); border-radius: var(--radius); padding: 32px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #1a3a5c 0%, #0d2b2e 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+              <span style="color: white; font-weight: 700; font-size: 1.3rem; font-family: 'Playfair Display', Georgia, serif;">LF</span>
+            </div>
+            <div>
+              <h3 style="margin: 0; font-size: 1.1rem; color: var(--dark); font-family: 'Playfair Display', Georgia, serif;">Legacy Foundation Group</h3>
+              <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">150+ compañías aseguradoras</p>
+            </div>
+          </div>
+          <p style="font-size: 0.9rem; color: var(--text-body); margin-bottom: 20px;">Nuestro partner de confianza para soluciones de seguro de vida. Consulta <strong>gratuita</strong>, confidencial y sin compromiso. Atención en español.</p>
+          <a href="https://legacyfoundationgroup.net/book?ref=trustparatodos" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%; text-align: center; margin-bottom: 12px; background: var(--terracotta, #dd7054); border-color: var(--terracotta, #dd7054);">
+            Agendar consulta gratuita →
+          </a>
+          <div style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">
+            <p style="margin: 0;">O llama al <a href="tel:8445341677" style="color: var(--terracotta, #dd7054); font-weight: 600;">(844) 534-1677</a></p>
+            <p style="margin: 4px 0 0;">¿Ya tienes seguro? <a href="/evaluacion" style="color: var(--teal); font-weight: 600;">Continúa a tu evaluación →</a></p>
+          </div>
         </div>
       </div>
     </div>

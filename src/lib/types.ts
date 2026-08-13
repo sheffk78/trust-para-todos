@@ -9,6 +9,7 @@ export type OrderStatus = 'pending' | 'paid' | 'fulfilling' | 'complete';
 export type DocumentType = 'trust' | 'ilit' | 'ein' | 'guide';
 export type DocumentStatus = 'pending' | 'generating' | 'ready' | 'error';
 export type FulfillmentStepName =
+  | 'insurance_verification'
   | 'payment_confirmed'
   | 'document_generation'
   | 'ein_filing'

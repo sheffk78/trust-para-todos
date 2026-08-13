@@ -104,7 +104,7 @@ export const PATCH: APIRoute = async (context) => {
     // Update fulfillment step
     if (body.fulfillment_step) {
       const { step_name, status: stepStatus, notes } = body.fulfillment_step;
-      const validStepNames = ['payment_confirmed', 'document_generation', 'ein_filing', 'notary_scheduling', 'welcome_email', 'final_delivery'];
+      const validStepNames = ['insurance_verification', 'payment_confirmed', 'document_generation', 'ein_filing', 'notary_scheduling', 'welcome_email', 'final_delivery'];
       const validStepStatuses = ['pending', 'in_progress', 'completed', 'failed', 'skipped'];
 
       if (!validStepNames.includes(step_name)) {

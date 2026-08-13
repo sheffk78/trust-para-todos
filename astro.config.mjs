@@ -8,5 +8,6 @@ export default defineConfig({
   adapter: node({ mode: 'standalone' }),
   integrations: [react(), astroIcon()],
   site: 'https://trustparatodos.com',
-  server: { port: 3000, host: true }
+  server: { port: 3000, host: true },
+  trailingSlash: 'always'
 });

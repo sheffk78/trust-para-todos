@@ -88,6 +88,16 @@ import '../styles/global.css';
     <!-- Plausible Analytics -->
     <!-- TODO: Verify the Plausible instance URL — if using self-hosted, change src to your instance -->
     <script defer data-domain="trustparatodos.com" src="https://plausible.io/js/script.js"></script>
+
+    <!-- Google Analytics (GA4) -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <script is:inline src="https://www.googletagmanager.com/gtag/js?id=G-0B8J8P20DC" async></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0B8J8P20DC');
+    </script>
   </head>
   <body>
     <div class="noise-overlay"></div>

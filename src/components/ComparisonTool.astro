@@ -1,0 +1,258 @@
+---
+// Interactive Trust vs Testamento comparison tool
+// Users toggle their situation and the table highlights which option wins
+---
+<div class="comparison-tool" id="comparisonTool">
+  <h3 class="comparison-tool-title">Comparación personalizada: Trust vs Testamento</h3>
+  <p class="comparison-tool-sub">Marca tu situación y descubre cuál te conviene</p>
+  
+  <div class="comparison-toggles">
+    <label class="toggle-label">
+      <input type="checkbox" id="hasHome" class="comparison-toggle" />
+      <span class="toggle-text">Tengo casa</span>
+    </label>
+    <label class="toggle-label">
+      <input type="checkbox" id="hasChildren" class="comparison-toggle" />
+      <span class="toggle-text">Tengo hijos menores</span>
+    </label>
+    <label class="toggle-label">
+      <input type="checkbox" id="hasMultiState" class="comparison-toggle" />
+      <span class="toggle-text">Propiedades en varios estados</span>
+    </label>
+    <label class="toggle-label">
+      <input type="checkbox" id="wantsPrivacy" class="comparison-toggle" />
+      <span class="toggle-text">Quiero privacidad</span>
+    </label>
+    <label class="toggle-label">
+      <input type="checkbox" id="hasSavings" class="comparison-toggle" />
+      <span class="toggle-text">Patrimonio &gt; $150K</span>
+    </label>
+  </div>
+
+  <table class="comparison-table" id="comparisonTable">
+    <thead>
+      <tr>
+        <th>Característica</th>
+        <th class="col-trust">Trust</th>
+        <th class="col-will">Testamento</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-trust-win="hasHome" data-will-win="">
+        <td>Evita probate de la casa</td>
+        <td class="cell-trust">✅ Sí</td>
+        <td class="cell-will">❌ No</td>
+      </tr>
+      <tr data-trust-win="hasChildren" data-will-win="">
+        <td>Protege hijos menores</td>
+        <td class="cell-trust">✅ Designas tutor con reglas</td>
+        <td class="cell-will">⚠️ Limitado</td>
+      </tr>
+      <tr data-trust-win="hasMultiState" data-will-win="">
+        <td>Propiedades en varios estados</td>
+        <td class="cell-trust">✅ Un trust para todo</td>
+        <td class="cell-will">❌ Probate en cada estado</td>
+      </tr>
+      <tr data-trust-win="wantsPrivacy" data-will-win="">
+        <td>Privacidad de tu herencia</td>
+        <td class="cell-trust">✅ Privado</td>
+        <td class="cell-will">❌ Público en el tribunal</td>
+      </tr>
+      <tr data-trust-win="hasSavings" data-will-win="">
+        <td>Ahorro en costos legales</td>
+        <td class="cell-trust">✅ $997 una vez</td>
+        <td class="cell-will">❌ 3-7% del patrimonio</td>
+      </tr>
+      <tr data-trust-win="" data-will-win="always">
+        <td>Costo inicial</td>
+        <td class="cell-trust">$997</td>
+        <td class="cell-will">$200-$500</td>
+      </tr>
+      <tr data-trust-win="always" data-will-win="">
+        <td>Control total mientras vives</td>
+        <td class="cell-trust">✅ Modificable</td>
+        <td class="cell-will">✅ Modificable</td>
+      </tr>
+      <tr data-trust-win="always" data-will-win="">
+        <td>Facilidad de crear</td>
+        <td class="cell-trust">✅ Online, 30 min</td>
+        <td class="cell-will">✅ Online o abogado</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="comparison-score">
+    <div class="score-trust">
+      <span class="score-label">Trust</span>
+      <span class="score-value" id="trustScore">0</span>
+      <span class="score-unit">ventajas</span>
+    </div>
+    <div class="score-vs">vs</div>
+    <div class="score-will">
+      <span class="score-label">Testamento</span>
+      <span class="score-value" id="willScore">0</span>
+      <span class="score-unit">ventajas</span>
+    </div>
+  </div>
+
+  <div class="comparison-verdict" id="comparisonVerdict">
+    <p>Marca tu situación arriba para ver cuál te conviene.</p>
+  </div>
+</div>
+
+<script is:inline>
+  (function() {
+    var toggles = document.querySelectorAll('.comparison-toggle');
+    var trustScoreEl = document.getElementById('trustScore');
+    var willScoreEl = document.getElementById('willScore');
+    var verdictEl = document.getElementById('comparisonVerdict');
+    var table = document.getElementById('comparisonTable');
+    
+    function update() {
+      var states = {};
+      toggles.forEach(function(t) { states[t.id] = t.checked; });
+      
+      var trustScore = 0;
+      var willScore = 0;
+      
+      // Count rows
+      var rows = table.querySelectorAll('tbody tr');
+      rows.forEach(function(row) {
+        var trustWin = row.getAttribute('data-trust-win');
+        var willWin = row.getAttribute('data-will-win');
+        var trustCell = row.querySelector('.cell-trust');
+        var willCell = row.querySelector('.cell-will');
+        
+        trustCell.classList.remove('cell-highlight');
+        willCell.classList.remove('cell-highlight');
+        
+        if (trustWin === 'always' || (trustWin && states[trustWin])) {
+          trustScore++;
+          trustCell.classList.add('cell-highlight');
+        }
+        if (willWin === 'always' || (willWin && states[willWin])) {
+          willScore++;
+          willCell.classList.add('cell-highlight');
+        }
+      });
+      
+      trustScoreEl.textContent = trustScore;
+      willScoreEl.textContent = willScore;
+      
+      // Verdict
+      var verdict = '';
+      if (trustScore > willScore + 1) {
+        verdict = '<div class="verdict-card verdict-trust"><h3>✅ El trust es tu mejor opción</h3><p>Por tu situación, un trust protege mejor a tu familia y ahorra miles en probate.</p><a href="/evaluacion" class="btn btn-primary btn-lg">Haz tu evaluación gratuita →</a></div>';
+      } else if (trustScore > willScore) {
+        verdict = '<div class="verdict-card verdict-maybe"><h3>🤔 El trust te conviene más</h3><p>Un trust tiene más ventajas para tu situación. Un testamento alone no es suficiente.</p><a href="/evaluacion" class="btn btn-primary btn-lg">Ver mi opción →</a></div>';
+      } else if (willScore > 0) {
+        verdict = '<div class="verdict-card verdict-neutral"><h3>📝 Ambas opciones funcionan</h3><p>Tu situación es simple. Un testamento puede bastar por ahora, pero un trust da más protección.</p><a href="/evaluacion" class="btn btn-primary btn-lg">Confirmar mi situación →</a></div>';
+      } else {
+        verdict = '<p>Marca tu situación arriba para ver cuál te conviene.</p>';
+      }
+      verdictEl.innerHTML = verdict;
+    }
+    
+    toggles.forEach(function(t) { t.addEventListener('change', update); });
+  })();
+</script>
+
+<style>
+  .comparison-tool {
+    background: var(--cream);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin: 36px 0;
+  }
+  .comparison-tool-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .comparison-tool-sub {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+  .comparison-toggles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .toggle-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--white);
+    border: 2px solid var(--cream-dark);
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--dark);
+    transition: all 0.2s;
+  }
+  .toggle-label:hover { border-color: var(--teal); }
+  .comparison-toggle { accent-color: var(--teal); }
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 0.9rem;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .comparison-table th {
+    background: var(--teal);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 0.85rem;
+  }
+  .comparison-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--cream-dark);
+    background: var(--white);
+  }
+  .comparison-table tr:nth-child(even) td { background: var(--cream); }
+  .cell-highlight {
+    background: #e8f5e9 !important;
+    font-weight: 700;
+  }
+  .col-trust, .cell-trust { color: var(--teal); }
+  .col-will, .cell-will { color: var(--terracotta); }
+  .comparison-score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .score-trust, .score-will {
+    text-align: center;
+  }
+  .score-label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px; }
+  .score-value { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; }
+  .score-trust .score-value { color: var(--teal); }
+  .score-will .score-value { color: var(--terracotta); }
+  .score-unit { font-size: 0.8rem; color: var(--text-muted); }
+  .score-vs { font-size: 1.2rem; color: var(--cream-dark); font-weight: 700; }
+  .verdict-card {
+    text-align: center;
+    padding: 24px;
+    border-radius: var(--radius-sm);
+  }
+  .verdict-trust { background: #e8f5e9; }
+  .verdict-maybe { background: #fff8e1; }
+  .verdict-neutral { background: var(--cream); }
+  .verdict-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 12px; }
+  .verdict-card p { margin-bottom: 20px; color: var(--text-body); }
+  @media (max-width: 768px) {
+    .comparison-tool { padding: 20px; }
+    .comparison-table { font-size: 0.8rem; }
+    .comparison-table th, .comparison-table td { padding: 8px; }
+    .comparison-toggles { flex-direction: column; }
+  }
+</style>

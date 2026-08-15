@@ -64,7 +64,18 @@ const articleSchema = {
   }
 };
 
-const allSchemas = [articleSchema];
+// Breadcrumb schema for SERP
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE_URL },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE_URL}/blog` },
+    { '@type': 'ListItem', position: 3, name: title, item: articleUrl },
+  ],
+};
+
+const allSchemas = [articleSchema, breadcrumbSchema];
 if (jsonLd) {
   if (Array.isArray(jsonLd)) {
     allSchemas.push(...jsonLd);
@@ -87,6 +98,17 @@ const formattedDate = date
 >
   <!-- Reading progress bar -->
   <div class="reading-progress" id="readingProgress"></div>
+
+  <!-- Sticky mobile CTA bar -->
+  <div class="sticky-cta-bar" id="stickyCtaBar">
+    <div class="sticky-cta-content">
+      <div class="sticky-cta-text">
+        <span class="sticky-cta-title">Protege a tu familia</span>
+        <span class="sticky-cta-sub">Evaluación gratuita · 3 min</span>
+      </div>
+      <a href="/evaluacion" class="sticky-cta-btn">Empezar →</a>
+    </div>
+  </div>
 
   <article class="blog-article">
     <!-- Hero image -->
@@ -119,7 +141,7 @@ const formattedDate = date
         <slot />
       </div>
 
-      <!-- WhatsApp share -->
+      <!-- WhatsApp share + Print -->
       <div class="blog-share">
         <a id="whatsappShare" href="#" class="share-btn share-whatsapp" aria-label="Compartir en WhatsApp">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -127,6 +149,12 @@ const formattedDate = date
           </svg>
           <span>Compartir en WhatsApp</span>
         </a>
+        <button class="share-btn share-print" onclick="window.print()" aria-label="Imprimir artículo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>
+          </svg>
+          <span>Imprimir</span>
+        </button>
       </div>
 
       <!-- CTA at bottom -->
@@ -216,6 +244,21 @@ const formattedDate = date
       var waLink = document.getElementById('whatsappShare');
       if (waLink) {
         waLink.href = 'https://wa.me/?text=' + encodeURIComponent(document.title + ' — ' + window.location.href);
+      }
+
+      // === Sticky mobile CTA bar ===
+      var stickyBar = document.getElementById('stickyCtaBar');
+      var bodyEl = document.querySelector('.blog-body');
+      if (stickyBar && bodyEl) {
+        window.addEventListener('scroll', function() {
+          var rect = bodyEl.getBoundingClientRect();
+          var halfway = rect.top + rect.height * 0.3;
+          if (halfway < 100) {
+            stickyBar.classList.add('visible');
+          } else {
+            stickyBar.classList.remove('visible');
+          }
+        }, { passive: true });
       }
     })();
   </script>
@@ -586,6 +629,76 @@ const formattedDate = date
   }
   .share-whatsapp { background: #25D366; color: white; }
   .share-whatsapp:hover { opacity: 0.85; }
+  .share-print { background: var(--cream-dark); color: var(--dark); border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+  .share-print:hover { background: var(--teal); color: white; }
+
+  /* Sticky mobile CTA bar */
+  .sticky-cta-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--teal);
+    padding: 12px 20px;
+    z-index: 9998;
+    transform: translateY(100%);
+    transition: transform 0.3s;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
+  }
+  .sticky-cta-bar.visible { transform: translateY(0); }
+  .sticky-cta-content { display: flex; align-items: center; justify-content: space-between; max-width: 600px; margin: 0 auto; }
+  .sticky-cta-text { display: flex; flex-direction: column; }
+  .sticky-cta-title { font-weight: 700; color: white; font-size: 0.95rem; }
+  .sticky-cta-sub { font-size: 0.78rem; color: rgba(255,255,255,0.8); }
+  .sticky-cta-btn { background: var(--terracotta); color: white; padding: 10px 20px; border-radius: var(--radius-sm); font-weight: 700; white-space: nowrap; text-decoration: none; font-family: 'DM Sans', sans-serif; }
+  .sticky-cta-btn:hover { opacity: 0.9; }
+  @media (min-width: 769px) {
+    .sticky-cta-bar { display: none; }
+  }
+
+  /* Callout box variants */
+  .blog-body .callout-warning {
+    background: #fdf0ec;
+    border-left: 4px solid var(--terracotta);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 20px 24px;
+    margin: 28px 0;
+  }
+  .blog-body .callout-warning strong { color: var(--terracotta-dark); }
+
+  .blog-body .callout-tip {
+    background: var(--teal-light);
+    border-left: 4px solid var(--teal);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 20px 24px;
+    margin: 28px 0;
+  }
+  .blog-body .callout-tip strong { color: var(--teal); }
+
+  .blog-body .callout-case {
+    background: var(--cream);
+    border: 1px solid var(--cream-dark);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    margin: 28px 0;
+  }
+  .blog-body .callout-case-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+
+  /* Print-friendly styles */
+  @media print {
+    .blog-hero, .blog-cta-box, .sticky-cta-bar, .blog-share,
+    .reading-progress, .blog-back-link, .related-articles,
+    .inline-cta, .probate-calculator, .trust-quiz { display: none !important; }
+    .blog-container { max-width: 100%; padding: 0; }
+    .blog-body { font-size: 12pt; line-height: 1.5; }
+    .blog-body .article-image { display: none; }
+    .blog-title { font-size: 20pt; }
+    .key-takeaways { border: 2px solid #999; }
+  }
 
   /* Related articles */
   .related-articles {

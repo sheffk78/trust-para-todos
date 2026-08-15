@@ -1,0 +1,111 @@
+---
+// Inline email capture widget for blog articles
+// Non-intrusive box that appears in articles, captures email for newsletter
+---
+<div class="email-capture" id="emailCapture">
+  <div class="email-capture-icon">📧</div>
+  <h3 class="email-capture-title">Recibe recursos sobre protección patrimonial</h3>
+  <p class="email-capture-desc">Únete a 500+ familias hispanas que reciben guías, consejos y actualizaciones sobre trusts y planificación sucesoria.</p>
+  <form class="email-capture-form" id="emailCaptureForm">
+    <input type="email" placeholder="tu@correo.com" required class="email-capture-input" id="emailCaptureInput" />
+    <button type="submit" class="btn btn-primary email-capture-btn">Unirme gratis →</button>
+  </form>
+  <p class="email-capture-note">Sin spam. Solo útiles. Cancela cuando quieras.</p>
+  <div class="email-capture-success" id="emailCaptureSuccess" style="display:none;">
+    <p>✅ ¡Listo! Revisa tu correo para confirmar tu suscripción.</p>
+  </div>
+</div>
+
+<script is:inline>
+  (function() {
+    var form = document.getElementById('emailCaptureForm');
+    var input = document.getElementById('emailCaptureInput');
+    var success = document.getElementById('emailCaptureSuccess');
+    if (!form) return;
+    
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var email = input.value.trim();
+      if (!email || email.indexOf('@') === -1) return;
+      
+      // Store locally for now (backend API can be added later)
+      try {
+        var list = JSON.parse(localStorage.getItem('tpt_blog_subscribers') || '[]');
+        if (list.indexOf(email) === -1) {
+          list.push(email);
+          localStorage.setItem('tpt_blog_subscribers', JSON.stringify(list));
+        }
+      } catch(err) {}
+      
+      form.style.display = 'none';
+      success.style.display = 'block';
+      
+      // Send to analytics
+      if (typeof gtag === 'function') {
+        gtag('event', 'blog_email_capture', { article: window.location.pathname });
+      }
+    });
+  })();
+</script>
+
+<style>
+  .email-capture {
+    background: var(--cream);
+    border: 1px solid var(--cream-dark);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin: 36px 0;
+    text-align: center;
+  }
+  .email-capture-icon { font-size: 2rem; margin-bottom: 12px; }
+  .email-capture-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+  .email-capture-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .email-capture-form {
+    display: flex;
+    gap: 12px;
+    max-width: 450px;
+    margin: 0 auto 12px;
+  }
+  .email-capture-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid var(--cream-dark);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .email-capture-input:focus { border-color: var(--teal); }
+  .email-capture-btn { white-space: nowrap; }
+  .email-capture-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .email-capture-success {
+    padding: 16px;
+    background: #e8f5e9;
+    border-radius: var(--radius-sm);
+  }
+  .email-capture-success p {
+    color: #2e7d32;
+    font-weight: 600;
+    margin: 0;
+  }
+  @media (max-width: 768px) {
+    .email-capture-form { flex-direction: column; }
+    .email-capture { padding: 20px; }
+  }
+</style>

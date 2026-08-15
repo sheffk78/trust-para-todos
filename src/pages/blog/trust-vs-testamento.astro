@@ -1,5 +1,8 @@
 ---
 import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import ComparisonTool from '../../components/ComparisonTool.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
 import ProbateCalculator from '../../components/ProbateCalculator.astro';
 
 const faqSchema = {
@@ -134,6 +137,7 @@ const faqSchema = {
       </tr>
     </tbody>
   </table>
+      <ComparisonTool />
 
   <p>Esa tabla te dice casi todo lo que necesitas saber. El testamento es más barato al principio, pero mucho más caro y lento al final. El trust cuesta más hoy, pero le ahorra a tu familia años de espera y miles de dólares.</p>
 
@@ -188,7 +192,9 @@ const faqSchema = {
   <p>La diferencia entre $997 y $33,000 es la diferencia entre planificar y no planificar.</p>
 
   <div class="inline-cta"><p>¿Listo para proteger a tu familia? Haz tu evaluación gratuita en 3 minutos.</p><a href="/evaluacion" class="btn btn-primary">Comenzar evaluación →</a></div>
-  <h2>¿Puedes tener ambos?</h2>
+  <EmailCapture />
+
+      <h2>¿Puedes tener ambos?</h2>
 
   <p>Sí, y de hecho es lo más recomendable. Se llama <strong>pour-over will</strong> (testamento de traslado).</p>
 
@@ -224,4 +230,6 @@ const faqSchema = {
   <p>Si tienes una casa, hijos menores o cualquier bien de valor en Estados Unidos, el trust casi siempre es la mejor opción. El testamento es mejor que nada, pero no es suficiente.</p>
 
   <p>Tu familia merece protección real, no un documento que la manda a un tribunal. <a href="/evaluacion">Agenda tu evaluación gratuita</a> y descubre en 15 minutos qué tipo de trust necesita tu familia. No esperes a que sea demasiado tarde.</p>
+<TrustQuiz />
+
 </BlogArticleLayout>

@@ -1,5 +1,7 @@
 ---
 import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -177,7 +179,9 @@ const faqSchema = {
     <img src="/images/blog/inline-family-outdoor.jpg" alt="Familia disfrutando tiempo juntos al aire libre" loading="lazy" />
   </figure>
 
-  <h2>¿Cuánto seguro de vida necesitas?</h2>
+  <EmailCapture />
+
+      <h2>¿Cuánto seguro de vida necesitas?</h2>
 
   <p>Una regla sencilla: multiplica tus ingresos anuales por 10. Si ganas $50,000 al año, un seguro de $500,000 es un buen punto de partida. Pero considera también:</p>
 
@@ -218,4 +222,6 @@ const faqSchema = {
       <p>Excelente. Puedes actualizar el beneficiario del seguro para que apunte a tu trust. Si no tienes trust todavía, crea uno y luego actualiza el beneficiario.</p>
     </div>
   </div>
+<TrustQuiz />
+
 </BlogArticleLayout>

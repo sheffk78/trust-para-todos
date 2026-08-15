@@ -1,5 +1,7 @@
 ---
 import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
 import ProbateCalculator from '../../components/ProbateCalculator.astro';
 
 const faqSchema = {
@@ -115,7 +117,9 @@ const faqSchema = {
   <p>Puedes regalar bienes mientras estás vivo para que no formen parte de tu patrimonio al morir. En 2026, puedes regalar hasta $19,000 por persona por año sin pagar impuestos de regalo. Una pareja puede regalar hasta $38,000 a una sola persona.</p>
   <p>Esta opción requiere planificación cuidadosa porque una vez que regalas un bien, ya no es tuyo. No puedes cambiar de opinión, y en el caso de una casa, puedes perder beneficios fiscales como la exclusión de ganancias de capital al vender.</p>
 
-  <h2>¿Un testamento evita el probate?</h2>
+  <EmailCapture />
+
+      <h2>¿Un testamento evita el probate?</h2>
   <p>No. Esta es la confusión más común que vemos en las familias hispanas.</p>
   <p>Un testamento (will) no evita el probate. Al contrario, el testamento es el documento que la corte usa DURANTE el probate para saber quién recibe qué. El testamento tiene que ser validado por la corte, así que tu familia terminará en probate de todas formas.</p>
   <p>El testamento es mejor que no tener nada, pero no te salva del proceso ni de los costos. Para evitar el probate necesitas un trust, no un testamento.</p>
@@ -138,4 +142,6 @@ const faqSchema = {
 
   <h2>Conclusión</h2>
   <p>El probate es un proceso costoso, lento y público que la mayoría de las familias puede evitar. La forma más efectiva de proteger a tu familia es crear un trust revocable mientras estás vivo, para que tus seres queridos no tengan que lidiar con la corte y los meses de espera en uno de los peores momentos de sus vidas.</p>
+<TrustQuiz />
+
 </BlogArticleLayout>

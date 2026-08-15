@@ -1,0 +1,175 @@
+---
+// TrustDiagram.astro — Visual trust structure flow diagram for blog articles
+// Shows the 4-node flow: Grantor → Trust → Trustee → Beneficiaries
+// Horizontal on desktop, vertical on mobile (arrows rotate 90deg)
+---
+
+<div class="trust-diagram">
+  <div class="trust-diagram-track">
+
+    <!-- Node 1: Grantor -->
+    <div class="trust-node">
+      <div class="trust-node-icon">👤</div>
+      <div class="trust-node-label">Tú <span class="trust-node-role">Grantor</span></div>
+      <div class="trust-node-desc">Creas el trust y transfieres tus bienes</div>
+    </div>
+
+    <!-- Arrow 1 -->
+    <div class="trust-arrow" aria-hidden="true">
+      <svg class="trust-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12" />
+        <polyline points="13 6 19 12 13 18" />
+      </svg>
+    </div>
+
+    <!-- Node 2: Trust -->
+    <div class="trust-node">
+      <div class="trust-node-icon">📋</div>
+      <div class="trust-node-label">Trust Revocable</div>
+      <div class="trust-node-desc">Documento legal con tus instrucciones</div>
+    </div>
+
+    <!-- Arrow 2 -->
+    <div class="trust-arrow" aria-hidden="true">
+      <svg class="trust-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12" />
+        <polyline points="13 6 19 12 13 18" />
+      </svg>
+    </div>
+
+    <!-- Node 3: Trustee -->
+    <div class="trust-node">
+      <div class="trust-node-icon">🔑</div>
+      <div class="trust-node-label">Tú <span class="trust-node-role">Trustee</span></div>
+      <div class="trust-node-desc">Administras todo mientras vives</div>
+    </div>
+
+    <!-- Arrow 3 -->
+    <div class="trust-arrow" aria-hidden="true">
+      <svg class="trust-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12" />
+        <polyline points="13 6 19 12 13 18" />
+      </svg>
+    </div>
+
+    <!-- Node 4: Beneficiarios -->
+    <div class="trust-node">
+      <div class="trust-node-icon">👨‍👩‍👧‍👦</div>
+      <div class="trust-node-label">Beneficiarios</div>
+      <div class="trust-node-desc">Reciben los bienes según tus reglas</div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .trust-diagram {
+    background: var(--cream);
+    border-radius: var(--radius);
+    padding: 40px 24px;
+    margin: 36px 0;
+  }
+
+  .trust-diagram-track {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0;
+  }
+
+  /* === Nodes === */
+  .trust-node {
+    flex: 1;
+    max-width: 220px;
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    padding: 24px 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .trust-node:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .trust-node-icon {
+    font-size: 2.2rem;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .trust-node-label {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1.3;
+  }
+
+  .trust-node-role {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--terracotta);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 2px;
+  }
+
+  .trust-node-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-body);
+    line-height: 1.5;
+  }
+
+  /* === Arrows === */
+  .trust-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 40px;
+    color: var(--terracotta);
+  }
+
+  .trust-arrow-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+
+  /* === Mobile: vertical layout === */
+  @media (max-width: 768px) {
+    .trust-diagram {
+      padding: 28px 16px;
+    }
+
+    .trust-diagram-track {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    .trust-node {
+      max-width: 100%;
+      padding: 20px 16px;
+    }
+
+    .trust-arrow {
+      flex: 0 0 36px;
+    }
+
+    /* Rotate arrows 90deg to point down */
+    .trust-arrow-icon {
+      transform: rotate(90deg);
+    }
+  }
+</style>

@@ -1,5 +1,7 @@
 ---
 import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -167,7 +169,9 @@ const faqSchema = {
 
   <p>La realidad es que muchas familias no necesitan un trust irrevocable. El revocable cubre la mayoría de los casos típicos: proteger la casa, evitar probate y asegurar que los hijos reciban lo que les corresponde sin pelear en el court.</p>
 
-  <h2>¿Se puede cambiar de revocable a irrevocable?</h2>
+  <EmailCapture />
+
+      <h2>¿Se puede cambiar de revocable a irrevocable?</h2>
 
   <p>Sí, en ciertos casos. Algunos estados permiten un proceso llamado "decanting", donde los activos de un trust se transfieren a un nuevo trust con términos diferentes. Esto puede usarse para convertir un trust revocable en irrevocable o para actualizar las reglas de un trust viejo.</p>
 
@@ -200,4 +204,6 @@ const faqSchema = {
   <p>La decisión entre fideicomiso revocable vs irrevocable no tiene una respuesta universal. Depende de tu situación, tus activos y tus prioridades. Si valoras la flexibilidad y el control, el revocable es tu camino. Si necesitas protección contra demandas o quieres optimizar impuestos, el irrevocable es la herramienta correcta.</p>
 
   <p>Lo que no debes hacer es dejar la decisión para después. Sin un trust, tu familia enfrenta probate, posibles impuestos altos y, en el peor caso, demandas que se llevan lo que construiste durante años.</p>
+<TrustQuiz />
+
 </BlogArticleLayout>

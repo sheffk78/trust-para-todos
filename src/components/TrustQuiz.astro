@@ -1,0 +1,549 @@
+---
+/**
+ * TrustQuiz.astro — 5-question inline decision quiz with progress bar.
+ *
+ * Embed in any blog article:
+ *   <TrustQuiz />
+ *
+ * Behavioral spec:
+ * - 5 questions shown one at a time (.active class)
+ * - Progress bar fills 20% per answered question
+ * - Auto-advance to next question 300ms after selection
+ * - Scoring: home=3, children=3, estate yes=3/unsure=1/no=0, multistate=3, privacy yes=2/no=0
+ * - Results: >=6 green "Sí, necesitas un trust", 3-5 yellow "Un trust te conviene pronto", <3 neutral "Un testamento puede ser suficiente"
+ * - Each result shows CTA button to /evaluacion
+ * - Pure vanilla JS, no dependencies
+ * - Mobile responsive, Spanish UI
+ *
+ * Colors (from global.css): teal=#0d7377, terracotta=#dd7054, cream=#faf5ed
+ */
+---
+
+<section class="trust-quiz" id="trustQuiz" aria-label="Cuestionario: ¿Necesitas un trust?">
+  <div class="tq-container">
+    <div class="tq-header">
+      <h2 class="tq-title">¿Necesitas un trust?</h2>
+      <p class="tq-subtitle">Responde 5 preguntas rápidas y descúbrelo en menos de un minuto.</p>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="tq-progress-track" aria-hidden="true">
+      <div class="tq-progress-fill" id="tqProgressFill"></div>
+    </div>
+    <p class="tq-progress-label" id="tqProgressLabel">Pregunta 1 de 5</p>
+
+    <!-- Quiz steps -->
+    <div class="tq-steps" id="tqSteps">
+      <!-- Q1: Home -->
+      <div class="tq-step active" data-step="1">
+        <p class="tq-question"><span class="tq-qnum">1</span>¿Tienes una casa a tu nombre?</p>
+        <div class="tq-options">
+          <button class="tq-option" data-question="home" data-value="yes" data-score="3">Sí</button>
+          <button class="tq-option" data-question="home" data-value="no" data-score="0">No</button>
+        </div>
+      </div>
+
+      <!-- Q2: Children -->
+      <div class="tq-step" data-step="2">
+        <p class="tq-question"><span class="tq-qnum">2</span>¿Tienes hijos menores de 18 años?</p>
+        <div class="tq-options">
+          <button class="tq-option" data-question="children" data-value="yes" data-score="3">Sí</button>
+          <button class="tq-option" data-question="children" data-value="no" data-score="0">No</button>
+        </div>
+      </div>
+
+      <!-- Q3: Estate -->
+      <div class="tq-step" data-step="3">
+        <p class="tq-question"><span class="tq-qnum">3</span>¿Tu patrimonio supera $150,000?</p>
+        <div class="tq-options tq-options-3">
+          <button class="tq-option" data-question="estate" data-value="yes" data-score="3">Sí</button>
+          <button class="tq-option" data-question="estate" data-value="unsure" data-score="1">No sé</button>
+          <button class="tq-option" data-question="estate" data-value="no" data-score="0">No</button>
+        </div>
+      </div>
+
+      <!-- Q4: Multi-state -->
+      <div class="tq-step" data-step="4">
+        <p class="tq-question"><span class="tq-qnum">4</span>¿Tienes propiedades en más de un estado?</p>
+        <div class="tq-options">
+          <button class="tq-option" data-question="multistate" data-value="yes" data-score="3">Sí</button>
+          <button class="tq-option" data-question="multistate" data-value="no" data-score="0">No</button>
+        </div>
+      </div>
+
+      <!-- Q5: Privacy -->
+      <div class="tq-step" data-step="5">
+        <p class="tq-question"><span class="tq-qnum">5</span>¿Te importa que tu herencia sea privada?</p>
+        <div class="tq-options">
+          <button class="tq-option" data-question="privacy" data-value="yes" data-score="2">Sí</button>
+          <button class="tq-option" data-question="privacy" data-value="no" data-score="0">No me importa</button>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="tq-step tq-result-step" data-step="result">
+        <div class="tq-result" id="tqResult"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* === Trust Quiz — scoped styles === */
+  .trust-quiz {
+    margin: 40px 0;
+    padding: 0;
+  }
+
+  .tq-container {
+    max-width: 640px;
+    margin: 0 auto;
+    background: var(--white);
+    border: 1px solid var(--cream-dark);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .tq-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .tq-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+
+  .tq-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* Progress bar */
+  .tq-progress-track {
+    width: 100%;
+    height: 8px;
+    background: var(--cream);
+    border-radius: 100px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .tq-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--teal), var(--terracotta));
+    border-radius: 100px;
+    transition: width 0.4s ease;
+  }
+
+  .tq-progress-label {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+
+  /* Steps */
+  .tq-steps {
+    position: relative;
+  }
+
+  .tq-step {
+    display: none;
+    animation: tqFadeIn 0.35s ease;
+  }
+
+  .tq-step.active {
+    display: block;
+  }
+
+  @keyframes tqFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .tq-question {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.2rem;
+    color: var(--dark);
+    line-height: 1.4;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .tq-qnum {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    background: var(--teal);
+    color: var(--white);
+    border-radius: 50%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  /* Options */
+  .tq-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .tq-options-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .tq-option {
+    padding: 16px 12px;
+    border: 1.5px solid var(--cream-dark);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--dark);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .tq-option:hover {
+    border-color: var(--teal);
+    background: var(--teal-light);
+    transform: translateY(-1px);
+  }
+
+  .tq-option:active {
+    transform: translateY(0);
+  }
+
+  .tq-option.selected {
+    border-color: var(--teal);
+    background: var(--teal-light);
+    color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(13, 115, 119, 0.12);
+  }
+
+  /* Result */
+  .tq-result-step {
+    text-align: center;
+  }
+
+  .tq-result {
+    padding: 8px 0;
+  }
+
+  .tq-result-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    font-size: 2rem;
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+
+  .tq-result-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .tq-result-desc {
+    font-size: 0.95rem;
+    color: var(--text-body);
+    line-height: 1.65;
+    margin-bottom: 24px;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tq-result-score {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--cream);
+    padding: 4px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+
+  .tq-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.01em;
+  }
+
+  .tq-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .tq-cta-teal {
+    background: var(--teal);
+    color: var(--white);
+  }
+
+  .tq-cta-teal:hover {
+    background: var(--teal-dark);
+  }
+
+  .tq-cta-terracotta {
+    background: var(--terracotta);
+    color: var(--white);
+  }
+
+  .tq-cta-terracotta:hover {
+    background: var(--terracotta-dark);
+  }
+
+  .tq-cta-outline {
+    background: var(--white);
+    color: var(--dark);
+    border: 1.5px solid var(--cream-dark);
+  }
+
+  .tq-cta-outline:hover {
+    border-color: var(--teal);
+    color: var(--teal);
+    background: var(--white);
+    box-shadow: none;
+  }
+
+  /* Result color variants */
+  .tq-result-green .tq-result-badge {
+    background: var(--teal-light);
+    color: var(--teal);
+  }
+  .tq-result-green .tq-result-title {
+    color: var(--teal);
+  }
+
+  .tq-result-yellow .tq-result-badge {
+    background: var(--terracotta-light);
+    color: var(--terracotta);
+  }
+  .tq-result-yellow .tq-result-title {
+    color: var(--terracotta);
+  }
+
+  .tq-result-neutral .tq-result-badge {
+    background: var(--cream);
+    color: var(--text-muted);
+  }
+  .tq-result-neutral .tq-result-title {
+    color: var(--dark);
+  }
+
+  .tq-restart {
+    display: block;
+    margin: 20px auto 0;
+    background: none;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.2s;
+  }
+
+  .tq-restart:hover {
+    color: var(--teal);
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 640px) {
+    .tq-container {
+      padding: 28px 20px;
+    }
+
+    .tq-title {
+      font-size: 1.3rem;
+    }
+
+    .tq-question {
+      font-size: 1.1rem;
+    }
+
+    .tq-options-3 {
+      grid-template-columns: 1fr;
+    }
+
+    .tq-option {
+      padding: 14px 10px;
+      font-size: 0.9rem;
+    }
+
+    .tq-result-title {
+      font-size: 1.3rem;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var quiz = document.getElementById('trustQuiz');
+    if (!quiz) return;
+
+    var steps = quiz.querySelectorAll('.tq-step');
+    var progressFill = quiz.querySelector('#tqProgressFill');
+    var progressLabel = quiz.querySelector('#tqProgressLabel');
+    var resultContainer = quiz.querySelector('#tqResult');
+    var totalQuestions = 5;
+    var currentStep = 1;
+    var answers = {};
+
+    function showStep(stepNum) {
+      for (var i = 0; i < steps.length; i++) {
+        steps[i].classList.remove('active');
+      }
+      var target = quiz.querySelector('.tq-step[data-step="' + stepNum + '"]');
+      if (target) target.classList.add('active');
+    }
+
+    function updateProgress(answeredCount) {
+      var pct = (answeredCount / totalQuestions) * 100;
+      progressFill.style.width = pct + '%';
+      if (answeredCount < totalQuestions) {
+        progressLabel.textContent = 'Pregunta ' + (answeredCount + 1) + ' de ' + totalQuestions;
+      } else {
+        progressLabel.textContent = '¡Completo!';
+      }
+    }
+
+    function calculateScore() {
+      var score = 0;
+      for (var key in answers) {
+        if (answers.hasOwnProperty(key)) {
+          score += answers[key];
+        }
+      }
+      return score;
+    }
+
+    function showResult() {
+      var score = calculateScore();
+      var variant, badge, title, desc, ctaClass, ctaText;
+
+      if (score >= 6) {
+        variant = 'tq-result-green';
+        badge = '\u2705';
+        title = 'Sí, necesitas un trust';
+        desc = 'Por tu patrimonio y situación familiar, un trust es la mejor opción para proteger tus bienes, evitar el probate y mantener tu herencia privada.';
+        ctaClass = 'tq-cta-teal';
+        ctaText = 'Haz tu evaluación gratuita \u2192';
+      } else if (score >= 3) {
+        variant = 'tq-result-yellow';
+        badge = '\u23F3';
+        title = 'Un trust te conviene pronto';
+        desc = 'Tu situación indica que un trust sería beneficioso en un futuro cercano. Te recomendamos hacer una evaluación para planificar con tiempo.';
+        ctaClass = 'tq-cta-terracotta';
+        ctaText = 'Haz tu evaluación gratuita \u2192';
+      } else {
+        variant = 'tq-result-neutral';
+        badge = '\uD83D\uDCDD';
+        title = 'Un testamento puede ser suficiente';
+        desc = 'Con tu perfil actual, un testamento podría cubrir tus necesidades. Sin embargo, una evaluación gratuita puede confirmarlo y darte tranquilidad.';
+        ctaClass = 'tq-cta-outline';
+        ctaText = 'Haz tu evaluación gratuita \u2192';
+      }
+
+      resultContainer.className = 'tq-result ' + variant;
+      resultContainer.innerHTML =
+        '<div class="tq-result-badge">' + badge + '</div>' +
+        '<h3 class="tq-result-title">' + title + '</h3>' +
+        '<p class="tq-result-desc">' + desc + '</p>' +
+        '<span class="tq-result-score">Puntuación: ' + score + ' / 14</span>' +
+        '<div><a href="/evaluacion" class="tq-cta ' + ctaClass + '">' + ctaText + '</a></div>' +
+        '<button class="tq-restart" id="tqRestart">↺ Volver a empezar</button>';
+
+      progressFill.style.width = '100%';
+      progressLabel.textContent = '¡Completo!';
+
+      var restartBtn = quiz.querySelector('#tqRestart');
+      if (restartBtn) {
+        restartBtn.addEventListener('click', resetQuiz);
+      }
+
+      showStep('result');
+    }
+
+    function resetQuiz() {
+      answers = {};
+      currentStep = 1;
+      var options = quiz.querySelectorAll('.tq-option');
+      for (var i = 0; i < options.length; i++) {
+        options[i].classList.remove('selected');
+      }
+      updateProgress(0);
+      showStep(1);
+    }
+
+    function handleOptionClick(e) {
+      var btn = e.currentTarget;
+      var question = btn.getAttribute('data-question');
+      var score = parseInt(btn.getAttribute('data-score'), 10);
+
+      // Mark selected within this step
+      var stepOptions = btn.parentElement.querySelectorAll('.tq-option');
+      for (var i = 0; i < stepOptions.length; i++) {
+        stepOptions[i].classList.remove('selected');
+      }
+      btn.classList.add('selected');
+
+      // Record answer
+      answers[question] = score;
+
+      // Update progress bar
+      var answeredCount = Object.keys(answers).length;
+      updateProgress(answeredCount);
+
+      // Auto-advance after 300ms
+      currentStep++;
+      if (currentStep > totalQuestions) {
+        setTimeout(showResult, 300);
+      } else {
+        setTimeout(function () {
+          showStep(currentStep);
+        }, 300);
+      }
+    }
+
+    // Attach click handlers
+    var optionBtns = quiz.querySelectorAll('.tq-option');
+    for (var i = 0; i < optionBtns.length; i++) {
+      optionBtns[i].addEventListener('click', handleOptionClick);
+    }
+  })();
+</script>

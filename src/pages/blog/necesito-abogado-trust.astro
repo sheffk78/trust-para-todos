@@ -1,5 +1,7 @@
 ---
 import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -137,7 +139,9 @@ const faqSchema = {
 
   <p>Si quieres conocer el proceso completo, lee nuestro artículo sobre <a href="/blog/como-crear-trust-online">cómo crear un trust online</a>.</p>
 
-  <h2>Árbol de decisión: ¿qué camino elegir?</h2>
+  <EmailCapture />
+
+      <h2>Árbol de decisión: ¿qué camino elegir?</h2>
 
   <p>Si no estás seguro de qué opción te conviene, sigue este árbol de decisión:</p>
 
@@ -176,4 +180,6 @@ const faqSchema = {
   <p>La pregunta "¿necesito abogado para hacer un trust?" no tiene una respuesta única. Depende de tu situación. Si tienes un patrimonio sencillo y sin complicaciones, una plataforma con revisión legal te ahorra miles de dólares y te da el mismo resultado. Si tu caso es complejo, un abogado es la inversión correcta.</p>
 
   <p>Lo peor que puedes hacer es no tener ningún trust. El proceso de sucesión cuesta en promedio entre $8,000 y $15,000 y puede durar entre 9 y 18 meses. Un trust te protege a ti y a tu familia de todo eso.</p>
+<TrustQuiz />
+
 </BlogArticleLayout>

@@ -1,5 +1,7 @@
 ---
 import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
 import ProbateCalculator from '../../components/ProbateCalculator.astro';
 
 const faqSchema = {
@@ -149,7 +151,9 @@ const faqSchema = {
 
   <p>Si quieres entender el proceso completo, revisa nuestra guía sobre <a href="/blog/como-crear-trust-online">cómo crear un trust online</a>. Y si no tienes seguro de vida, lee cómo un <a href="/blog/seguro-vida-trust">seguro de vida dentro de un trust</a> protege a tu familia de forma adicional.</p>
 
-  <h2>Tabla comparativa de costos</h2>
+  <EmailCapture />
+
+      <h2>Tabla comparativa de costos</h2>
 
   <table>
     <thead>
@@ -216,4 +220,6 @@ const faqSchema = {
       <p>Sí. Nuestros trusts se diseñan según las leyes del estado donde vives y un profesional los revisa antes de entregarlos. El documento cumple con los requisitos legales de tu jurisdicción y viene con instrucciones para financiarlo.</p>
     </div>
   </div>
+<TrustQuiz />
+
 </BlogArticleLayout>

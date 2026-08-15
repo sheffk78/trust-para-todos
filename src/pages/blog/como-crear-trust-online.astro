@@ -1,5 +1,7 @@
 ---
 import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -204,7 +206,9 @@ const faqSchema = {
     </tbody>
   </table>
 
-  <h2>¿Cuánto tiempo tarda en crearse un trust?</h2>
+  <EmailCapture />
+
+      <h2>¿Cuánto tiempo tarda en crearse un trust?</h2>
 
   <p>Con un servicio en línea como Trust Para Todos, el proceso completo toma entre una y dos semanas desde que empiezas hasta que tienes tus documentos notarizados. La mayoría de las personas dedican menos de una hora a responder las preguntas del proceso.</p>
 
@@ -239,4 +243,6 @@ const faqSchema = {
       <p>Tu trust sigue siendo válido. Dependiendo del nuevo estado, puede que necesites hacer ajustes menores. Revisa tu trust después de mudarte.</p>
     </div>
   </section>
+<TrustQuiz />
+
 </BlogArticleLayout>

@@ -1,0 +1,164 @@
+---
+/**
+ * GlossaryTerm — Reusable inline tooltip component for legal terms
+ *
+ * Renders inline text with a dotted teal underline. On hover or keyboard focus,
+ * shows a dark tooltip above the term with its definition. On mobile (≤768px),
+ * tapping the term shows a centered modal-style overlay instead.
+ *
+ * Pure CSS — no JavaScript required.
+ *
+ * Usage:
+ *   <GlossaryTerm term="Trust" definition="Un fideicomiso legal que..." />
+ *
+ * Or with slot content for the term label:
+ *   <GlossaryTerm definition="Un fideicomiso legal que...">Trust</GlossaryTerm>
+ */
+
+export interface Props {
+  term?: string;
+  definition: string;
+}
+
+const { term, definition } = Astro.props;
+---
+
+<span class="glossary-term" tabindex="0" role="button" aria-label="Término legal: definición disponible">
+  {term ?? <slot />}
+  <span class="glossary-tooltip" role="tooltip">{definition}</span>
+</span>
+
+<style is:global>
+  /* === GlossaryTerm — inline legal-term tooltip === */
+
+  .glossary-term {
+    position: relative;
+    display: inline;
+    cursor: help;
+    font-weight: 600;
+    color: var(--teal);
+    border-bottom: 2px dotted var(--teal);
+    transition: color 0.2s ease;
+  }
+
+  .glossary-term:hover,
+  .glossary-term:focus {
+    color: var(--teal-dark);
+    outline: none;
+  }
+
+  .glossary-term:focus-visible {
+    outline: 2px solid var(--terracotta);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* === Desktop tooltip (above term) === */
+
+  .glossary-tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+
+    width: 260px;
+    max-width: 260px;
+    padding: 12px 16px;
+
+    background: var(--dark);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 1000;
+
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  }
+
+  /* Arrow pointing down toward the term */
+  .glossary-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid var(--dark);
+  }
+
+  /* Show on hover or focus */
+  .glossary-term:hover .glossary-tooltip,
+  .glossary-term:focus .glossary-tooltip,
+  .glossary-term:focus-within .glossary-tooltip {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* === Mobile: centered modal-style overlay === */
+
+  @media (max-width: 768px) {
+    .glossary-tooltip {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      bottom: auto;
+      transform: translate(-50%, -50%) scale(0.92);
+
+      width: calc(100vw - 48px);
+      max-width: 320px;
+      padding: 20px 24px;
+
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    }
+
+    /* Hide the downward arrow on mobile */
+    .glossary-tooltip::after {
+      display: none;
+    }
+
+    .glossary-term:hover .glossary-tooltip,
+    .glossary-term:focus .glossary-tooltip,
+    .glossary-term:focus-within .glossary-tooltip {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+  }
+
+  /* Backdrop on mobile — pure CSS via ::before on body when focused */
+  @media (max-width: 768px) {
+    .glossary-term:focus .glossary-tooltip::before,
+    .glossary-term:focus-within .glossary-tooltip::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(26, 26, 46, 0.55);
+      border-radius: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+  }
+</style>

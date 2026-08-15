@@ -2,6 +2,7 @@
 import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
 import TrustQuiz from '../../components/TrustQuiz.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -47,18 +48,18 @@ const faqSchema = {
   jsonLd={faqSchema}
   relatedArticles={[{ slug: "que-es-trust-revocable", title: "¿Qué es un Trust Revocable?", tag: "Educacional", image: "/images/blog/01-hero-family-home.jpg" }, { slug: "necesito-abogado-trust", title: "¿Necesito un Abogado?", tag: "Decisiones", image: "/images/blog/06-hero-consultation.jpg" }, { slug: "trust-vs-testamento", title: "Trust vs Testamento", tag: "Comparativa", image: "/images/blog/04-hero-senior-couple.jpg" }]}
 >
-  <p>Elegir entre un fideicomiso revocable y uno irrevocable es una de las decisiones más trascendentales que vas a tomar para proteger tu patrimonio. Si te equivocas, puedes perder flexibilidad que necesitabas o quedarte sin la protección que tu familia requiere. La buena noticia es que no es tan complicado una vez que entiendes cómo funciona cada uno.</p>
+  <p>Elegir entre un <GlossaryTerm term="fideicomiso" definition="Es lo mismo que 'trust'. Un acuerdo legal donde transfieres bienes a un administrador para beneficio de tus herederos." /> revocable y uno irrevocable es una de las decisiones más trascendentales que vas a tomar para proteger tu patrimonio. Si te equivocas, puedes perder flexibilidad que necesitabas o quedarte sin la protección que tu familia requiere. La buena noticia es que no es tan complicado una vez que entiendes cómo funciona cada uno.</p>
   <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>Revocable: control total, flexibilidad, evita probate</li><li>Irrevocable: protección contra demandas, beneficios fiscales</li><li>La mayoría de familias necesita un revocable</li><li>Puedes convertir revocable a irrevocable al fallecer</li></ul></div>
 
   <p>En esta guía vas a ver las diferencias claras entre un trust revocable y un trust irrevocable, con una tabla comparativa, ventajas de cada uno y una guía para saber cuál te conviene según tu situación.</p>
 
   <h2>¿Qué es un trust revocable?</h2>
 
-  <p>Un trust revocable es un fideicomiso que puedes modificar, cancelar o reorganizar en cualquier momento mientras estés vivo. Tú eres el fiduciario (trustee) de tu propio trust, lo que significa que sigues teniendo control total sobre los activos.</p>
+  <p>Un trust <GlossaryTerm term="revocable" definition="Un trust que puedes modificar o cancelar en cualquier momento mientras vivas. Te da máxima flexibilidad." /> es un fideicomiso que puedes modificar, cancelar o reorganizar en cualquier momento mientras estés vivo. Tú eres el fiduciario (<GlossaryTerm term="trustee" definition="La persona que administra el trust. Mientras vives, tú eres el trustee y mantienes control total." />) de tu propio trust, lo que significa que sigues teniendo control total sobre los activos.</p>
 
   <p>Puedes meter y sacar propiedades del trust cuando quieras. Si un día decides que ya no quieres el trust, lo cancelas y recuperas todo. Si quieres cambiar a los beneficiarios, lo haces sin problema.</p>
 
-  <p>Por ejemplo, María tiene una casa en Houston y creó un trust revocable. Ella sigue viviendo ahí, sigue pagando el mortgage y puede vender la casa cuando quiera. El trust no cambia su vida diaria, pero cuando ella falte, la casa pasa a sus hijos sin pasar por el probate court.</p>
+  <p>Por ejemplo, María tiene una casa en Houston y creó un trust revocable. Ella sigue viviendo ahí, sigue pagando el mortgage y puede vender la casa cuando quiera. El trust no cambia su vida diaria, pero cuando ella falte, la casa pasa a sus hijos sin pasar por el <GlossaryTerm term="probate" definition="Proceso judicial donde un juez verifica y reparte tu herencia. Cuesta 3-7% de tu patrimonio y dura 6-18 meses." /> court.</p>
 
   <figure class="article-image">
     <img src="/images/blog/inline-senior-woman-window.jpg" alt="Mujer mayor mirando por la ventana de su casa" loading="lazy" />
@@ -68,11 +69,13 @@ const faqSchema = {
 
   <h2>¿Qué es un trust irrevocable?</h2>
 
-  <p>Un trust irrevocable funciona distinto. Una vez que lo creas y transfieres activos, ya no puedes modificarlo ni cancelarlo por tu cuenta. Los activos salen de tu patrimonio personal (estate) y pasan a pertenecer al trust.</p>
+  <p>Un trust <GlossaryTerm term="irrevocable" definition="Un trust que NO puedes modificar después de crearlo. Ofrece mayor protección legal y fiscal." /> funciona distinto. Una vez que lo creas y transfieres activos, ya no puedes modificarlo ni cancelarlo por tu cuenta. Los activos salen de tu patrimonio personal (estate) y pasan a pertenecer al trust.</p>
 
   <p>Esto suena restrictivo, pero tiene un propósito. Como los activos ya no son tuyos legalmente, los acreedores no pueden tocarlos, y en algunos casos el valor no cuenta para el cálculo de impuestos de herencia.</p>
 
   <p>Imagínalo así: Carlos tiene un negocio de construcción en Florida y tiene miedo de que lo demanden. Transfiere sus propiedades de inversión a un trust irrevocable. Si un día alguien demanda a Carlos personalmente, esas propiedades están protegidas porque ya no le pertenecen a él, le pertenecen al trust.</p>
+
+  <div class="callout-case"><p class="callout-case-title">📖 Caso real: Carlos en Miami, Florida</p><p>Carlos tiene un negocio de construcción y teme demandas. Transfirió sus propiedades de inversión a un trust irrevocable. Si alguien lo demanda personalmente, esos bienes están protegidos: ya no le pertenecen a él, sino al trust. Más protección, menos flexibilidad.</p></div>
 
   <p>El tradeoff es claro: más protección, menos flexibilidad. No puedes cambiar de opinión un martes y sacar los activos de vuelta.</p>
 
@@ -141,11 +144,15 @@ const faqSchema = {
 
   <p><strong>Protección por incapacidad.</strong> Si quedas incapacitado, tu sucesor trustee toma el control del trust y maneja tus asuntos financieros sin necesidad de un court guardianship.</p>
 
+  <div class="callout-tip"><strong>💡 Consejo:</strong> Un trust revocable te da control total mientras vives y protección si quedas incapacitado. Tu trustee sucesor gestiona todo sin tribunal. Es la combinación ideal de flexibilidad y seguridad para la mayoría de las familias hispanas.</div>
+
   <h2>Ventajas del trust irrevocable</h2>
 
   <p>El trust irrevocable brilla cuando hay riesgos específicos que un trust revocable no puede cubrir:</p>
 
   <p><strong>Protección de activos.</strong> Como los activos ya no te pertenecen legalmente, los acreedores, demandantes y juicios no pueden tocarlos. Esto es clave para profesionales con riesgo de demandas: médicos, constructores, abogados, dueños de negocios.</p>
+
+  <div class="callout-warning"><strong>⚠️ Importante:</strong> Con un trust irrevocable pierdes el control de tus activos. Una vez transferidos, no puedes sacarlos ni modificar el trust sin cumplir requisitos legales complejos. Asegúrate de estar completamente seguro antes de crearlo.</div>
 
   <p><strong>Beneficios fiscales.</strong> Los activos en un trust irrevocable salen de tu estate, lo que reduce el valor total sujeto a impuestos de herencia (estate taxes). Para familias con patrimonios grandes, esto puede representar un ahorro significativo.</p>
 

@@ -2,6 +2,7 @@
 import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
 import TrustQuiz from '../../components/TrustQuiz.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -83,6 +84,8 @@ const faqSchema = {
 
   <p><strong>Ejemplo real:</strong> Luis, un camionero de Houston, tenía un seguro de vida de $500,000. Cuando falleció, su esposa recibió el dinero directamente. Dos años después, Luis Jr., su hijo de 19 años, le pidió $30,000 a su madre para un negocio que había visto en redes sociales. Ella accedió. El negocio fracasó en tres meses.</p>
 
+  <div class="callout-case"><p class="callout-case-title">📖 Caso real: Luis Jr. en Houston</p><p>Luis, un camionero de Houston, tenía $500,000 en seguro de vida pero sin trust. Su hijo de 19 años convenció a su madre de darle $30,000 para un negocio que fracasó en 3 meses. Con un trust, Luis habría podido especificar que su hijo recibe el dinero solo después de los 25.</p></div>
+
   <p>Si Luis hubiera tenido un trust, podría haber puesto instrucciones específicas: "Mi hijo recibe su parte del seguro cuando cumpla 25 años, y el dinero se usa solo para educación antes de esa edad." Nadie podría haber tocado ese dinero antes de tiempo.</p>
 
   <figure class="article-image">
@@ -91,11 +94,13 @@ const faqSchema = {
 
   <h2>Lo que el trust hace (y lo que no hace)</h2>
 
-  <p>Un trust protege tus bienes y controla cómo se distribuyen. Puedes decir exactamente quién recibe qué, cuándo y bajo qué condiciones. Incluso puedes incluir cláusulas como: "Mi hijo recibe el dinero si termina la universidad" o "Mi esposa puede vivir en la casa pero no puede venderla."</p>
+  <p>Un <GlossaryTerm term="fideicomiso" definition="Es lo mismo que 'trust'. Un acuerdo legal donde transfieres bienes a un administrador para beneficio de tus herederos." /> protege tus bienes y controla cómo se distribuyen. Puedes decir exactamente quién recibe qué, cuándo y bajo qué condiciones. Incluso puedes incluir cláusulas como: "Mi hijo recibe el dinero si termina la universidad" o "Mi esposa puede vivir en la casa pero no puede venderla."</p>
 
   <p>Pero hay un problema que mucha gente no ve: <strong>el trust no paga tus deudas inmediatas cuando falleces</strong>.</p>
 
-  <p>Si dejas deudas de tarjeta de crédito, un préstamo del carro o facturas médicas cuando mueres, tus herederos tienen que lidiar con eso desde el primer día. Si el trust es la única protección que tienes, tu familia podría tener que vender la casa para pagar lo que debías.</p>
+  <p>Si dejas deudas de tarjeta de crédito, un préstamo del carro o facturas médicas cuando mueres, tus <GlossaryTerm term="herederos" definition="Las personas que reciben tus bienes según el trust. Puedes incluir hijos, cónyuge, u otros familiares." /> tienen que lidiar con eso desde el primer día. Si el trust es la única protección que tienes, tu familia podría tener que vender la casa para pagar lo que debías.</p>
+
+  <div class="callout-warning"><strong>⚠️ Importante:</strong> El seguro de vida solo da dinero, el trust solo da instrucciones. Si tienes solo uno, tu familia tiene un hueco de protección. Necesitas ambos para protección completa.</div>
 
   <p>Aquí es donde entra el seguro de vida: ese dinero líquido llega en semanas y cubre las deudas inmediatas, mientras el trust se encarga de la distribución a largo plazo.</p>
 
@@ -122,7 +127,7 @@ const faqSchema = {
       <tr>
         <td>Incapacidad</td>
         <td>Si tienes seguro de invalidez, cubre parte de los ingresos</td>
-        <td>El trustee toma control de tus bienes</td>
+        <td>El <GlossaryTerm term="trustee" definition="La persona que administra el trust. Mientras vives, tú eres el trustee y mantienes control total." /> toma control de tus bienes</td>
         <td>Seguridad financiera inmediata + administración de bienes</td>
       </tr>
       <tr>
@@ -134,7 +139,7 @@ const faqSchema = {
       <tr>
         <td>Protección de la casa</td>
         <td>No protege la casa directamente</td>
-        <td>Protege la casa del probate</td>
+        <td>Protege la casa del <GlossaryTerm term="probate" definition="Proceso judicial donde un juez verifica y reparte tu herencia. Cuesta 3-7% de tu patrimonio y dura 6-18 meses." /></td>
         <td>Paga deudas de la casa + evita probate</td>
       </tr>
       <tr>
@@ -157,6 +162,8 @@ const faqSchema = {
   <p>Las razones son conocidas: desconfianza en el sistema legal, barrera de idioma, costo percibido como alto, y la creencia de que "eso se resuelve solo." Pero la realidad es que sin un plan, el estado decide qué pasa con tus bienes. Y el estado no conoce a tu familia como tú.</p>
 
   <p>Si tienes seguro de vida, ya diste el primer paso. Un trust completa el segundo. Juntos, crean una protección que ninguna herramienta por separado puede igualar.</p>
+
+  <div class="callout-tip"><strong>💡 Consejo:</strong> Haz que el trust sea el beneficiario de tu seguro de vida. Así, cuando fallezcas, el dinero del seguro va directo al trust y se distribuye según tus instrucciones — no como un pago único que tus hijos menores podrían malgastar.</div>
 
   <h2>Nuevo en Trust Para Todos: Legacy Foundation Group</h2>
 

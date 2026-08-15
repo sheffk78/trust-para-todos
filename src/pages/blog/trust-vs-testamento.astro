@@ -4,6 +4,7 @@ import EmailCapture from '../../components/EmailCapture.astro';
 import ComparisonTool from '../../components/ComparisonTool.astro';
 import TrustQuiz from '../../components/TrustQuiz.astro';
 import ProbateCalculator from '../../components/ProbateCalculator.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -62,11 +63,13 @@ const faqSchema = {
 
   <p>Suena bien, y para casos simples funciona. El problema es lo que pasa después.</p>
 
-  <p>Cuando falleces y solo tienes testamento, tu herencia pasa por el <strong>probate</strong>, el proceso judicial donde un juez valida el testamento, paga las deudas y reparte lo que queda. En California, el probate tarda entre 9 y 18 meses.</p>
+  <p>Cuando falleces y solo tienes testamento, tu herencia pasa por el <GlossaryTerm term="probate" definition="Proceso judicial donde un juez verifica y reparte tu herencia. Cuesta 3-7% de tu patrimonio y dura 6-18 meses." />, el proceso judicial donde un juez valida el testamento, paga las deudas y reparte lo que queda. En California, el probate tarda entre 9 y 18 meses.</p>
 
   <p>Los costos del probate se calculan como porcentaje del patrimonio. En California, los honorarios legales obligatorios son alrededor del 4% de los bienes. Si tu casa vale $500,000, son $20,000 solo en honorarios, sin contar los gastos del ejecutor ni los costos del tribunal.</p>
 
   <p>Además, el probate es público. Cualquier persona puede ir al tribunal y ver qué tenías, qué dejaste y a quién. No hay privacidad.</p>
+
+  <div class="callout-warning"><strong>⚠️ Importante:</strong> Un testamento NO evita el probate. Muchas familias creen que al hacer un testamento su herencia pasa directo a los herederos, pero el testamento solo funciona dentro del probate. El juez debe validarlo antes de repartir nada.</div>
 
   <img
     src="/images/blog/inline-senior-woman-window.jpg"
@@ -78,7 +81,7 @@ const faqSchema = {
 
   <h2>¿Qué es un trust?</h2>
 
-  <p>Un trust, específicamente un <strong>trust revocable</strong>, es un documento legal que transfiere tus bienes a un fideicomiso que tú controlas mientras vives. Tú eres el fideicomisario (trustee), así que sigues usando tu casa, tus cuentas y todo lo que metiste al trust como si nada hubiera cambiado.</p>
+  <p>Un trust, específicamente un <strong>trust revocable</strong>, es un documento legal que transfiere tus bienes a un <GlossaryTerm term="fideicomiso" definition="Es lo mismo que 'trust'. Un acuerdo legal donde transfieres bienes a un administrador para beneficio de tus herederos." /> que tú controlas mientras vives. Tú eres el fideicomisario (<GlossaryTerm term="trustee" definition="La persona que administra el trust. Mientras vives, tú eres el trustee y mantienes control total." />), así que sigues usando tu casa, tus cuentas y todo lo que metiste al trust como si nada hubiera cambiado.</p>
 
   <p>La diferencia clave es que el trust ya tiene instrucciones de qué hacer con tus bienes cuando mueras, y esos bienes <strong>no pasan por el probate</strong>. Tu sucesor reparte todo según tus instrucciones, sin jueces, sin demoras de un año.</p>
 
@@ -191,16 +194,20 @@ const faqSchema = {
 
   <p>La diferencia entre $997 y $33,000 es la diferencia entre planificar y no planificar.</p>
 
+  <div class="callout-case"><p class="callout-case-title">📖 Caso real: La familia Martínez en Riverside, California</p><p>Don Martínez tenía una casa de $480,000 y solo un testamento. Al fallecer, sus hijos entraron al probate: 16 meses de espera, $33,000 entre honorarios y costos de tribunal. Con un trust de $997 habrían recibido la casa en 6 semanas y ahorrado esos $33,000.</p></div>
+
   <div class="inline-cta"><p>¿Listo para proteger a tu familia? Haz tu evaluación gratuita en 3 minutos.</p><a href="/evaluacion" class="btn btn-primary">Comenzar evaluación →</a></div>
   <EmailCapture />
 
       <h2>¿Puedes tener ambos?</h2>
 
-  <p>Sí, y de hecho es lo más recomendable. Se llama <strong>pour-over will</strong> (testamento de traslado).</p>
+  <p>Sí, y de hecho es lo más recomendable. Se llama <GlossaryTerm term="pour-over will" definition="Un testamento especial que transfiere cualquier bien olvidado al trust al fallecer. Es una red de seguridad." /> (testamento de traslado).</p>
 
   <p>Funciona así: el trust es tu plan principal, donde pones tu casa, tus cuentas y tus bienes principales. El testamento de traslado es una red de seguridad. Si al morir tienes algún bien que olvidaste meter al trust (una cuenta nueva, un vehículo que compraste después), el testamento lo "traslada" automáticamente al trust para que no pase por el probate.</p>
 
   <p>No es un testamento normal. No reparte nada directamente. Su única función es capturar lo que falta y meterlo al trust.</p>
+
+  <div class="callout-tip"><strong>💡 Consejo:</strong> Incluye un pour-over will como respaldo de tu trust. Es una red de seguridad que captura cualquier bien que olvidaste transferir al trust y lo traslada automáticamente, evitando que ese bien caiga en el probate.</div>
 
   <p>Con esta combinación, tu familia tiene protección completa: el trust para lo principal, el testamento de traslado para lo que se te haya escapado.</p>
 
@@ -214,7 +221,7 @@ const faqSchema = {
 
     <div class="faq-item">
       <h3>¿Puedo cambiar mi trust después de hacerlo?</h3>
-      <p>Sí. Un trust revocable se puede modificar cuando quieras, mientras estés en pleno uso de tus facultades mentales. Puedes cambiar herederos, agregar o quitar bienes, cambiar el sucesor. Tú mantienes el control total.</p>
+      <p>Sí. Un trust revocable se puede modificar cuando quieras, mientras estés en pleno uso de tus facultades mentales. Puedes cambiar <GlossaryTerm term="herederos" definition="Las personas que reciben tus bienes según el trust. Puedes incluir hijos, cónyuge, u otros familiares." />, agregar o quitar bienes, cambiar el sucesor. Tú mantienes el control total.</p>
     </div>
 
     <div class="faq-item">

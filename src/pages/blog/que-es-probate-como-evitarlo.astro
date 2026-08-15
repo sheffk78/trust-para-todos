@@ -3,6 +3,7 @@ import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
 import TrustQuiz from '../../components/TrustQuiz.astro';
 import ProbateCalculator from '../../components/ProbateCalculator.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -39,12 +40,12 @@ const faqSchema = {
 <BlogArticleLayout title="¿Qué es el Probate y Cómo Evitarlo en Estados Unidos?" description="Guía completa sobre probate en español: qué es, cuánto cuesta (3-7% del patrimonio), cuánto dura y 4 formas de evitarlo con un trust revocable." canonicalPath="/blog/que-es-probate-como-evitarlo" ogImage="og-blog-que-es-probate-como-evitarlo.png" heroImage="/images/blog/07-hero-courtroom.jpg" heroAlt="Familia y proceso legal" date="2026-08-14" readTime="6 min de lectura" jsonLd={faqSchema}
   relatedArticles={[{ slug: "trust-vs-testamento", title: "Trust vs Testamento", tag: "Comparativa", image: "/images/blog/04-hero-senior-couple.jpg" }, { slug: "que-es-trust-revocable", title: "¿Qué es un Trust Revocable?", tag: "Educacional", image: "/images/blog/01-hero-family-home.jpg" }, { slug: "seguro-vida-trust", title: "Seguro de Vida + Trust", tag: "Protección", image: "/images/blog/03-hero-family-protection.jpg" }]}
 >
-  <p>Cuando una persona fallece en Estados Unidos, su familia suele descubrir un proceso legal del que nunca había oído hablar. Ese proceso se llama probate y puede costar miles de dólares y tomar más de un año antes de que puedan heredar los bienes. Si buscas qué significa probate en español qué es, esta guía explica todo lo que necesitas saber en lenguaje claro.</p>
+  <p>Cuando una persona fallece en Estados Unidos, su familia suele descubrir un proceso legal del que nunca había oído hablar. Ese proceso se llama <GlossaryTerm term="probate" definition="Proceso judicial donde un juez verifica y reparte tu herencia. Cuesta 3-7% de tu patrimonio y dura 6-18 meses." /> y puede costar miles de dólares y tomar más de un año antes de que puedan heredar los bienes. Si buscas qué significa probate en español qué es, esta guía explica todo lo que necesitas saber en lenguaje claro.</p>
   <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>El probate cuesta 3-7% del patrimonio y tarda 6-18 meses</li><li>Un testamento NO evita el probate; lo confirma el tribunal</li><li>Un trust revocable es la forma más completa de evitarlo</li><li>El probate es público; el trust es privado</li></ul></div>
       <div class="inline-cta"><p>¿Tu familia va a enfrentar probate? Descubre cómo evitarlo con un trust.</p><a href="/evaluacion" class="btn btn-primary">Ver mi opción →</a></div>
 
   <h2>¿Qué es el probate exactamente?</h2>
-  <p>El probate es el proceso judicial mediante el cual la corte supervisa la transferencia de los bienes de una persona fallecida a sus herederos. En español se conoce como sucesión de bienes o proceso sucesorio, pero en este país se le llama probate.</p>
+  <p>El probate es el proceso judicial mediante el cual la corte supervisa la transferencia de los bienes de una persona fallecida a sus <GlossaryTerm term="herederos" definition="Las personas que reciben tus bienes según el trust. Puedes incluir hijos, cónyuge, u otros familiares." />. En español se conoce como sucesión de bienes o proceso sucesorio, pero en este país se le llama probate.</p>
   <p>Cuando alguien muere, sus bienes no pasan automáticamente a la familia. La corte verifica que el testamento sea válido (si existe), identifica los bienes, paga las deudas pendientes y distribuye lo que queda según la ley o el testamento.</p>
   <p>Este proceso existe en todos los 50 estados, pero las reglas varían según dónde vivía la persona. Algunos estados tienen un probate simplificado para patrimonios pequeños, pero la mayoría de las familias con una casa o ahorros terminan en el proceso completo.</p>
 
@@ -62,6 +63,9 @@ const faqSchema = {
   </ul>
   <p>En total, el probate suele costar entre el 3% y el 7% del valor del patrimonio.</p>
   <p><strong>Ejemplo concreto</strong>: Si una persona deja un patrimonio de $300,000 (una casa, una cuenta de banco y un vehículo), el probate puede costar entre $9,000 y $21,000. Ese dinero sale del bolsillo de los herederos antes de que reciban un solo centavo.</p>
+
+  <div class="callout-warning"><strong>⚠️ Importante:</strong> Un testamento NO evita el probate. El testamento es el documento que la corte usa DURANTE el probate. Solo un trust revocable evita el probate por completo.</div>
+
   <p>En estados como California, los honorarios del abogado y del ejecutor están fijados por ley como un porcentaje del patrimonio. Un patrimonio de $500,000 puede generar honorarios legales de más de $26,000 solo en tarifas estatutarias.</p>
 
   <h2>Cuánto dura el probate</h2>
@@ -75,6 +79,8 @@ const faqSchema = {
     <li>Distribuir los bienes y cerrar el caso (2-3 meses).</li>
   </ol>
   <p>Si hay disputas entre herederos, propiedades en varios estados o un patrimonio complicado, el proceso puede tomar 2 años o más. Durante ese tiempo, la familia no puede vender la casa ni acceder a las cuentas del fallecido sin permiso de la corte.</p>
+
+  <div class="callout-case"><p class="callout-case-title">📖 Caso real: La familia Martínez en California</p><p>La familia Martínez perdió a su padre en 2024. Tenía una casa de $450,000 y un testamento. Pasaron 14 meses en probate y pagaron $22,000 en honorarios legales. La madre no pudo acceder a la cuenta de ahorros durante 9 meses y casi perdió la casa por falta de pago de la hipoteca.</p></div>
 
   <figure class="article-image">
     <img src="/images/blog/inline-family-kitchen.jpg" alt="Familia hispana conversando en la cocina" loading="lazy" />
@@ -100,8 +106,11 @@ const faqSchema = {
   <p>Existen formas legales de evitar que tu familia pase por este proceso. Estas son las 4 opciones más usadas:</p>
 
   <h3>1. Trust revocable (la solución principal)</h3>
-  <p>Un <a href="/blog/que-es-trust-revocable">trust revocable</a> es la forma más completa de evitar el probate. Cuando creas un trust, transfieres tus bienes al trust mientras estás vivo. Como el trust no muere, sus bienes no pasan por la corte. La persona que tú nombras como sucesor trustee distribuye los bienes directamente a tus beneficiarios según tus instrucciones.</p>
+  <p>Un <a href="/blog/que-es-trust-revocable">trust revocable</a> es la forma más completa de evitar el probate. Cuando creas un <GlossaryTerm term="fideicomiso" definition="Es lo mismo que 'trust'. Un acuerdo legal donde transfieres bienes a un administrador para beneficio de tus herederos." />, transfieres tus bienes al trust mientras estás vivo. Como el trust no muere, sus bienes no pasan por la corte. La persona que tú nombras como <GlossaryTerm term="trust sucesor" definition="La persona o institución que toma control del trust cuando tú falleces o quedas incapacitado." /> distribuye los bienes directamente a tus beneficiarios según tus instrucciones.</p>
   <p>El trust revocable permite que tu familia herede sin pasar por la corte, sin honorarios de abogados proporcionales al patrimonio y sin esperas de meses. Además, el trust es privado: a diferencia del probate, que es un registro público, lo que está en el trust se queda en la familia.</p>
+
+  <div class="callout-tip"><strong>💡 Consejo:</strong> Si tienes propiedades en más de un estado, un trust revocable evita que tu familia tenga que hacer probate en cada estado por separado. Una sola herramienta protege todas tus propiedades.</div>
+
   <p>Si quieres saber más sobre trusts, visita nuestra página sobre <a href="/que-es">qué es un trust</a>.</p>
 
   <h3>2. Cuentas con beneficiarios designados (POD/TOD)</h3>

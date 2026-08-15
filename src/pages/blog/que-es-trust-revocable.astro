@@ -4,6 +4,7 @@ import EmailCapture from '../../components/EmailCapture.astro';
 import TrustDiagram from '../../components/TrustDiagram.astro';
 import TrustQuiz from '../../components/TrustQuiz.astro';
 import ProbateCalculator from '../../components/ProbateCalculator.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -52,15 +53,19 @@ const faqSchema = {
 
   <h2>La verdad que nadie te dice sobre los testamentos</h2>
 
-  <p>Cuando mueres sin un trust, tus bienes pasan por un proceso llamado <strong>probate</strong> (probate en español: proceso de verificación de herencia). Este proceso ocurre en un tribunal, es público, puede durar de 6 meses a más de un año, y le cuesta a tu familia entre el 3% y el 7% de todo lo que dejaste.</p>
+  <p>Cuando mueres sin un trust, tus bienes pasan por un proceso llamado <GlossaryTerm term="probate" definition="Proceso judicial donde un juez verifica y reparte tu herencia. Cuesta 3-7% de tu patrimonio y dura 6-18 meses." /> (probate en español: proceso de verificación de herencia). Este proceso ocurre en un tribunal, es público, puede durar de 6 meses a más de un año, y le cuesta a tu familia entre el 3% y el 7% de todo lo que dejaste.</p>
 
   <p>Eso significa que si dejaste una casa de $300,000, tu familia podría perder entre $9,000 y $21,000 solo en costos legales.</p>
+
+  <div class="callout-warning"><strong>⚠️ Importante:</strong> Un testamento NO evita el probate. Solo un trust lo hace. Si tienes solo un testamento, tu familia pasará por la corte igual.</div>
 
   <p>Pero hay algo peor. Durante el probate, <strong>nadie puede usar esos bienes</strong>. Si la casa era el único hogar de tu familia, nadie puede vivir ahí hasta que un juez lo autorice. Las cuentas bancarias quedan congeladas. Los carros no se pueden vender.</p>
 
   <p>María, una madre de tres hijos en Los Ángeles, perdió acceso a la cuenta de ahorros de su esposo durante 11 meses después de que él falleció. Los hijos necesitaban dinero para la universidad y no podían tocar un centavo.</p>
 
   <p>"Pensé que el testamento era suficiente. Nadie me dijo que el testamento no evita el probate", cuenta María.</p>
+
+  <div class="callout-case"><p class="callout-case-title">📖 Caso real: María en Los Ángeles</p><p>María tenía una casa de $400,000 y un testamento. Cuando su esposo falleció, la familia pasó 11 meses en probate y perdió $18,000 en costos legales. Con un trust de $997, todo esto se habría evitado.</p></div>
 
   <figure class="article-image">
     <img src="/images/blog/inline-senior-woman-window.jpg" alt="Mujer mayor mirando por la ventana" loading="lazy" />
@@ -69,17 +74,19 @@ const faqSchema = {
 
   <h2>¿Qué es un trust revocable exactamente?</h2>
 
-  <p>Un trust revocable (también llamado fideicomiso revocable o living trust en inglés) es un documento legal donde tú pones tus bienes a nombre de un trust mientras sigues vivo. Tú sigues siendo dueño de todo, sigues usando tus cuentas, tu casa, tus carros. La diferencia es que ahora están dentro de una estructura legal que tiene un plan claro para cuando ya no estés.</p>
+  <p>Un trust revocable (también llamado <GlossaryTerm term="fideicomiso" definition="Es lo mismo que 'trust'. Un acuerdo legal donde transfieres bienes a un administrador para beneficio de tus herederos." /> revocable o living trust en inglés) es un documento legal donde tú pones tus bienes a nombre de un trust mientras sigues vivo. Tú sigues siendo dueño de todo, sigues usando tus cuentas, tu casa, tus carros. La diferencia es que ahora están dentro de una estructura legal que tiene un plan claro para cuando ya no estés.</p>
 
   <p>Las tres personas clave son:</p>
 
   <ul>
-    <li><strong>Tú (el grantor/settlor)</strong>: quien crea el trust y pone los bienes dentro.</li>
-    <li><strong>Tú mismo (el trustee)</strong>: quien administra los bienes. Mientras vivas, tú controlas todo.</li>
+    <li><strong>Tú (el <GlossaryTerm term="grantor" definition="La persona que crea el trust. Tú eres el grantor cuando estableces tu fideicomiso." />/settlor)</strong>: quien crea el trust y pone los bienes dentro.</li>
+    <li><strong>Tú mismo (el <GlossaryTerm term="trustee" definition="La persona que administra el trust. Mientras vives, tú eres el trustee y mantienes control total." />)</strong>: quien administra los bienes. Mientras vivas, tú controlas todo.</li>
     <li><strong>Los beneficiarios</strong>: las personas que recibirán los bienes según las reglas que tú definiste.</li>
   </ul>
 
   <p>Si tú te incapacitas o falleces, el <strong>trustee sucesor</strong> que designaste toma el control sin necesidad de ir a un tribunal. No hay probate. No hay espera. No hay costos extra.</p>
+
+  <div class="callout-tip"><strong>💡 Consejo:</strong> Incluye un pour-over will como respaldo. Si olvidas transferir algún bien al trust, este testamento especial transfiere automáticamente cualquier bien olvidado al trust al fallecer.</div>
 
   <figure class="article-image">
     <img src="/images/blog/inline-family-kitchen.jpg" alt="Familia hispana relajándose en la cocina de su casa" loading="lazy" />
@@ -125,7 +132,7 @@ const faqSchema = {
 
   <p>Un abogado puede cobrar entre $1,500 y $5,000 por crear un trust revocable. Las tarifas varían según el estado y la complejidad de tus bienes.</p>
 
-  <p>Sin embargo, hay alternativas más accesibles. Trust Para Todos ofrece un servicio completo por $997 que incluye la creación del trust, documentos notarizados, un EIN (número de identificación de impuestos) para el trust, y asesoría en español durante todo el proceso.</p>
+  <p>Sin embargo, hay alternativas más accesibles. Trust Para Todos ofrece un servicio completo por $997 que incluye la creación del trust, documentos notarizados, un <GlossaryTerm term="EIN" definition="Employer Identification Number. Un número del IRS que identifica al trust como entidad legal para abrir cuentas bancarias." /> (número de identificación de impuestos) para el trust, y asesoría en español durante todo el proceso.</p>
 
   <p>Sea cual sea la opción que elijas, el costo de crear un trust es una fracción de lo que tu familia pagaría en probate si no lo tienes.</p>
 

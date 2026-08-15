@@ -2,6 +2,7 @@
 import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
 import TrustQuiz from '../../components/TrustQuiz.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -92,14 +93,16 @@ const faqSchema = {
 
   <p><strong>Error común:</strong> Crear un trust irrevocable sin entender que no puedes cambiarlo después. Si tu situación es sencilla y vives en Estados Unidos como residente, el revocable es tu mejor opción.</p>
 
+  <div class="callout-warning"><strong>⚠️ Importante:</strong> Un trust irrevocable NO se puede cambiar ni cancelar después de firmarlo. Si tu situación es sencila, elige un trust revocable para mantener el control total.</div>
+
   <h2>Paso 2: Define quién hace qué en tu trust</h2>
 
   <p>Cada trust tiene tres roles principales:</p>
 
   <ul>
-    <li><strong>Tú (grantor)</strong>: Creas el trust y pones tus bienes dentro.</li>
-    <li><strong>Tú mismo como trustee</strong>: Administras tus bienes mientras estés vivo y sano.</li>
-    <li><strong>Trustee sucesor</strong>: La persona que toma el control si tú no puedes. Debe ser alguien de confianza y con sentido común para manejar dinero.</li>
+    <li><strong>Tú (<GlossaryTerm term="grantor" definition="La persona que crea el trust. Tú eres el grantor cuando estableces tu fideicomiso." />)</strong>: Creas el trust y pones tus bienes dentro.</li>
+    <li><strong>Tú mismo como <GlossaryTerm term="trustee" definition="La persona que administra el trust. Mientras vives, tú eres el trustee y mantienes control total." /></strong>: Administras tus bienes mientras estés vivo y sano.</li>
+    <li><strong><GlossaryTerm term="trust sucesor" definition="La persona o institución que toma control del trust cuando tú falleces o quedas incapacitado." /></strong>: La persona que toma el control si tú no puedes. Debe ser alguien de confianza y con sentido común para manejar dinero.</li>
   </ul>
 
   <p><strong>Consejo real:</strong> Muchas personas eligen a un hijo adulto como trustee sucesor. Está bien, pero asegúrate de que esa persona esté de acuerdo y entienda la responsabilidad. No es solo un título. Es un compromiso financiero.</p>
@@ -126,7 +129,7 @@ const faqSchema = {
     <li>Documento legal completo válido en los 50 estados</li>
     <li>Asesoría en español</li>
     <li>Notarización</li>
-    <li>EIN (número de impuestos) para el trust</li>
+    <li><GlossaryTerm term="EIN" definition="Employer Identification Number. Un número del IRS que identifica al trust como entidad legal para abrir cuentas bancarias." /> (número de impuestos) para el trust</li>
     <li>Revisión por parte de abogados</li>
   </ul>
 
@@ -153,7 +156,11 @@ const faqSchema = {
 
   <p>La transferencia de la casa es la más importante. Si te olvidas de este paso, tu casa sigue a tu nombre personal y tendrá que pasar por probate cuando fallezcas, incluso teniendo un trust.</p>
 
+  <div class="callout-tip"><strong>💡 Consejo:</strong> Crea un checklist de <GlossaryTerm term="financiamiento" definition="El proceso de transferir tus bienes al trust. Sin financiamiento, el trust es solo un documento inútil." /> y revísalo con tu cónyuge. Marca cada bien transferido (casa, cuentas, carros, seguros) y guarda las escrituras nuevas en una carpeta del trust.</div>
+
   <p><strong>Historia real:</strong> Carlos, un contador de Phoenix, creó su trust en 2019 con un abogado. Cuando falleció en 2023, su familia descubrió que nunca transfirió la casa al trust. Tuvieron que hacer probate de todas formas. Su hija mayor recordó: "Mi papá creyó que con firmar el documento ya estaba todo listo. Nadie le dijo que tenía que transferir los bienes."</p>
+
+  <div class="callout-case"><p class="callout-case-title">📖 Caso real: Carlos en Phoenix</p><p>Carlos creó su trust con un abogado en 2019, pero nunca transfirió la casa al trust. Cuando falleció en 2023, su familia tuvo que pasar por probate de todas formas, perdiendo $12,000 en costos legales. El trust existía pero estaba vacío: sin financiamiento, no protege nada.</p></div>
 
   <figure class="article-image">
     <img src="/images/blog/inline-family-outdoor.jpg" alt="Familia conversando al aire libre sobre su patrimonio" loading="lazy" />

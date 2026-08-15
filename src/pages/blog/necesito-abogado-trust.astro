@@ -2,6 +2,7 @@
 import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
 import TrustQuiz from '../../components/TrustQuiz.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -52,6 +53,8 @@ const faqSchema = {
 
   <p>Mucha gente cree que crear un trust es algo que solo un abogado puede hacer. Las firmas legales cobran entre $1,500 y $5,000 por un trust familiar, y durante años esa era la única opción real. Hoy existe otro camino.</p>
 
+  <div class="callout-tip"><strong>💡 Consejo:</strong> Si tu situación es sencilla (una casa, cuentas de jubilación, hijos adultos), una plataforma con revisión legal te da la misma protección que un abogado tradicional por una fracción del costo. Evalúa primero tu caso antes de pagar de más.</div>
+
   <p>En este artículo vas a encontrar una comparación honesta entre las tres opciones reales que tienes, cuándo conviene contratar a un abogado y cuándo estás tirando dinero si lo haces.</p>
 
   <figure class="article-image">
@@ -89,7 +92,7 @@ const faqSchema = {
 
   <ul>
     <li><strong>Tu situación es sencilla.</strong> Tienes una casa principal, un par de cuentas de jubilación y quizás una cuenta de ahorros.</li>
-    <li><strong>Solo necesitas un trust revocable estándar.</strong> Este es el trust más común y cubre a la mayoría de las familias. Puedes leer más en nuestro artículo sobre <a href="/blog/que-es-trust-revocable">qué es un trust revocable</a>.</li>
+    <li><strong>Solo necesitas un <GlossaryTerm term="revocable" definition="Un trust que puedes modificar o cancelar en cualquier momento mientras vivas. Te da máxima flexibilidad." /> estándar.</strong> Este es el trust más común y cubre a la mayoría de las familias. Puedes leer más en nuestro artículo sobre <a href="/blog/que-es-trust-revocable">qué es un trust revocable</a>.</li>
     <li><strong>No tienes propiedades fuera de tu estado.</strong> Si todo lo que tienes está en un solo estado, no necesitas coordinación legal entre jurisdicciones.</li>
     <li><strong>Tus hijos son adultos y no hay conflictos familiares.</strong> No tienes hijos menores, ni hijos con problemas financieros.</li>
   </ul>
@@ -115,13 +118,17 @@ const faqSchema = {
 
   <p>Descargas una plantilla genérica de internet, la rellenas y la firmas. Suena fácil y barato, pero tiene riesgos serios.</p>
 
+  <div class="callout-warning"><strong>⚠️ Importante:</strong> Una plantilla genérica sin revisión legal puede ser declarada inválida por el tribunal. Si el trust no cumple con los requisitos legales de tu estado, tu familia termina en probate de todos modos. Lo barato puede salir muy caro.</div>
+
   <h2>Lo que pasa cuando usas una plantilla genérica</h2>
 
   <p>María compró una plantilla de trust online por $50. Rellenó los campos, la firmó frente a un notario y la guardó en un cajón. Cuando falleció tres años después, sus hijos descubrieron que el trust no cumplía con los requisitos de California. El tribunal lo declaró inválido.</p>
 
   <p>Resultado: los hijos pasaron por el proceso de sucesión que María quería evitar, pagaron $8,000 en honorarios legales y esperaron 14 meses para recibir la casa.</p>
 
-  <p>Una plantilla genérica no se ajusta a las leyes de tu estado, no tiene revisión legal y no incluye las cláusulas que protegen a tus herederos. El ahorro de $1,000 al frente puede costarte $8,000 y un año de retraso a tu familia.</p>
+  <p>Una plantilla genérica no se ajusta a las leyes de tu estado, no tiene revisión legal y no incluye las cláusulas que protegen a tus <GlossaryTerm term="herederos" definition="Las personas que reciben tus bienes según el trust. Puedes incluir hijos, cónyuge, u otros familiares." />. El ahorro de $1,000 al frente puede costarte $8,000 y un año de retraso a tu familia.</p>
+
+  <div class="callout-case"><p class="callout-case-title">📖 Caso real: María en Los Ángeles</p><p>María compró una plantilla de trust online por $50. La rellenó, la firmó frente a un notario y la guardó en un cajón. Al fallecer tres años después, el tribunal declaró el trust inválido por no cumplir los requisitos de California. Sus hijos pasaron por probate: $8,000 en honorarios y 14 meses de espera. El ahorro de $1,000 le costó a la familia mucho más.</p></div>
 
   <h2>El modelo híbrido: lo mejor de ambos mundos</h2>
 
@@ -171,7 +178,7 @@ const faqSchema = {
 
     <div class="faq-item">
       <h3>¿Puedo modificar mi trust después de hacerlo?</h3>
-      <p>Sí, si es un trust revocable. Puedes cambiar beneficiarios, agregar o quitar propiedades y cambiar al fiduciario en cualquier momento mientras estés vivo y en pleno uso de tus facultades mentales.</p>
+      <p>Sí, si es un trust revocable. Puedes cambiar beneficiarios, agregar o quitar propiedades y cambiar al fiduciario (<GlossaryTerm term="trustee" definition="La persona que administra el trust. Mientras vives, tú eres el trustee y mantienes control total." />) en cualquier momento mientras estés vivo y en pleno uso de tus facultades mentales.</p>
     </div>
   </div>
 
@@ -179,7 +186,7 @@ const faqSchema = {
 
   <p>La pregunta "¿necesito abogado para hacer un trust?" no tiene una respuesta única. Depende de tu situación. Si tienes un patrimonio sencillo y sin complicaciones, una plataforma con revisión legal te ahorra miles de dólares y te da el mismo resultado. Si tu caso es complejo, un abogado es la inversión correcta.</p>
 
-  <p>Lo peor que puedes hacer es no tener ningún trust. El proceso de sucesión cuesta en promedio entre $8,000 y $15,000 y puede durar entre 9 y 18 meses. Un trust te protege a ti y a tu familia de todo eso.</p>
+  <p>Lo peor que puedes hacer es no tener ningún trust. El proceso de sucesión (<GlossaryTerm term="probate" definition="Proceso judicial donde un juez verifica y reparte tu herencia. Cuesta 3-7% de tu patrimonio y dura 6-18 meses." />) cuesta en promedio entre $8,000 y $15,000 y puede durar entre 9 y 18 meses. Un trust te protege a ti y a tu familia de todo eso.</p>
 <TrustQuiz />
 
 </BlogArticleLayout>

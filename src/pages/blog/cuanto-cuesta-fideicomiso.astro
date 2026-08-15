@@ -3,6 +3,7 @@ import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
 import EmailCapture from '../../components/EmailCapture.astro';
 import TrustQuiz from '../../components/TrustQuiz.astro';
 import ProbateCalculator from '../../components/ProbateCalculator.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -49,7 +50,7 @@ const faqSchema = {
   relatedArticles={[{ slug: "como-crear-trust-online", title: "Cómo Crear un Trust Online", tag: "Guía", image: "/images/blog/02-hero-documents.jpg" }, { slug: "necesito-abogado-trust", title: "¿Necesito un Abogado?", tag: "Decisiones", image: "/images/blog/06-hero-consultation.jpg" }, { slug: "seguro-vida-trust", title: "Seguro de Vida + Trust", tag: "Protección", image: "/images/blog/03-hero-family-protection.jpg" }]}
 >
   <p>Si buscas cuánto cuesta un fideicomiso, la respuesta corta es: entre $0 y $5,000. Pero la respuesta larga te ahorra dinero, te evita dolores de cabeza y protege a tu familia de verdad.</p>
-  <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>Un fideicomiso cuesta entre $0 y $5,000 según quién lo prepare</li><li>Las plantillas baratas ($0-$300) no incluyen revisión legal ni financiamiento</li><li>Un trust sin financiar es un documento inútil</li><li>Trust Para Todos: $997 con revisión legal y financiamiento incluidos</li></ul></div>
+  <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>Un <GlossaryTerm term="fideicomiso" definition="Es lo mismo que 'trust'. Un acuerdo legal donde transfieres bienes a un administrador para beneficio de tus herederos." /> cuesta entre $0 y $5,000 según quién lo prepare</li><li>Las plantillas baratas ($0-$300) no incluyen revisión legal ni <GlossaryTerm term="financiamiento" definition="El proceso de transferir tus bienes al trust. Sin financiamiento, el trust es solo un documento inútil." /></li><li>Un trust sin financiar es un documento inútil</li><li>Trust Para Todos: $997 con revisión legal y financiamiento incluidos</li></ul></div>
 
   <p>El problema es que la mayoría compara precios sin entender qué está pagando. Un trust de $200 y uno de $3,000 parecen lo mismo en papel, pero las diferencias son enormes. En esta guía vas a ver qué cuesta cada opción, qué recibes y dónde están los costos ocultos que nadie menciona.</p>
 
@@ -105,13 +106,15 @@ const faqSchema = {
 
   <p>Hay una frase que escuchamos mucho: "un trust es un trust". Falso. Un trust válido en California puede no servirte nada en Nueva York. Un trust que nunca se financió no existe legalmente, por más bonito que se vea el documento.</p>
 
+  <div class="callout-warning"><strong>⚠️ Importante:</strong> Un trust sin financiamiento es solo un documento inútil. Si tu casa sigue a tu nombre y no en el nombre del trust, tu familia va a pasar por probate de todos modos, sin importar cuánto pagaste por el documento.</div>
+
   <p>Aquí están los tres problemas más comunes con los trusts baratos:</p>
 
   <p><strong>Plantillas genéricas que no respetan las leyes de tu estado.</strong> Cada estado tiene requisitos distintos para que un trust sea válido. Algunos exigen testigos, otros notarización, otros cláusulas específicas. Una plantilla no las cumple todas.</p>
 
   <p><strong>Sin revisión legal.</strong> Nadie revisa si lo que escribiste tiene sentido. Si pones que tu hijo menor hereda todo sin un tutor designado, eso es un problema. Una plantilla no te avisa.</p>
 
-  <p><strong>Sin financiamiento del trust.</strong> Este es el error número uno. Mucha gente paga por un trust, lo firma, lo guarda en un cajón y nunca transfiere sus propiedades al fideicomiso. Un trust sin activos es un documento inútil. Si tu casa sigue a tu nombre y no en el nombre del trust, tu familia va a pasar por probate de todos modos.</p>
+  <p><strong>Sin financiamiento del trust.</strong> Este es el error número uno. Mucha gente paga por un trust, lo firma, lo guarda en un cajón y nunca transfiere sus propiedades al fideicomiso. Un trust sin <GlossaryTerm term="activos" definition="Todo lo que posees de valor: casa, cuentas bancarias, inversiones, vehículos, propiedades, seguros de vida." /> es un documento inútil. Si tu casa sigue a tu nombre y no en el nombre del trust, tu familia va a pasar por probate de todos modos.</p>
 
   <h2>Costos ocultos de NO tener un fideicomiso</h2>
 
@@ -122,7 +125,7 @@ const faqSchema = {
     <figcaption>No tener un fideicomiso puede costar a tu familia miles de dólares en probate.</figcaption>
   </figure>
 
-  <p><strong>Probate cuesta entre el 3% y el 7% del valor de tu patrimonio.</strong> Si tu casa vale $400,000, tus herederos pueden pagar entre $12,000 y $28,000 solo en costos de probate. Un trust de $997 te ahorra eso.</p>
+  <p><strong>Probate cuesta entre el 3% y el 7% del valor de tu patrimonio.</strong> Si tu casa vale $400,000, tus herederos pueden pagar entre $12,000 y $28,000 solo en costos de <GlossaryTerm term="probate" definition="Proceso judicial donde un juez verifica y reparte tu herencia. Cuesta 3-7% de tu patrimonio y dura 6-18 meses." />. Un trust de $997 te ahorra eso.</p>
       <ProbateCalculator />
 
   <p><strong>Probate tarda de 6 a 18 meses.</strong> Tu familia no puede vender la casa, acceder a las cuentas ni distribuir herencias hasta que el tribunal lo autorice. Es un proceso público, lento y caro.</p>
@@ -134,6 +137,8 @@ const faqSchema = {
   <h2>Tipos de fiduciarios y sus costos</h2>
 
   <p>El fiduciario es la persona o institución que administra el trust cuando tú ya no puedes. Esto también tiene un costo que debes considerar.</p>
+
+  <div class="callout-tip"><strong>💡 Consejo:</strong> Para familias con patrimonios menores a $500,000, nombrar a un familiar o amigo de confianza como fiduciario (trustee sucesor) es la opción más económica. Evita los honorarios de un banco (0.5%-2% anual) mientras mantienes a alguien que conoce tus valores y prioridades.</div>
 
   <p><strong>Familiar o amigo (gratuito).</strong> Lo más común. Tu cónyuge, un hijo adulto o alguien de confianza. No cobra, pero tiene que cumplir sus deberes legales.</p>
 

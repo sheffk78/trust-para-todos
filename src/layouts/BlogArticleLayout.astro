@@ -1,6 +1,13 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 
+export interface RelatedArticle {
+  slug: string;
+  title: string;
+  tag: string;
+  image: string;
+}
+
 export interface Props {
   title: string;
   description: string;
@@ -11,6 +18,7 @@ export interface Props {
   date?: string;
   readTime?: string;
   jsonLd?: object[] | object;
+  relatedArticles?: RelatedArticle[];
 }
 
 const {
@@ -22,7 +30,8 @@ const {
   heroAlt,
   date,
   readTime,
-  jsonLd
+  jsonLd,
+  relatedArticles = []
 } = Astro.props;
 
 const SITE_URL = 'https://trustparatodos.com';
@@ -76,6 +85,9 @@ const formattedDate = date
   ogImage={ogImage}
   jsonLd={allSchemas}
 >
+  <!-- Reading progress bar -->
+  <div class="reading-progress" id="readingProgress"></div>
+
   <article class="blog-article">
     <!-- Hero image -->
     <div class="blog-hero">
@@ -96,9 +108,25 @@ const formattedDate = date
         )}
       </div>
 
+      <!-- Table of contents (auto-generated) -->
+      <nav class="blog-toc" id="blog-toc">
+        <p class="blog-toc-title">En esta guía</p>
+        <ul class="blog-toc-list"></ul>
+      </nav>
+
       <!-- Article body (slot) -->
       <div class="blog-body">
         <slot />
+      </div>
+
+      <!-- WhatsApp share -->
+      <div class="blog-share">
+        <a id="whatsappShare" href="#" class="share-btn share-whatsapp" aria-label="Compartir en WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.149-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          <span>Compartir en WhatsApp</span>
+        </a>
       </div>
 
       <!-- CTA at bottom -->
@@ -108,14 +136,107 @@ const formattedDate = date
         <a href="/evaluacion" class="btn btn-primary btn-lg">Haz tu evaluación gratuita →</a>
         <p class="blog-cta-note">Costo del servicio completo: <strong>$997</strong> · Incluye documentos legales, notarización, EIN del trust y asesoría en español.</p>
       </div>
+
+      <!-- Related articles -->
+      {relatedArticles.length > 0 && (
+        <div class="related-articles">
+          <h2 class="related-title">Artículos relacionados</h2>
+          <div class="related-grid">
+            {relatedArticles.map((a) => (
+              <a href={`/blog/${a.slug}`} class="related-card">
+                <div class="related-card-image">
+                  <img src={a.image} alt={a.title} loading="lazy" />
+                </div>
+                <div class="related-card-body">
+                  <span class="related-card-tag">{a.tag}</span>
+                  <h3>{a.title}</h3>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   </article>
+
+  <!-- Interactive scripts -->
+  <script is:inline>
+    (function() {
+      // === Reading progress bar ===
+      var bar = document.getElementById('readingProgress');
+      var article = document.querySelector('.blog-body');
+      if (bar && article) {
+        window.addEventListener('scroll', function() {
+          var rect = article.getBoundingClientRect();
+          var start = rect.top + window.scrollY - 100;
+          var end = start + rect.height;
+          var scrolled = window.scrollY - start;
+          var progress = Math.max(0, Math.min(100, (scrolled / (end - start)) * 100));
+          bar.style.width = progress + '%';
+        }, { passive: true });
+      }
+
+      // === Table of contents ===
+      var body = document.querySelector('.blog-body');
+      if (body) {
+        var h2s = body.querySelectorAll('h2');
+        var tocNav = document.getElementById('blog-toc');
+        if (tocNav && h2s.length >= 3) {
+          var tocList = tocNav.querySelector('.blog-toc-list');
+          h2s.forEach(function(h2, i) {
+            var id = 'section-' + i;
+            h2.id = id;
+            var li = document.createElement('li');
+            var a = document.createElement('a');
+            a.href = '#' + id;
+            a.textContent = h2.textContent;
+            a.addEventListener('click', function(e) {
+              e.preventDefault();
+              h2.scrollIntoView({ behavior: 'smooth' });
+            });
+            li.appendChild(a);
+            tocList.appendChild(li);
+          });
+        } else if (tocNav) {
+          tocNav.style.display = 'none';
+        }
+      }
+
+      // === FAQ accordion toggle ===
+      document.querySelectorAll('.faq-item h3').forEach(function(h3) {
+        h3.setAttribute('role', 'button');
+        h3.setAttribute('tabindex', '0');
+        h3.style.cursor = 'pointer';
+        var toggle = function() { h3.parentElement.classList.toggle('open'); };
+        h3.addEventListener('click', toggle);
+        h3.addEventListener('keydown', function(e) { if (e.key === 'Enter') toggle(); });
+      });
+
+      // === WhatsApp share link ===
+      var waLink = document.getElementById('whatsappShare');
+      if (waLink) {
+        waLink.href = 'https://wa.me/?text=' + encodeURIComponent(document.title + ' — ' + window.location.href);
+      }
+    })();
+  </script>
 </BaseLayout>
 
 <style is:global>
   /* === Blog Article Styles === */
   .blog-article {
     padding: 0;
+  }
+
+  /* Reading progress bar */
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--teal);
+    width: 0;
+    z-index: 9999;
+    transition: width 0.1s;
   }
 
   .blog-hero {
@@ -179,6 +300,31 @@ const formattedDate = date
     color: var(--cream-dark);
   }
 
+  /* Table of contents */
+  .blog-toc {
+    background: var(--cream);
+    border-radius: var(--radius-sm);
+    padding: 20px 24px;
+    margin-bottom: 32px;
+  }
+  .blog-toc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+  .blog-toc-list { list-style: none; padding: 0; margin: 0; }
+  .blog-toc-list li { margin-bottom: 6px; }
+  .blog-toc-list a {
+    font-size: 0.95rem;
+    color: var(--teal);
+    text-decoration: none;
+    line-height: 1.5;
+    transition: color 0.2s;
+  }
+  .blog-toc-list a:hover { color: var(--terracotta); }
+
   /* Blog body typography */
   .blog-body {
     font-family: 'DM Sans', sans-serif;
@@ -194,6 +340,7 @@ const formattedDate = date
     margin-top: 48px;
     margin-bottom: 16px;
     line-height: 1.2;
+    scroll-margin-top: 80px;
   }
 
   .blog-body h3 {
@@ -303,6 +450,37 @@ const formattedDate = date
     color: var(--terracotta-dark);
   }
 
+  /* Key takeaways box */
+  .blog-body .key-takeaways {
+    background: var(--teal-light);
+    border-radius: var(--radius-sm);
+    padding: 20px 24px;
+    margin-bottom: 32px;
+    border-left: 4px solid var(--teal);
+  }
+  .blog-body .key-takeaways-title {
+    font-weight: 700;
+    color: var(--teal);
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .blog-body .key-takeaways ul { margin: 0; padding-left: 20px; }
+  .blog-body .key-takeaways li { font-size: 0.95rem; margin-bottom: 6px; line-height: 1.5; }
+
+  /* Inline CTA */
+  .blog-body .inline-cta {
+    margin: 32px 0;
+    padding: 24px;
+    background: var(--terracotta-light);
+    border-radius: var(--radius-sm);
+    text-align: center;
+    border-left: 4px solid var(--terracotta);
+  }
+  .blog-body .inline-cta p { margin-bottom: 16px; font-weight: 600; color: var(--dark); }
+  .blog-body .inline-cta .btn { white-space: nowrap; }
+
   /* FAQ section */
   .blog-body .faq-section {
     margin-top: 48px;
@@ -324,10 +502,37 @@ const formattedDate = date
     margin-bottom: 8px;
     font-family: 'DM Sans', sans-serif;
     font-weight: 700;
+    cursor: pointer;
+    position: relative;
+    padding-right: 28px;
+  }
+
+  .blog-body .faq-item h3::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: -2px;
+    font-size: 1.3rem;
+    color: var(--terracotta);
+    transition: transform 0.2s;
+    font-weight: 400;
+  }
+
+  .blog-body .faq-item.open h3::after {
+    transform: rotate(45deg);
   }
 
   .blog-body .faq-item p {
     margin-bottom: 8px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding-top 0.3s ease;
+    padding-top: 0;
+  }
+
+  .blog-body .faq-item.open p {
+    max-height: 500px;
+    padding-top: 8px;
   }
 
   /* CTA box at bottom */
@@ -361,6 +566,84 @@ const formattedDate = date
     color: var(--text-muted);
   }
 
+  /* WhatsApp share */
+  .blog-share {
+    margin: 32px 0;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .share-whatsapp { background: #25D366; color: white; }
+  .share-whatsapp:hover { opacity: 0.85; }
+
+  /* Related articles */
+  .related-articles {
+    margin-top: 56px;
+  }
+  .related-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem;
+    color: var(--dark);
+    margin-bottom: 24px;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+  }
+  .related-card {
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: var(--white);
+  }
+  .related-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+  .related-card-image {
+    width: 100%;
+    height: 140px;
+    overflow: hidden;
+  }
+  .related-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .related-card-body {
+    padding: 16px;
+  }
+  .related-card-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--terracotta);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .related-card-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--dark);
+    line-height: 1.2;
+    margin: 0;
+  }
+
   /* Mobile */
   @media (max-width: 768px) {
     .blog-hero {
@@ -387,6 +670,9 @@ const formattedDate = date
     }
     .blog-cta-box {
       padding: 28px 20px;
+    }
+    .related-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>

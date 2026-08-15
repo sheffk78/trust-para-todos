@@ -105,7 +105,6 @@ export const DICT: Record<string, { es: string; en: string }> = {
   'step.desc.notary_scheduling': { es: 'Agenda tu cita notarial virtual.', en: 'Schedule your virtual notary appointment.' },
   'step.desc.welcome_email': { es: 'Recibirás instrucciones detalladas por correo.', en: 'You will receive detailed instructions by email.' },
   'step.desc.final_delivery': { es: 'Todo está listo. Tu trust está activo.', en: 'Everything is ready. Your trust is active.' },
-  'step.completed': { es: 'Completado', en: 'Completed' },
 
   // Document labels
   'doc.trust': { es: 'Trust Revocable', en: 'Revocable Living Trust' },

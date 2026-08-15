@@ -1,0 +1,223 @@
+---
+import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Un trust es más caro que un testamento?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Al principio, sí. Un testamento puede costar entre $200 y $1,000. Un trust hecho con abogado cuesta entre $1,000 y $3,000. Con Trust Para Todos, un trust completo cuesta $997. Pero el costo real del testamento aparece después, en el probate, donde las familias pierden 4% a 8% del patrimonio. El trust te ahorra eso."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo cambiar mi trust después de hacerlo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Un trust revocable se puede modificar cuando quieras, mientras estés en pleno uso de tus facultades mentales. Puedes cambiar herederos, agregar o quitar bienes, cambiar el sucesor. Tú mantienes el control total."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué pasa si no tengo ni testamento ni trust?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Si mueres sin ningún documento, el estado decide todo. Se llama sucesión intestada. El juez reparte tus bienes según la ley de tu estado, que puede no coincidir con lo que tú querías. Y el proceso es aún más largo y costoso que el probate normal. Es el peor escenario para tu familia."
+      }
+    }
+  ]
+};
+---
+
+<BlogArticleLayout
+  title="Trust vs Testamento: ¿Cuál es Mejor para Proteger a Tu Familia?"
+  description="Descubre las diferencias entre trust y testamento. Cuál te conviene según tu casa, hijos y patrimonio. Evita el probate y protege a tu familia hoy."
+  canonicalPath="/blog/trust-vs-testamento"
+  ogImage="og-blog-trust-vs-testamento.png"
+  heroImage="/images/blog/04-hero-senior-couple.jpg"
+  heroAlt="Pareja mayor hispana"
+  date="2026-08-14"
+  readTime="6 min de lectura"
+  jsonLd={faqSchema}
+>
+  <p>Si no sabes la diferencia entre un trust y un testamento, podrías estar dejando a tu familia desprotegida. No es una exageración. He visto familias que perdieron miles de dólares y esperaron años para recibir una herencia, todo por haber elegido el documento equivocado.</p>
+
+  <p>La mayoría de los hispanos en Estados Unidos piensan que hacer un testamento es suficiente. Suena lógico: escribes quién recibe qué, firmas, y ya. Pero en este país, un testamento solo no evita el probate. Y el probate es exactamente el proceso que drena el patrimonio de tantas familias.</p>
+
+  <p>Vamos a comparar las dos opciones en términos claros, para que sepas cuál le conviene a tu familia.</p>
+
+  <h2>¿Qué es un testamento?</h2>
+
+  <p>Un testamento (will, en inglés) es un documento legal donde tú decides qué pasa con tus bienes cuando mueras. Puedes nombrar un heredero, designar un tutor para tus hijos menores y dejar instrucciones sobre tu funeral.</p>
+
+  <p>Suena bien, y para casos simples funciona. El problema es lo que pasa después.</p>
+
+  <p>Cuando falleces y solo tienes testamento, tu herencia pasa por el <strong>probate</strong>, el proceso judicial donde un juez valida el testamento, paga las deudas y reparte lo que queda. En California, el probate tarda entre 9 y 18 meses.</p>
+
+  <p>Los costos del probate se calculan como porcentaje del patrimonio. En California, los honorarios legales obligatorios son alrededor del 4% de los bienes. Si tu casa vale $500,000, son $20,000 solo en honorarios, sin contar los gastos del ejecutor ni los costos del tribunal.</p>
+
+  <p>Además, el probate es público. Cualquier persona puede ir al tribunal y ver qué tenías, qué dejaste y a quién. No hay privacidad.</p>
+
+  <img
+    src="/images/blog/inline-senior-woman-window.jpg"
+    alt="Mujer mayor mirando por la ventana, reflexionando sobre su patrimonio"
+    width="800"
+    height="533"
+    loading="lazy"
+  />
+
+  <h2>¿Qué es un trust?</h2>
+
+  <p>Un trust, específicamente un <strong>trust revocable</strong>, es un documento legal que transfiere tus bienes a un fideicomiso que tú controlas mientras vives. Tú eres el fideicomisario (trustee), así que sigues usando tu casa, tus cuentas y todo lo que metiste al trust como si nada hubiera cambiado.</p>
+
+  <p>La diferencia clave es que el trust ya tiene instrucciones de qué hacer con tus bienes cuando mueras, y esos bienes <strong>no pasan por el probate</strong>. Tu sucesor reparte todo según tus instrucciones, sin jueces, sin demoras de un año.</p>
+
+  <p>Si quieres entender a fondo cómo funciona, te recomiendo leer nuestra guía completa sobre <a href="/blog/que-es-trust-revocable">qué es un trust revocable</a> antes de seguir.</p>
+
+  <h2>Tabla comparativa: trust vs testamento</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Característica</th>
+        <th>Testamento</th>
+        <th>Trust revocable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Evita el probate</td>
+        <td>No. Pasa por el tribunal.</td>
+        <td>Sí. Todo se reparte en privado.</td>
+      </tr>
+      <tr>
+        <td>Privacidad</td>
+        <td>Público. Cualquiera puede verlo.</td>
+        <td>Privado. Nadie fuera de la familia lo ve.</td>
+      </tr>
+      <tr>
+        <td>Costo inicial</td>
+        <td>$200 a $1,000</td>
+        <td>$1,000 a $3,000 (con abogado) o $997 (online)</td>
+      </tr>
+      <tr>
+        <td>Costo después del fallecimiento</td>
+        <td>4% a 8% del patrimonio en probate</td>
+        <td>Casi $0 en costos de distribución</td>
+      </tr>
+      <tr>
+        <td>Control mientras vives</td>
+        <td>Total, pero solo entra en vigor al morir</td>
+        <td>Total. Puedes modificarlo o cancelarlo.</td>
+      </tr>
+      <tr>
+        <td>Protección por incapacidad</td>
+        <td>No. El tribunal nombra un tutor legal.</td>
+        <td>Sí. Tu sucesor gestiona todo sin tribunal.</td>
+      </tr>
+      <tr>
+        <td>Revocable</td>
+        <td>Sí, mientras vivas.</td>
+        <td>Sí. Puedes cambiarlo cuando quieras.</td>
+      </tr>
+      <tr>
+        <td>Tiempo de distribución</td>
+        <td>9 a 18 meses</td>
+        <td>4 a 8 semanas</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Esa tabla te dice casi todo lo que necesitas saber. El testamento es más barato al principio, pero mucho más caro y lento al final. El trust cuesta más hoy, pero le ahorra a tu familia años de espera y miles de dólares.</p>
+
+  <img
+    src="/images/blog/inline-family-kitchen.jpg"
+    alt="Familia hispana conversando en la cocina sobre su patrimonio"
+    width="800"
+    height="533"
+    loading="lazy"
+  />
+
+  <h2>¿Cuándo un testamento es suficiente?</h2>
+
+  <p>Seamos honestos. Un testamento puede ser suficiente si tienes menos de $150,000 en bienes (en California, ese es el umbral para el probate simplificado), no tienes casa propia y no tienes hijos menores.</p>
+
+  <p>Pero para la mayoría de las familias hispanas en Estados Unidos, esa no es la realidad. Si compraste una casa, aunque sea modesta, ya pasaste del umbral. Una casa de $400,000 en Los Ángeles o Houston te manda directo al probate si solo tienes testamento.</p>
+
+  <p>El testamento puede servir como respaldo, pero no debería ser tu plan principal si tienes bienes de cierta cuantía. Para explorar todas las opciones, visita nuestra página sobre <a href="/que-es">qué es un trust</a>.</p>
+
+  <h2>¿Cuándo necesitas un trust?</h2>
+
+  <p>Hay señales claras de que un trust te conviene más que un testamento. Aquí van las más comunes:</p>
+
+  <p><strong>1. Tienes una casa.</strong> Como vimos, una sola propiedad te mete en el probate. El trust evita eso completamente.</p>
+
+  <p><strong>2. Tienes hijos menores.</strong> Un testamento nombra un tutor, pero el juez todavía tiene que aprobarlo y supervisar la herencia hasta que los hijos cumplan 18. Con un trust, tú decides a qué edad reciben el dinero y bajo qué condiciones. Puedes decir que reciban partes a los 25, 30 y 35, por ejemplo. Un testamento no te da ese control.</p>
+
+  <p><strong>3. Tienes propiedades en otro estado.</strong> Si tienes una casa en Texas y un departamento en Florida, y solo tienes testamento, tu familia tendrá que abrir un probate en cada estado. Eso duplica o triplica los costos. Un trust cubre propiedades en cualquier estado sin tribunales extra.</p>
+
+  <p><strong>4. Quieres privacidad.</strong> Si no quieres que cualquier persona pueda ver qué dejaste y a quién, el trust es la única opción. El probate es un proceso público por ley.</p>
+
+  <p><strong>5. Quieres evitar disputas familiares.</strong> Como el trust no pasa por el tribunal, hay menos oportunidades para que un pariente descontento impugne la herencia. Las instrucciones son claras y privadas.</p>
+
+  <img
+    src="/images/blog/inline-family-park.jpg"
+    alt="Familia hispana disfrutando en el parque, protegida por su trust"
+    width="800"
+    height="533"
+    loading="lazy"
+  />
+
+  <h2>Un caso real: lo que cuesta equivocarse</h2>
+
+  <p>Te voy a contar el caso de la familia Martínez (nombre cambiado, caso real).</p>
+
+  <p>Don Martínez tenía una casa en Riverside, California, valorada en $480,000. Tenía dos hijos adultos y un testamento que hizo hace 15 años con un abogado. Nunca lo actualizó. Nunca hizo un trust.</p>
+
+  <p>Cuando falleció en 2022, sus hijos presentaron el testamento en el tribunal. Entraron al probate. El proceso tardó 16 meses. Los honorarios del abogado del probate fueron $19,200. El ejecutor cobró otros $12,000. Los costos del tribunal y publicaciones sumaron $1,800. En total, la familia gastó $33,000 antes de ver un solo dólar.</p>
+
+  <p>Si don Martínez hubiera hecho un trust por $997, esos $33,000 se habrían quedado en la familia. Sus hijos habrían recibido la casa en 6 semanas, no en 16 meses.</p>
+
+  <p>La diferencia entre $997 y $33,000 es la diferencia entre planificar y no planificar.</p>
+
+  <h2>¿Puedes tener ambos?</h2>
+
+  <p>Sí, y de hecho es lo más recomendable. Se llama <strong>pour-over will</strong> (testamento de traslado).</p>
+
+  <p>Funciona así: el trust es tu plan principal, donde pones tu casa, tus cuentas y tus bienes principales. El testamento de traslado es una red de seguridad. Si al morir tienes algún bien que olvidaste meter al trust (una cuenta nueva, un vehículo que compraste después), el testamento lo "traslada" automáticamente al trust para que no pase por el probate.</p>
+
+  <p>No es un testamento normal. No reparte nada directamente. Su única función es capturar lo que falta y meterlo al trust.</p>
+
+  <p>Con esta combinación, tu familia tiene protección completa: el trust para lo principal, el testamento de traslado para lo que se te haya escapado.</p>
+
+  <div class="faq-section">
+    <h2>Preguntas frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Un trust es más caro que un testamento?</h3>
+      <p>Al principio, sí. Un testamento puede costar entre $200 y $1,000. Un trust hecho con abogado cuesta entre $1,000 y $3,000. Con Trust Para Todos, un trust completo cuesta $997. Pero el costo real del testamento aparece después, en el probate, donde las familias pierden 4% a 8% del patrimonio. El trust te ahorra eso.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Puedo cambiar mi trust después de hacerlo?</h3>
+      <p>Sí. Un trust revocable se puede modificar cuando quieras, mientras estés en pleno uso de tus facultades mentales. Puedes cambiar herederos, agregar o quitar bienes, cambiar el sucesor. Tú mantienes el control total.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Qué pasa si no tengo ni testamento ni trust?</h3>
+      <p>Si mueres sin ningún documento, el estado decide todo. Se llama "sucesión intestada". El juez reparte tus bienes según la ley de tu estado, que puede no coincidir con lo que tú querías. Y el proceso es aún más largo y costoso que el probate normal. Es el peor escenario para tu familia.</p>
+    </div>
+  </div>
+
+  <h2>Conclusión: elige antes de que sea tarde</h2>
+
+  <p>La diferencia entre un trust y un testamento no es un detalle técnico. Es la diferencia entre que tu familia reciba tu herencia en semanas o en años. Es la diferencia entre mantener privacidad o exponerlo todo en un tribunal. Es la diferencia entre gastar $997 hoy o perder $30,000 mañana.</p>
+
+  <p>Si tienes una casa, hijos menores o cualquier bien de valor en Estados Unidos, el trust casi siempre es la mejor opción. El testamento es mejor que nada, pero no es suficiente.</p>
+
+  <p>Tu familia merece protección real, no un documento que la manda a un tribunal. <a href="/evaluacion">Agenda tu evaluación gratuita</a> y descubre en 15 minutos qué tipo de trust necesita tu familia. No esperes a que sea demasiado tarde.</p>
+</BlogArticleLayout>

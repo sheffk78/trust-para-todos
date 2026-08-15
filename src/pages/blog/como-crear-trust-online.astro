@@ -1,0 +1,239 @@
+---
+import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '¿Puedo crear un trust yo mismo sin abogado?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Sí. Un servicio en línea con revisión legal es suficiente para la mayoría de las personas. Si tu situación es compleja (múltiples propiedades en distintos estados, negocio propio, hijos de diferentes matrimonios), consulta con un abogado.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Necesito un notario?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Sí. La mayoría de los estados requieren que el trust se firme ante notario para que sea válido. Este servicio ya está incluido en Trust Para Todos.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Tengo que ir a una oficina?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. Todo el proceso se hace en línea. Recibes tus documentos, los firmas ante un notario local o mediante una notarización remota, y listo.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: '¿El trust creado en línea es válido?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Sí, siempre que cumpla con las leyes de tu estado. Trust Para Todos crea documentos revisados por abogados que son válidos en los 50 estados.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Qué pasa si me mudo a otro estado?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Tu trust sigue siendo válido. Dependiendo del nuevo estado, puede que necesites hacer ajustes menores. Revisa tu trust después de mudarte.'
+      }
+    }
+  ]
+};
+---
+
+<BlogArticleLayout
+  title="Cómo crear un trust online en español: paso a paso"
+  description="Guía completa para crear un trust en línea sin abogado. Incluye los 5 pasos, requisitos, costos y errores comunes que debes evitar."
+  canonicalPath="/blog/como-crear-trust-online"
+  ogImage="og-blog-como-crear-trust-online.png"
+  heroImage="/images/blog/02-hero-documents.jpg"
+  heroAlt="Documentos y proceso de trust"
+  date="2026-08-14"
+  readTime="5 min de lectura"
+  jsonLd={faqSchema}
+>
+  <p>Si llegaste aquí buscando cómo crear un trust online, probablemente ya tienes claro que un testamento no es suficiente. Bien. Eso ya te pone un paso adelante de la mayoría de las familias hispanas en Estados Unidos.</p>
+
+  <p>Lo que sigue es una guía sin rodeos. Cinco pasos. Sin lenguaje de abogado. Sin letra pequeña. Solo lo que necesitas saber para proteger tu patrimonio sin perder semanas en oficinas de abogados.</p>
+
+  <h2>Antes de empezar: ¿qué necesitas tener a la mano?</h2>
+
+  <p>No necesitas nada especial. Pero sí conviene tener esto listo antes de sentarte a crear tu trust:</p>
+
+  <ul>
+    <li><strong>Una lista de tus bienes</strong>: Casa, carro, cuentas bancarias, inversiones, seguros, pertenencias de valor. No necesitas el valor exacto, pero sí saber qué tienes.</li>
+    <li><strong>Los nombres de las personas importantes</strong>: Tu pareja, hijos, hermanos, cualquier persona que quieras incluir como beneficiario o como trustee.</li>
+    <li><strong>Tu número de Seguro Social (o ITIN)</strong>: Lo necesitarás para algunos documentos del trust.</li>
+    <li><strong>Una idea clara de quién recibe qué</strong>: No tiene que ser perfecto. Puedes ajustarlo después. Pero tener una idea básica acelera todo el proceso.</li>
+  </ul>
+
+  <figure class="article-image">
+    <img src="/images/blog/inline-family-kitchen.jpg" alt="Familia revisando documentos en la cocina de su casa" loading="lazy" />
+    <figcaption>Tener tus documentos y lista de bienes listos antes de empezar hace todo el proceso más rápido.</figcaption>
+  </figure>
+
+  <h2>Paso 1: Elige el tipo de trust correcto</h2>
+
+  <p>Para la mayoría de las familias, un <strong>trust revocable</strong> (también llamado living trust) es la mejor opción. Te permite mantener el control de tus bienes mientras estés vivo y cambiar el trust cuando quieras.</p>
+
+  <p>Hay otros tipos de trusts, como el <strong>irrevocable</strong>, que ofrecen protección fiscal adicional pero sacrifican flexibilidad. Para empezar, el revocable es suficiente.</p>
+
+  <p><strong>Error común:</strong> Crear un trust irrevocable sin entender que no puedes cambiarlo después. Si tu situación es sencilla y vives en Estados Unidos como residente, el revocable es tu mejor opción.</p>
+
+  <h2>Paso 2: Define quién hace qué en tu trust</h2>
+
+  <p>Cada trust tiene tres roles principales:</p>
+
+  <ul>
+    <li><strong>Tú (grantor)</strong>: Creas el trust y pones tus bienes dentro.</li>
+    <li><strong>Tú mismo como trustee</strong>: Administras tus bienes mientras estés vivo y sano.</li>
+    <li><strong>Trustee sucesor</strong>: La persona que toma el control si tú no puedes. Debe ser alguien de confianza y con sentido común para manejar dinero.</li>
+  </ul>
+
+  <p><strong>Consejo real:</strong> Muchas personas eligen a un hijo adulto como trustee sucesor. Está bien, pero asegúrate de que esa persona esté de acuerdo y entienda la responsabilidad. No es solo un título. Es un compromiso financiero.</p>
+
+  <p>Si prefieres no poner a un familiar en esa posición, puedes nombrar a un profesional, como un abogado o una fiduciaria profesional. Trust Para Todos incluye asesoría sobre esta decisión en su servicio.</p>
+
+  <h2>Paso 3: Redacta el documento del trust</h2>
+
+  <p>Aquí es donde la mayoría de las personas se atasca. Un trust no es un formulario genérico que encuentras en internet y llenas con tu nombre. Cada trust necesita reflejar tu situación específica:</p>
+
+  <ul>
+    <li>¿Vives en California o Texas? Las reglas cambian.</li>
+    <li>¿Tienes hijos menores? Necesitas nombrar un tutor.</li>
+    <li>¿Tienes un negocio? Los activos del negocio se manejan diferente.</li>
+    <li>¿Tienes propiedades en otro estado? El trust necesita cubrir eso también.</li>
+  </ul>
+
+  <p><strong>Opción A: Contratar un abogado.</strong><br />
+  Un abogado especializado en planificación patrimonial cobra entre $1,500 y $5,000 dependiendo de la complejidad. Vale la pena si tu situación es complicada. Pero si no lo es, estás pagando de más.</p>
+
+  <p><strong>Opción B: Usar un servicio en línea.</strong><br />
+  Plataformas como Trust Para Todos crean tu trust por $997, incluye:</p>
+  <ul>
+    <li>Documento legal completo válido en los 50 estados</li>
+    <li>Asesoría en español</li>
+    <li>Notarización</li>
+    <li>EIN (número de impuestos) para el trust</li>
+    <li>Revisión por parte de abogados</li>
+  </ul>
+
+  <p><strong>Opción C: Hacerlo tú mismo con una plantilla.</strong><br />
+  Existen formularios que puedes llenar. Pero las plantillas genéricas no consideran tu situación específica. Un error en el documento puede significar que tu familia termine en probate de todas formas. Es falso ahorro.</p>
+
+  <figure class="article-image">
+    <img src="/images/blog/inline-senior-woman-window.jpg" alt="Mujer mayor revisando documentos junto a la ventana" loading="lazy" />
+    <figcaption>El documento del trust debe reflejar tu situación específica: estado, hijos, propiedades y negocio.</figcaption>
+  </figure>
+
+  <h2>Paso 4: Financia el trust (esto es lo que la mayoría se salta)</h2>
+
+  <p>Redactar el trust es solo la mitad del trabajo. La otra mitad es <strong>transferir tus bienes al trust</strong>. Un trust vacío no sirve de nada.</p>
+
+  <p>Esto incluye:</p>
+  <ul>
+    <li><strong>Casa</strong>: Cambiar el título de la propiedad al nombre del trust. Necesitas una escritura nueva (deed) que se registra en el condado correspondiente.</li>
+    <li><strong>Cuentas bancarias</strong>: Llevar la documentación del trust al banco y solicitar que transfieran la titularidad.</li>
+    <li><strong>Inversiones</strong>: Contactar a tu corredor de bolsa para re-registrar las cuentas.</li>
+    <li><strong>Seguros de vida</strong>: Cambiar el beneficiario al trust si así lo decidiste.</li>
+    <li><strong>Carros</strong>: En muchos estados, transferir el título del carro al trust.</li>
+  </ul>
+
+  <p>La transferencia de la casa es la más importante. Si te olvidas de este paso, tu casa sigue a tu nombre personal y tendrá que pasar por probate cuando fallezcas, incluso teniendo un trust.</p>
+
+  <p><strong>Historia real:</strong> Carlos, un contador de Phoenix, creó su trust en 2019 con un abogado. Cuando falleció en 2023, su familia descubrió que nunca transfirió la casa al trust. Tuvieron que hacer probate de todas formas. Su hija mayor recordó: "Mi papá creyó que con firmar el documento ya estaba todo listo. Nadie le dijo que tenía que transferir los bienes."</p>
+
+  <figure class="article-image">
+    <img src="/images/blog/inline-family-outdoor.jpg" alt="Familia conversando al aire libre sobre su patrimonio" loading="lazy" />
+    <figcaption>Transferir tus bienes al trust es el paso que más familias olvidan — y el más importante.</figcaption>
+  </figure>
+
+  <h2>Paso 5: Revisa y actualiza tu trust</h2>
+
+  <p>Tu vida cambia. Tu trust también debería cambiar. Revisa tu documento:</p>
+  <ul>
+    <li><strong>Cada 2 años</strong> como mínimo</li>
+    <li><strong>Cuando nace un hijo</strong>: Añádelo como beneficiario y nombra un tutor si es menor.</li>
+    <li><strong>Cuando compras o vendes una propiedad</strong>: Actualiza la lista de bienes.</li>
+    <li><strong>Cuando te divorcias</strong>: Quitar a tu expareja como beneficiario y trustee.</li>
+    <li><strong>Cuando muere un beneficiario o trustee</strong>: Reemplázalo.</li>
+  </ul>
+
+  <p>Un trust desactualizado es casi tan peligroso como no tener uno.</p>
+
+  <h2>Errores comunes que debes evitar</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Error</th>
+        <th>Consecuencia</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>No transferir los bienes al trust</td>
+        <td>La familia termina en probate</td>
+      </tr>
+      <tr>
+        <td>No nombrar un trustee sucesor</td>
+        <td>El tribunal nombra a alguien que tú no elegiste</td>
+      </tr>
+      <tr>
+        <td>No incluir un pour-over will</td>
+        <td>Los bienes que queden fuera del trust se pierden</td>
+      </tr>
+      <tr>
+        <td>Crear el trust y olvidarte de él</td>
+        <td>Situación cambia, el documento queda obsoleto</td>
+      </tr>
+      <tr>
+        <td>Usar una plantilla genérica sin revisión legal</td>
+        <td>El trust puede ser inválido en tu estado</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>¿Cuánto tiempo tarda en crearse un trust?</h2>
+
+  <p>Con un servicio en línea como Trust Para Todos, el proceso completo toma entre una y dos semanas desde que empiezas hasta que tienes tus documentos notarizados. La mayoría de las personas dedican menos de una hora a responder las preguntas del proceso.</p>
+
+  <p>Con un abogado tradicional, puede tomar de 4 a 8 semanas, dependiendo de la complejidad y la disponibilidad del abogado. Las tarifas son más altas, pero obtienes más atención personalizada.</p>
+
+  <section class="faq-section">
+    <h2>Preguntas frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Puedo crear un trust yo mismo sin abogado?</h3>
+      <p>Sí. Un servicio en línea con revisión legal es suficiente para la mayoría de las personas. Si tu situación es compleja (múltiples propiedades en distintos estados, negocio propio, hijos de diferentes matrimonios), consulta con un abogado.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Necesito un notario?</h3>
+      <p>Sí. La mayoría de los estados requieren que el trust se firme ante notario para que sea válido. Este servicio ya está incluido en Trust Para Todos.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Tengo que ir a una oficina?</h3>
+      <p>No. Todo el proceso se hace en línea. Recibes tus documentos, los firmas ante un notario local o mediante una notarización remota, y listo.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿El trust creado en línea es válido?</h3>
+      <p>Sí, siempre que cumpla con las leyes de tu estado. Trust Para Todos crea documentos revisados por abogados que son válidos en los 50 estados.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Qué pasa si me mudo a otro estado?</h3>
+      <p>Tu trust sigue siendo válido. Dependiendo del nuevo estado, puede que necesites hacer ajustes menores. Revisa tu trust después de mudarte.</p>
+    </div>
+  </section>
+</BlogArticleLayout>

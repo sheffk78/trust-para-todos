@@ -1,0 +1,164 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const articles = [
+  { slug: 'que-es-trust-revocable', title: '¿Qué es un trust revocable? Explicación completa en español', date: '2026-08-14', desc: 'Aprende qué es un trust revocable, cómo funciona, cuánto cuesta y por qué protege tu patrimonio mejor que un testamento.', image: '/images/blog/01-hero-family-home.jpg', tag: 'Educacional' },
+  { slug: 'como-crear-trust-online', title: 'Cómo crear un trust online en español: paso a paso', date: '2026-08-14', desc: 'Guía paso a paso para crear tu trust online en español. Sin abogado, sin complicaciones, sin gastos innecesarios.', image: '/images/blog/02-hero-documents.jpg', tag: 'Guía' },
+  { slug: 'seguro-vida-trust', title: 'Seguro de vida + trust: por qué necesitas ambos para proteger a tu familia', date: '2026-08-14', desc: 'Un trust y un seguro de vida funcionan juntos. Descubre cómo combinarlos para máxima protección.', image: '/images/blog/03-hero-family-protection.jpg', tag: 'Protección' },
+  { slug: 'trust-vs-testamento', title: 'Trust vs Testamento: ¿Cuál es Mejor para Proteger a Tu Familia?', date: '2026-08-14', desc: 'Descubre las diferencias entre trust y testamento. Cuál te conviene según tu casa, hijos y patrimonio.', image: '/images/blog/04-hero-senior-couple.jpg', tag: 'Comparativa' },
+  { slug: 'cuanto-cuesta-fideicomiso', title: '¿Cuánto Cuesta un Fideicomiso en Estados Unidos? (Comparativa 2026)', date: '2026-08-14', desc: 'Descubre cuánto cuesta un fideicomiso en EE.UU. en 2026: de $0 a $5,000. Comparativa de abogados, plantillas y servicios guiados.', image: '/images/blog/05-hero-financial-planning.jpg', tag: 'Precios' },
+  { slug: 'necesito-abogado-trust', title: '¿Necesito un Abogado para Hacer un Trust? La Verdad', date: '2026-08-14', desc: '¿Necesitas un abogado para hacer un trust? La respuesta corta: no en la mayoría de los casos. Descubre cuándo sí.', image: '/images/blog/06-hero-consultation.jpg', tag: 'Decisiones' },
+  { slug: 'que-es-probate-como-evitarlo', title: '¿Qué es el Probate y Cómo Evitarlo en Estados Unidos?', date: '2026-08-14', desc: 'Guía completa sobre probate en español: qué es, cuánto cuesta, cuánto dura y 4 formas de evitarlo con un trust revocable.', image: '/images/blog/07-hero-courtroom.jpg', tag: 'Educacional' },
+  { slug: 'fideicomiso-revocable-vs-irrevocable', title: 'Fideicomiso Revocable vs Irrevocable: Diferencias Explicadas', date: '2026-08-14', desc: 'Conoce las diferencias clave entre fideicomiso revocable e irrevocable: control, impuestos, protección de activos.', image: '/images/blog/08-hero-family-property.jpg', tag: 'Comparativa' },
+];
+
+const formatDate = (d: string) => new Date(d).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout
+  title="Blog — Trust Para Todos"
+  description="Recursos en español sobre trusts, protección patrimonial y planificación sucesoria para familias hispanas en Estados Unidos."
+  canonicalPath="/blog"
+  ogImage="og-blog.png"
+>
+  <section class="blog-index">
+    <div class="blog-index-container">
+      <h1 class="blog-index-title">Blog de Trust Para Todos</h1>
+      <p class="blog-index-subtitle">Recursos en español sobre trusts, protección patrimonial y planificación para familias hispanas en Estados Unidos.</p>
+
+      <div class="blog-grid">
+        {articles.map((article) => (
+          <a href={`/blog/${article.slug}`} class="blog-card">
+            <div class="blog-card-image">
+              <img src={article.image} alt={article.title} loading="lazy" />
+            </div>
+            <div class="blog-card-body">
+              <span class="blog-card-tag">{article.tag}</span>
+              <h2 class="blog-card-title">{article.title}</h2>
+              <p class="blog-card-desc">{article.desc}</p>
+              <div class="blog-card-meta">
+                <time datetime={article.date}>{formatDate(article.date)}</time>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  .blog-index {
+    padding: 60px 0 80px;
+    background: var(--cream);
+    min-height: 60vh;
+  }
+
+  .blog-index-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .blog-index-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.4rem;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+
+  .blog-index-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 48px;
+    max-width: 600px;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 32px;
+  }
+
+  .blog-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .blog-card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .blog-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+
+  .blog-card:hover .blog-card-image img {
+    transform: scale(1.05);
+  }
+
+  .blog-card-body {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-card-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--terracotta);
+    margin-bottom: 8px;
+  }
+
+  .blog-card-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .blog-card-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    flex: 1;
+    margin-bottom: 12px;
+  }
+
+  .blog-card-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .blog-index-title {
+      font-size: 1.8rem;
+    }
+    .blog-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+</style>

@@ -1,0 +1,392 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  ogImage?: string;
+  heroImage: string;
+  heroAlt: string;
+  date?: string;
+  readTime?: string;
+  jsonLd?: object[] | object;
+}
+
+const {
+  title,
+  description,
+  canonicalPath,
+  ogImage,
+  heroImage,
+  heroAlt,
+  date,
+  readTime,
+  jsonLd
+} = Astro.props;
+
+const SITE_URL = 'https://trustparatodos.com';
+const canonical = canonicalPath ?? Astro.url.pathname;
+const articleUrl = new URL(canonical, SITE_URL).href;
+
+// Article schema for SEO
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description: description,
+  image: `${SITE_URL}${heroImage}`,
+  datePublished: date ?? '2026-08-14',
+  author: {
+    '@type': 'Organization',
+    name: 'Trust Para Todos'
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Trust Para Todos',
+    logo: {
+      '@type': 'ImageObject',
+      url: `${SITE_URL}/assets/logo-shield.svg`
+    }
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': articleUrl
+  }
+};
+
+const allSchemas = [articleSchema];
+if (jsonLd) {
+  if (Array.isArray(jsonLd)) {
+    allSchemas.push(...jsonLd);
+  } else {
+    allSchemas.push(jsonLd);
+  }
+}
+
+const formattedDate = date
+  ? new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })
+  : '';
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath={canonical}
+  ogImage={ogImage}
+  jsonLd={allSchemas}
+>
+  <article class="blog-article">
+    <!-- Hero image -->
+    <div class="blog-hero">
+      <img src={heroImage} alt={heroAlt} class="blog-hero-img" loading="eager" />
+    </div>
+
+    <!-- Article header -->
+    <div class="blog-container">
+      <div class="blog-header">
+        <a href="/blog" class="blog-back-link">← Blog</a>
+        <h1 class="blog-title">{title}</h1>
+        {date && (
+          <div class="blog-meta">
+            <time datetime={date}>{formattedDate}</time>
+            {readTime && <span class="blog-meta-sep">·</span>}
+            {readTime && <span>{readTime}</span>}
+          </div>
+        )}
+      </div>
+
+      <!-- Article body (slot) -->
+      <div class="blog-body">
+        <slot />
+      </div>
+
+      <!-- CTA at bottom -->
+      <div class="blog-cta-box">
+        <h3>¿Estás listo para proteger a tu familia?</h3>
+        <p>Conoce si un trust es adecuado para ti con nuestra evaluación gratuita de 3 minutos. No hay compromiso y la información es confidencial.</p>
+        <a href="/evaluacion" class="btn btn-primary btn-lg">Haz tu evaluación gratuita →</a>
+        <p class="blog-cta-note">Costo del servicio completo: <strong>$997</strong> · Incluye documentos legales, notarización, EIN del trust y asesoría en español.</p>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  /* === Blog Article Styles === */
+  .blog-article {
+    padding: 0;
+  }
+
+  .blog-hero {
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+    position: relative;
+    margin-top: 0;
+  }
+
+  .blog-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .blog-container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  .blog-header {
+    margin-bottom: 40px;
+  }
+
+  .blog-back-link {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--teal);
+    text-decoration: none;
+    margin-bottom: 16px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .blog-back-link:hover {
+    color: var(--terracotta);
+  }
+
+  .blog-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.4rem;
+    line-height: 1.15;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .blog-meta-sep {
+    color: var(--cream-dark);
+  }
+
+  /* Blog body typography */
+  .blog-body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.08rem;
+    line-height: 1.75;
+    color: var(--text-body);
+  }
+
+  .blog-body h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.6rem;
+    color: var(--dark);
+    margin-top: 48px;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .blog-body h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.3rem;
+    color: var(--dark);
+    margin-top: 32px;
+    margin-bottom: 12px;
+  }
+
+  .blog-body p {
+    margin-bottom: 20px;
+  }
+
+  .blog-body ul, .blog-body ol {
+    margin-bottom: 20px;
+    padding-left: 24px;
+  }
+
+  .blog-body li {
+    margin-bottom: 8px;
+    line-height: 1.7;
+  }
+
+  .blog-body strong {
+    color: var(--dark);
+    font-weight: 700;
+  }
+
+  .blog-body a {
+    color: var(--teal);
+    text-decoration: underline;
+    text-decoration-color: var(--terracotta);
+    text-underline-offset: 2px;
+    transition: color 0.2s;
+  }
+
+  .blog-body a:hover {
+    color: var(--terracotta);
+  }
+
+  /* Inline images in articles */
+  .blog-body .article-image {
+    margin: 32px 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .blog-body .article-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .blog-body .article-image figcaption {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    padding: 8px 0 0;
+    text-align: center;
+  }
+
+  /* Tables in articles */
+  .blog-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 28px 0;
+    font-size: 0.95rem;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .blog-body table th {
+    background: var(--teal);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 0.9rem;
+  }
+
+  .blog-body table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--cream-dark);
+    background: var(--white);
+  }
+
+  .blog-body table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .blog-body table tr:nth-child(even) td {
+    background: var(--cream);
+  }
+
+  /* Callout boxes */
+  .blog-body .callout {
+    background: var(--terracotta-light);
+    border-left: 4px solid var(--terracotta);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 20px 24px;
+    margin: 28px 0;
+    font-size: 1rem;
+  }
+
+  .blog-body .callout strong {
+    color: var(--terracotta-dark);
+  }
+
+  /* FAQ section */
+  .blog-body .faq-section {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 2px solid var(--cream-dark);
+  }
+
+  .blog-body .faq-section h2 {
+    margin-top: 0;
+  }
+
+  .blog-body .faq-item {
+    margin-bottom: 20px;
+  }
+
+  .blog-body .faq-item h3 {
+    font-size: 1.1rem;
+    color: var(--teal);
+    margin-bottom: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+  }
+
+  .blog-body .faq-item p {
+    margin-bottom: 8px;
+  }
+
+  /* CTA box at bottom */
+  .blog-cta-box {
+    margin-top: 56px;
+    padding: 40px;
+    background: var(--teal-light);
+    border-radius: var(--radius);
+    text-align: center;
+  }
+
+  .blog-cta-box h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem;
+    color: var(--teal);
+    margin-bottom: 12px;
+  }
+
+  .blog-cta-box p {
+    font-size: 1rem;
+    color: var(--text-body);
+    margin-bottom: 24px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .blog-cta-note {
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .blog-hero {
+      height: 260px;
+    }
+    .blog-container {
+      padding: 32px 20px 60px;
+    }
+    .blog-title {
+      font-size: 1.7rem;
+    }
+    .blog-body {
+      font-size: 1rem;
+    }
+    .blog-body h2 {
+      font-size: 1.35rem;
+    }
+    .blog-body table {
+      font-size: 0.85rem;
+    }
+    .blog-body table th,
+    .blog-body table td {
+      padding: 8px 10px;
+    }
+    .blog-cta-box {
+      padding: 28px 20px;
+    }
+  }
+</style>

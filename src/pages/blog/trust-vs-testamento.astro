@@ -1,5 +1,6 @@
 ---
 import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import ProbateCalculator from '../../components/ProbateCalculator.astro';
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -46,6 +47,7 @@ const faqSchema = {
   relatedArticles={[{ slug: "que-es-trust-revocable", title: "¿Qué es un Trust Revocable?", tag: "Educacional", image: "/images/blog/01-hero-family-home.jpg" }, { slug: "que-es-probate-como-evitarlo", title: "¿Qué es el Probate?", tag: "Educacional", image: "/images/blog/07-hero-courtroom.jpg" }, { slug: "necesito-abogado-trust", title: "¿Necesito un Abogado?", tag: "Decisiones", image: "/images/blog/06-hero-consultation.jpg" }]}
 >
   <p>Si no sabes la diferencia entre un trust y un testamento, podrías estar dejando a tu familia desprotegida. No es una exageración. He visto familias que perdieron miles de dólares y esperaron años para recibir una herencia, todo por haber elegido el documento equivocado.</p>
+  <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>Un testamento NO evita el probate; un trust sí</li><li>El probate cuesta 4-8% del patrimonio y tarda 9-18 meses</li><li>Si tienes una casa, el trust casi siempre es la mejor opción</li><li>Puedes tener ambos: trust como plan principal + testamento de respaldo</li></ul></div>
 
   <p>La mayoría de los hispanos en Estados Unidos piensan que hacer un testamento es suficiente. Suena lógico: escribes quién recibe qué, firmas, y ya. Pero en este país, un testamento solo no evita el probate. Y el probate es exactamente el proceso que drena el patrimonio de tantas familias.</p>
 
@@ -185,6 +187,7 @@ const faqSchema = {
 
   <p>La diferencia entre $997 y $33,000 es la diferencia entre planificar y no planificar.</p>
 
+  <div class="inline-cta"><p>¿Listo para proteger a tu familia? Haz tu evaluación gratuita en 3 minutos.</p><a href="/evaluacion" class="btn btn-primary">Comenzar evaluación →</a></div>
   <h2>¿Puedes tener ambos?</h2>
 
   <p>Sí, y de hecho es lo más recomendable. Se llama <strong>pour-over will</strong> (testamento de traslado).</p>

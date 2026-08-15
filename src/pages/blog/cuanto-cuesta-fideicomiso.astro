@@ -1,5 +1,6 @@
 ---
 import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import ProbateCalculator from '../../components/ProbateCalculator.astro';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -46,6 +47,7 @@ const faqSchema = {
   relatedArticles={[{ slug: "como-crear-trust-online", title: "Cómo Crear un Trust Online", tag: "Guía", image: "/images/blog/02-hero-documents.jpg" }, { slug: "necesito-abogado-trust", title: "¿Necesito un Abogado?", tag: "Decisiones", image: "/images/blog/06-hero-consultation.jpg" }, { slug: "seguro-vida-trust", title: "Seguro de Vida + Trust", tag: "Protección", image: "/images/blog/03-hero-family-protection.jpg" }]}
 >
   <p>Si buscas cuánto cuesta un fideicomiso, la respuesta corta es: entre $0 y $5,000. Pero la respuesta larga te ahorra dinero, te evita dolores de cabeza y protege a tu familia de verdad.</p>
+  <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>Un fideicomiso cuesta entre $0 y $5,000 según quién lo prepare</li><li>Las plantillas baratas ($0-$300) no incluyen revisión legal ni financiamiento</li><li>Un trust sin financiar es un documento inútil</li><li>Trust Para Todos: $997 con revisión legal y financiamiento incluidos</li></ul></div>
 
   <p>El problema es que la mayoría compara precios sin entender qué está pagando. Un trust de $200 y uno de $3,000 parecen lo mismo en papel, pero las diferencias son enormes. En esta guía vas a ver qué cuesta cada opción, qué recibes y dónde están los costos ocultos que nadie menciona.</p>
 
@@ -93,6 +95,7 @@ const faqSchema = {
   <h3>Trust Para Todos: $997 (todo incluido)</h3>
 
   <p>Nuestro servicio cuesta $997 e incluye el trust completo, revisión legal, financiamiento del trust y soporte en español. Sin costos mensuales ni cargos sorpresa.</p>
+      <div class="inline-cta"><p>Protege tu patrimonio por $997. Todo incluido, en español, sin sorpresas.</p><a href="/evaluacion" class="btn btn-primary">Saber si califico →</a></div>
 
   <p>¿Por qué cuesta menos que un abogado? Porque usamos tecnología para automatizar las partes repetitivas y dedicamos el tiempo humano a lo que importa: tu caso específico. No cobramos por hora. Trabajamos por resultado.</p>
 
@@ -118,6 +121,7 @@ const faqSchema = {
   </figure>
 
   <p><strong>Probate cuesta entre el 3% y el 7% del valor de tu patrimonio.</strong> Si tu casa vale $400,000, tus herederos pueden pagar entre $12,000 y $28,000 solo en costos de probate. Un trust de $997 te ahorra eso.</p>
+      <ProbateCalculator />
 
   <p><strong>Probate tarda de 6 a 18 meses.</strong> Tu familia no puede vender la casa, acceder a las cuentas ni distribuir herencias hasta que el tribunal lo autorice. Es un proceso público, lento y caro.</p>
 

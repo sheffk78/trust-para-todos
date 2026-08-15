@@ -1,5 +1,6 @@
 ---
 import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import ProbateCalculator from '../../components/ProbateCalculator.astro';
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -43,6 +44,7 @@ const faqSchema = {
   relatedArticles={[{ slug: "trust-vs-testamento", title: "Trust vs Testamento: ¿Cuál es Mejor?", tag: "Comparativa", image: "/images/blog/04-hero-senior-couple.jpg" }, { slug: "cuanto-cuesta-fideicomiso", title: "¿Cuánto Cuesta un Fideicomiso?", tag: "Precios", image: "/images/blog/05-hero-financial-planning.jpg" }, { slug: "fideicomiso-revocable-vs-irrevocable", title: "Revocable vs Irrevocable", tag: "Comparativa", image: "/images/blog/08-hero-family-property.jpg" }]}
 >
   <p>Si tienes una casa, cuentas bancarias o cualquier bien a tu nombre en Estados Unidos, necesitas entender qué es un trust revocable. No es algo solo para millonarios. Es la herramienta que usan miles de familias hispanas para proteger lo que les costó años construir.</p>
+  <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>Un trust revocable evita el probate, que cuesta 3-7% de tu patrimonio</li><li>Tú mantienes control total: puedes modificar o cancelar cuando quieras</li><li>Si tienes una casa, casi siempre necesitas un trust, no solo un testamento</li><li>Trust Para Todos: $997, todo incluido, en español</li></ul></div>
 
   <h2>La verdad que nadie te dice sobre los testamentos</h2>
 
@@ -129,6 +131,7 @@ const faqSchema = {
 
   <p>En Trust Para Todos trabajamos con abogados para que tu trust sea válido en todos los 50 estados. No necesitas contratar un abogado por separado.</p>
 
+  <div class="inline-cta"><p>¿Tu familia puede perder $9,000 o más en probate? Un trust de $997 lo evita.</p><a href="/evaluacion" class="btn btn-primary">Evaluar mi situación →</a></div>
   <h2>Paso a paso: cómo crear un trust revocable</h2>
 
   <ol>

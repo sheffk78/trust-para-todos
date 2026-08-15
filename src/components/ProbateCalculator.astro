@@ -1,0 +1,296 @@
+---
+// Probate Cost Calculator — interactive component for blog articles
+// Pure client-side, no server logic needed
+---
+<div class="probate-calculator" id="probateCalc">
+  <h3 class="calc-title">Calcula tu costo de probate</h3>
+  <p class="calc-subtitle">Descubre cuánto perdería tu familia sin un trust</p>
+
+  <div class="calc-input-group">
+    <label for="estateValue">Valor de tu patrimonio (casa + cuentas + bienes)</label>
+    <div class="calc-input-wrapper">
+      <span class="calc-prefix">$</span>
+      <input type="number" id="estateValue" placeholder="300000" min="0" step="10000" />
+    </div>
+    <div class="calc-quick-values">
+      <button type="button" data-val="200000">$200K</button>
+      <button type="button" data-val="300000">$300K</button>
+      <button type="button" data-val="500000">$500K</button>
+      <button type="button" data-val="1000000">$1M</button>
+    </div>
+  </div>
+
+  <div class="calc-results" id="calcResults" style="display:none;">
+    <div class="calc-result-row">
+      <div class="calc-result-card calc-result-bad">
+        <p class="calc-result-label">Costo de probate</p>
+        <p class="calc-result-value" id="probateCost">$9,000 – $21,000</p>
+        <p class="calc-result-detail">3% – 7% de tu patrimonio</p>
+      </div>
+      <div class="calc-result-card calc-result-good">
+        <p class="calc-result-label">Costo del trust</p>
+        <p class="calc-result-value">$997</p>
+        <p class="calc-result-detail">Una sola vez, todo incluido</p>
+      </div>
+      <div class="calc-result-card calc-result-savings">
+        <p class="calc-result-label">Ahorro para tu familia</p>
+        <p class="calc-result-value" id="savings">$8,003 – $20,003</p>
+        <p class="calc-result-detail">Dinero que se queda con tus herederos</p>
+      </div>
+    </div>
+    <div class="calc-bar-chart">
+      <div class="calc-bar-row">
+        <span class="calc-bar-label">Probate</span>
+        <div class="calc-bar calc-bar-probate">
+          <div class="calc-bar-fill" id="probateBar" style="width: 0%;"></div>
+          <span class="calc-bar-value" id="probateBarVal"></span>
+        </div>
+      </div>
+      <div class="calc-bar-row">
+        <span class="calc-bar-label">Trust</span>
+        <div class="calc-bar calc-bar-trust">
+          <div class="calc-bar-fill" id="trustBar" style="width: 0%;"></div>
+          <span class="calc-bar-value" id="trustBarVal">$997</span>
+        </div>
+      </div>
+    </div>
+    <p class="calc-duration" id="calcDuration">Tu familia esperaria de 6 a 18 meses para recibir tu herencia</p>
+    <a href="/evaluacion" class="btn btn-primary btn-lg calc-cta">Protege a tu familia ahora →</a>
+  </div>
+</div>
+
+<script is:inline>
+  (function() {
+    var input = document.getElementById('estateValue');
+    var results = document.getElementById('calcResults');
+    if (!input || !results) return;
+    
+    function calculate(value) {
+      if (value < 10000) { results.style.display = 'none'; return; }
+      var low = Math.round(value * 0.03);
+      var high = Math.round(value * 0.07);
+      var savingsLow = low - 997;
+      var savingsHigh = high - 997;
+      
+      document.getElementById('probateCost').textContent = '$' + low.toLocaleString('en') + ' – $' + high.toLocaleString('en');
+      document.getElementById('savings').textContent = '$' + savingsLow.toLocaleString('en') + ' – $' + savingsHigh.toLocaleString('en');
+      
+      var maxBar = high;
+      document.getElementById('probateBar').style.width = '100%';
+      document.getElementById('probateBarVal').textContent = '$' + high.toLocaleString('en');
+      document.getElementById('trustBar').style.width = Math.max(2, (997 / maxBar * 100)) + '%';
+      
+      results.style.display = 'block';
+    }
+    
+    input.addEventListener('input', function() {
+      calculate(parseFloat(this.value) || 0);
+    });
+    
+    document.querySelectorAll('.calc-quick-values button').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var val = parseInt(this.getAttribute('data-val'));
+        input.value = val;
+        calculate(val);
+      });
+    });
+  })();
+</script>
+
+<style>
+  .probate-calculator {
+    background: var(--cream);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin: 36px 0;
+  }
+  .calc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .calc-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+  .calc-input-group {
+    margin-bottom: 24px;
+  }
+  .calc-input-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+  .calc-input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--cream-dark);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--white);
+  }
+  .calc-input-wrapper:focus-within {
+    border-color: var(--teal);
+  }
+  .calc-prefix {
+    padding: 12px 16px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: var(--cream);
+  }
+  #estateValue {
+    flex: 1;
+    border: none;
+    padding: 12px 16px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--dark);
+    outline: none;
+    background: transparent;
+    width: 100%;
+  }
+  .calc-quick-values {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .calc-quick-values button {
+    padding: 6px 14px;
+    border: 1px solid var(--cream-dark);
+    border-radius: 20px;
+    background: var(--white);
+    font-size: 0.85rem;
+    color: var(--teal);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .calc-quick-values button:hover {
+    background: var(--teal);
+    color: var(--white);
+    border-color: var(--teal);
+  }
+  .calc-results {
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .calc-result-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .calc-result-card {
+    padding: 20px 16px;
+    border-radius: var(--radius-sm);
+    text-align: center;
+  }
+  .calc-result-bad {
+    background: #fdf0ec;
+    border: 1px solid #f5d5c8;
+  }
+  .calc-result-good {
+    background: var(--teal-light);
+    border: 1px solid #c5dde0;
+  }
+  .calc-result-savings {
+    background: #e8f5e9;
+    border: 1px solid #c8e6c9;
+  }
+  .calc-result-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  .calc-result-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .calc-result-bad .calc-result-value { color: #c45d42; }
+  .calc-result-savings .calc-result-value { color: #2e7d32; }
+  .calc-result-detail {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .calc-bar-chart {
+    margin-bottom: 20px;
+  }
+  .calc-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .calc-bar-row .calc-bar-label {
+    width: 60px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--dark);
+  }
+  .calc-bar {
+    flex: 1;
+    height: 28px;
+    background: var(--white);
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--cream-dark);
+  }
+  .calc-bar-fill {
+    height: 100%;
+    border-radius: 14px;
+    transition: width 0.5s ease;
+  }
+  .calc-bar-probate .calc-bar-fill {
+    background: linear-gradient(90deg, #dd7054, #c45d42);
+  }
+  .calc-bar-trust .calc-bar-fill {
+    background: linear-gradient(90deg, #0d7377, #0a5a5d);
+  }
+  .calc-bar-value {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--white);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  }
+  .calc-duration {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+  .calc-cta {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 300px;
+  }
+  @media (max-width: 768px) {
+    .calc-result-row {
+      grid-template-columns: 1fr;
+    }
+    .probate-calculator {
+      padding: 20px;
+    }
+  }
+</style>

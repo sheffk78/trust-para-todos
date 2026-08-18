@@ -111,14 +111,10 @@ const formattedDate = date
   </div>
 
   <article class="blog-article">
-    <!-- Hero image -->
+    <!-- Hero image with title overlay -->
     <div class="blog-hero">
       <img src={heroImage} alt={heroAlt} class="blog-hero-img" loading="eager" />
-    </div>
-
-    <!-- Article header -->
-    <div class="blog-container">
-      <div class="blog-header">
+      <div class="blog-hero-overlay">
         <a href="/blog" class="blog-back-link">← Blog</a>
         <h1 class="blog-title">{title}</h1>
         {date && (
@@ -128,8 +124,12 @@ const formattedDate = date
             {readTime && <span>{readTime}</span>}
           </div>
         )}
-        <p class="last-updated">Actualizado: {formattedDate || 'agosto 2026'}</p>
       </div>
+    </div>
+
+    <!-- Article body container -->
+    <div class="blog-container">
+      <p class="last-updated">Actualizado: {formattedDate || 'agosto 2026'}</p>
 
       <!-- Table of contents (auto-generated) -->
       <nav class="blog-toc" id="blog-toc">
@@ -298,6 +298,53 @@ const formattedDate = date
     object-position: center;
   }
 
+  .blog-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: linear-gradient(to top, rgba(15,15,26,0.7) 0%, rgba(15,15,26,0.2) 60%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .blog-hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 32px;
+  }
+
+  .blog-hero-overlay .blog-back-link {
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 12px;
+  }
+
+  .blog-hero-overlay .blog-back-link:hover {
+    color: var(--white);
+  }
+
+  .blog-hero-overlay .blog-title {
+    color: var(--white);
+    font-size: 2rem;
+    line-height: 1.15;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+
+  .blog-hero-overlay .blog-meta {
+    color: rgba(255,255,255,0.8);
+  }
+
+  .blog-hero-overlay .blog-meta-sep {
+    color: rgba(255,255,255,0.5);
+  }
+
   .blog-container {
     max-width: 780px;
     margin: 0 auto;
@@ -426,6 +473,18 @@ const formattedDate = date
     color: var(--terracotta);
   }
 
+  /* Buttons inside blog body — must keep white text */
+  .blog-body .btn,
+  .blog-body .btn-primary,
+  .blog-body a.btn,
+  .blog-body a.btn-primary {
+    color: var(--white) !important;
+  }
+  .blog-body .btn:hover,
+  .blog-body a.btn:hover {
+    color: var(--white) !important;
+  }
+
   /* Inline images in articles */
   .blog-body .article-image {
     margin: 32px 0;
@@ -538,24 +597,29 @@ const formattedDate = date
 
   .blog-body .faq-item {
     margin-bottom: 20px;
+    background: var(--white);
+    border: 1px solid var(--cream-dark);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
   }
 
   .blog-body .faq-item h3 {
     font-size: 1.1rem;
-    color: var(--teal);
-    margin-bottom: 8px;
+    color: var(--dark);
+    margin-bottom: 0;
     font-family: 'DM Sans', sans-serif;
     font-weight: 700;
     cursor: pointer;
     position: relative;
-    padding-right: 28px;
+    padding: 20px 24px;
+    padding-right: 48px;
   }
 
   .blog-body .faq-item h3::after {
     content: '+';
     position: absolute;
-    right: 0;
-    top: -2px;
+    right: 24px;
+    top: 18px;
     font-size: 1.3rem;
     color: var(--terracotta);
     transition: transform 0.2s;
@@ -567,16 +631,18 @@ const formattedDate = date
   }
 
   .blog-body .faq-item p {
-    margin-bottom: 8px;
+    margin-bottom: 0;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease, padding-top 0.3s ease;
-    padding-top: 0;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 24px;
+    color: var(--text-body);
+    line-height: 1.7;
   }
 
   .blog-body .faq-item.open p {
     max-height: 500px;
-    padding-top: 8px;
+    padding: 0 24px 20px;
   }
 
   /* CTA box at bottom */
@@ -761,7 +827,13 @@ const formattedDate = date
   /* Mobile */
   @media (max-width: 768px) {
     .blog-hero {
-      height: 260px;
+      height: 300px;
+    }
+    .blog-hero-overlay .blog-title {
+      font-size: 1.5rem;
+    }
+    .blog-hero-overlay {
+      padding: 0 20px 24px;
     }
     .blog-container {
       padding: 32px 20px 60px;

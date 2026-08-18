@@ -94,6 +94,17 @@ export const articles: BlogArticle[] = [
       { slug: 'necesito-abogado-trust', title: '¿Necesito un Abogado?', tag: 'Decisiones', image: '/images/blog/06-hero-consultation.jpg' },
       { slug: 'trust-vs-testamento', title: 'Trust vs Testamento', tag: 'Comparativa', image: '/images/blog/04-hero-senior-couple.jpg' }
     ]
+  },
+  {
+    slug: 'trust-en-espanol',
+    title: 'Trust en español: guía completa para familias mexicanas',
+    tag: 'Educacional',
+    image: '/images/blog/01-hero-family-home.jpg',
+    related: [
+      { slug: 'que-es-trust-revocable', title: '¿Qué es un Trust Revocable?', tag: 'Educacional', image: '/images/blog/01-hero-family-home.jpg' },
+      { slug: 'trust-vs-testamento', title: 'Trust vs Testamento', tag: 'Comparativa', image: '/images/blog/04-hero-senior-couple.jpg' },
+      { slug: 'cuanto-cuesta-fideicomiso', title: '¿Cuánto Cuesta un Fideicomiso?', tag: 'Precios', image: '/images/blog/05-hero-financial-planning.jpg' }
+    ]
   }
 ];
 

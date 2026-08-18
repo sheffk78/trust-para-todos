@@ -1,0 +1,209 @@
+---
+import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '¿Un trust sirve si mi familia está en México y yo vivo en Estados Unidos?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Sí. El trust protege los bienes que tienes en Estados Unidos (casa, cuentas, seguro de vida) y deja instrucciones claras sobre quién recibe qué. Si tienes bienes en México, necesitarás además un fideicomiso mexicano, pero el trust de EE.UU. cubre todo lo que está aquí.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Necesito ser ciudadano para tener un trust?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. No necesitas ser ciudadano ni tener residencia permanente. Un trust funciona con visa de trabajo, permiso temporal o incluso estatus migratorio en trámite. Lo que importa es que tengas bienes en Estados Unidos que quieras proteger.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Cuánto cuesta un trust en español?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Un abogado tradicional cobra entre $2,000 y $5,000. Con Trust Para Todos, un trust revocable completo cuesta $997 e incluye los documentos legales, la notarización, el EIN del trust y asesoría en español.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Puedo poner mi casa en un trust?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Sí, y es una de las mejores decisiones que puedes tomar. Al transferir tu casa al trust, evitas que pase por el probate cuando fallezcas. Tus herederos reciben la casa directamente, sin juicio y sin gastos de corte.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Cuánto tiempo toma crear un trust?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Con un servicio online en español como Trust Para Todos, el proceso toma entre 7 y 14 días desde que completas el cuestionario hasta que tienes los documentos notarizados. Con un abogado tradicional puede tardar de 4 a 8 semanas.'
+      }
+    }
+  ]
+};
+---
+
+<BlogArticleLayout
+  title="Trust en español: guía para familias mexicanas"
+  description="Guía completa sobre trusts en español para familias mexicanas en EE.UU.: qué es, cómo funciona, cuánto cuesta y cómo proteger tu casa y tu patrimonio."
+  canonicalPath="/blog/trust-en-espanol"
+  ogImage="og-blog.png"
+  heroImage="/images/blog/01-hero-family-home.jpg"
+  heroAlt="Familia mexicana en su casa en Estados Unidos"
+  date="2026-08-18"
+  readTime="6 min de lectura"
+  jsonLd={faqSchema}
+  relatedArticles={[{ slug: "que-es-trust-revocable", title: "¿Qué es un Trust Revocable?", tag: "Educacional", image: "/images/blog/01-hero-family-home.jpg" }, { slug: "trust-vs-testamento", title: "Trust vs Testamento", tag: "Comparativa", image: "/images/blog/04-hero-senior-couple.jpg" }, { slug: "cuanto-cuesta-fideicomiso", title: "¿Cuánto Cuesta un Fideicomiso?", tag: "Precios", image: "/images/blog/05-hero-financial-planning.jpg" }]}
+>
+  <p>Si vives en Estados Unidos y tu familia está en México — o tienes bienes en ambos países — probablemente has escuchado la palabra <em>trust</em> sin saber exactamente qué significa. Esta guía te lo explica en español simple, sin tecnicismos legales.</p>
+
+  <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>Un trust es un fideicomiso que protege tus bienes y evita el probate</li><li>Las familias mexicanas en EE.UU. lo necesitan especialmente por tener bienes y familia en dos países</li><li>Cuesta desde $997, no los $3,000–$5,000 que cobra un abogado tradicional</li><li>Puedes crearlo 100% en línea y en español, sin ser ciudadano</li><li>Puedes incluir tu casa, cuentas bancarias y el seguro de vida</li></ul></div>
+
+  <p>Un <GlossaryTerm term="fideicomiso" definition="Es lo mismo que 'trust'. Un acuerdo legal donde transfieres bienes a un administrador para beneficio de tus herederos." /> es la herramienta legal que permite proteger tu casa, tus ahorros y tus bienes para que pasen directamente a tus hijos sin pasar por un juicio costoso llamado <GlossaryTerm term="probate" definition="Proceso judicial donde un juez verifica y reparte tu herencia. Cuesta 3-7% de tu patrimonio y dura 6-18 meses." />. Para las familias mexicanas en EE.UU., un trust resuelve tres problemas reales: evita el probate, mantiene la herencia en privado y permite poner condiciones sobre cómo y cuándo reciben tus hijos.</p>
+
+  <p>Esta guía está escrita para familias mexicanas y latinas que viven en Estados Unidos y quieren entender, en español claro, si necesitan un trust y cómo obtener uno sin pagar miles de dólares a un abogado. Si prefieres empezar por lo básico, lee primero nuestra página <a href="/que-es">¿Qué es un trust?</a> y luego vuelve aquí.</p>
+
+  <h2>¿Qué es un trust en español?</h2>
+
+  <p>Un trust (o fideicomiso, en español) es un documento legal donde tú transfieres la propiedad de tus bienes — tu casa, tus cuentas, tus inversiones — a un "contenedor" legal llamado trust. Tú sigues siendo el dueño y sigues tomando todas las decisiones. Pero cuando fallezcas, esos bienes no pasan por el probate: pasan directamente a las personas que tú elegiste, según las reglas que tú escribiste.</p>
+
+  <p>Piensa en el trust como una caja fuerte con instrucciones. Mientras vives, tú tienes la llave y decides todo. Cuando ya no estás, una persona de confianza (el <GlossaryTerm term="trustee" definition="La persona que administra el trust. Mientras vives, tú eres el trustee y mantienes control total." /> sucesor) abre la caja y reparte el contenido siguiendo tus instrucciones al pie de la letra.</p>
+
+  <p>El tipo más común se llama <strong>trust revocable</strong> o <em>living trust</em>. Puedes cambiarlo, modificarlo o cancelarlo cuando quieras mientras vivas. Para entender las diferencias entre tipos, lee nuestra guía sobre <a href="/blog/que-es-trust-revocable">qué es un trust revocable</a> y nuestra <a href="/blog/trust-vs-testamento">comparativa trust vs testamento</a>.</p>
+
+  <figure class="article-image">
+    <img src="/images/blog/inline-family-kitchen.jpg" alt="Familia hispana conversando en la cocina sobre su plan patrimonial" loading="lazy" />
+  </figure>
+
+  <h2>Por qué las familias mexicanas en EE.UU. necesitan un trust</h2>
+
+  <p>La comunidad mexicana en Estados Unidos enfrenta una situación particular: muchos tienen su casa y sus ahorros aquí, pero tienen familia, y a veces bienes, en México. Cuando alguien fallece sin un plan, el desorden es doble — hay que lidiar con el sistema legal de dos países.</p>
+
+  <p>Un trust resuelve el lado de Estados Unidos. Estos son los problemas específicos que enfrenta una familia mexicana y cómo el trust los ataca:</p>
+
+  <ul>
+    <li><strong>El probate es público y caro.</strong> Sin trust, tu herencia pasa por un juicio donde cualquier persona puede ver qué dejaste y a quién. El probate cuesta entre el 3% y el 7% del valor de tu patrimonio y dura de 6 a 18 meses. Con un trust, todo queda en privado y se reparte en semanas.</li>
+    <li><strong>Los hijos menores reciben todo a los 18.</strong> Sin instrucciones, un juez entrega la herencia completa cuando tus hijos cumplen la mayoría de edad. A los 18, $200,000 pueden desaparecer en meses. Un trust te deja poner condiciones: "Mi hijo recibe la mitad a los 25 y el resto a los 30."</li>
+    <li><strong>La barrera del idioma.</strong> Muchos abogados explican el proceso en inglés lleno de tecnicismos. Un trust creado en español, con documentos traducidos, elimina esa barrera. Tu familia no tiene que adivinar qué dice el documento.</li>
+    <li><strong>Bienes en dos países.</strong> El trust de EE.UU. protege lo que está aquí. Si tienes una casa en México, necesitarás un fideicomiso mexicano adicional, pero al menos el lado de acá queda resuelto.</li>
+  </ul>
+
+  <div class="callout-warning"><strong>⚠️ Importante:</strong> Sin un trust, si falleces en Estados Unidos, tu familia en México podría enfrentar meses de trámites, traducciones de documentos y costos legales para reclamar lo que es suyo. Un trust evita todo eso.</div>
+
+  <h2>Cómo funciona un trust — paso a paso</h2>
+
+  <p>El proceso es más sencillo de lo que la gente cree. Estos son los cuatro pasos básicos:</p>
+
+  <ol>
+    <li><strong>Creas el documento.</strong> Escribes quién eres, qué bienes incluirás y quién recibirá qué cuando faltes. En Trust Para Todos lo haces respondiendo un cuestionario en español.</li>
+    <li><strong>Firmas y notarizas.</strong> El documento se firma ante un notario. Esto se puede hacer en línea con notarización remota.</li>
+    <li><strong>Transfieres tus bienes al trust.</strong> Aquí está el paso que mucha gente olvida: el trust no funciona solo con firmarlo. Hay que transferir la casa, las cuentas y los bienes al nombre del trust. A esto se le llama "funding" del trust.</li>
+    <li><strong>Cuando fallezcas, el trustee sucesor reparte.</strong> La persona que tú nombraste se encarga de distribuir todo según tus instrucciones, sin juicio y sin esperar meses.</li>
+  </ol>
+
+  <p>Para una guía detallada con cada paso, lee <a href="/blog/como-crear-trust-online">cómo crear un trust online en español: paso a paso</a>.</p>
+
+  <div class="inline-cta"><p>¿Quieres saber si un trust te conviene? Haz la evaluación gratuita en 3 minutos.</p><a href="/evaluacion" class="btn btn-primary">Empezar evaluación →</a></div>
+
+  <h2>¿Cuánto cuesta un trust en español?</h2>
+
+  <p>El precio depende de cómo lo hagas:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Opción</th>
+        <th>Costo</th>
+        <th>Cuándo conviene</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Plantilla gratuita descargada de internet</td>
+        <td>$0</td>
+        <td>Nunca — los errores cuestan más caro que un abogado</td>
+      </tr>
+      <tr>
+        <td>Servicio online guiado en español (Trust Para Todos)</td>
+        <td>$997</td>
+        <td>Familias con casa, cuentas y seguro de vida en EE.UU.</td>
+      </tr>
+      <tr>
+        <td>Abogado tradicional en español</td>
+        <td>$2,000 – $5,000</td>
+        <td>Situaciones complejas: empresas, bienes en 3+ estados, hijos con necesidades especiales</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Para la mayoría de las familias mexicanas, la opción de $997 cubre todo lo necesario. Para ver el detalle de qué incluye cada opción, lee nuestra <a href="/blog/cuanto-cuesta-fideicomiso">comparativa de costos de un fideicomiso en Estados Unidos</a>.</p>
+
+  <h2>Caso ilustrativo: la familia Hernández</h2>
+
+  <div class="callout-case"><p class="callout-case-title">📖 Caso ilustrativo</p><p>Rosa Hernández, de 52 años, vive en Phoenix hace 20 años. Tiene una casa, $80,000 en ahorros y un seguro de vida de $300,000. Sus dos hijos viven con ella; su madre y un hermano están en Sonora. Rosa falleció sin trust en 2024.</p><p>Lo que pasó: la herencia entró en probate. Tomó 11 meses. Costó $18,000 en honorarios legales. Sus hijos, de 22 y 19 años, recibieron el dinero en pagos únicos. El menor gastó su parte en un año. La casa se vendió porque no había liquidez para pagar las deudas inmediatas.</p><p>Lo que un trust habría cambiado: la casa pasaría directa a los hijos sin probate. El seguro de vida, puesto como beneficiario del trust, habría dado liquidez inmediata. Y Rosa podría haber diferido la herencia del menor hasta los 25.</p></div>
+
+  <p>Este caso es ilustrativo, no real, pero refleja lo que escuchamos una y otra vez. El trust no es solo un documento: es un plan que evita que una tragedia se convierta en un desastre financiero.</p>
+
+  <figure class="article-image">
+    <img src="/images/blog/inline-family-outdoor.jpg" alt="Familia hispana disfrutando tiempo juntos al aire libre" loading="lazy" />
+  </figure>
+
+  <h2>Errores comunes de las familias sin trust</h2>
+
+  <ul>
+    <li><strong>Pensar que el testamento basta.</strong> Un testamento no evita el probate. Solo dice quién recibe qué, pero igual pasa por el juicio. Para entender la diferencia, lee <a href="/blog/trust-vs-testamento">trust vs testamento</a>.</li>
+    <li><strong>Olvidar transferir los bienes al trust.</strong> Firmar el documento no es suficiente. Si la casa no se transfiere al trust, el trust no la protege.</li>
+    <li><strong>Esperar a "tener más bienes".</strong> Si tienes una casa, ya tienes suficiente patrimonio para proteger. No esperes a tener más.</li>
+    <li><strong>No hablar con la familia.</strong> Tus herederos deben saber dónde está el trust, quién es el trustee sucesor y qué quieren tus instrucciones. El silencio genera conflicto.</li>
+  </ul>
+
+  <div class="callout-tip"><strong>💡 Consejo:</strong> Si ya tienes seguro de vida, nómbralo beneficiario de tu trust. Así, cuando fallezcas, el dinero del seguro entra al trust y se reparte según tus reglas — no en un pago único que tus hijos menores podrían malgastar. Lee más en <a href="/blog/seguro-vida-trust">seguro de vida + trust</a>.</div>
+
+  <EmailCapture />
+
+  <h2>Conclusión</h2>
+
+  <p>Un trust no es un lujo para ricos. Es la herramienta que las familias mexicanas en Estados Unidos necesitan para proteger lo que han construido con años de trabajo. Cuesta menos de lo que crees, se hace en línea y en español, y evita que tu familia pase meses en un juicio cuando menos pueden lidiar con eso.</p>
+
+  <p>Si tienes una casa, hijos o seguro de vida, hazte una pregunta: ¿qué pasaría con tu familia mañana si no regresaras hoy? Si la respuesta te preocupa, un trust es lo que necesitas. El probate es caro, público y lento. El trust es privado, rápido y barato.</p>
+
+  <div class="faq-section">
+    <h2>Preguntas frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Un trust sirve si mi familia está en México y yo vivo en Estados Unidos?</h3>
+      <p>Sí. El trust protege los bienes que tienes en Estados Unidos (casa, cuentas, seguro de vida) y deja instrucciones claras sobre quién recibe qué. Si tienes bienes en México, necesitarás además un fideicomiso mexicano, pero el trust de EE.UU. cubre todo lo que está aquí.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Necesito ser ciudadano para tener un trust?</h3>
+      <p>No. No necesitas ser ciudadano ni tener residencia permanente. Un trust funciona con visa de trabajo, permiso temporal o incluso estatus migratorio en trámite. Lo que importa es que tengas bienes en Estados Unidos que quieras proteger.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Cuánto cuesta un trust en español?</h3>
+      <p>Un abogado tradicional cobra entre $2,000 y $5,000. Con Trust Para Todos, un trust revocable completo cuesta $997 e incluye los documentos legales, la notarización, el EIN del trust y asesoría en español.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Puedo poner mi casa en un trust?</h3>
+      <p>Sí, y es una de las mejores decisiones que puedes tomar. Al transferir tu casa al trust, evitas que pase por el probate cuando fallezcas. Tus herederos reciben la casa directamente, sin juicio y sin gastos de corte.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Cuánto tiempo toma crear un trust?</h3>
+      <p>Con un servicio online en español como Trust Para Todos, el proceso toma entre 7 y 14 días desde que completas el cuestionario hasta que tienes los documentos notarizados. Con un abogado tradicional puede tardar de 4 a 8 semanas.</p>
+    </div>
+  </div>
+<TrustQuiz />
+
+</BlogArticleLayout>

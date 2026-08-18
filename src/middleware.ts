@@ -13,6 +13,7 @@
  */
 import { defineMiddleware } from 'astro/middleware';
 import { getSession } from './lib/auth';
+import { getCsrfTokenFromCookie, setCsrfCookie, CSRF_COOKIE } from './lib/csrf';
 
 const BACKEND_URL = import.meta.env.BACKEND_URL || '';
 
@@ -41,6 +42,12 @@ function addSecurityHeaders(response: Response): Response {
 export const onRequest = defineMiddleware(async (context, next) => {
   const url = new URL(context.request.url);
   const pathname = url.pathname;
+
+  // Ensure CSRF token cookie exists for all page loads
+  if (!getCsrfTokenFromCookie(context)) {
+    const token = generateCsrfToken();
+    setCsrfCookie(context, token);
+  }
 
   // Admin page routes — protect with session check
   if (pathname.startsWith('/admin/') && pathname !== '/admin/login') {

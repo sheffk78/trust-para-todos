@@ -3,7 +3,12 @@
 // Non-intrusive box that appears in articles, captures email for newsletter
 ---
 <div class="email-capture" id="emailCapture">
-  <div class="email-capture-icon">📧</div>
+  <div class="email-capture-icon">
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="2" y="4" width="20" height="16" rx="2"/>
+      <polyline points="3 6 12 13 21 6"/>
+    </svg>
+  </div>
   <h3 class="email-capture-title">Recibe recursos sobre protección patrimonial</h3>
   <p class="email-capture-desc">Únete a 500+ familias hispanas que reciben guías, consejos y actualizaciones sobre trusts y planificación sucesoria.</p>
   <form class="email-capture-form" id="emailCaptureForm">
@@ -12,7 +17,7 @@
   </form>
   <p class="email-capture-note">Sin spam. Solo útiles. Cancela cuando quieras.</p>
   <div class="email-capture-success" id="emailCaptureSuccess" style="display:none;">
-    <p>✅ ¡Listo! Revisa tu correo para confirmar tu suscripción.</p>
+    <p><span class="email-capture-success-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span> ¡Listo! Revisa tu correo para confirmar tu suscripción.</p>
   </div>
 </div>
 
@@ -57,7 +62,13 @@
     margin: 36px 0;
     text-align: center;
   }
-  .email-capture-icon { font-size: 2rem; margin-bottom: 12px; }
+  .email-capture-icon {
+    color: var(--teal);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .email-capture-title {
     font-family: 'Playfair Display', serif;
     font-size: 1.3rem;
@@ -103,6 +114,16 @@
     color: #2e7d32;
     font-weight: 600;
     margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .email-capture-success-icon {
+    display: inline-flex;
+    align-items: center;
+    color: #2e7d32;
+    flex-shrink: 0;
   }
   @media (max-width: 768px) {
     .email-capture-form { flex-direction: column; }

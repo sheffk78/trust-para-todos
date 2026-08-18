@@ -107,7 +107,7 @@ h1, h2, h3, h4 {
   letter-spacing: -0.01em;
 }
 .nav-links { display: flex; align-items: center; gap: 32px; }
-.nav-links a {
+.nav-links a:not(.btn):not(.lang-link) {
   text-decoration: none;
   color: var(--text-body);
   font-weight: 500;
@@ -115,7 +115,7 @@ h1, h2, h3, h4 {
   transition: color 0.2s;
   position: relative;
 }
-.nav-links a::after {
+.nav-links a:not(.btn):not(.lang-link)::after {
   content: '';
   position: absolute;
   bottom: -4px;
@@ -125,8 +125,8 @@ h1, h2, h3, h4 {
   background: var(--terracotta);
   transition: width 0.3s;
 }
-.nav-links a:hover { color: var(--teal); }
-.nav-links a:hover::after { width: 100%; }
+.nav-links a:not(.btn):not(.lang-link):hover { color: var(--teal); }
+.nav-links a:not(.btn):not(.lang-link):hover::after { width: 100%; }
 
 /* Language toggle */
 .lang-toggle {
@@ -174,6 +174,34 @@ h1, h2, h3, h4 {
 .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
 .btn-sm { padding: 10px 20px; font-size: 0.85rem; }
 .btn-lg { padding: 18px 36px; font-size: 1.05rem; }
+
+/* Ensure all buttons keep white text regardless of parent context.
+   The .nav-links a and .blog-body a selectors are more specific than
+   .btn-primary and would otherwise override the white text. */
+.nav-links .btn,
+.nav-links .btn-primary,
+.blog-body .btn,
+.blog-body .btn-primary,
+.inline-cta .btn,
+.inline-cta .btn-primary,
+.calc-cta,
+.email-capture-btn,
+.blog-cta-box .btn,
+.blog-cta-box .btn-primary,
+.confirm-modal .btn-primary,
+.cookie-accept {
+  color: var(--white) !important;
+}
+.nav-links .btn:hover,
+.nav-links .btn-primary:hover,
+.blog-body .btn:hover,
+.blog-body .btn-primary:hover,
+.inline-cta .btn:hover,
+.inline-cta .btn-primary:hover,
+.confirm-modal .btn-primary:hover,
+.cookie-accept:hover {
+  color: var(--white) !important;
+}
 
 /* === Hero === */
 .hero {

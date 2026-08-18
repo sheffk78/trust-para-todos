@@ -254,7 +254,6 @@
     width: 64px;
     height: 64px;
     border-radius: 50%;
-    font-size: 2rem;
     margin-bottom: 16px;
     line-height: 1;
   }
@@ -458,21 +457,21 @@
 
       if (score >= 6) {
         variant = 'tq-result-green';
-        badge = '\u2705';
+        badge = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
         title = 'Sí, necesitas un trust';
         desc = 'Por tu patrimonio y situación familiar, un trust es la mejor opción para proteger tus bienes, evitar el probate y mantener tu herencia privada.';
         ctaClass = 'tq-cta-teal';
         ctaText = 'Haz tu evaluación gratuita \u2192';
       } else if (score >= 3) {
         variant = 'tq-result-yellow';
-        badge = '\u23F3';
+        badge = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/></svg>';
         title = 'Un trust te conviene pronto';
         desc = 'Tu situación indica que un trust sería beneficioso en un futuro cercano. Te recomendamos hacer una evaluación para planificar con tiempo.';
         ctaClass = 'tq-cta-terracotta';
         ctaText = 'Haz tu evaluación gratuita \u2192';
       } else {
         variant = 'tq-result-neutral';
-        badge = '\uD83D\uDCDD';
+        badge = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="14" y2="17"/></svg>';
         title = 'Un testamento puede ser suficiente';
         desc = 'Con tu perfil actual, un testamento podría cubrir tus necesidades. Sin embargo, una evaluación gratuita puede confirmarlo y darte tranquilidad.';
         ctaClass = 'tq-cta-outline';

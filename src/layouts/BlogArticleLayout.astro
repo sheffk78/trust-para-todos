@@ -728,8 +728,18 @@ const formattedDate = date
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     padding: 20px 24px;
     margin: 28px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
   }
   .blog-body .callout-warning strong { color: var(--terracotta-dark); }
+  .blog-body .callout-warning .callout-icon {
+    color: var(--terracotta);
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    margin-top: 2px;
+  }
 
   .blog-body .callout-tip {
     background: var(--teal-light);
@@ -737,8 +747,18 @@ const formattedDate = date
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     padding: 20px 24px;
     margin: 28px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
   }
   .blog-body .callout-tip strong { color: var(--teal); }
+  .blog-body .callout-tip .callout-icon {
+    color: var(--teal);
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    margin-top: 2px;
+  }
 
   .blog-body .callout-case {
     background: var(--cream);
@@ -753,6 +773,15 @@ const formattedDate = date
     font-weight: 700;
     color: var(--dark);
     margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .blog-body .callout-case-title .callout-icon {
+    color: var(--teal);
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
   }
 
   /* Print-friendly styles */

@@ -464,13 +464,15 @@ const formattedDate = date
   .blog-body a {
     color: var(--teal);
     text-decoration: underline;
-    text-decoration-color: var(--terracotta);
-    text-underline-offset: 2px;
-    transition: color 0.2s;
+    text-decoration-color: rgba(13, 115, 119, 0.3);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: color 0.2s, text-decoration-color 0.2s;
   }
 
   .blog-body a:hover {
     color: var(--terracotta);
+    text-decoration-color: var(--terracotta);
   }
 
   /* Buttons inside blog body — must keep white text */
@@ -722,6 +724,13 @@ const formattedDate = date
   }
 
   /* Callout box variants */
+  .blog-body .callout-warning,
+  .blog-body .callout-tip,
+  .blog-body .callout-case {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
   .blog-body .callout-warning {
     background: #fdf0ec;
     border-left: 4px solid var(--terracotta);
@@ -730,7 +739,7 @@ const formattedDate = date
     margin: 28px 0;
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 12px;
   }
   .blog-body .callout-warning strong { color: var(--terracotta-dark); }
   .blog-body .callout-warning .callout-icon {
@@ -749,7 +758,7 @@ const formattedDate = date
     margin: 28px 0;
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 12px;
   }
   .blog-body .callout-tip strong { color: var(--teal); }
   .blog-body .callout-tip .callout-icon {
@@ -758,6 +767,24 @@ const formattedDate = date
     display: inline-flex;
     align-items: center;
     margin-top: 2px;
+  }
+
+  /* Links inside callouts — darker, more distinct */
+  .blog-body .callout-warning a,
+  .blog-body .callout-tip a,
+  .blog-body .callout-case a {
+    color: var(--dark);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--terracotta);
+    text-underline-offset: 2px;
+    white-space: nowrap;
+  }
+
+  .blog-body .callout-warning a:hover,
+  .blog-body .callout-tip a:hover,
+  .blog-body .callout-case a:hover {
+    color: var(--terracotta);
   }
 
   .blog-body .callout-case {

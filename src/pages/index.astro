@@ -41,7 +41,11 @@ const serviceSchema = {
         </div>
       </div>
       <div class="hero-visual">
-        <img src="/images/hero-family.jpg" alt="Familia hispana protegiendo su legado" width="500" height="281" style="border-radius: 16px; object-fit: cover; width: 100%; max-width: 500px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);" />
+        <picture>
+          <source srcset="/images/hero-family.webp" type="image/webp" />
+          <source srcset="/images/hero-family.jpg" type="image/jpeg" />
+          <img src="/images/hero-family.jpg" alt="Familia hispana protegiendo su legado" width="500" height="281" loading="eager" fetchpriority="high" style="border-radius: 16px; object-fit: cover; width: 100%; max-width: 500px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);" />
+        </picture>
       </div>
     </div>
   </section>

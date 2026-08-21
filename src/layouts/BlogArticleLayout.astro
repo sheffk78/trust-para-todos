@@ -115,7 +115,11 @@ const formattedDate = date
   <article class="blog-article">
     <!-- Hero image with title overlay -->
     <div class="blog-hero">
-      <img src={heroImage} alt={heroAlt} class="blog-hero-img" loading="eager" />
+      <picture>
+        <source srcset={heroImage.replace(/\.jpg$/, '.webp')} type="image/webp" />
+        <source srcset={heroImage} type="image/jpeg" />
+        <img src={heroImage} alt={heroAlt} class="blog-hero-img" loading="eager" fetchpriority="high" width="1200" height="630" />
+      </picture>
       <div class="blog-hero-overlay">
         <a href="/blog/" class="blog-back-link">← Blog</a>
         <h1 class="blog-title">{title}</h1>
@@ -176,7 +180,11 @@ const formattedDate = date
             {relatedArticles.map((a) => (
               <a href={`/blog/${a.slug}/`} class="related-card">
                 <div class="related-card-image">
-                  <img src={a.image} alt={a.title} loading="lazy" />
+                  <picture>
+                    <source srcset={a.image.replace(/\.jpg$/, '.webp')} type="image/webp" />
+                    <source srcset={a.image} type="image/jpeg" />
+                    <img src={a.image} alt={a.title} loading="lazy" />
+                  </picture>
                 </div>
                 <div class="related-card-body">
                   <span class="related-card-tag">{a.tag}</span>

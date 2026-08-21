@@ -6,7 +6,7 @@ const serviceSchema = {
   '@type': 'Service',
   name: 'Cómo funciona Trust Para Todos',
   serviceType: 'Trust creation and estate planning process',
-  description: '5 pasos simples para proteger tu patrimonio: evaluación gratuita, recomendación, compra en línea, documentos y notaría, trust activo. Todo en español, 100% en línea, 3-5 días hábiles.',
+  description: '6 pasos simples para proteger tu patrimonio: consulta de seguro, evaluación gratuita, recomendación, compra en línea, documentos y notaría, trust activo. Todo en español, 100% en línea, 3-5 días hábiles.',
   provider: {
     '@type': 'Organization',
     name: 'Trust Para Todos',
@@ -21,51 +21,100 @@ const serviceSchema = {
 };
 ---
 
-<BaseLayout title="Cómo funciona — Trust Para Todos" description="5 pasos simples para proteger tu patrimonio. Desde tu evaluación gratuita hasta recibir tu trust completo. Todo en español." canonicalPath="/como-funciona" ogImage="og-como-funciona.png" jsonLd={serviceSchema}>
+<BaseLayout title="Cómo funciona — Trust Para Todos" description="6 pasos simples para proteger tu patrimonio. Desde tu consulta de seguro hasta recibir tu trust completo. Todo en español, 100% en línea." canonicalPath="/como-funciona/" ogImage="og-como-funciona.png" jsonLd={serviceSchema}>
 
-  <section class="hero" style="padding: 60px 20px;">
-    <h1>Cómo funciona</h1>
-    <p>6 pasos simples. Todo en línea. En español.</p>
+  <section class="hero-steps">
+    <div class="hero-steps-content">
+      <span class="hero-steps-badge">Proceso simple</span>
+      <h1>Cómo funciona</h1>
+      <p class="hero-steps-sub">6 pasos simples. Todo en línea. En español. 3-5 días hábiles.</p>
+    </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <div class="steps">
-        <div class="step" style="border-left: 4px solid var(--terracotta, #dd7054); padding-left: 20px; margin-bottom: 32px;">
-          <h3 style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 1.5rem;">🛡️</span>
-            Tu consulta de seguro de vida
-            <span style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 12px; border-radius: 100px; background: var(--terracotta, #dd7054); color: white;">Paso obligatorio</span>
-          </h3>
-          <p>Agendas una consulta <strong>gratuita</strong> con nuestro partner, <strong>Legacy Foundation Group</strong>. Ellos evalúan tus necesidades de seguro de vida y te ayudan a elegir la mejor cobertura para tu familia. Con acceso a más de 150 compañías aseguradoras, encuentran el plan ideal para ti.</p>
-          <p style="margin-top: 12px;">
-            <a href="https://legacyfoundationgroup.net/book?ref=trustparatodos" target="_blank" rel="noopener" style="display: inline-block; padding: 12px 28px; background: var(--terracotta, #dd7054); color: white; border-radius: 100px; font-weight: 600; text-decoration: none; font-size: 0.9rem; transition: all 0.2s;">
-              Agendar consulta gratuita con Legacy Foundation Group →
-            </a>
-          </p>
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">O llama al <a href="tel:8445341677" style="color: var(--terracotta, #dd7054); font-weight: 600;">(844) 534-1677</a> — atención en español.</p>
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;"><strong>¿Ya tienes seguro de vida?</strong> Puedes continuar directamente a tu evaluación. Te recomendamos verificar que tu cobertura actual es suficiente.</p>
+      <div class="steps-timeline">
+
+        <!-- Step 1: Insurance Consultation (Required) -->
+        <div class="step-card step-card--required">
+          <div class="step-number">1</div>
+          <div class="step-body">
+            <div class="step-header">
+              <span class="step-icon">🛡️</span>
+              <h3>Tu consulta de seguro de vida</h3>
+              <span class="step-badge-required">Paso obligatorio</span>
+            </div>
+            <p>Agendas una consulta <strong>gratuita</strong> con nuestro partner, <strong>Legacy Foundation Group</strong>. Ellos evalúan tus necesidades de seguro de vida y te ayudan a elegir la mejor cobertura para tu familia. Con acceso a más de 150 compañías aseguradoras, encuentran el plan ideal para ti.</p>
+            <div class="step-actions">
+              <a href="https://legacyfoundationgroup.net/book?ref=trustparatodos" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+                Agendar consulta gratuita →
+              </a>
+              <span class="step-phone">O llama al <a href="tel:8445341677">(844) 534-1677</a> — atención en español</span>
+            </div>
+            <p class="step-note"><strong>¿Ya tienes seguro de vida?</strong> Puedes continuar directamente a tu evaluación. Te recomendamos verificar que tu cobertura actual es suficiente.</p>
+          </div>
         </div>
-        <div class="step">
-          <h3>Tu evaluación gratuita</h3>
-          <p>Completas un cuestionario de 3 minutos. Te hacemos preguntas básicas sobre tu situación familiar y tus bienes, incluyendo tu seguro de vida.</p>
+
+        <!-- Step 2: Evaluation -->
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-body">
+            <div class="step-header">
+              <span class="step-icon">📋</span>
+              <h3>Tu evaluación gratuita</h3>
+            </div>
+            <p>Completas un cuestionario de 3 minutos. Te hacemos preguntas básicas sobre tu situación familiar y tus bienes, incluyendo tu seguro de vida.</p>
+          </div>
         </div>
-        <div class="step">
-          <h3>Recibes tu recomendación</h3>
-          <p>Te decimos qué paquete es mejor para ti. Trust básico ($997) o con protección de seguro de vida (+$497).</p>
+
+        <!-- Step 3: Recommendation -->
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-body">
+            <div class="step-header">
+              <span class="step-icon">✅</span>
+              <h3>Recibes tu recomendación</h3>
+            </div>
+            <p>Te decimos qué paquete es mejor para ti. Trust básico ($997) o con protección de seguro de vida (+$497).</p>
+          </div>
         </div>
-        <div class="step">
-          <h3>Compras en línea</h3>
-          <p>Pagas con tarjeta, OXXO o SPEI. Usamos Stripe — tu pago está 100% seguro.</p>
+
+        <!-- Step 4: Purchase -->
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <div class="step-body">
+            <div class="step-header">
+              <span class="step-icon">💳</span>
+              <h3>Compras en línea</h3>
+            </div>
+            <p>Pagas con tarjeta, OXXO o SPEI. Usamos Stripe — tu pago está 100% seguro.</p>
+          </div>
         </div>
-        <div class="step">
-          <h3>Documentos y notaría</h3>
-          <p>Recibes tus documentos en 24-48 horas. Agenda tu cita notarial en línea (15 minutos, notario bilingüe).</p>
+
+        <!-- Step 5: Documents & Notary -->
+        <div class="step-card">
+          <div class="step-number">5</div>
+          <div class="step-body">
+            <div class="step-header">
+              <span class="step-icon">📄</span>
+              <h3>Documentos y notaría</h3>
+            </div>
+            <p>Recibes tus documentos en 24-48 horas. Agenda tu cita notarial en línea (15 minutos, notario bilingüe).</p>
+          </div>
         </div>
-        <div class="step">
-          <h3>Trust activo y protegido</h3>
-          <p>Recibes tu EIN del IRS, tu trust está oficialmente activo. Accede a tu dashboard, tu curso y tu plataforma TrustOffice.</p>
+
+        <!-- Step 6: Trust Active -->
+        <div class="step-card step-card--success">
+          <div class="step-number">6</div>
+          <div class="step-body">
+            <div class="step-header">
+              <span class="step-icon">🎉</span>
+              <h3>Trust activo y protegido</h3>
+            </div>
+            <p>Recibes tu EIN del IRS, tu trust está oficialmente activo. Accede a tu dashboard, tu curso y tu plataforma TrustOffice.</p>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -85,8 +134,242 @@ const serviceSchema = {
           <p>Todo se hace desde tu celular o computadora. Nunca tienes que ir a una oficina.</p>
         </div>
       </div>
-      <a href="/evaluacion" class="btn btn-primary btn-lg" style="margin-top: 32px;">Comenzar ahora</a>
+      <a href="/evaluacion/" class="btn btn-primary btn-lg" style="margin-top: 32px;">Comenzar ahora</a>
     </div>
   </section>
 
 </BaseLayout>
+
+<style is:global>
+  /* === How It Works Page — Steps Timeline === */
+  .hero-steps {
+    background: linear-gradient(135deg, var(--dark, #0f0f1a) 0%, var(--teal-dark, #0d5c5f) 100%);
+    padding: 80px 20px 60px;
+    text-align: center;
+    color: var(--white, #fff);
+  }
+
+  .hero-steps-content {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .hero-steps-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 6px 16px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.15);
+    margin-bottom: 16px;
+  }
+
+  .hero-steps h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    color: var(--white, #fff);
+  }
+
+  .hero-steps-sub {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* Steps Timeline */
+  .steps-timeline {
+    max-width: 780px;
+    margin: 0 auto;
+    position: relative;
+    padding: 40px 0;
+  }
+
+  /* Connecting line */
+  .steps-timeline::before {
+    content: '';
+    position: absolute;
+    left: 28px;
+    top: 60px;
+    bottom: 60px;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--terracotta, #dd7054) 0%, var(--teal, #0d7377) 100%);
+    border-radius: 2px;
+    opacity: 0.3;
+  }
+
+  .step-card {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .step-number {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--cream, #f5f0e8);
+    border: 3px solid var(--teal, #0d7377);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--teal, #0d7377);
+    z-index: 1;
+    transition: all 0.2s;
+  }
+
+  .step-card:hover .step-number {
+    background: var(--teal, #0d7377);
+    color: white;
+    transform: scale(1.05);
+  }
+
+  .step-body {
+    flex: 1;
+    background: var(--white, #fff);
+    border: 1px solid var(--cream-dark, #e0d8c8);
+    border-radius: 12px;
+    padding: 24px 28px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .step-body:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .step-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  .step-header h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.2rem;
+    color: var(--dark, #0f0f1a);
+    margin: 0;
+    flex: 1;
+  }
+
+  .step-badge-required {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: var(--terracotta, #dd7054);
+    color: white;
+    white-space: nowrap;
+  }
+
+  .step-body p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text-body, #4a4a5a);
+    margin-bottom: 0;
+  }
+
+  /* Step 1 — Required variant */
+  .step-card--required .step-number {
+    background: var(--terracotta-light, #fdf0ec);
+    border-color: var(--terracotta, #dd7054);
+    color: var(--terracotta, #dd7054);
+  }
+
+  .step-card--required .step-body {
+    border-left: 4px solid var(--terracotta, #dd7054);
+  }
+
+  .step-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+
+  .step-phone {
+    font-size: 0.85rem;
+    color: var(--text-muted, #8a8a9a);
+  }
+
+  .step-phone a {
+    color: var(--terracotta, #dd7054);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .step-note {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--cream-dark, #e0d8c8);
+    font-size: 0.85rem;
+    color: var(--text-muted, #8a8a9a);
+  }
+
+  /* Step 6 — Success variant */
+  .step-card--success .step-number {
+    background: var(--teal-light, #e8f5f5);
+    border-color: var(--teal, #0d7377);
+    color: var(--teal, #0d7377);
+  }
+
+  .step-card--success .step-body {
+    border-left: 4px solid var(--teal, #0d7377);
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .hero-steps {
+      padding: 60px 20px 40px;
+    }
+    .hero-steps h1 {
+      font-size: 2rem;
+    }
+    .hero-steps-sub {
+      font-size: 1rem;
+    }
+    .steps-timeline {
+      padding: 24px 0;
+    }
+    .steps-timeline::before {
+      left: 20px;
+    }
+    .step-card {
+      gap: 12px;
+    }
+    .step-number {
+      width: 40px;
+      height: 40px;
+      font-size: 1rem;
+    }
+    .step-body {
+      padding: 16px 18px;
+    }
+    .step-header h3 {
+      font-size: 1.05rem;
+    }
+    .step-actions {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  }
+</style>

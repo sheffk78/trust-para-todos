@@ -16,7 +16,9 @@ const OG_IMAGE = `${SITE_URL}/${ogImage ?? 'og-image.png'}`;
 
 // Determine canonical URL — use provided path or fall back to current URL path
 const path = canonicalPath ?? Astro.url.pathname;
-const canonicalURL = new URL(path, SITE_URL).href;
+// Ensure trailing slash on canonical URL (matching trailingSlash: 'always' config)
+const normalizedPath = path === '/' ? path : (path.endsWith('/') ? path : path + '/');
+const canonicalURL = new URL(normalizedPath, SITE_URL).href;
 
 const ogType = path === '/' ? 'website' : 'article';
 
@@ -117,11 +119,11 @@ import '../styles/global.css';
           <span class="logo-text">Trust Para Todos</span>
         </a>
         <div class="nav-links">
-          <a href="/que-es">¿Qué es?</a>
-          <a href="/como-funciona">Cómo funciona</a>
-          <a href="/blog">Blog</a>
-          <a href="/preguntas-frecuentes">FAQ</a>
-          <a href="/evaluacion" class="btn btn-primary btn-sm">Tu evaluación</a>
+          <a href="/que-es/">¿Qué es?</a>
+          <a href="/como-funciona/">Cómo funciona</a>
+          <a href="/blog/">Blog</a>
+          <a href="/preguntas-frecuentes/">FAQ</a>
+          <a href="/evaluacion/" class="btn btn-primary btn-sm">Tu evaluación</a>
           <div class="nav-search">
             <button class="nav-search-btn" id="nav-search-btn" aria-label="Buscar">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -158,23 +160,23 @@ import '../styles/global.css';
         </div>
         <div>
           <h4>Enlaces</h4>
-          <a href="/que-es">¿Qué es un trust?</a>
-          <a href="/como-funciona">Cómo funciona</a>
-          <a href="/blog">Blog</a>
-          <a href="/preguntas-frecuentes">Preguntas frecuentes</a>
-          <a href="/contacto">Contacto</a>
+          <a href="/que-es/">¿Qué es un trust?</a>
+          <a href="/como-funciona/">Cómo funciona</a>
+          <a href="/blog/">Blog</a>
+          <a href="/preguntas-frecuentes/">Preguntas frecuentes</a>
+          <a href="/contacto/">Contacto</a>
         </div>
         <div>
           <h4>Recursos</h4>
-          <a href="/testimonios">Testimonios</a>
-          <a href="/asociaciones">Asociaciones</a>
-          <a href="/legal">Aviso legal</a>
+          <a href="/testimonios/">Testimonios</a>
+          <a href="/asociaciones/">Asociaciones</a>
+          <a href="/legal/">Aviso legal</a>
         </div>
         <div>
           <h4>Contacto</h4>
           <!-- TODO: Replace with real WhatsApp number -->
           <a href="https://wa.me/18001234567" class="whatsapp-link">WhatsApp: ¡Escríbenos!</a>
-          <a href="/contacto">Formulario de contacto</a>
+          <a href="/contacto/">Formulario de contacto</a>
         </div>
       </div>
       <div class="footer-bottom">
@@ -195,7 +197,7 @@ import '../styles/global.css';
 
     <!-- #2: Cookie banner (CRITICAL) -->
     <div class="cookie-banner" id="cookie-banner">
-      <p class="cookie-text">Usamos cookies para mejorar tu experiencia y analizar el tráfico. <a href="/legal">Más información</a>.</p>
+      <p class="cookie-text">Usamos cookies para mejorar tu experiencia y analizar el tráfico. <a href="/legal/">Más información</a>.</p>
       <div class="cookie-buttons">
         <button class="cookie-btn cookie-accept" id="cookie-accept">Aceptar</button>
         <button class="cookie-btn cookie-decline" id="cookie-decline">Solo esenciales</button>
@@ -395,22 +397,22 @@ import '../styles/global.css';
         var results = document.getElementById('nav-search-results');
         if (!btn || !dropdown || !input || !results) return;
         var pages = [
-          { title: '¿Qué es un trust?', url: '/que-es', keywords: 'que es trust fideicomiso revocable' },
-          { title: 'Cómo funciona', url: '/como-funciona', keywords: 'como funciona proceso pasos' },
-          { title: 'Blog', url: '/blog', keywords: 'blog articulos guias' },
-          { title: 'Preguntas frecuentes', url: '/preguntas-frecuentes', keywords: 'faq preguntas frecuentes dudas' },
-          { title: 'Tu evaluación gratuita', url: '/evaluacion', keywords: 'evaluacion gratuita cuestionario test' },
-          { title: 'Contacto', url: '/contacto', keywords: 'contacto contacto email whatsapp' },
-          { title: 'Aviso legal', url: '/legal', keywords: 'legal aviso privacidad terminos' },
-          { title: 'Testimonios', url: '/testimonios', keywords: 'testimonios reseñas opiniones' },
-          { title: '¿Qué es un trust revocable?', url: '/blog/que-es-trust-revocable', keywords: 'trust revocable que es' },
-          { title: 'Trust vs testamento', url: '/blog/trust-vs-testamento', keywords: 'trust testamento diferencia' },
-          { title: '¿Cuánto cuesta un fideicomiso?', url: '/blog/cuanto-cuesta-fideicomiso', keywords: 'costo precio fideicomiso trust' },
-          { title: 'Seguro de vida y trust', url: '/blog/seguro-vida-trust', keywords: 'seguro vida trust proteccion' },
-          { title: 'Cómo crear un trust online', url: '/blog/como-crear-trust-online', keywords: 'crear trust online digital' },
-          { title: 'Fideicomiso revocable vs irrevocable', url: '/blog/fideicomiso-revocable-vs-irrevocable', keywords: 'revocable irrevocable diferencia' },
-          { title: '¿Necesito un abogado para un trust?', url: '/blog/necesito-abogado-trust', keywords: 'abogado trust necesario' },
-          { title: '¿Qué es probate y cómo evitarlo?', url: '/blog/que-es-probate-como-evitarlo', keywords: 'probate evitar sucesion' },
+          { title: '¿Qué es un trust?', url: '/que-es/', keywords: 'que es trust fideicomiso revocable' },
+          { title: 'Cómo funciona', url: '/como-funciona/', keywords: 'como funciona proceso pasos' },
+          { title: 'Blog', url: '/blog/', keywords: 'blog articulos guias' },
+          { title: 'Preguntas frecuentes', url: '/preguntas-frecuentes/', keywords: 'faq preguntas frecuentes dudas' },
+          { title: 'Tu evaluación gratuita', url: '/evaluacion/', keywords: 'evaluacion gratuita cuestionario test' },
+          { title: 'Contacto', url: '/contacto/', keywords: 'contacto contacto email whatsapp' },
+          { title: 'Aviso legal', url: '/legal/', keywords: 'legal aviso privacidad terminos' },
+          { title: 'Testimonios', url: '/testimonios/', keywords: 'testimonios reseñas opiniones' },
+          { title: '¿Qué es un trust revocable?', url: '/blog/que-es-trust-revocable/', keywords: 'trust revocable que es' },
+          { title: 'Trust vs testamento', url: '/blog/trust-vs-testamento/', keywords: 'trust testamento diferencia' },
+          { title: '¿Cuánto cuesta un fideicomiso?', url: '/blog/cuanto-cuesta-fideicomiso/', keywords: 'costo precio fideicomiso trust' },
+          { title: 'Seguro de vida y trust', url: '/blog/seguro-vida-trust/', keywords: 'seguro vida trust proteccion' },
+          { title: 'Cómo crear un trust online', url: '/blog/como-crear-trust-online/', keywords: 'crear trust online digital' },
+          { title: 'Fideicomiso revocable vs irrevocable', url: '/blog/fideicomiso-revocable-vs-irrevocable/', keywords: 'revocable irrevocable diferencia' },
+          { title: '¿Necesito un abogado para un trust?', url: '/blog/necesito-abogado-trust/', keywords: 'abogado trust necesario' },
+          { title: '¿Qué es probate y cómo evitarlo?', url: '/blog/que-es-probate-como-evitarlo/', keywords: 'probate evitar sucesion' },
         ];
         btn.addEventListener('click', function() {
           dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';

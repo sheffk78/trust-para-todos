@@ -29,7 +29,7 @@ const formatDate = (d: string) => new Date(d).toLocaleDateString('es-ES', { year
 
       <div class="blog-grid">
         {articles.map((article) => (
-          <a href={`/blog/${article.slug}`} class="blog-card">
+          <a href={`/blog/${article.slug}/`} class="blog-card">
             <div class="blog-card-image">
               <img src={article.image} alt={article.title} loading="lazy" />
             </div>

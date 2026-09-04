@@ -142,11 +142,11 @@
       // Verdict
       var verdict = '';
       if (trustScore > willScore + 1) {
-        verdict = '<div class="verdict-card verdict-trust"><h3>✅ El trust es tu mejor opción</h3><p>Por tu situación, un trust protege mejor a tu familia y ahorra miles en probate.</p><a href="/evaluacion" class="btn btn-primary btn-lg">Haz tu evaluación gratuita →</a></div>';
+        verdict = '<div class="verdict-card verdict-trust"><h3>✅ El trust es tu mejor opción</h3><p>Por tu situación, un trust protege mejor a tu familia y ahorra miles en probate.</p><a href="/evaluacion/" class="btn btn-primary btn-lg">Haz tu evaluación gratuita →</a></div>';
       } else if (trustScore > willScore) {
-        verdict = '<div class="verdict-card verdict-maybe"><h3>🤔 El trust te conviene más</h3><p>Un trust tiene más ventajas para tu situación. Un testamento alone no es suficiente.</p><a href="/evaluacion" class="btn btn-primary btn-lg">Ver mi opción →</a></div>';
+        verdict = '<div class="verdict-card verdict-maybe"><h3>🤔 El trust te conviene más</h3><p>Un trust tiene más ventajas para tu situación. Un testamento alone no es suficiente.</p><a href="/evaluacion/" class="btn btn-primary btn-lg">Ver mi opción →</a></div>';
       } else if (willScore > 0) {
-        verdict = '<div class="verdict-card verdict-neutral"><h3>📝 Ambas opciones funcionan</h3><p>Tu situación es simple. Un testamento puede bastar por ahora, pero un trust da más protección.</p><a href="/evaluacion" class="btn btn-primary btn-lg">Confirmar mi situación →</a></div>';
+        verdict = '<div class="verdict-card verdict-neutral"><h3>📝 Ambas opciones funcionan</h3><p>Tu situación es simple. Un testamento puede bastar por ahora, pero un trust da más protección.</p><a href="/evaluacion/" class="btn btn-primary btn-lg">Confirmar mi situación →</a></div>';
       } else {
         verdict = '<p>Marca tu situación arriba para ver cuál te conviene.</p>';
       }

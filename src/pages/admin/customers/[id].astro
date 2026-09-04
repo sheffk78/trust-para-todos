@@ -132,7 +132,7 @@ const locale = getLocaleFromCookie(Astro.request.headers.get('cookie'));
     .error-state { text-align: center; padding: 60px; color: #991b1b; }
   </style>
 
-  <a href="/admin/customers" class="back-link" data-i18n="customer.back">{t('customer.back', locale)}</a>
+  <a href="/admin/customers/" class="back-link" data-i18n="customer.back">{t('customer.back', locale)}</a>
   <div id="loading" class="loading" data-i18n="customers.loading">{t('customers.loading', locale)}</div>
   <div id="error-state" class="error-state" style="display:none;"></div>
   <div id="detail-content" style="display:none;">

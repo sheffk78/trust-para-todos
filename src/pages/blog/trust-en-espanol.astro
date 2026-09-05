@@ -49,13 +49,29 @@ const faqSchema = {
         '@type': 'Answer',
         text: 'Con un servicio online en español como Trust Para Todos, el proceso toma entre 7 y 14 días desde que completas el cuestionario hasta que tienes los documentos notarizados. Con un abogado tradicional puede tardar de 4 a 8 semanas.'
       }
+    },
+    {
+      '@type': 'Question',
+      name: '¿El trust protege mis bienes de acreedores o demandas?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. Un trust revocable no protege tus bienes de acreedores durante tu vida. Si pierdes una demanda, un acreedor puede reclamar bienes que están en el trust como si estuvieran a tu nombre. Para protección contra demandas necesitarías un trust irrevocable, que es una herramienta distinta. El trust revocable sirve para evitar el probate y dar control sobre cómo se reparte tu herencia, no como escudo legal.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Soy no residente (sin Green Card). ¿El trust me ayuda con impuestos?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'El trust por sí solo no cambia tu clasificación fiscal. Si no eres ciudadano ni residente permanente, la exención de impuestos federales sobre herencia es de solo $60,000 (frente a $15 millones para ciudadanos). Esto significa que una casa de $400,000 podría generar impuestos significativos si no planificas. Un trust bien estructurado, combinado con seguro de vida y estrategias de transferencia, puede reducir ese impacto. Habla con nosotros sobre tu caso específico antes de decidir.'
+      }
     }
   ]
 };
 ---
 
 <BlogArticleLayout
-  title="Trust en Español: Guía para Familias"
+  title="Trust en Español: Guía Completa para Familias"
   description="Guía completa sobre trusts en español para familias mexicanas en EE.UU.: qué es, cómo funciona, cuánto cuesta y cómo proteger tu casa y tu patrimonio."
   canonicalPath="/blog/trust-en-espanol/"
   ogImage="og-blog.png"
@@ -222,6 +238,16 @@ const faqSchema = {
     <div class="faq-item">
       <h3>¿Cuánto tiempo toma crear un trust?</h3>
       <p>Con un servicio online en español como Trust Para Todos, el proceso toma entre 7 y 14 días desde que completas el cuestionario hasta que tienes los documentos notarizados. Con un abogado tradicional puede tardar de 4 a 8 semanas.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿El trust protege mis bienes de acreedores o demandas?</h3>
+      <p>No. Un trust revocable no protege tus bienes de acreedores durante tu vida. Si pierdes una demanda, un acreedor puede reclamar bienes que están en el trust como si estuvieran a tu nombre. Para protección contra demandas necesitarías un trust irrevocable, que es una herramienta distinta. El trust revocable sirve para evitar el probate y dar control sobre cómo se reparte tu herencia, no como escudo legal.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Soy no residente (sin Green Card). ¿El trust me ayuda con impuestos?</h3>
+      <p>El trust por sí solo no cambia tu clasificación fiscal. Si no eres ciudadano ni residente permanente, la exención de impuestos federales sobre herencia es de solo $60,000 (frente a $15 millones para ciudadanos). Esto significa que una casa de $400,000 podría generar impuestos significativos si no planificas. Un trust bien estructurado, combinado con seguro de vida y estrategias de transferencia, puede reducir ese impacto. Habla con nosotros sobre tu caso específico antes de decidir.</p>
     </div>
   </div>
 <TrustQuiz />

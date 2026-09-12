@@ -9,7 +9,7 @@ export interface BlogArticle {
 export const articles: BlogArticle[] = [
   {
     slug: 'que-es-trust-revocable',
-    title: '¿Qué es un trust revocable? Explicación completa en español',
+    title: '¿Qué es un trust revocable? Explicación en español',
     tag: 'Educacional',
     image: '/images/blog/01-hero-family-home.webp',
     related: [
@@ -97,7 +97,7 @@ export const articles: BlogArticle[] = [
   },
   {
     slug: 'trust-en-espanol',
-    title: 'Trust en español: guía completa para familias mexicanas',
+    title: 'Trust en español: guía para familias',
     tag: 'Educacional',
     image: '/images/blog/01-hero-family-home.webp',
     related: [

@@ -116,9 +116,13 @@ const formattedDate = date
     <!-- Hero image with title overlay -->
     <div class="blog-hero">
       <picture>
-        <source srcset={heroImage.replace(/\.jpg$/, '.webp')} type="image/webp" />
-        <source srcset={heroImage} type="image/jpeg" />
-        <img src={heroImage} alt={heroAlt} class="blog-hero-img" loading="eager" fetchpriority="high" width="1200" height="630" />
+        <source
+          type="image/webp"
+          srcSet={`${heroImage.replace(/\.(jpg|webp)$/, '')}-480w.webp 480w, ${heroImage.replace(/\.(jpg|webp)$/, '')}-768w.webp 768w, ${heroImage.replace(/\.jpg$/, '.webp')} 1200w`}
+          sizes="100vw"
+        />
+        <source srcset={heroImage.replace(/\.webp$/, '.jpg')} type="image/jpeg" />
+        <img src={heroImage.replace(/\.jpg$/, '.webp')} alt={heroAlt} class="blog-hero-img" loading="eager" fetchpriority="high" width="1200" height="630" />
       </picture>
       <div class="blog-hero-overlay">
         <a href="/blog/" class="blog-back-link">← Blog</a>
@@ -181,9 +185,12 @@ const formattedDate = date
               <a href={`/blog/${a.slug}/`} class="related-card">
                 <div class="related-card-image">
                   <picture>
-                    <source srcset={a.image.replace(/\.jpg$/, '.webp')} type="image/webp" />
-                    <source srcset={a.image} type="image/jpeg" />
-                    <img src={a.image} alt={a.title} loading="lazy" />
+                    <source
+                      type="image/webp"
+                      srcSet={`${a.image.replace(/\.webp$/, '')}-480w.webp`}
+                    />
+                    <source srcset={a.image} type="image/webp" />
+                    <img src={`${a.image.replace(/\.webp$/, '')}-480w.webp`} alt={a.title} loading="lazy" width="480" height="320" />
                   </picture>
                 </div>
                 <div class="related-card-body">

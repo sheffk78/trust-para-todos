@@ -1,0 +1,20 @@
+{
+  "source": "saved",
+  "recipe": {
+    "name": "Astro (trust-para-todos)",
+    "kind": "astro",
+    "bootstrap": [
+      "npm install"
+    ],
+    "build": [
+      "npm run build"
+    ],
+    "test": [],
+    "start": "npm run dev",
+    "port": 3000,
+    "readinessPath": "/",
+    "evidence": [
+      "astro.config.mjs sets server.port=3000"
+    ]
+  }
+}

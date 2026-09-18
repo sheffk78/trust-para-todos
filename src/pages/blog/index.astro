@@ -31,7 +31,7 @@ const formatDate = (d: string) => new Date(d).toLocaleDateString('es-ES', { year
         {articles.map((article) => (
           <a href={`/blog/${article.slug}/`} class="blog-card">
             <div class="blog-card-image">
-              <img src={article.image} alt={article.title} loading="lazy" />
+              <img src={`${article.image.replace(/\.webp$/, '')}-480w.webp`} alt={article.title} loading="lazy" width="480" height="320" />
             </div>
             <div class="blog-card-body">
               <span class="blog-card-tag">{article.tag}</span>

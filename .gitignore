@@ -17,3 +17,7 @@ backend/generated_documents/
 .dev.vars*
 !.dev.vars.example
 !.env.example
+
+# Workspace-injected files (not part of the site)
+AGENTS.md
+.hermes/

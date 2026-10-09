@@ -1,0 +1,143 @@
+---
+import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿El Estado puede quitarme la casa si voy a un asilo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Si Medicaid paga tu estancia en un asilo o cuidados a largo plazo, el estado puede recuperar ese dinero de tu patrimonio cuando falleces. Se llama recuperación de Medicaid . En muchos estados, la casa está dentro. Hay formas legales de proteger la casa, pero hay que entenderlas bien y depende de tu estado."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Un trust revocable protege mi casa de Medicaid?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Como tú puedes cancelar el trust cuando quieras, Medicaid cuenta la casa como si fuera tuya directa. El trust revocable evita el probate, que también es una protección importante, pero no es la herramienta para este caso."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo darle mi casa a mis hijos ahora mismo para protegerla?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cuidado. Regalar la casa antes de tiempo puede costar penalidades de Medicaid , o sea meses sin cobertura y te deja sin control: si te venden mal, te quedan mal los hijos, o se queda el hijo con deudas, la casa está en su nombre y no hay vuelta atrás. Hay formas de protegerla sin perder el control por completo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuándo hay que planear para Medicaid?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lo antes posible, idealmente 5 años antes de necesitar cuidados. Las transferencias de bienes hechas dentro de los 5 años previos  generan penalidades de Medicaid. Si ya estás cerca de necesitar cuidados, cada situación es distinta y conviene revisarla rápido pero con calma."
+      }
+    }
+  ]
+};
+---
+
+<BlogArticleLayout
+  title="Cómo Proteger Tu Casa de Medicaid"
+  description="¿El Estado puede quedarse tu casa si vas a un asilo? Cómo funciona la recuperación de Medicaid y qué caminos legales hay para proteger tu casa. En español."
+  canonicalPath="/blog/proteger-casa-medicaid/"
+  ogImage="og-blog-proteger-casa-medicaid.png"
+  heroImage="/images/blog/08-hero-family-property.webp"
+  heroAlt="Casa familiar protegida con documentos en la mesa"
+  date="2026-10-09"
+  readTime="8 min de lectura"
+  jsonLd={faqSchema}
+  relatedArticles={[{ slug: "fideicomiso-para-tu-casa", title: "Fideicomiso Para Tu Casa", tag: "Educacional", image: "/images/blog/01-hero-family-home.webp" }, { slug: "que-es-trust-revocable", title: "¿Qué es un Trust Revocable?", tag: "Educacional", image: "/images/blog/01-hero-family-home.webp" }, { slug: "fideicomiso-revocable-vs-irrevocable", title: "Revocable vs Irrevocable", tag: "Comparativa", image: "/images/blog/08-hero-family-property.webp" }]}
+>
+  <p>La pregunta que casi nadie hace hasta que ya es tarde: si Medicaid paga un asilo o cuidados a largo plazo para ti o para tu papá, ¿el Estado se queda con la casa? La respuesta corta es: <strong>puede intentar cobrarse de tu patrimonio cuando esa persona fallece,</strong> y en muchos estados la casa está dentro. Se llama recuperación de Medicaid y se planifica con años de anticipación, no con semanas.</p>
+  <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>La recuperación de Medicaid  puede cobrarse tu casa en muchos estados</li><li>El trust revocable NO protege de Medicaid — evita el probate, otra cosa distinta</li><li>El trust irrevocable sí puede proteger la casa, pero renuncias al control: se planifica con cuidado</li><li>Hay regla de 5 años : lo que se mueve dentro de ese periodo genera penalidades</li><li>La casa de una cónyuge con derechos suele estar protegida en gran parte mientras ella viva</li></ul></div>
+
+  <p>Aquí vas a entender los tres caminos reales que tiene una familia para proteger la casa, qué tan estricto es cada uno, y los errores del "solución mágica" que venden en la radio. Sin promesas raras: los que se quedan con tu dinero suelen vender humo.</p>
+
+  <h2>¿Qué es la recuperación de Medicaid?</h2>
+
+  <p>Medicaid es el programa público de salud para personas con recursos limitados. Cuando una persona mayor necesita un asilo o cuidados a largo plazo (en inglés, long-term care) y no puede pagarlos, Medicaid puede cubrir los gastos. Pero ese dinero pagado no se pierde para el Estado: cuando la persona fallece, el estado puede <GlossaryTerm term="recuperación de Medicaid" definition="Proceso donde el estado cobra del patrimonio de la persona fallecida lo que Medicaid gastó en sus cuidados. También se llama Medicaid Estate Recovery." /> y cobrarse lo que gastó del patrimonio de la persona.</p>
+
+  <p>Las reglas cambian por estado, y mucho:</p>
+
+  <ul>
+    <li><strong>California:</strong> después de cambios de 2017, la recuperación se limita en la mayoría de los casos al patrimonio que pasa por probate (con trust, la casa queda en gran parte fuera del alcance, más la protección conyugal). La casa de una esposa con derechos está protegida mientras ella viva.</li>
+    <li><strong>Texas y otros estados:</strong> el alcance es amplio e incluye más bienes, por eso la planeación hay que hacerla distinta según el estado.</li>
+    <li><strong>En casi todos los estados:</strong> si vive una esposa  o exesposa o un hijo menor o discapacitado, la recuperación se pospone hasta que esa persona también fallece. El estado no desaloja a la señora de 85 años de su casa mañana, pero puede esperar.</li>
+  </ul>
+
+  <h2>Lo primero: no confundas las dos protecciones</h2>
+
+  <p>Aquí es donde se enredan la mayoría de la gente y muchos vendedores. Hay dos problemas distintos y dos tools distintos:</p>
+
+  <ul>
+    <li><strong>El probate</strong> es el tribunal que reparte tu herencia cuando falleces  que tarda 6 a 18 meses y cuesta 4 a 8% del valor. Para esto sirve el <a href="/blog/que-es-trust-revocable/">trust revocable</a>.</li>
+    <li><strong>La recuperación de Medicaid</strong> es el Estado cobrándose gastos médicos de un patrimonio. Para esto el trust revocable no sirve de nada, porque la casa sigue contando como tuya.</li>
+  </ul>
+
+  <p>Los que venden "un trust lo resuelve todo" están mezclando los dos problemas. Y el que firma un trust revocable creyendo que su casa quedó protegida de Medicaid va a descubrir el error justo cuando más duele.</p>
+
+  <div class="callout-warning"><strong>⚠️ Importante:</strong> Trust revocable y proteccion de Medicaid son temas distintos. El revocable evita el probate. El irrevocable, hecho a tiempo y bien estructurado, es el que puede sacar la casa del alcance de la recuperación. Ninguno de los dos "lo resuelve todo".</div>
+
+  <h2>Los tres caminos reales</h2>
+
+  <p><strong>Camino 1: La protección conyugal  la casa se queda con la esposa o el esposo .</strong> En casi todos los estados, mientras viva el cónyuge de la persona que recibió cuidados, la casa está protegida o en gran parte protegida. La recuperación comienza si el cónyuge sobreviviente también fallece y recibe cuidados, y ahí la familia ya debería tener la segunda etapa planeada. Es el caso más común y el que mejor termina si se planifica a tiempo.</p>
+
+  <p><strong>Camino 2: Irrevocable con derechos de uso  el trust de protección de Medicaid .</strong> Es un trust donde tú renuncias a cancelarlo, pero puedes seguir viviendo en la casa y recibiendo las exenciones de impuestos (hay una que mantiene tus rebajas de propietario en la mayoría de los estados). Si se hace con al menos 5 años de anticipación a necesitar cuidados, la casa queda fuera del patrimonio alcanzable. El costo no es dinero, es control: no puedes venderla y disponer del dinero libremente, porque la casa ya no es tuya. Se hace cuando la casa es para "dejarla", no para moverla.</p>
+
+  <p><strong>Camino 3: Exenciones por familia  un hijo que cuidó a los padres, o transferencias exentas.</strong> Varios estados exoneran la recuperación cuando la casa pasa a un hijo que vivió con el padre/madre y lo cuidó durante años, o a ciertos familiares directos. Esto depende de cada estado y de los detalles exactos de convivencia y cuidado: hay que documentarlo bien.</p>
+
+  <picture>
+    <source srcset="/images/blog/inline-senior-woman-window.webp" type="image/webp" />
+    <source srcset="/images/blog/inline-senior-woman-window.jpg" type="image/jpeg" />
+    <img src="/images/blog/inline-senior-woman-window.webp" alt="Señora mayor mirando por la ventana de su casa desde hace décadas" width="800" height="533" loading="lazy" />
+  </picture>
+
+  <h2>La regla de los 5 años </h2>
+
+  <p>Cuando solicitas Medicaid, revisan las últimas 5 años de movimientos de bienes: ¿regalaste la casa? ¿la vendiste barata a tu hijo? ¿moviste dinero? Cualquier transferencia hecha en ese periodo genera una <GlossaryTerm term="penalidad de Medicaid" definition="Periodo durante el cual Medicaid no paga cuidados, calculado según el valor de lo que se regaló. No es una multa en dinero, es tiempo sin cobertura." /> proporcional a lo que se movió. Por eso la planeación va mejor cuando se empieza temprano, mientras todos están sanos: si la familia ya está en crisis, se necesita una estrategia distinta  y conviene hacerla rápido, con datos reales, no con consejos de vecino.</p>
+
+  <div class="callout-case"><p class="callout-case-title">📖 Ejemplo con números reales</p><p>Familia Delgado en Phoenix, Arizona. Doña María, 83 años, necesita asilo. La casa: $370,000. Su hijo había "resuelto" el problema pasando la cita al banco dos años antes... a nombre del nieto. Al aplicar a Medicaid, esa transferencia cae dentro del look-back: penalidad de meses sin cobertura, justo cuando más la necesitaban. Si se hubiera hecho el trust de protección 5 años antes, la casa quedaba protegida y la familia cobrando tranquilidad.</p></div>
+
+  <div class="inline-cta"><p>¿Tu casa tiene la protección correcta para tu edad y tu estado? Evalúa tu caso en 3 minutos.</p><a href="/evaluacion/" class="btn btn-primary">Comenzar evaluación →</a></div>
+  <EmailCapture />
+
+  <div class="faq-section">
+    <h2>Preguntas frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿El Estado puede quitarme la casa si voy a un asilo?</h3>
+      <p>Si Medicaid paga tu estancia en un asilo o cuidados a largo plazo, el estado puede recuperar ese dinero de tu patrimonio cuando falleces. Se llama recuperación de Medicaid (Medicaid Estate Recovery). En muchos estados, la casa está dentro. Hay formas legales de proteger la casa, pero hay que entenderlas bien y depende de tu estado.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Un trust revocable protege mi casa de Medicaid?</h3>
+      <p>No. Como tú puedes cancelar el trust cuando quieras, Medicaid cuenta la casa como si fuera tuya directa. El trust revocable evita el probate, que también es una protección importante, pero no es la herramienta para este caso.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Puedo darle mi casa a mis hijos ahora mismo para protegerla?</h3>
+      <p>Cuidado. Regalar la casa antes de tiempo puede costar penalidades de Medicaid (meses sin cobertura) y te deja sin control: si te venden mal, te quedan mal los hijos, o se queda el hijo con deudas, la casa está en su nombre y no hay vuelta atrás. Hay formas de protegerla sin perder el control por completo.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Cuándo hay que planear para Medicaid?</h3>
+      <p>Lo antes posible, idealmente 5 años antes de necesitar cuidados. Las transferencias de bienes hechas dentro de los 5 años previos generan penalidades de Medicaid. Si ya estás cerca de necesitar cuidados, cada situación es distinta y conviene revisarla rápido pero con calma.</p>
+    </div>
+  </div>
+
+  <h2>Conclusión: la pregunta no es "¿me lo van a quitar?", es "¿ya tengo la estructura correcta?"</h2>
+
+  <p>La casa familiar se construyó con décadas de trabajo, y el asilo puede cobrarse en meses lo que costó 30 años construir. La recuperación de Medicaid es real, pero es un problema con solución legal si se encara temprano y con la herramienta correcta para tu estado. Lo caro no es planear, es no planear.</p>
+
+  <p><a href="/evaluacion/">Agenda tu evaluación gratuita</a>. En 3 minutos conoces qué estructura necesita tu familia según tu estado, tu edad y tu casa. En español, sin compromiso.</p>
+<TrustQuiz />
+
+</BlogArticleLayout>

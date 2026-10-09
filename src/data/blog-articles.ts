@@ -8,6 +8,50 @@ export interface BlogArticle {
 
 export const articles: BlogArticle[] = [
   {
+    slug: 'fideicomiso-para-tu-casa',
+    title: 'Fideicomiso Para Tu Casa: la guía completa',
+    tag: 'Educacional',
+    image: '/images/blog/01-hero-family-home.webp',
+    related: [
+      { slug: 'trust-vs-testamento', title: 'Trust vs Testamento: ¿Cuál es Mejor?', tag: 'Comparativa', image: '/images/blog/04-hero-senior-couple.webp' },
+      { slug: 'proteger-casa-medicaid', title: 'Cómo Proteger Tu Casa de Medicaid', tag: 'Educacional', image: '/images/blog/08-hero-family-property.webp' },
+      { slug: 'que-es-probate-como-evitarlo', title: '¿Qué es el Probate?', tag: 'Educacional', image: '/images/blog/07-hero-courtroom.webp' }
+    ]
+  },
+  {
+    slug: 'fideicomiso-para-inmigrantes',
+    title: 'Fideicomiso Para Inmigrantes Sin Papeles',
+    tag: 'Educacional',
+    image: '/images/blog/03-hero-family-protection.webp',
+    related: [
+      { slug: 'trust-en-espanol', title: 'Trust en Español: Guía para Familias', tag: 'Educacional', image: '/images/blog/01-hero-family-home.webp' },
+      { slug: 'fideicomiso-para-tu-casa', title: 'Fideicomiso Para Tu Casa', tag: 'Educacional', image: '/images/blog/01-hero-family-home.webp' },
+      { slug: 'que-es-probate-como-evitarlo', title: '¿Qué es el Probate?', tag: 'Educacional', image: '/images/blog/07-hero-courtroom.webp' }
+    ]
+  },
+  {
+    slug: 'proteger-casa-medicaid',
+    title: 'Cómo Proteger Tu Casa de Medicaid',
+    tag: 'Educacional',
+    image: '/images/blog/08-hero-family-property.webp',
+    related: [
+      { slug: 'fideicomiso-para-tu-casa', title: 'Fideicomiso Para Tu Casa', tag: 'Educacional', image: '/images/blog/01-hero-family-home.webp' },
+      { slug: 'fideicomiso-revocable-vs-irrevocable', title: 'Revocable vs Irrevocable', tag: 'Comparativa', image: '/images/blog/08-hero-family-property.webp' },
+      { slug: 'que-es-trust-revocable', title: '¿Qué es un Trust Revocable?', tag: 'Educacional', image: '/images/blog/01-hero-family-home.webp' }
+    ]
+  },
+  {
+    slug: 'trust-online-sin-abogado',
+    title: 'Trust online: Paso a Paso para Crearlo',
+    tag: 'Guía',
+    image: '/images/blog/05-hero-financial-planning.webp',
+    related: [
+      { slug: 'como-crear-trust-online', title: 'Cómo Crear un Trust Online en Español', tag: 'Guía', image: '/images/blog/02-hero-documents.webp' },
+      { slug: 'fideicomiso-para-tu-casa', title: 'Fideicomiso Para Tu Casa', tag: 'Educacional', image: '/images/blog/01-hero-family-home.webp' },
+      { slug: 'necesito-abogado-trust', title: '¿Necesitas un Abogado para un Trust?', tag: 'Decisiones', image: '/images/blog/06-hero-consultation.webp' }
+    ]
+  },
+  {
     slug: 'que-es-trust-revocable',
     title: '¿Qué es un trust revocable? Explicación en español',
     tag: 'Educacional',

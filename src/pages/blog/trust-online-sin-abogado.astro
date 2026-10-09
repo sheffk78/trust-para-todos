@@ -1,0 +1,134 @@
+---
+import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Es legal crear un trust online sin abogado?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. En todos los estados puedes crear tu trust sin contratar abogado. Lo que la ley exige es que el documento cumpla los requisitos de tu estado y que las firmas se hagan correctamente. Trust Para Todos prepara el documento cumpliendo esas reglas y te guía paso a paso con la escritura de tu casa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tarda crear un trust online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El cuestionario toma unos 15 minutos y el trust queda listo en pocos días. El paso que toma más tiempo suele ser la escritura de la casa ante notario, y ese normalmente se resuelve en una o dos semanas. Contando todo, la mayoría de nuestras familias terminan en menos de un mes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Un trust online es válido igual que uno de abogado?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, si cumple los requisitos de tu estado. La validez no depende de quién lo redactó sino de que esté bien hecho: nombres correctos, bienes transferidos con escritura y firmas correctas. Nuestro equipo revisa cada documento con esos requisitos antes de que firmes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué pasa si compré casa y no hago el trust?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tu familia entra al probate: un juez decide quién recibe la casa, el proceso es público y en la mayoría de los estados cuesta entre 4 y 8% del valor. En California eso puede ser más de $20,000 y más de un año de trámites. Con el trust, la casa pasa directo según tus instrucciones."
+      }
+    }
+  ]
+};
+---
+
+<BlogArticleLayout
+  title="Trust online: Paso a Paso para Crearlo"
+  description="Cómo crear un trust online en Estados Unidos sin abogado. Qué necesitas, cuánto tarda, cuánto cuesta y los errores que debe evitar. Guía en español."
+  canonicalPath="/blog/trust-online-sin-abogado/"
+  ogImage="og-blog-trust-online-sin-abogado.png"
+  heroImage="/images/blog/05-hero-financial-planning.webp"
+  heroAlt="Familia planeando sus finanzas desde casa"
+  date="2026-10-09"
+  readTime="8 min de lectura"
+  jsonLd={faqSchema}
+  relatedArticles={[{ slug: "como-crear-trust-online", title: "Cómo Crear un Trust Online en Español", tag: "Guía", image: "/images/blog/02-hero-documents.webp" }, { slug: "fideicomiso-para-tu-casa", title: "Fideicomiso Para Tu Casa", tag: "Educacional", image: "/images/blog/01-hero-family-home.webp" }, { slug: "necesito-abogado-trust", title: "¿Necesitas un Abogado para un Trust?", tag: "Decisiones", image: "/images/blog/06-hero-consultation.webp" }]}
+>
+  <p>Crear un trust ya no requiere oficinas, abogados por hora ni citas de tres semanas. Ahora se puede hacer online, en español y desde la mesa de tu cocina. Te muestro exactamente cómo es el proceso, qué necesitas tener a mano y donde la gente se equivoca.</p>
+  <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>Crear un trust online es legal en todos los estados. Lo que importa es cumplir los requisitos, no quién lo redacta</li><li>El proceso son 4 pasos: evaluación, datos, firma y escritura de la casa</li><li>El error #1 es firmar el trust y no pasar la casa a su titularidad: un trust vacío no evita el probate</li><li>Con Trust Para Todos son $997 completos. El probate de una casa puede costar $20,000+</li><li>Tiempo real: menos de un mes de principio a fin</li></ul></div>
+
+  <h2>¿Qué es un trust online?</h2>
+
+  <p>Es lo mismo que un trust tradicional, pero hecho a través de una plataforma como la nuestra en lugar de en la oficina de un abogado. Tú contestas preguntas en español sobre tu familia y tus bienes, el sistema prepara el documento legal según tu estado, y tú lo firmas con testigos o notario. El <GlossaryTerm term="trust revocable" definition="Fideicomiso en vida que puedes modificar o cancelar cuando quieras mientras estés consciente. Es el más usado para proteger la casa familiar." /> es el tipo que la gran mayoría de las familias necesita, y es el que preparamos.</p>
+
+  <p>Importante: <strong>crear el trust es solo el primer paso.</strong> El segundo, no menos importante, es pasar tus bienes al trust. La casa se transfiere con una <GlossaryTerm term="escritura de fideicomiso" definition="Documento notarial que cambia el titular de la casa del nombre personal al nombre del trust. Se registra en el condado para que sea oficial." /> firmada ante notario. Un trust sin la casa adentro es como una caja fuerte vacía.</p>
+
+  <h2>Cómo crearlo paso a paso</h2>
+
+  <p><strong>Paso 1: Evaluación.</strong> Antes de pagar un peso, contestas unas preguntas de 3 minutos sobre tu familia, tu casa y tus bienes. Es gratis y sin compromiso: si un trust no te conviene en tu situación, te lo decimos. Nosotros preferimos perder una venta antes que vender algo que la familia no necesita.</p>
+
+  <p><strong>Paso 2: Tus datos.</strong> Beneficiarios, porcentajes para cada uno, el administrador del trust (sucesor trustee) y quién firma. Aquí es donde vale la pena sentarse con calma y pensar en escenarios: ¿y si tu beneficiario principal no puede recibir? ¿y si tú y tu esposa reciben algo a la vez? El documento lo cubre todo, pero todo lo que se escribe es lo que vale.</p>
+
+  <p><strong>Paso 3: Firmas y notario.</strong> Recibes el documento listo para firmar según los requisitos de tu estado. Muchos estados aceptan firma ante notario sin salir de casa. Si tu estado exige testigos, te lo explicamos antes.</p>
+
+  <p><strong>Paso 4: La escritura de la casa.</strong> Firmas la transferencia de la escritura al nombre del trust, ante notario, y se registra en el condado. Es el paso que convierte el trust en protección real.</p>
+
+  <picture>
+    <source srcset="/images/blog/inline-family-park.webp" type="image/webp" />
+    <source srcset="/images/blog/inline-family-park.jpg" type="image/jpeg" />
+    <img src="/images/blog/inline-family-park.webp" alt="Familia hispana relajada en el parque tras terminar sus trámites" width="800" height="533" loading="lazy" />
+  </picture>
+
+  <div class="callout-tip"><strong>✔️ Tip:</strong> Guarda una copia del trust y de la escritura en la carpeta de documentos importantes de la casa, y dile a tu administrador donde está. La familia que encuentra el trust a tiempo no pierde meses buscándolo.</div>
+
+  <h2>¿Es válido, de verdad?</h2>
+
+  <p>Sí, si cumple los requisitos. Un trust no es válido por haberlo firmado un abogado, es válido por estar bien hecho: nombres correctos, bienes transferidos con escritura registrada, firmas de acuerdo con tu estado. Hay trusts de $3,000 hechos con abogado que quedan vacíos porque nadie traspasó la casa, y trusts online de $997 que evitan el probate porque sí se hizo la escritura. Lo que protege es la estructura completa, no el precio.</p>
+
+  <h2>En comparación: tus tres opciones</h2>
+
+  <ul>
+    <li><strong>Trust Para Todos (online, guiado):</strong> $997 con todo, en español, acompañamiento por WhatsApp, escritura de la casa incluida. La mayoría termina en menos de un mes.</li>
+    <li><strong>Abogado tradicional:</strong> $1,500 a $5,000, el documento bien hecho pero con citas en oficina y cobro por hora cada vez que quieres cambiar algo.</li>
+    <li><strong>Plantillas gratis de internet:</strong> el riesgo está en los detalles. Si el documento no cumple tu estado o nadie te guía con la escritura, terminas con un trust que no protege nada. Y no te enteras hasta que la familia lo necesita.</li>
+  </ul>
+
+  <div class="callout-case"><p class="callout-case-title">📖 Las dos familias que hicieron todo distinto</p><p>Dos vecinos en Modesto, California. Casas parecidas, de unos $430,000. La familia Vega hizo su trust online en 3 semanas, con la escritura registrada. La familia Cortez dijo "ya lo haremos el año que viene". Don Cortez falleció en enero. Su familia entró al probate: 15 meses, $27,000 en honorarios, la casa congelada. Los Vega tienen su trust listo si algún día les toca. Mismo vecindario, destino diferente por una decisión de $997.</p></div>
+
+  <div class="inline-cta"><p>Hazlo esta semana, no el año que viene. Tu evaluación es gratuita y toma 3 minutos.</p><a href="/evaluacion/" class="btn btn-primary">Comenzar evaluación →</a></div>
+  <EmailCapture />
+
+  <div class="faq-section">
+    <h2>Preguntas frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Es legal crear un trust online sin abogado?</h3>
+      <p>Sí. En todos los estados puedes crear tu trust sin contratar abogado. Lo que la ley exige es que el documento cumpla los requisitos de tu estado y que las firmas se hagan correctamente. Trust Para Todos prepara el documento cumpliendo esas reglas y te guía paso a paso con la escritura de tu casa.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Cuánto tarda crear un trust online?</h3>
+      <p>El cuestionario toma unos 15 minutos y el trust queda listo en pocos días. El paso que toma más tiempo suele ser la escritura de la casa ante notario, y ese normalmente se resuelve en una o dos semanas. Contando todo, la mayoría de nuestras familias terminan en menos de un mes.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Un trust online es válido igual que uno de abogado?</h3>
+      <p>Sí, si cumple los requisitos de tu estado. La validez no depende de quién lo redactó sino de que esté bien hecho: nombres correctos, bienes transferidos con escritura y firmas correctas. Nuestro equipo revisa cada documento con esos requisitos antes de que firmes.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Qué pasa si compré casa y no hago el trust?</h3>
+      <p>Tu familia entra al probate: un juez decide quién recibe la casa, el proceso es público y en la mayoría de los estados cuesta entre 4 y 8% del valor. En California eso puede ser más de $20,000 y más de un año de trámites. Con el trust, la casa pasa directo según tus instrucciones.</p>
+    </div>
+  </div>
+
+  <h2>Conclusión: un trust es la decisión más barata que cambiará más la vida de tu familia</h2>
+
+  <p>Puedes seguir posponiéndolo, como la mayoría. O puedes terminar con esto este mes, sabiendo que tu casa va a parar a las manos correctas sin tribunales. El proceso online existe justo para quitar las excusas: sin citas, sin inglés obligatorio, sin $3,000 de entrada.</p>
+
+  <p><a href="/evaluacion/">Comienza con tu evaluación gratuita</a>. Son 3 minutos. Y si después quieres hablar con nosotros, te atendemos por WhatsApp en español.</p>
+<TrustQuiz />
+
+</BlogArticleLayout>

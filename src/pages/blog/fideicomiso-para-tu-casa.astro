@@ -1,0 +1,163 @@
+---
+import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Puedo poner mi casa en un fideicomiso sin pagar impuestos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En la mayoría de los casos, sí. Transferir tu casa a un trust revocable donde tú sigues siendo el dueño y quien controla todo normalmente no causa impuestos por la venta ni cambia tu valuación fiscal. La mayoría de los estados tienen exclusiones para este tipo de transferencia. De todos modos, verifica las reglas de tu condado antes de firmar la escritura."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo vender o refinanciar la casa si está en el trust?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. La casa sigue siendo tuya en todo sentido práctico: tú firmas como responsable del trust, cobras el dinero de la venta y puedes comprar otra propiedad. Para refinanciar, algunos prestamistas piden sacar primero la casa del trust, completar el trámite y regresarla después. Es fastidioso pero normal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿El fideicomiso protege mi casa si me demandan o si me voy a un asilo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, y quien te diga lo contrario te está vendiendo humo. Un trust revocable evita el probate, no evita demandas ni deudas ni la recuperación de Medicaid. Para esos casos existen otras herramientas que dependen de tu situación."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto cuesta un fideicomiso para mi casa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Con Trust Para Todos, un trust completo cuesta $997, todo incluido. Un abogado tradicional cobra entre $1,500 y $5,000 por algo similar. Y lo que realmente hay que comparar es el costo de no hacerlo: el probate de una casa de $500,000 puede costar más de $20,000 en honorarios y tardar más de un año."
+      }
+    }
+  ]
+};
+---
+
+<BlogArticleLayout
+  title="Cómo Proteger Tu Casa con un Fideicomiso"
+  description="¿Para qué sirve un fideicomiso para tu casa? Evita el probate, deja tu casa directo a tu familia y mantén el control total. Guía completa en español."
+  canonicalPath="/blog/fideicomiso-para-tu-casa/"
+  ogImage="og-blog-fideicomiso-para-tu-casa.png"
+  heroImage="/images/blog/01-hero-family-home.webp"
+  heroAlt="Casa familiar hispana con jardín al frente"
+  date="2026-10-09"
+  readTime="7 min de lectura"
+  jsonLd={faqSchema}
+  relatedArticles={[{ slug: "trust-vs-testamento", title: "Trust vs Testamento: ¿Cuál es Mejor?", tag: "Comparativa", image: "/images/blog/04-hero-senior-couple.webp" }, { slug: "que-es-probate-como-evitarlo", title: "¿Qué es el Probate?", tag: "Educacional", image: "/images/blog/07-hero-courtroom.webp" }, { slug: "fideicomiso-revocable-vs-irrevocable", title: "Revocable vs Irrevocable", tag: "Comparativa", image: "/images/blog/08-hero-family-property.webp" }]}
+>
+  <p>¿Y si pudieras dejar tu casa por escrito, a las personas correctas, sin jueces, sin tribunales y sin que la familia pelee? Eso, básicamente, es un fideicomiso para tu casa. Es el documento que la mayoría de las familias hispanas que llegan a nosotros pide primero, porque casi siempre hay una casa en el centro de todo: la que compraron trabajando años, a veces entre dos o tres trabajos a la vez.</p>
+  <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>Un fideicomiso (trust revocable) evita el probate de tu casa; un testamento no</li><li>Tú mantienes el control total: puedes vender, refinanciar o deshacerlo cuando quieras</li><li>La transferencia se hace con una escritura firmada ante notario, no ante un juez</li><li>No protege de demandas ni deudas (eso es otro tipo de trust, y no sirve para todo)</li><li>El error #1 es hacer el trust y nunca pasar la casa a su titularidad: un trust vacío no evita nada</li></ul></div>
+
+  <p>En esta guía te explico cómo funciona el fideicomiso de una casa en Estados Unidos, qué pasos son, lo que sí puede hacer y lo que no (porque hay mucha información confusa en internet, y parte viene de vendedores que exageran lo que un trust revocable puede proteger). Voy directo.</p>
+
+  <h2>¿Qué es un fideicomiso para tu casa?</h2>
+
+  <p>Es un documento legal que le dice al condado, al banco y a tu familia quién recibe tu casa cuando tú faltes, sin pasar por el tribunal. Se llama <GlossaryTerm term="trust revocable" definition="Fideicomiso en vida que puedes modificar o cancelar cuando quieras mientras estés consciente. Es el más usado para proteger la casa familiar." /> (living trust) y se firma en vida, mientras tú estás bien y de buen ánimo.</p>
+
+  <p>Dentro del documento hay tres papeles, y los tres casi siempre son tuyos al principio:</p>
+
+  <ul>
+    <li><strong>El dueño del trust:</strong> tú. Pones la casa dentro y la puedes sacar si algún día cambias de opinión.</li>
+    <li><strong>El administrador (trustee):</strong> también tú, mientras vivas. Puedes vender, rentar, refinanciar, lo mismo que hacías antes. Nada cambia en tu vida diaria.</li>
+    <li><strong>Los beneficiarios:</strong> tu familia. Reciben la casa directo, sin tribunal, cuando faltes.</li>
+  </ul>
+
+  <p>Y nombras un <GlossaryTerm term="sucesor trustee" definition="La persona o institución que administra el trust cuando el dueño original ya no puede o fallece. Debe ser alguien de confianza." />, la persona que administrará todo cuando tú ya no puedas. Puede ser un hijo adulto, un hermano lejano, alguien de verdad confiable. Este detalle se olvida con frecuencia y es el que más dolores de cabeza evita después.</p>
+
+  <p><a href="/blog/que-es-trust-revocable/">Aquí tienes la explicación completa de cómo funciona un trust revocable</a> por si quieres entrar a más detalle antes de seguir.</p>
+
+  <h2>Lo que un fideicomiso sí hace por tu casa</h2>
+
+  <p><strong>Evita el probate.</strong> Ese es el trabajo grande. El <GlossaryTerm term="probate" definition="Proceso judicial donde un juez valida tu testamento, paga deudas y reparte tus bienes. Es público, tarda de 6 a 18 meses y cuesta porcentajes del patrimonio." /> cuesta en la mayoría de los estados entre 4 y 8% del valor de los bienes, y esa comisión se calcula sobre el valor bruto de la casa, no sobre lo que te falta de pagar la hipoteca. Una casa de $500,000 puede generar más de $20,000 en honorarios legales en California, más los costos del tribunal, más los meses (o años) de espera.</p>
+
+  <p><strong>Evita que la casa quede atascada si tus beneficiarios están en otro país.</strong> Esto se subestima mucho. Un hijo que vive en México o Guatemala heredando por probate en Estados Unidos tiene que lidiar con un proceso judicial en inglés, avances lentos en los tribunales, y en muchos casos una fianza adicional exigida a los herederos que viven fuera del país. Con trust, nada de eso.</p>
+
+  <p><strong>Mantiene todo en privado.</strong> El probate es público: cualquiera puede ir al tribunal y ver exactamente qué tenías y a quién le dejaste qué. El trust no. Para muchas familias eso pesa más que el dinero.</p>
+
+  <h2>Lo que NO hace (y mejor te enteras hoy)</h2>
+
+  <p><strong>No te protege de demandas ni de deudas.</strong> Mientras el trust sea revocable y tú seas el dueño, cualquier acreedor puede llegar a la casa igual que antes. El trust solo se preocupa de la sucesión, no de esconderte de nadie.</p>
+
+  <p><strong>No te ahorra impuestos de propiedad ni de renta.</strong> Si escuchaste que un trust "reduce tus impuestos", eso aplica a estructuras de negocios grandes, no a la casa familiar. Lo que sí evita son los costos del probate, que en la práctica son un impuesto por no haber planeado.</p>
+
+  <p><strong>No protege la casa de la recuperación de Medicaid.</strong> Ese es un tema aparte, importante si alguien en la familia va a necesitar un asilo de cuidados a largo plazo. <a href="/blog/proteger-casa-medicaid/">Aquí lo tratamos completo</a>.</p>
+
+  <div class="callout-warning"><strong>⚠️ Importante:</strong> Un trust revocable evita el probate. No evita demandas, no evita impuestos de venta, no evita la recuperación de Medicaid. Si alguien te promete las tres cosas con el mismo documento, camina hacia la puerta.</div>
+
+  <h2>Cómo funciona, paso a paso</h2>
+
+  <p>El proceso tiene cuatro pasos y todos se pueden hacer sin salir de casa:</p>
+
+  <ul>
+    <li><strong>Paso 1: Decides quiénes y en qué orden.</strong> Beneficiarios, porcentajes, y quién es el sucesor si tu primera opción no puede. Aquí es donde las familias hispanas necesitamos platicarlo bien: ¿la casa va completa al hijo mayor? ¿entre los tres hijos? ¿le dejas el uso a tu mamá primero y la casa después a los nietos? El documento lo puede hacer todo, pero todo lo tiene que estar escrito.</li>
+    <li><strong>Paso 2: Firmas el trust.</strong> Con identificación vigente, ante las firmas que pide tu estado. Muchos estados aceptan que te lo den ante notario sin salir de casa.</li>
+    <li><strong>Paso 3: Pasas la escritura de la casa al trust.</strong> Se firma una <GlossaryTerm term="escritura de fideicomiso" definition="Documento notarial que cambia el titular de la casa del nombre personal al nombre del trust. Se registra en el condado para que sea oficial." /> ante notario y se registra en la oficina del condado donde vive la casa. Ojo: hay familias que quedan exentas del impuesto de traspaso por esta transferencia, pero conviene preguntar en tu condado.</li>
+    <li><strong>Paso 4: Actualizas lo demás.</strong> Cuentas bancarias grandes, seguro de vida con beneficiario designado, y el testamento de respaldo que recoge lo que se te escapó.</li>
+  </ul>
+
+  <picture>
+    <source srcset="/images/blog/inline-family-kitchen.webp" type="image/webp" />
+    <source srcset="/images/blog/inline-family-kitchen.jpg" type="image/jpeg" />
+    <img src="/images/blog/inline-family-kitchen.webp" alt="Familia hispana revisando documentos de su casa en la mesa de la cocina" width="800" height="533" loading="lazy" />
+  </picture>
+
+  <p>Más o menos tres semanas, de principio a fin, si la familia trae sus documentos a tiempo. Y una vez que las escrituras están registradas, tu casa ya está dentro del trust y ya no hay nada que hacer cada año. Se revisa cuando cambian las cosas: nace un nieto, se vende una propiedad, alguien fallece.</p>
+
+  <div class="callout-case"><p class="callout-case-title">📖 Ejemplo real de cómo quedan los números</p><p>Familia Herrera en San Bernardino, California. Casa de $520,000, solo con testamento escrito a mano. Cuando don Ernesto falleció, sus tres hijos entraron al probate: 14 meses, $24,000 en honorarios entre comisiones y costos del tribunal, y un mes peleado entre hermanos por la casa. Si hubieran firmado el trust a tiempo: la casa trasladada en semanas y cero tribunales. $997 contra $24,000.</p></div>
+
+  <h2>¿Cuánto cuesta?</h2>
+
+  <p>Tres caminos, tres precios:</p>
+
+  <ul>
+    <li><strong>Trust Para Todos:</strong> $997, completo, con las escrituras, guía en español y acompañamiento de principio a fin. Sin citas en oficina, sin cobros por teléfono.</li>
+    <li><strong>Abogado tradicional:</strong> entre $1,500 y $5,000 en la mayoría de los estados, a veces más si la propiedad es grande. Bien hecho, pero cuesta y tarda.</li>
+    <li><strong>No hacerlo (probate mañana):</strong> entre 4 y 8% del patrimonio en la mayoría de los estados, con mínimo de 9 a 18 meses en California. En la práctica es el camino más caro con diferencia.</li>
+  </ul>
+
+  <div class="inline-cta"><p>¿Listo para proteger tu casa? Haz tu evaluación gratuita en 3 minutos.</p><a href="/evaluacion/" class="btn btn-primary">Comenzar evaluación →</a></div>
+  <EmailCapture />
+
+  <div class="faq-section">
+    <h2>Preguntas frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Puedo poner mi casa en un fideicomiso sin pagar impuestos?</h3>
+      <p>En la mayoría de los casos, sí. Transferir tu casa a un trust revocable donde tú sigues siendo el dueño y quien controla todo normalmente no causa impuestos por la venta ni cambia tu valuación fiscal. La mayoría de los estados tienen exclusiones para este tipo de transferencia. De todos modos, verifica las reglas de tu condado antes de firmar la escritura.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Puedo vender o refinanciar la casa si está en el trust?</h3>
+      <p>Sí. La casa sigue siendo tuya en todo sentido práctico: tú firmas como responsable del trust, cobras el dinero de la venta y puedes comprar otra propiedad. Para refinanciar, algunos prestamistas piden sacar primero la casa del trust, completar el trámite y regresarla después. Es fastidioso pero normal.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿El fideicomiso protege mi casa si me demandan o si me voy a un asilo?</h3>
+      <p>No, y quien te diga lo contrario te está vendiendo humo. Un trust revocable evita el probate, no evita demandas ni deudas ni la recuperación de Medicaid. Para esos casos existen otras herramientas que dependen de tu situación.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Cuánto cuesta un fideicomiso para mi casa?</h3>
+      <p>Con Trust Para Todos, un trust completo cuesta $997, todo incluido. Un abogado tradicional cobra entre $1,500 y $5,000 por algo similar. Y lo que realmente hay que comparar es el costo de no hacerlo: el probate de una casa de $500,000 puede costar más de $20,000 en honorarios y tardar más de un año.</p>
+    </div>
+  </div>
+
+  <h2>Conclusión: la casa ya es tuya, haz que también lo siga siendo para tu familia</h2>
+
+  <p>La parte más cara de no planear nunca se ve en la factura del trust: se ve en la del probate, años después, cuando la familia ya está con el dolor fresco y encima con papeleo. Un fideicomiso para tu casa existe justo para eso, para que lo caro no te lo toque a los que se quedan.</p>
+
+  <p><a href="/evaluacion/">Agenda tu evaluación gratuita</a>, contesta 3 minutos de preguntas y te decimos exactamente qué documento necesita tu familia con tu casa incluida. Sin compromiso y en español.</p>
+<TrustQuiz />
+
+</BlogArticleLayout>

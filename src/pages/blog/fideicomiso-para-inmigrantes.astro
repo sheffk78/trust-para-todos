@@ -1,0 +1,148 @@
+---
+import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Puedo hacer un trust si estoy indocumentado?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. No existe ninguna ley que exija ser ciudadano o residente para crear un trust revocable en Estados Unidos. Lo básico que necesitas es una identificación con foto (aunque sea de tu país, con vigencia vigente) y bienes aquí, como una casa. El ITIN funciona para declarar impuestos. No es requisito para el trust en sí."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo comprar una casa sin residencia legal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. No hay ley que se lo impida. Compran con ahorro propio, apoyo familiar o programas de ITIN de bancos que no revisan estatus migratorio, solo tu historial de pagos. La preocupación real de esas familias no es comprar, es qué pasa con la casa si algo les sucede. Para eso es el trust."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué pasa si me deportan y mi casa está en un trust?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Con el trust, tu administrador (familiar de confianza) administra la casa como tú lo indicaste: puede rentarla y mandar ese dinero a tu familia, o venderla si así lo escribiste. Sin trust, quedas en probate y el proceso se complica aún más si estás fuera del país."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo heredar sin papeles o reclamar un trust si estoy fuera del país?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí se puede. Con testamento y probate, un heredero fuera del país suele enfrentar una fianza adicional que complica mucho el proceso. Con trust, el administrador reparte según las instrucciones del documento, sin tribunal, y el dinero puede llegar a la familia aunque esté en otro país."
+      }
+    }
+  ]
+};
+---
+
+<BlogArticleLayout
+  title="Fideicomiso Para Inmigrantes Sin Papeles"
+  description="¿Se puede hacer un fideicomiso sin papeles en EE.UU.? Sí. Cómo proteger tu casa y heredar sin importar el estatus migratorio. Explicado simple en español."
+  canonicalPath="/blog/fideicomiso-para-inmigrantes/"
+  ogImage="og-blog-fideicomiso-para-inmigrantes.png"
+  heroImage="/images/blog/03-hero-family-protection.webp"
+  heroAlt="Familia hispana protegida frente a su casa"
+  date="2026-10-09"
+  readTime="6 min de lectura"
+  jsonLd={faqSchema}
+  relatedArticles={[{ slug: "trust-en-espanol", title: "Trust en Español: Guía para Familias", tag: "Educacional", image: "/images/blog/01-hero-family-home.webp" }, { slug: "fideicomiso-para-tu-casa", title: "Fideicomiso Para Tu Casa", tag: "Educacional", image: "/images/blog/01-hero-family-home.webp" }, { slug: "que-es-probate-como-evitarlo", title: "¿Qué es el Probate?", tag: "Educacional", image: "/images/blog/07-hero-courtroom.webp" }]}
+>
+  <p>Vamos a responder la pregunta de una vez, porque es la que más nos llegan y es la que menos se atreve la gente a hacer en voz alta: <strong>sí, puedes hacer un fideicomiso aunque no tienes estatus legal.</strong> Ninguna ley de Estados Unidos exige ser ciudadano o residente para crear un trust, y las familias lo hacen todos los días.</p>
+  <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>Se puede hacer un trust sin ser ciudadano ni residente legal — no hay ley en contra</li><li>Aceptan identificación de tu país vigente. El ITIN ayuda para impuestos, pero no es requisito del trust</li><li>El mayor riesgo sin trust: la casa cae en probate y los herederos fuera del país enfrentan fianzas y tribunales</li><li>Si te deportan, el administrador del trust puedes manejar tu casa como tú lo indicaste</li><li>Comprar casa sin papeles es legal: bancos con préstamos ITIN existen</li></ul></div>
+
+  <p>Te voy a hablar claro, porque en Trust Para Todos contestamos esta pregunta a diario. Si llegaste a trabajar, llevas años pagando taxes, compraste casa o tienes ahorros, todo eso que construiste merece protección igual que la de cualquier otra familia. Y la verdad es que el sistema migratorio ya complica suficiente el día a día como para que el tema del trust también se sienta cerrado. No lo está.</p>
+
+  <h2>¿Se puede tener bienes sin ser ciudadano?</h2>
+
+  <p>Sí, y es más común de lo que la gente cree. Millones de familias tienen casa, carros, cuentas y negocios en Estados Unidos sin ser ciudadanos. La ley de propiedad no pregunta tu estatus: si compraste la casa y está escriturada a tu nombre, es tuya, con todas las protecciones que cualquier otra persona tiene. Lo mismo aplica para el <GlossaryTerm term="trust" definition="Documento legal donde organizas quién recibe tus bienes cuando faltes, sin pasar por el tribunal (probate)." />: es un contrato privado entre tú y tu familia y no hay requisito migratorio para firmarlo.</p>
+
+  <p>De hecho, el caso más doloroso es el de las familias que compran casa, no hacen trust, y asumen que "por derecho natural" la casa pasa a la esposa o a los hijos. En Estados Unidos no funciona así. Sin trust ni testamento, la casa entra a un proceso judicial llamado <GlossaryTerm term="probate" definition="Proceso judicial donde un juez valida y reparte tu herencia. Es público, tarda de 6 a 18 meses y cuesta porcentajes del valor total." /> y las reglas las pone el estado donde vivías, no la familia.</p>
+
+  <h2>¿Qué documentos necesitas?</h2>
+
+  <p>Mucho menos de lo que imaginas:</p>
+
+  <ul>
+    <li><strong>Identificación con foto vigente:</strong> pasaporte de tu país, matrícula consular, licencia (aunque sea de otro estado o de tu país si tu estado la acepta). Si tu identificación no está vigente, tramítela primero y vuelve.</li>
+    <li><strong>Número de identificación:</strong> el ITIN sirve para tus taxes, y para el trust sirve si lo tienes. Pero si no lo tienes, hay caminos para el fideicomiso de todas formas. No lo aplaces por ese motivo.</li>
+    <li><strong>La escritura de tu casa (si tienes casa):</strong> se llama "grant deed" o "warranty deed" según el estado. Si no la encuentras, sale del registro del condado por el nombre de quien compró.</li>
+    <li><strong>Los nombres de tu gente:</strong> beneficiarios completos (nombres como en su acta), y el administrador que tomará tu lugar si algo te pasa.</li>
+  </ul>
+
+  <picture>
+    <source srcset="/images/blog/inline-family-outdoor.webp" type="image/webp" />
+    <source srcset="/images/blog/inline-family-outdoor.jpg" type="image/jpeg" />
+    <img src="/images/blog/inline-family-outdoor.webp" alt="Familia hispana unida en el patio de su casa" width="800" height="533" loading="lazy" />
+  </picture>
+
+  <h2>Cuando la mitad de la familia está en otro país</h2>
+
+  <p>Esta es la situación real de muchísimas familias mixtas: parte aquí, parte en México, Centroamérica o Sudamérica. Y aquí el trust deja de ser "buena idea" para volverse urgente. Los estados ponen una fianza a los herederos que viven fuera del país, una suerte de depósito de seguridad que puede ser enorme, y un heredero sin estatus a menudo no puede pagarla. Al final la casa queda congelada en el tribunal mientras la familia intenta resolver lo imposible.</p>
+
+  <p>Con trust, tu administrador puede rentar la casa y mandar ese dinero a tu familia al otro lado, o venderla si así lo escribiste. Sin fianzas, sin meses estancado en el tribunal, sin exponer el patrimonio de la familia. Es la diferencia entre "mi papá dejó todo arreglado" y una familia peleando con un juzgado en un idioma que no domina.</p>
+
+  <div class="callout-warning"><strong>⚠️ Importante:</strong> Si la mitad de tu familia está en otro país, preguntar en el juzgado no siempre es opción: cada estado maneja diferente la fianza para herederos no residentes. El trust evita esa pelea por completo, porque nunca entra al tribunal.</div>
+
+  <h2>Si te deportan o tienes que irte</h2>
+
+  <p>Nadie quiere pensar en este escenario, y por eso mucha gente posterga el trust. Pero fíjate en lo que cambia según los documentos:</p>
+
+  <ul>
+    <li><strong>Con trust, es distinto.</strong> tu administrador (familiar de confianza) administra la casa como tú lo indicaste: puede rentarla y mandar ese dinero a tu familia, o venderla si así lo escribiste.</li>
+    <li><strong>Sin trust.</strong> es probable que la casa quede atascada en probate. Los tribunales no saben dónde estás, los pagos se atrasan, y una casa abandonada puede terminar en ejecución hipotecaria o en manos del estado, todavía antes de que el juez decida algo.</li>
+  </ul>
+
+  <div class="callout-case"><p class="callout-case-title">📖 Un caso que resume el punto</p><p>Familia Rojas en Riverside, California. Papá sin estatus mamá ciudadana. Compraron casa juntos. El título quedó solo a nombre de él para tramitar más rápido el préstamo ITIN. Él volvió a Jalisco por un familiar enfermo y no pudo regresar. Sin trust, esa casa va a obligar a su esposa a abrir un probate para poder venderla o siquiera refinanciarla. La escritura sola no le dio a ella el control. Un trust lo habría arreglado ese día mismo.</p></div>
+
+  <h2>¿Cuánto cuesta hacerlo bien?</h2>
+
+  <ul>
+    <li><strong>Trust Para Todos. Costo $997</strong>, con todo: $997 con todo: el trust, la escritura de la casa, guía paso a paso en español y apoyo si te queda una duda. Y evaluación gratuita antes, para revisar si es lo que necesitas.</li>
+    <li><strong>Abogado de inmigración/trust tradicional:</strong> entre $1,500 y $5,000, y en muchos casos te piden estatus para contratar. Aquí no: te atendemos igual.</li>
+    <li><strong>No hacerlo:</strong> el probate de una casa de $400,000 puede dejar la familia con más de $16,000 menos y un año de trámites. Es la opción más cara de todas.</li>
+  </ul>
+
+  <div class="inline-cta"><p>Tu familia no debería heredar un tribunal. Haz tu evaluación gratuita en 3 minutos.</p><a href="/evaluacion/" class="btn btn-primary">Comenzar evaluación →</a></div>
+  <EmailCapture />
+
+  <div class="faq-section">
+    <h2>Preguntas frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Puedo hacer un trust si estoy indocumentado?</h3>
+      <p>Sí. No existe ninguna ley que exija ser ciudadano o residente para crear un trust revocable en Estados Unidos. Lo básico que necesitas es una identificación con foto (aunque sea de tu país, con vigencia vigente) y bienes aquí, como una casa. El ITIN funciona para declarar impuestos; no es requisito para el trust en sí.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Puedo comprar una casa sin residencia legal?</h3>
+      <p>Sí. No hay ley que se lo impida. Compran con ahorro propio, apoyo familiar o programas de ITIN de bancos que no revisan estatus migratorio, solo tu historial de pagos. La preocupación real de esas familias no es comprar, es qué pasa con la casa si algo les sucede. Para eso es el trust.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Qué pasa si me deportan y mi casa está en un trust?</h3>
+      <p>Con el trust, tu administrador (familiar de confianza) administra la casa como tú lo indicaste: puede rentarla y mandar ese dinero a tu familia, o venderla si así lo escribiste. Sin trust, quedas en probate y el proceso se complica aún más si estás fuera del país.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Puedo heredar sin papeles o reclamar un trust si estoy fuera del país?</h3>
+      <p>Sí se puede. Con testamento y probate, un heredero fuera del país suele enfrentar una fianza adicional que complica mucho el proceso. Con trust, el administrador reparte según las instrucciones del documento, sin tribunal, y el dinero puede llegar a la familia aunque esté en otro país.</p>
+    </div>
+  </div>
+
+  <h2>Conclusión: el estatus no decide si tu familia queda protegida. Tu decisión sí</h2>
+
+  <p>Que los documentos migratorios no estén en orden no cancela tu derecho a proteger lo que construiste. El fideicomiso se firma con tu identificación vigente, se hace en español, y deja a tu familia con la casa y no con un caso en el tribunal.</p>
+
+  <p><a href="/evaluacion/">Agenda tu evaluación gratuita</a>. 3 minutos de preguntas y te decimos exactamente cómo quedaría tu protección. Sin compromiso, sin exponer tu estatus: solo te explicamos tus opciones.</p>
+<TrustQuiz />
+
+</BlogArticleLayout>

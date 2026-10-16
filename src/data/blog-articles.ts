@@ -150,6 +150,73 @@ export const articles: BlogArticle[] = [
       { slug: 'cuanto-cuesta-fideicomiso', title: '¿Cuánto Cuesta un Fideicomiso?', tag: 'Precios', image: '/images/blog/05-hero-financial-planning.webp' }
     ]
   }
+  {
+    slug: 'trust-en-california-familias-hispanas',
+    title: 'Trust en California: guía para hispanos',
+    tag: 'Guía',
+    image: '/images/blog/03-hero-family-protection.webp',
+    related: [
+      { slug: 'proteger-casa-medicaid', title: 'Cómo Proteger Tu Casa de Medicaid', tag: 'Educacional', image: '/images/blog/08-hero-family-property.webp' },
+      { slug: 'fideicomiso-para-tu-casa', title: 'Fideicomiso Para Tu Casa', tag: 'Educacional', image: '/images/blog/01-hero-family-home.webp' },
+      { slug: 'que-es-probate-como-evitarlo', title: '¿Qué es el Probate?', tag: 'Educacional', image: '/images/blog/07-hero-courtroom.webp' }
+    ]
+  },
+  {
+    slug: 'notaria-remota-firmar-trust',
+    title: 'Notaría remota para tu trust',
+    tag: 'Guía',
+    image: '/images/blog/02-hero-documents.webp',
+    related: [
+      { slug: 'como-crear-trust-online', title: 'Cómo crear un trust online', tag: 'Guía', image: '/images/blog/02-hero-documents.webp' },
+      { slug: 'trust-online-sin-abogado', title: 'Trust online: Paso a Paso para Crearlo', tag: 'Guía', image: '/images/blog/05-hero-financial-planning.webp' },
+      { slug: 'puedo-cambiar-o-revocar-mi-trust', title: 'Cambiar o revocar tu trust', tag: 'Guía', image: '/images/blog/02-hero-documents.webp' }
+    ]
+  },
+  {
+    slug: 'trust-vs-poder-notarial',
+    title: 'Trust vs Poder Notarial',
+    tag: 'Comparativa',
+    image: '/images/blog/02-hero-documents.webp',
+    related: [
+      { slug: 'trust-vs-testamento', title: 'Trust vs Testamento: ¿Cuál es Mejor para Proteger a Tu Familia?', tag: 'Comparativa', image: '/images/blog/04-hero-senior-couple.webp' },
+      { slug: 'que-es-trust-revocable', title: '¿Qué es un trust revocable?', tag: 'Educacional', image: '/images/blog/01-hero-family-home.webp' },
+      { slug: 'trust-y-divorcio', title: 'Trust y divorcio', tag: 'Decisiones', image: '/images/blog/02-hero-documents.webp' }
+    ]
+  },
+  {
+    slug: 'puedo-cambiar-o-revocar-mi-trust',
+    title: 'Cambiar o revocar tu trust',
+    tag: 'Guía',
+    image: '/images/blog/02-hero-documents.webp',
+    related: [
+      { slug: 'que-es-trust-revocable', title: '¿Qué es un trust revocable?', tag: 'Educacional', image: '/images/blog/01-hero-family-home.webp' },
+      { slug: 'fideicomiso-revocable-vs-irrevocable', title: 'Revocable vs Irrevocable', tag: 'Comparativa', image: '/images/blog/08-hero-family-property.webp' },
+      { slug: 'notaria-remota-firmar-trust', title: 'Notaría remota para tu trust', tag: 'Guía', image: '/images/blog/02-hero-documents.webp' }
+    ]
+  },
+  {
+    slug: 'trust-y-divorcio',
+    title: 'Trust y divorcio',
+    tag: 'Decisiones',
+    image: '/images/blog/02-hero-documents.webp',
+    related: [
+      { slug: 'fideicomiso-para-tu-casa', title: 'Fideicomiso Para Tu Casa', tag: 'Educacional', image: '/images/blog/01-hero-family-home.webp' },
+      { slug: 'trust-vs-poder-notarial', title: 'Trust vs Poder Notarial', tag: 'Comparativa', image: '/images/blog/02-hero-documents.webp' },
+      { slug: 'trust-vs-testamento', title: 'Trust vs Testamento: ¿Cuál es Mejor?', tag: 'Comparativa', image: '/images/blog/04-hero-senior-couple.webp' }
+    ]
+  },
+  {
+    slug: 'trust-en-mexico-fideicomiso',
+    title: 'Trust en México: bienes en ambos países',
+    tag: 'Educacional',
+    image: '/images/blog/08-hero-family-property.webp',
+    related: [
+      { slug: 'fideicomiso-para-inmigrantes', title: 'Fideicomiso Para Inmigrantes Sin Papeles', tag: 'Educacional', image: '/images/blog/03-hero-family-protection.webp' },
+      { slug: 'trust-en-espanol', title: 'Trust en español: guía para familias', tag: 'Educacional', image: '/images/blog/01-hero-family-home.webp' },
+      { slug: 'que-es-trust-revocable', title: '¿Qué es un trust revocable?', tag: 'Educacional', image: '/images/blog/01-hero-family-home.webp' }
+    ]
+  }
+
 ];
 
 export function getRelated(slug: string) {

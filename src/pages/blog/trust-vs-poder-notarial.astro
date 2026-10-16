@@ -1,0 +1,199 @@
+---
+import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Un poder notarial sigue siendo válido después de la muerte?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. El poder termina el día que la persona fallece. Después de la muerte lo que aplica es la herencia, y esa se maneja con un trust o por medio del probate, nunca con un poder."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo tener un trust y un poder notarial al mismo tiempo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, y es lo más común en los planes bien hechos. El trust resuelve la herencia y el poder te cubre en vida para el banco y, si es poder médico, para la salud. Son papeles distintos que se necesitan entre sí."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿El poder notarial evita el probate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, en ningún estado. El poder no saca tus bienes de tu nombre, y por eso no evita el probate. Lo que evita el probate es un trust revocable bien hecho."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué es un poder notarial duradero y para qué sirve?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Es el que sigue vigente aunque te incapacites y ya no puedas decidir por ti mismo. Sirve para que tu apoderado pague cuentas y maneje tus asuntos sin ir a tribunal. Regularmente cubre lo financiero, porque la salud va en documento aparte."
+      }
+    }
+  ]
+};
+---
+
+<BlogArticleLayout
+  title="Trust vs poder notarial: cuál necesitas"
+  description="Trust o poder notarial: qué cubre cada uno, cuál protege a tu familia si falleces o te incapacitas y por qué muchos necesitamos ambos. Guía en español."
+  canonicalPath="/blog/trust-vs-poder-notarial/"
+  ogImage="og-blog-trust-vs-poder-notarial.png"
+  heroImage="/images/blog/02-hero-documents.webp"
+  heroAlt="Documentos de trust y poder notarial en una mesa"
+  date="2026-10-15"
+  readTime="7 min de lectura"
+  jsonLd={faqSchema}
+  relatedArticles={[{ slug: "que-es-trust-revocable", title: "¿Qué es un Trust Revocable?", tag: "Educacional", image: "/images/blog/01-hero-family-home.webp" }, { slug: "trust-vs-testamento", title: "Trust vs Testamento: ¿Cuál es Mejor?", tag: "Comparativa", image: "/images/blog/04-hero-senior-couple.webp" }, { slug: "que-es-probate-como-evitarlo", title: "¿Qué es el Probate? Cómo Evitarlo", tag: "Educacional", image: "/images/blog/07-hero-courtroom.webp" }]}
+>
+  <p>En muchas familias el poder notarial se cuida como si fuera oro, y todos confían en que la herencia ya quedó resuelta. La verdad incómoda es otra... no es lo mismo que un trust, y uno deja de funcionar justo el día que más lo necesitas.</p>
+  <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>El poder trabaja mientras vives y termina al fallecer</li><li>El poder no evita el probate ni transfiere la herencia, aunque muchos creen que sí</li><li>El poder financiero y el médico son dos documentos</li><li>El trust mueve tus bienes al fallecer, sin tribunal y en privado</li><li>No es uno u otro, la mayoría de las familias necesita los dos</li></ul></div>
+
+  <p>Vas a ver la diferencia en una tabla y algo más duro, qué NO va a poder hacer tu apoderado.  Vamos por partes.</p>
+
+  <h2>¿Qué es el poder notarial?</h2>
+
+  <p>Un poder notarial (power of attorney, o POA en inglés) es un documento donde le das autoridad a otra persona para que actúe por ti: ir al banco, firmar trámites, mover cuentas. Esa persona es el <GlossaryTerm term="apoderado" definition="La persona que nombras en el poder notarial para actuar en tu nombre." />. El poder funciona mientras estás vivo, y solo sobre bienes que siguen a tu nombre.</p>
+
+  <p>He visto familias llegar con la carpeta del poder bien guardada, convencidas de que la herencia estaba resuelta. No lo estaba, y esta confusión no se la deseo a nadie.</p>
+
+  <p>Ojo, son dos documentos distintos que la gente confunde todo el tiempo. El poder financiero cubre el dinero, como el banco, la casa o un negocio. El poder médico (healthcare power of attorney) cubre decisiones de salud, y va en papel aparte. Uno no reemplaza al otro.</p>
+
+  <p>Y las firmas cambian según tu estado, unos piden notario, otros testigos. Fírmalo como marca tu estado para que el banco no te lo rechace después.</p>
+
+  <h2>¿Y el trust?</h2>
+
+  <p>Un trust revocable es donde tú pones tus bienes para que al fallecer pasen directo a tu familia, sin probate y en privado (está explicado en nuestra <a href="/blog/que-es-trust-revocable/">guía de qué es un trust revocable</a>).</p>
+
+  <h2>La diferencia entre trust y poder notarial, en una tabla</h2>
+
+  <p>Mira la diferencia entre trust y poder notarial. La fila crítica es la tercera.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Escenario</th>
+        <th>Poder notarial</th>
+        <th>Trust revocable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Quién actúa</td>
+        <td>El apoderado, solo mientras vivas y tengas capacidad</td>
+        <td>Tú mientras vives, y tu sucesor cuando ya no puedes o al fallecer</td>
+      </tr>
+      <tr>
+        <td>Mientras estoy vivo</td>
+        <td>Activo desde que lo firmas, el apoderado paga, cobra y firma por ti</td>
+        <td>Los bienes ya están en el trust y tú mantienes el control</td>
+      </tr>
+      <tr>
+        <td>Después de mi fallecimiento</td>
+        <td>Termina. No hereda nada y no mueve bienes</td>
+        <td>Los bienes pasan a tus herederos sin probate, en privado</td>
+      </tr>
+      <tr>
+        <td>Qué cubre</td>
+        <td>Lo que sigue a tu nombre, como el banco o la casa, o la salud si es poder médico</td>
+        <td>Solo lo que escribiste dentro del trust</td>
+      </tr>
+      <tr>
+        <td>Si me incapacito</td>
+        <td>El poder duradero sigue vivo, pero solo si lo firmaste antes</td>
+        <td>Tu sucesor toma el mando de los bienes del trust sin tribunal</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>El poder termina, el trust sigue. Uno trabaja en vida, el otro entrega la herencia.</p>
+
+  <picture>
+    <source srcset="/images/blog/inline-family-kitchen.webp" type="image/webp" />
+    <source srcset="/images/blog/inline-family-kitchen.webp" type="image/jpeg" />
+    <img src="/images/blog/inline-family-kitchen.webp" alt="Familia hispana revisando juntos el poder notarial y el trust en la cocina" width="800" height="533" loading="lazy" />
+  </picture>
+
+  <h2>Lo que sí puede hacer tu apoderado mientras vivas</h2>
+
+  <p>Con el poder financiero, tu apoderado puede cobrar tu jubilación, pagar la renta o firmar trámites mientras estás hospitalizado o de viaje. ¿La idea? Prestarle tus manos a alguien de confianza. En una urgencia eso vale oro...  alguien tiene que firmar por ti ese mismo día.</p>
+
+  <p>Para la salud va el poder médico, por su propio carril: quién decide tu tratamiento si tú no puedes responder. Yo le digo a las familias que son tres papeles, y ninguno reemplaza al otro.</p>
+
+  <h2>¿El poder notarial sirve para la herencia?</h2>
+
+  <p>Cuando tú falleces, el poder termina ese mismo día y el apoderado amanece sin ninguna autoridad, aunque el papel esté firmado con sello. Es real, legítimo... y aun así no alcanza para heredar nada.</p>
+
+  <p>Tampoco evita el probate. Si tus bienes siguen a tu nombre y no hay trust, tu familia va a un <GlossaryTerm term="probate" definition="Proceso judicial donde un juez valida y reparte la herencia de una persona fallecida. Tarda meses o años y cuesta miles de dólares." /> con o sin poder, porque falta una estructura que reciba los bienes. En muchos estados cuesta entre 4% y 8% del patrimonio y tarda de 9 a 18 meses.</p>
+
+  <p>La escena se repite: la familia llega al banco con el poder de papá, y el gerente les explica que ese papel ya no vale, porque la persona que lo dio falleció. A mí me da rabia, porque se podía resolver antes.</p>
+
+  <div class="callout-warning"><strong>⚠️ Importante:</strong> El poder notarial termina cuando la persona fallece. Nunca transfiere la herencia y nunca evita el probate.</div>
+
+  <p>Y ojo, el testamento es otro papel, no un poder (aquí va la comparación de <a href="/blog/trust-vs-testamento/">trust vs testamento</a>).</p>
+
+  <h2>¿Y si me incapacito?</h2>
+
+  <p>El poder duradero sigue funcionando aunque ya no puedas decidir por ti mismo. Sin esa parte, el poder queda cancelado justo cuando más lo necesitas, y tu familia tendría que pedirle una tutela al tribunal, lenta, cara y pública.</p>
+
+  <p>Pero el poder duradero no saca tus bienes de tu nombre. Por eso va en pareja con el trust, el poder es la llave del día a día, y el trust es la caja que trae la casa y las cuentas adentro, con un sucesor listo para el mando sin tribunal. Así queda el plan redondo.</p>
+
+  <h2>No es uno u otro, casi siempre son los dos</h2>
+
+  <p>Un trust y un poder se complementan y en la mayoría de las familias hacen falta los dos. El trust resuelve qué pasa con tus bienes al fallecer, y el poder quién firma por ti mañana. Lo veo a diario, casi nadie llega necesitando uno solo.</p>
+
+  <p>Si tu patrimonio es una cuenta de cheques, puede que los poderes y beneficiarios te alcancen. Pero si tienes casa en Estados Unidos, cambió la conversación, una sola propiedad te mete al probate si mueres sin trust.</p>
+
+  <picture>
+    <source srcset="/images/blog/inline-family-outdoor.webp" type="image/webp" />
+    <source srcset="/images/blog/inline-family-outdoor.webp" type="image/jpeg" />
+    <img src="/images/blog/inline-family-outdoor.webp" alt="Pareja hispana mayor relajada en su jardín con su plan de trust y poder listos" width="800" height="533" loading="lazy" />
+  </picture>
+
+  <div class="callout-case"><p class="callout-case-title">📖 Ejemplo con números reales</p><p>Familia Rodríguez, en Houston, Texas. Don Ernesto, de 79 años, le firmó el poder a su hijo Jorge y quedó tranquilo: "la casa ya está resuelta". Cuando falleció, Jorge fue al banco con el poder... y no lo aceptaron, porque el poder termina con la persona que lo dio. La casa de $340,000 seguía a su nombre y, sin trust, entró al probate: $20,000 en honorarios y 14 meses de espera. Un trust revocable de $997 la habría pasado a los hijos en semanas.</p></div>
+
+  <div class="inline-cta"><p>¿Tu familia tiene el trust, el poder o los dos? Evalúa tu caso en 3 minutos.</p><a href="/evaluacion/" class="btn btn-primary">Comenzar evaluación →</a></div>
+  <EmailCapture />
+
+  <div class="faq-section">
+    <h2>Preguntas frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Un poder notarial sigue siendo válido después de la muerte?</h3>
+      <p>No. El poder termina el día que la persona fallece. Después de la muerte lo que aplica es la herencia, y esa se maneja con un trust o por medio del probate, nunca con un poder.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Puedo tener un trust y un poder notarial al mismo tiempo?</h3>
+      <p>Sí, y es lo más común en los planes bien hechos. El trust resuelve la herencia y el poder te cubre en vida para el banco y, si es poder médico, para la salud. Son papeles distintos que se necesitan entre sí.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿El poder notarial evita el probate?</h3>
+      <p>No, en ningún estado. El poder no saca tus bienes de tu nombre, y por eso no evita el probate. Lo que evita el probate es un trust revocable bien hecho.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Qué es un poder notarial duradero y para qué sirve?</h3>
+      <p>Es el que sigue vigente aunque te incapacites y ya no puedas decidir por ti mismo. Sirve para que tu apoderado pague cuentas y maneje tus asuntos sin ir a tribunal. Regularmente cubre lo financiero, porque la salud va en documento aparte.</p>
+    </div>
+  </div>
+
+  <h2>Conclusión: el poder cuida tu vida, el trust cuida tu herencia</h2>
+
+  <p>Si te llevas una sola idea, que sea esta. El poder notarial es para que alguien actúe por ti mientras vives. El trust es para que tu familia reciba los bienes cuando ya no estás.</p>
+
+  <p>En Trust Para Todos creamos tu trust en español desde casa. <a href="/evaluacion/">Agenda tu evaluación gratuita</a> y en 3 minutos sabes qué necesita tu familia.</p>
+<TrustQuiz />
+
+</BlogArticleLayout>

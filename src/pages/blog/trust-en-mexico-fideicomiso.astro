@@ -1,0 +1,163 @@
+---
+import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Un trust de Estados Unidos tiene validez en México?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Depende. Tu trust hace su trabajo aquí, en Estados Unidos. Con un bien al otro lado, la respuesta se revisa papel en mano,  depende del tipo de propiedad y de lo que exija cada institución mexicana. Cada caso es distinto. Preséntalo en tu evaluación gratuita."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Es lo mismo un fideicomiso mexicano que un trust americano?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. El trust es un documento de Estados Unidos, para ordenar tu herencia de aquí. El fideicomiso mexicano es otra estructura. Y una no responde por la otra."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo poner una casa en México dentro de mi trust de EE.UU.?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No es una decisión de una tarde. Una casa en México levanta preguntas propias, del tipo de propiedad y de lo que pide cada institución.  Revisa con el papel delante.  Y el fideicomiso bancario allá, ese sigue su propio camino. Sin mezclar papeles."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué pasa con mi fideicomiso bancario en México si yo muero?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La respuesta vive en el contrato que firmaste con ese banco. Pero pregunta por escrito qué se requiere si tú faltas. Y alineas ese tramo con el otro. Cada quien en su sobre."
+      }
+    }
+  ]
+};
+---
+
+<BlogArticleLayout
+  title="¿Sirve tu trust de USA en México? | Trust Para Todos"
+  description="¿De qué depende que tu trust de EE.UU. valga para la casa o la cuenta que tienes en México? Qué revisar, a quién preguntar y cómo dejar tu plan en orden."
+  canonicalPath="/blog/trust-en-mexico-fideicomiso/"
+  ogImage="og-blog-trust-en-mexico-fideicomiso.png"
+  heroImage="/images/blog/08-hero-family-property.webp"
+  heroAlt="Papeles de una casa en México junto a un trust de Estados Unidos"
+  date="2026-10-15"
+  readTime="7 min de lectura"
+  jsonLd={faqSchema}
+  relatedArticles={[{ slug: "que-es-trust-revocable", title: "¿Qué es un Trust Revocable?", tag: "Educacional", image: "/images/blog/01-hero-family-home.webp" }, { slug: "fideicomiso-para-inmigrantes", title: "Fideicomiso Para Inmigrantes", tag: "Educacional", image: "/images/blog/03-hero-family-protection.webp" }, { slug: "fideicomiso-revocable-vs-irrevocable", title: "Revocable vs Irrevocable", tag: "Comparativa", image: "/images/blog/08-hero-family-property.webp" }]}
+>
+  <p>Nos llega casi cada semana. Y casi siempre en un suspiro de WhatsApp, ya tengo mi trust aquí en Estados Unidos, la casa quedó dentro, mi gente está nombrada... ¿pero sirve mi trust en México? Viene por la casa heredada en Guadalajara, por la cuenta del banco del pueblo, por el lote que papá dejó en el rancho. Es pregunta buena, y merece respuesta sin humo ni palabrote de abogado.</p>
+
+  <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>Tu trust de EE.UU. hace su trabajo aquí. Ordena tu herencia y saca a tu familia del probate de tu estado</li><li>Lo que tienes con dirección en México se revisa por separado,  depende del tipo de bien y de la institución</li><li>El fideicomiso mexicano y el trust americano no son lo mismo. Los nombres se parecen, nada más</li><li>Tu gente de México puede quedar escrita como beneficiaria, y eso lo resuelve tu documento de aquí</li><li>Cada bien tiene su propio camino. Se pregunta. No se adivina.</li></ul></div>
+
+  <p>En esta guía vas a entender qué cubre tu trust, por qué lo de allá se revisa aparte, y qué toca preguntar. Si no has leído la <a href="/blog/que-es-trust-revocable/">guía del trust revocable</a>, empieza por allá y regresa, que aquí te guardamos el lugar.</p>
+
+  <h2>¿Sirve un trust de Estados Unidos en México?</h2>
+
+  <p>Empieza por lo que está clarito. Tu <GlossaryTerm term="trust" definition="Documento legal donde organizas quién recibe tus bienes cuando faltes. Sin tribunal. Sin probate." /> revocable se firma bajo la ley de un estado de Estados Unidos. Y ahí hace su chamba.  La casa de aquí entra al trust, tus beneficiarios quedan escritos, y al faltar tú la herencia pasa sin <GlossaryTerm term="probate" definition="Proceso judicial donde un juez valida y reparte la herencia. Tarda de 6 a 18 meses." /> ni juez de por medio. Ese trabajo no lo discute nadie.</p>
+
+  <p>Ahora la parte que trae de cabeza a media comunidad. La casa de Guadalajara, la cuenta del rancho, el departamento mirando al mar. Ahí tu trust no manda solo. Y el trust en México, dicho así a secas, no se contesta de memoria. Si tu trust de Estados Unidos tiene validez en México depende del tipo de propiedad y de las exigencias de cada institución mexicana que tenga el bien. No hay un sí universal, ni un no universal. Hay un depende. Un depende bien mirado, con el papel enfrente.</p>
+
+  <p>Cada caso es distinto. Preséntalo en tu evaluación gratuita y lo revisas por escrito antes de creerle al primer consejo de vecino.</p>
+
+  <h2>Fideicomiso en México vs Estados Unidos, dos herramientas con el mismo apellido</h2>
+
+  <p>La palabra fideicomiso sale en los dos países, y de ahí nace la peor confusión de todas. Nosotros la vemos diario en las evaluaciones. Suena igual, manda distinto, y no, no es lo mismo.</p>
+
+  <ul>
+    <li><strong>Trust revocable, Estados Unidos.</strong> Documento privado, bajo la ley de tu estado, para ordenar tu herencia y librar el probate.</li>
+    <li><strong>Fideicomiso bancario mexicano.</strong> En México, los compradores extranjeros cerca de la costa usan un fideicomiso bancario, una estructura legal mexicana.</li>
+    <li><strong>La confusión que más duele.</strong> Creer que, como el nombre cruza la frontera, una cubre lo de la otra. No la cubre. Son dos papeles de dos países distintos, y cada uno vive en su propia ley.</li>
+  </ul>
+
+  <p>Piénsalo como las llaves de tu troca y las de tu casa. Cuelgan del mismo gancho (y hasta se parecen), pero abren cosas distintas, y no hay queja que valga cuando le pegas la llave equivocada a la puerta.</p>
+
+  <picture>
+    <source srcset="/images/blog/inline-family-kitchen.webp" type="image/webp" />
+    <source srcset="/images/blog/inline-family-kitchen.jpg" type="image/jpeg" />
+    <img src="/images/blog/inline-family-kitchen.webp" alt="Papeles del trust de la familia sobre la mesa" width="800" height="533" loading="lazy" />
+  </picture>
+
+  <h2>Trust con bienes en México, los 4 casos que más nos llegan</h2>
+
+  <p>Ninguno se responde de corrido, fíjate. Se pregunta y se presenta. Va la lista de las que más llegan a nuestra bandeja:</p>
+
+  <ul>
+    <li><strong>La casa heredada con escritura a tu nombre.</strong> La de la abuela en Los Mochis, por ejemplo. Tu trust de aquí no la menciona, y la duda sigue en la cocina (a veces por años).  Lo que toca: identificar qué tipo de propiedad es y qué requiere la institución.</li>
+    <li><strong>La cuenta de banco de los años buenos.</strong> La del rancho, la del negocito de la tía. La pregunta va en una dirección, qué necesita esa institución si yo llego a faltar, y la respuesta se pide por escrito. De palabra no sirve.</li>
+    <li><strong>La propiedad junto al mar.</strong> Si ya tienes un fideicomiso bancario mexicano para esa casa, tu trust de EE.UU. no lo reemplaza. Lo sano es que ambos queden alineados y el banco confirme por escrito lo suyo.</li>
+    <li><strong>La familia que espera del otro lado.</strong> La buena noticia de la guía, tu gente de México puede quedar escrita como beneficiaria en tu trust de aquí. Ese tramo es papel de puro Estados Unidos (y se escribe una vez.)</li>
+  </ul>
+
+  <div class="callout-warning"><strong>⚠️ Importante:</strong> Ninguna respuesta vale sin tu papel real enfrente. Cada bien se revisa una vez y bien, no de oído.</div>
+
+  <div class="callout-case"><p class="callout-case-title">📖 Familia Salazar, McAllen</p><p>Hicieron su trust en 2023, con la casa de $310,000 bien amarrada, y quedó suelta la casa heredada en Los Mochis y la cuenta de Guadalajara. En la evaluación no salió una varita mágica...  salieron las preguntas correctas, en orden. La diferencia entre adivinar, y saber qué toca caminar a cada quien.</p></div>
+
+  <div class="inline-cta"><p>¿Ya sabes qué tramo responde tu trust y qué tramo falta revisar? Evalúa tu caso en 3 minutos.</p><a href="/evaluacion/" class="btn btn-primary">Comenzar evaluación →</a></div>
+  <EmailCapture />
+
+  <h2>Tu lista de esta semana, sin vueltas que perder</h2>
+
+  <p>Nada de esto pide un mes. Son pasos de una tarde, y te dejan con lo único que importa, saber qué es tuyo y qué toca preguntar.</p>
+
+  <ol>
+    <li><strong>Dos listas, dos países.</strong> En una, tus bienes con dirección aquí. En la otra, los de allá, casa, cuenta, lote, negocito. Línea por línea (y sin inventar nada).</li>
+    <li><strong>Marca el tipo de cada bien de México.</strong> Casa particular, cuenta, propiedad de la costa, negocio. Es lo primero que te van a pedir. Y donde más se separan los caminos. Si no sabes qué es, anótalo como duda, no como dato.</li>
+    <li><strong>Junta los papeles del otro lado.</strong> Si hay contrato con un banco mexicano, tenlo a la mano. Tu pregunta es una sola, qué se requiere si yo llego a faltar... y se responde por escrito.</li>
+    <li><strong>Preséntalo en tu evaluación gratuita.</strong> Con tus listas delante, ves qué tramo responde tu trust y qué pide revisión aparte.</li>
+  </ol>
+
+  <p>Una aclaración rápida, este artículo es puro cruce de frontera, no es trámite de migración. Y cómo funciona un trust cuando el <a href="/blog/fideicomiso-para-inmigrantes/">estatus migratorio</a> entra en la ecuación, eso lo cubre su propia guía. Por allá no lo repetimos.</p>
+
+  <h2>Quién hace qué cuando el plan toca dos países</h2>
+
+  <p><strong>Tu trust de Estados Unidos responde</strong> por la casa de aquí, las cuentas de aquí y quién hereda, incluyendo a tu gente de México.</p>
+
+  <p><strong>Lo que está en México responde aparte.</strong> Cada bien se pregunta en su lugar, y lo que la institución pida se pide por escrito. Dos sobres, una familia al tanto.</p>
+
+  <div class="faq-section">
+    <h2>Preguntas frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Un trust de Estados Unidos tiene validez en México?</h3>
+      <p>Depende. Tu trust hace su trabajo aquí, en Estados Unidos. Con un bien al otro lado, la respuesta se revisa papel en mano,  depende del tipo de propiedad y de lo que exija cada institución mexicana. Cada caso es distinto. Preséntalo en tu evaluación gratuita.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Es lo mismo un fideicomiso mexicano que un trust americano?</h3>
+      <p>No. El trust es un documento de Estados Unidos, para ordenar tu herencia de aquí. El fideicomiso mexicano es otra estructura. Y una no responde por la otra.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Puedo poner una casa en México dentro de mi trust de EE.UU.?</h3>
+      <p>No es una decisión de una tarde. Una casa en México levanta preguntas propias, del tipo de propiedad y de lo que pide cada institución.  Revisa con el papel delante.  Y el fideicomiso bancario allá, ese sigue su propio camino. Sin mezclar papeles.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Qué pasa con mi fideicomiso bancario en México si yo muero?</h3>
+      <p>La respuesta vive en el contrato que firmaste con ese banco. Pero pregunta por escrito qué se requiere si tú faltas. Y alineas ese tramo con el otro. Cada quien en su sobre.</p>
+    </div>
+  </div>
+
+  <h2>Al final, un plan que cruza la frontera y no se rasga</h2>
+
+  <p>Tu trust de Estados Unidos existe para que tu familia no herede un tribunal. Lo de México se revisa uno por uno, con su tipo de propiedad y su institución.</p>
+
+  <p>Y tu gente de México puede quedar como beneficiaria desde hoy, en el mismo documento que ya protege tu casa de aquí.</p>
+
+  <p><a href="/evaluacion/">Agenda tu evaluación gratuita</a>. En 3 minutos sabes qué responde tu trust de aquí y qué toca revisar aparte. En español, sin compromiso.</p>
+
+  <p><em>Este artículo es información general y no constituye asesoría legal para un caso específico.</em></p>
+<TrustQuiz />
+
+</BlogArticleLayout>

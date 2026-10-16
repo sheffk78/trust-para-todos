@@ -1,0 +1,165 @@
+---
+import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Cuál es la diferencia entre modificar y revocar un trust?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La enmienda cambia partes del trust (beneficiarios, fiduciario, porcentajes). El resto queda igual y conserva su fecha original. La revocación cancela el documento completo desde una fecha establecida, y los bienes que están dentro quedan pendientes del cambio de nombre documental, pieza por pieza. ¿Un cambio puntual? Casi siempre una enmienda de una sola hoja es suficiente. Un cambio de vida entero pide revocación."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Se puede cambiar un trust irrevocable?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Depende de tu estado. Algunos estados permiten mover los bienes hacia un trust nuevo con la figura del decanting, pedir permiso a un tribunal o avanzar solo cuando todos los beneficiarios están de acuerdo. Nada de esto es automático. Y nadie honesto te lo puede prometer sin leer primero tu documento. La comparación completa de los dos tipos está en nuestro artículo sobre trust revocable e irrevocable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Tengo que pagar de nuevo para cambiar mi trust?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Depende de qué tan grande sea el cambio. Una enmienda puntual no se parece al trabajo de rehacer el trust completo. Son cosas distintas, con tiempos y alcances distintos. No te prometemos precios aquí porque cada caso es distinto. La evaluación gratuita te dice qué necesita tu trust y qué implica el cambio, sin compromiso."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué pasa con los bienes si revoco el trust?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No hay reverso automático. Cada bien necesita su cambio de nombre documental. La escritura de la casa se vuelve a firmar y registrar en el condado, cada cuenta del banco pide su papeleo propio y cada vehículo su título. Mientras eso está pendiente, los bienes siguen oficialmente a nombre del trust ya revocado. Ahí empiezan los enredos. ¿Por qué contamos esto con tanto detalle? Porque es el paso que la gente olvida y el que más caro sale."
+      }
+    }
+  ]
+};
+---
+
+<BlogArticleLayout
+  title="¿Puedo cambiar o revocar un trust?"
+  description="Sí, un trust revocable se puede cambiar o cancelar. Cómo modificarlo, qué pasa con tu casa y cuándo conviene actualizarlo. Guía simple en español."
+  canonicalPath="/blog/puedo-cambiar-o-revocar-mi-trust/"
+  ogImage="og-blog.png"
+  heroImage="/images/blog/02-hero-documents.webp"
+  heroAlt="Documentos del trust y una enmienda sobre la mesa del comedor"
+  date="2026-10-15"
+  readTime="6 min de lectura"
+  jsonLd={faqSchema}
+  relatedArticles={[{ slug: "que-es-trust-revocable", title: "¿Qué es un Trust Revocable?", tag: "Educacional", image: "/images/blog/01-hero-family-home.webp" }, { slug: "fideicomiso-revocable-vs-irrevocable", title: "Revocable vs Irrevocable", tag: "Comparativa", image: "/images/blog/08-hero-family-property.webp" }]}
+>
+  <p>Firmar tu trust se siente como un respiro. Y la vida sigue su curso de todos modos: nace un nieto, se vende la casa, fallece la persona que iba a administrar todo... Ahí llega la pregunta que me hacen seguido en evaluaciones: ¿puedo cambiar un trust después de firmado? Si el tuyo es revocable, la respuesta corta es sí (aunque ya esté guardado en el cajón). Aquí va el cómo, el cuándo y la parte que casi nadie te cuenta.</p>
+
+  <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>Un trust revocable se puede modificar o revocar mientras vivas y con capacidad de decidir</li><li>Un cambio puntual suele resolverse con una enmienda simple, no con un trust nuevo</li><li>Después de revocar, los bienes no regresan solos; cada uno requiere su cambio de nombre documental</li><li>Cambiar un trust irrevocable depende de tu estado y nunca se promete sin leer el caso</li></ul></div>
+
+  <h2>¿Puedes cambiar o revocar tu trust?</h2>
+
+  <p>Mientras estés vivo y con capacidad, un trust revocable sigue siendo tuyo. Puedes ajustarlo o cancelarlo sin pedirle permiso a nadie. Ahora bien, son dos caminos distintos.</p>
+
+  <ul>
+    <li><strong>La enmienda</strong> deja el trust de pie y le cambia piezas (un beneficiario, un porcentaje, el fiduciario sustituto)</li>
+    <li><strong>La revocación</strong> apaga el trust completo desde una fecha. Tiene sentido cuando el documento ya no se parece a tu vida</li>
+  </ul>
+
+  <p>Si no tienes claro cómo funciona este documento, empieza por nuestra guía <a href="/blog/que-es-trust-revocable/">sobre el trust revocable</a>. Esta página es el manual de acción para después de firmar.</p>
+
+  <h2>Modificar y revocar no son lo mismo</h2>
+
+  <p>Mezclar estos dos trámites es el error clásico de quien empieza a investigar. La enmienda es quirúrgica. La revocación, en cambio, deconstruye el edificio completo. ¿Cuándo conviene cada una?</p>
+
+  <ul>
+    <li><strong>La enmienda</strong> toca solo lo que señalas; el resto del documento queda con su fecha original</li>
+    <li><strong>La revocación</strong> termina el trust de una vez. Los bienes quedan esperando el cambio de nombre documental, un trámite real y nada automático</li>
+  </ul>
+
+  <p>Un ejemplo para aterrizarlo. Y mira que este detalle ahorra pleitos en la familia. Si tu hija se casó y quieres agregar el apellido de su esposo, eso es una enmienda de una tarde. Si te divorciaste y la mitad del trust ya no pinta nada de tu vida, ya estás hablando de revocar. <a href="/blog/fideicomiso-revocable-vs-irrevocable/">La comparación completa entre los dos tipos de trust</a> te sirve si lo que dudas es cuál tipo te conviene, no cómo mover el que ya tienes.</p>
+
+  <h2>Cómo modificar un trust revocable, paso a paso</h2>
+
+  <p>Suena intimidante de nombre <GlossaryTerm term="enmienda" definition="Documento corto que modifica partes de un trust sin cancelarlo completo. El resto del documento queda igual." />, pero son pasos ordenados:</p>
+
+  <ol>
+    <li><strong>Relee tu trust original.</strong> Encuentra el artículo exacto y los nombres completos; cambiar a ciegas crea contradicciones</li>
+    <li><strong>Decide el cambio con precisión.</strong> Quién entra, quién sale, cómo se reparten los porcentajes. Anótalo antes de redactar nada</li>
+    <li><strong>Redacta la enmienda.</strong> Debe decir de qué artículo parte, qué cambia y qué queda igual (con esa base, en Trust Para Todos casi siempre basta una <GlossaryTerm term="enmienda simple" definition="Enmienda breve para ajustar una parte del trust sin rehacerlo completo. El resto queda igual." />)</li>
+    <li><strong>Fírmala con las formalidades del original</strong> (con testigos o notario, según tu estado)</li>
+    <li><strong>Guárdala junto al original y avisa.</strong> Tu fiduciario y tu cónyuge deben saber que existe una segunda hoja</li>
+  </ol>
+
+  <p>No lo dejes para el fin de semana que nunca llega, la enmienda se cierra en días, no en meses.</p>
+
+  <h2>Cómo revocar un trust, paso a paso</h2>
+
+  <p>Revocar un trust es más grande que una enmienda y merece más respeto. Va así:</p>
+
+  <ol>
+    <li><strong>Confirma que de verdad quieres cancelar todo.</strong> Revocar para corregir un detalle es matar una mosca a cañonazos. Muchas veces una enmienda alcanza</li>
+    <li><strong>Revisa quién firma la revocación.</strong> Si tu cónyuge puso bienes y firmó como co-creador, su firma también cuenta. Aquí no se improvisa</li>
+    <li><strong>Redacta y firma el escrito de revocación</strong> con las formalidades del documento grande, fecha clara y el nombre completo del trust</li>
+    <li><strong>Notifica a tu fiduciario y a tus beneficiarios.</strong> La sorpresa de una revocación llega a enredar familias enteras</li>
+    <li><strong>Empieza el cambio de nombre de los bienes.</strong> El paso que casi todos olvidan. El que decide si la revocación quedó completa</li>
+  </ol>
+
+  <div class="callout-warning"><strong>⚠️ Importante:</strong> en estados de propiedad comunitaria la ley puede pedir el consentimiento del cónyuge para revocar o enmendar un trust con bienes del matrimonio. Depende de tu estado.</div>
+
+  <h2>Lo que casi nadie te dice del cambio de nombre</h2>
+
+  <p>Aquí va la parte que las historias bonitas dejan fuera. Cancelar el trust no le cambia el nombre a nada por sí solo. La escritura de tu casa, tus cuentas y tus vehículos siguen pidiéndole permiso a un trust que ya técnicamente no existe. El banco no adivina, el condado tampoco:</p>
+
+  <ul>
+    <li><strong>La escritura de la casa</strong> vuelve a firmarse al nombre de los dueños y se registra en el condado. Hasta entonces, tu casa sigue dentro del trust ya revocado</li>
+    <li><strong>Las cuentas del banco</strong> piden su papeleo cada una por su lado, con visita a sucursal la mayoría de las veces</li>
+    <li><strong>Títulos de vehículos y cuentas de inversión</strong> arrastran su propio formato y su propia línea de espera</li>
+  </ul>
+
+  <p>¿Y si alguien fallece con bienes que todavía cargan el nombre del trust revocado? Los herederos se topan con un enredo justo en el peor momento, y la familia paga esos meses en ansiedad. Si vas a revocar, revócalo completo, nombre de bien por nombre de bien.</p>
+
+  <picture>
+    <source srcset="/images/blog/inline-family-kitchen.webp" type="image/webp" />
+    <source srcset="/images/blog/inline-family-kitchen.jpg" type="image/jpeg" />
+    <img src="/images/blog/inline-family-kitchen.webp" alt="Familia revisando documentos del trust en la mesa de la cocina" width="800" height="533" loading="lazy" />
+  </picture>
+
+  <div class="callout-case"><p class="callout-case-title">📖 Ejemplo con números reales</p><p>Familia Vásquez en Fresno, California. Don Ramón firmó su trust revocable en 2023, cuando la casa valía unos $412,000. En 2025 nació su primera nieta y decidió agregarla como beneficiaria. Una enmienda de una sola hoja, firmada igual de solemne que el documento grande. Unos meses después falleció la amiga que iba a administrar todo, y la segunda enmienda nombró a su hija Marta. Dos hojas de papel, ningún trust nuevo. Lo que don Ramón jamás haría. Dejar la escritura de la casa en el nombre viejo tras revocar, con la puerta del probate entreabierta.</p></div>
+
+  <div class="inline-cta"><p>¿Tu trust refleja a tu familia de hoy, o a la de hace tres años? Evalúa tu caso en 3 minutos.</p><a href="/evaluacion/" class="btn btn-primary">Comenzar evaluación →</a></div>
+  <EmailCapture />
+
+  <div class="faq-section">
+    <h2>Preguntas frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Cuál es la diferencia entre modificar y revocar un trust?</h3>
+      <p>La enmienda cambia partes del trust (beneficiarios, fiduciario, porcentajes) y el resto queda igual, con su fecha original. La revocación cancela el documento completo desde una fecha establecida, y los bienes quedan pendientes del cambio de nombre documental, pieza por pieza. ¿Un cambio puntual? Una enmienda de una sola hoja es casi siempre suficiente. Un cambio de vida entero pide revocación.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Se puede cambiar un trust irrevocable?</h3>
+      <p>Depende de tu estado. Algunos estados permiten el decanting (mover los bienes hacia un trust nuevo), pedir permiso a un tribunal o avanzar solo cuando todos los beneficiarios están de acuerdo. Nada de esto es automático. Y nadie honesto te lo puede prometer sin leer primero tu documento. La comparación completa está en <a href="/blog/fideicomiso-revocable-vs-irrevocable/">nuestro artículo sobre trust revocable e irrevocable</a>.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Tengo que pagar de nuevo para cambiar mi trust?</h3>
+      <p>Depende de qué tan grande sea el cambio. Una enmienda puntual no se parece al trabajo de rehacer el trust completo. Son cosas distintas. No te fijamos precio aquí porque cada caso es distinto. La evaluación gratuita te dice qué necesita tu trust y qué implica el cambio, sin compromiso.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Qué pasa con los bienes si revoco el trust?</h3>
+      <p>No hay reverso automático. Cada bien necesita su cambio de nombre documental, y la escritura de la casa se vuelve a firmar y registrar en el condado. Mientras eso está pendiente, los bienes siguen oficialmente a nombre del trust ya revocado. Ahí empiezan los enredos.</p>
+    </div>
+  </div>
+
+  <h2>Conclusión: tu trust no es una foto</h2>
+
+  <p>Un trust no es la foto del día que lo firmaste. Es un documento que debe seguirle el paso a la vida, nietos incluidos, mudanzas incluidas. Si tu familia ya no se parece a la de la firma, no lo dejes envejecer. <a href="/evaluacion/">Agenda tu evaluación gratuita</a>. En 3 minutos sabes si tu trust necesita un retoque, una enmienda o un reinicio. En español, sin compromiso.</p>
+<TrustQuiz />
+
+</BlogArticleLayout>

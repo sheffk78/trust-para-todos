@@ -1,0 +1,143 @@
+---
+import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Puedo quitar a mi exesposo como beneficiario del trust?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Por lo general sí, y se hace con una enmienda al trust cuando el decreto de divorcio ya está firmado. La parte delicada no es el papel sino la comunidad de bienes. En estados como California, Texas o Arizona, tu exesposo puede conservar derechos sobre bienes comprados durante el matrimonio, así que primero revisa el decreto y alinea la enmienda con él."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué pasa con la casa que puse en el trust si me divorcio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El juez del divorcio decide cómo se reparte el interés de la propiedad y el trust refleja ese reparto cuando todo queda firme. El trust por sí solo no quita ni reparte derechos del inmueble en medio del proceso. Para cómo se escribe la casa y cómo sigue protegida, revisa la guía del fideicomiso para tu casa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Quién hereda si no actualizo el trust después del divorcio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Los beneficiarios escritos en los papeles, tal cual están. El divorcio no los edita y el registro del condado tampoco. Por eso muchos ex cónyuges siguen apareciendo en trusts viejos, nadie firmó la enmienda. La buena noticia es que actualizar el papel es rápido y tú controlas ese paso."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tarda actualizar un trust después de un divorcio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lo antes posible. No existe una fecha límite escrita en la ley, así que no dejes el papel dormido. Una enmienda simple se firma en una tarde, y lo que tarda de verdad es alinear el decreto, la comunidad de bienes y, cuando aplica, la firma de las dos partes."
+      }
+    }
+  ]
+};
+---
+
+<BlogArticleLayout
+  title="¿Qué pasa con tu trust si te divorcias?"
+  description="¿Qué pasa con tu trust y tus beneficiarios cuando te divorcias? Cómo revisar la comunidad de bienes y actualizar tu fideicomiso con calma. Guía en español."
+  canonicalPath="/blog/trust-y-divorcio/"
+  ogImage="og-blog-trust-y-divorcio.png"
+  heroImage="/images/blog/02-hero-documents.webp"
+  heroAlt="Documentos de un trust sobre una mesa de madera en casa"
+  date="2026-10-15"
+  readTime="6 min de lectura"
+  jsonLd={faqSchema}
+  relatedArticles={[{ slug: "fideicomiso-para-tu-casa", title: "Fideicomiso Para Tu Casa", tag: "Educacional", image: "/images/blog/01-hero-family-home.webp" }, { slug: "que-es-trust-revocable", title: "¿Qué es un Trust Revocable?", tag: "Educacional", image: "/images/blog/01-hero-family-home.webp" }, { slug: "fideicomiso-revocable-vs-irrevocable", title: "Revocable vs Irrevocable", tag: "Comparativa", image: "/images/blog/08-hero-family-property.webp" }]}
+>
+  <p>Si estás atravesando un divorcio, lo último que quieres es desempolvar papeles. Y sin embargo el trust es de las primeras cosas que conviene atender. El fideicomiso no se entera del divorcio, sigue funcionando con los nombres de siempre. Tu exesposo puede seguir escrito tal como lo dejaron años atrás, porque nadie ha firmado instrucciones nuevas.</p>
+  <p>Esta guía va en calma y en español. Sin regaños, sin historias de susto, sin asumir nada sobre cómo terminó tu matrimonio. Solo lo que pasa con tu fideicomiso y con tus beneficiarios, y los pasos para dejar el papel en orden. Divorcio y fideicomiso suenan más grandes de lo que son, aunque las reglas cambian de estado en estado.</p>
+  <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>El trust sigue existiendo después del divorcio con los nombres que ya tenía</li><li>En California, Texas, Arizona y otros seis estados, la comunidad de bienes puede limitar lo que puedes cambiar tú solo</li><li>La revocación automática de beneficiarios no es uniforme y muchas veces no alcanza al trust</li><li>La casa la reparte el juez del divorcio, y el trust refleja ese reparto después</li><li>No hay fecha límite legal para actualizar, y aun así la respuesta honesta es lo antes posible</li></ul></div>
+
+  <h2>Trust y divorcio, qué cambia y qué no</h2>
+
+  <p>Empecemos por la base. El divorcio divide el patrimonio y reordena la vida de la pareja. El trust, en cambio, sigue funcionando como documento aparte. No lee el decreto, no se disuelve, no abre la puerta solo. Si tu exesposo figura como beneficiario, sigue ahí hasta que alguien lo cambie. Lo mismo si quedó como <GlossaryTerm term="fideicomisario sucesivo" definition="La persona que tomaría el control del trust si el fideicomisario original fallece o queda imposibilitado para administrarlo." />, la persona que controlaría si tú faltas.</p>
+
+  <p>Nada de esto ocurre de un tirón. El trust no se rompe con el divorcio, pero tampoco se corrige. Es un papel quieto, esperando instrucciones.</p>
+
+  <div class="callout-case"><p class="callout-case-title">📖 Un caso que se repite</p><p>Familia Rodríguez en Riverside, California. Marisol y su esposo firmaron su trust revocable en 2016, y el nombre de él quedó como beneficiario alterno. El divorcio terminó en 2021 y el papel quedó igual que el primer día. Lo que tardó meses, en cambio, fue darse cuenta ya del otro lado. La enmienda se firmó en una tarde.</p></div>
+
+  <h2>Quitar a tu exesposo como beneficiario del trust</h2>
+
+  <p>La pregunta que más nos llega es esa, quitar a mi exesposo como beneficiario del trust. Tiene dos capas, y separarlas evita sorpresas.</p>
+
+  <p>La capa del papel es la sencilla. Un trust revocable se actualiza con una enmienda, y la mecánica completa la explicamos en la guía del <a href="/blog/que-es-trust-revocable/">trust revocable</a>.</p>
+
+  <p>La capa de la ley estatal es la delicada. Si el trust, la casa o las cuentas se formaron con dinero ganado durante el matrimonio, tu exesposo puede conservar derechos sobre esos bienes aunque el documento diga otra cosa. El papel señala un camino, la ley del estado señala otro, y el empate lo resuelve el decreto de divorcio. No un tachón.</p>
+
+  <div class="callout-warning"><strong>⚠️ Importante.</strong> Cambiar los nombres del trust sin revisar antes la comunidad de bienes y el decreto de divorcio puede abrir una disputa que cuesta mucho más que la enmienda. Primero el acuerdo, después el papel.</div>
+
+  <h2>La comunidad de bienes, el punto que cambia según el estado</h2>
+
+  <p>California, Texas, Arizona, Nuevo México, Nevada, Idaho, Washington, Louisiana y Wisconsin manejan la figa de la <GlossaryTerm term="comunidad de bienes" definition="Regla de nueve estados donde lo que la pareja compra durante el matrimonio les pertenece en gran medida a los dos, aunque el título lleve un solo nombre." />. Ahí, lo comprado en pareja les toca a los dos, aunque el título lleve un solo nombre.</p>
+
+  <p>¿Y por qué importa en un trust? Porque si tu exesposo tiene derechos sobre la casa o las cuentas del fideicomiso, eso no se arregla con tachones. Lo resuelve el decreto, y en algunos estados también la firma de las dos partes. Cada estado escribe sus reglas y las diferencias son grandes (de verdad, ni el punto más simple está igual en todos).</p>
+
+  <h2>Las reglas automáticas, no des por hecho</h2>
+
+  <p>En algunos estados, la ley revoca la designación de beneficiario que nombraste a tu esposa o esposo cuando el divorcio queda formal. Suena perfecto. Pero frena ahí, porque la regla no es uniforme en el país y el trust muchas veces queda fuera del paquete. La revocación automática cubre por lo general pólizas de vida, cuentas bancarias y cuentas de retiro, y en pocos estados alcanza a los trusts revocables.</p>
+
+  <p>Los fondos de retiro federales traen reglas propias y ahí el cambio empieza contigo.</p>
+
+  <p>El divorcio no ejecuta milagros en tu trust. Actúa como si tu ex siguiera nombrado, porque en la mayoría de los estados es lo que va a pasar.</p>
+
+  <picture>
+    <source srcset="/images/blog/inline-family-kitchen.webp" type="image/webp" />
+    <source srcset="/images/blog/inline-family-kitchen.jpg" type="image/jpeg" />
+    <img src="/images/blog/inline-family-kitchen.webp" alt="Mesa de cocina con papeles del trust mientras una familia reordena sus documentos" width="800" height="533" loading="lazy" />
+  </picture>
+
+  <h2>¿Y la casa que pusimos en el trust durante el matrimonio?</h2>
+
+  <p>La casa merece pocas líneas aquí, porque es un caso aparte. Dos ideas: el juez del divorcio decide cómo se reparte la propiedad, y el trust refleja ese reparto cuando todo queda firme. Cómo se escribe la casa y cómo sigue protegida es un tema entero, y lo cubre la guía del <a href="/blog/fideicomiso-para-tu-casa/">fideicomiso para tu casa</a>.</p>
+
+  <h2>¿Quién hereda si dejo el trust como está?</h2>
+
+  <p>Si los papeles siguen igual, el trust reparte tal cual los nombres escritos. El juez del divorcio no edita a tus beneficiarios y el registro del condado tampoco. Si el exesposo quedó por escrito y nadie firmó la enmienda… la respuesta es incómoda pero honesta: puede recibir lo que el papel diga (aunque duela aceptarlo). Es de las situaciones más comunes en trusts viejos.</p>
+
+  <div class="inline-cta"><p>¿Tu trust sigue con nombres de otra etapa de tu vida? Revísalo con calma, hoy mismo.</p><a href="/evaluacion/" class="btn btn-primary">Comenzar evaluación →</a></div>
+  <EmailCapture />
+
+  <div class="faq-section">
+    <h2>Preguntas frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Puedo quitar a mi exesposo como beneficiario del trust?</h3>
+      <p>Por lo general sí, y se hace con una enmienda al trust cuando el decreto de divorcio ya está firmado. La parte delicada no es el papel sino la comunidad de bienes. En estados como California, Texas o Arizona, tu exesposo puede conservar derechos sobre bienes comprados durante el matrimonio, así que primero revisa el decreto y alinea la enmienda con él.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Qué pasa con la casa que puse en el trust si me divorcio?</h3>
+      <p>El juez del divorcio decide cómo se reparte el interés de la propiedad y el trust refleja ese reparto cuando todo queda firme. El trust por sí solo no quita ni reparte derechos del inmueble en medio del proceso. Para cómo se escribe la casa y cómo sigue protegida, revisa la guía del fideicomiso para tu casa.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Quién hereda si no actualizo el trust después del divorcio?</h3>
+      <p>Los beneficiarios escritos en los papeles, tal cual están. El divorcio no los edita y el registro del condado tampoco. Por eso muchos ex cónyuges siguen apareciendo en trusts viejos, nadie firmó la enmienda. La buena noticia es que actualizar el papel es rápido y tú controlas ese paso.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Cuánto tarda actualizar un trust después de un divorcio?</h3>
+      <p>Lo antes posible. No existe una fecha límite escrita en la ley, así que no dejes el papel dormido. Una enmienda simple se firma en una tarde, y lo que tarda de verdad es alinear el decreto, la comunidad de bienes y, cuando aplica, la firma de las dos partes.</p>
+    </div>
+  </div>
+
+  <h2>En resumen: tu trust no se divorcia contigo</h2>
+
+  <p>El fin de un matrimonio reordena muchas cosas, y el trust es el papel que casi nadie recuerda en medio del proceso. Que siga igual no dice nada malo de ti. Es un documento esperando instrucciones y estás a tiempo de darlas: decreto firme, comunidad de bienes clara y la ley de tu estado en mente.</p>
+
+  <p>En Trust Para Todos te acompañamos en español, desde tu casa, sin juzgar el proceso. <a href="/evaluacion/">Agenda tu evaluación gratuita</a> y en 3 minutos sabes qué necesita tu trust para esta nueva etapa.</p>
+<TrustQuiz />
+
+</BlogArticleLayout>

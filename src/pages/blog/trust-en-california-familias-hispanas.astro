@@ -1,0 +1,150 @@
+---
+import BlogArticleLayout from '../../layouts/BlogArticleLayout.astro';
+import EmailCapture from '../../components/EmailCapture.astro';
+import TrustQuiz from '../../components/TrustQuiz.astro';
+import GlossaryTerm from '../../components/GlossaryTerm.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Qué pasa con mi casa en California si fallezco sin trust?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Si tu patrimonio completo, casa incluida, queda por debajo de $184,500, tus herederos pueden usar el trámite simplificado de herencia pequeña y evitar el probate. Si pasa ese límite, lo más común en California por el valor de las casas, la herencia entra al probate, con sus tarifas y sus meses de espera. Para que tu casa pase sin ese rodeo, debe estar dentro de un trust."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Funciona mi trust de California si me mudo a otro estado?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Los demás estados reconocen un trust válido de California. Al mudarte, actualiza tu dirección en los documentos y pon las propiedades del nuevo estado dentro del trust, para que también queden fuera del probate allá. El trust sigue funcionando y no hay que crearlo desde cero."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Debo crear el trust en california en español o en inglés?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un fideicomiso escrito en español es legalmente válido en California. El matiz es que el idioma oficial de las cortes del estado es el inglés. Por eso recomendamos la versión bilingüe, con el cuerpo del documento en español para que toda la familia lo entienda y los elementos clave también alineados al inglés para cualquier trámite futuro. Así nadie depende de traducciones en el momento que más importa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tarda el probate de California frente a un trust?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El probate en California toma normalmente de 12 a 18 meses, y puede alargarse cuando hay casa, desacuerdos entre herederos o bienes en otros estados. Con un trust revocable, la sucesión no pasa por la corte. Los bienes llegan a los beneficiarios en semanas o pocos meses, tal como el documento lo indica."
+      }
+    }
+  ]
+};
+---
+
+<BlogArticleLayout
+  title="Trust en California: guía para hispanos"
+  description="Guía de trust en California para familias hispanas. Cuánto cuesta el probate, cuánto tarda y cómo tu casa pasa sin corte con tu fideicomiso en español."
+  canonicalPath="/blog/trust-en-california-familias-hispanas/"
+  ogImage="og-blog-trust-en-california-familias-hispanas.png"
+  heroImage="/images/blog/03-hero-family-protection.webp"
+  heroAlt="Familia hispana de California revisando en su mesa los documentos del trust que protege su casa"
+  date="2026-10-15"
+  readTime="7 min de lectura"
+  jsonLd={faqSchema}
+  relatedArticles={[{ slug: "que-es-probate-como-evitarlo", title: "Qué es el Probate y Cómo Evitarlo", tag: "Educacional", image: "/images/blog/07-hero-courtroom.webp" }, { slug: "fideicomiso-para-tu-casa", title: "Fideicomiso Para Tu Casa", tag: "Educacional", image: "/images/blog/01-hero-family-home.webp" }, { slug: "trust-en-espanol", title: "Trust en Español", tag: "Educacional", image: "/images/blog/01-hero-family-home.webp" }]}
+>
+  <p>¿Piensas en tu herencia en California? No estás solo. Aquí vive una parte enorme de la comunidad hispana de Estados Unidos. Y tarde o temprano la conversación llega a la cocina, esa de qué va a pasar cuando uno ya no esté. Me la han traído más veces de las que puedo contar.</p>
+
+  <p>Te lo contamos con números y en español, sin rodeos. Qué pasa aquí si alguien fallece sin trust, cuánto cuesta el probate, cuánto tarda, y qué cambia cuando tu casa y tus cuentas ya están dentro de un fideicomiso.</p>
+
+  <div class="key-takeaways"><p class="key-takeaways-title">Puntos clave</p><ul><li>Si falleces sin trust en California y tu patrimonio pasa de $184,500, tu familia normalmente entra al probate (vigente para fallecimientos desde abril 2022, ajustado en 2025, próximo cambio en 2028)</li><li>Las tarifas del probate de California se cobran dos veces, al abogado y al albacea, así que una herencia de $1 millón paga cerca de $46,000 solo de tarifas estatutarias</li><li>El proceso en corte toma normalmente entre 12 y 18 meses, o más</li><li>Con un trust revocable los bienes pasan sin corte y tú mantienes el control mientras vives</li><li>Un fideicomiso escrito en español es válido en California y la versión más sólida es bilingüe</li></ul></div>
+
+  <h2>Dos datos de California que lo explican todo</h2>
+
+  <p>Primero, California es un estado de propiedad comunitaria. Lo que una pareja adquiere casada les pertenece a los dos, incluida la casa.</p>
+
+  <p>Segundo, y este es el que mueve la aguja, la ley deja una salida limpia para las herencias chicas. Si el patrimonio de quien falleció queda por debajo de $184,500, los herederos pueden recibir los bienes con un trámite simplificado, sin un caso completo de probate. Ese límite aplica a los fallecimientos desde el 1 de abril de 2022, está fijado en el Código Probatorio 13100 y se ajusta por periodos (se actualizó el 1 de abril de 2025, el próximo ajuste llega el 1 de abril de 2028). Suena alto, pero el precio de las casas en este estado cruza esa línea sola, y por eso le toca a muchas más familias de las que uno imagina.</p>
+
+  <h2>Cuánto cuesta el probate en California, con números</h2>
+
+  <p>Cuando una herencia entra al probate, la ley fija con una escala lo que cobra el abogado y lo que cobra el albacea (Código Probatorio, secciones 10800 y 10810):</p>
+
+  <table>
+    <thead>
+      <tr><th>Valor de la herencia</th><th>Tarifa por cada parte</th><th>Total (abogado + albacea)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>$350,000</td><td>$10,000</td><td>$20,000</td></tr>
+      <tr><td>$650,000</td><td>$16,000</td><td>$32,000</td></tr>
+      <tr><td>$1,000,000</td><td>$23,000</td><td>$46,000</td></tr>
+    </tbody>
+  </table>
+
+  <p>Mira la columna final. La escala no se cobra una vez, se cobra dos veces. La misma cuenta paga al abogado y otra vez al albacea, 4% de los primeros $100,000, 3% de los siguientes $100,000, 2% de los siguientes $800,000 y 1% de lo que pase de $900,000. En una herencia de un millón de dólares, eso suma unos $46,000 que salen del patrimonio antes de que la familia vea un centavo.</p>
+
+  <p>Se suma la cuota para presentar el caso, la misma en todo el estado, unos cientos de dólares (Código de Gobierno 70650), más los gastos propios del caso.</p>
+
+  <p>La explicación completa, con las cuatro salidas que existen, está en <a href="/blog/que-es-probate-como-evitarlo/">nuestra guía del probate en español</a>.</p>
+
+  <div class="callout-case"><p class="callout-case-title">📖 Ejemplo con números reales</p><p>Familia Ramos, Long Beach. Los papás dejan una casa valuada en $620,000 y $35,000 en cuentas de banco, $655,000 en total. Sin trust, todo cayó al probate. En esa herencia la escala da cerca de $16,000 para el abogado y otros $16,000 para el albacea, unos $32,000 en tarifas estatutarias, más la cuota de la corte y gastos. Y el tiempo, lo que más dolió. Más de un año con la casa congelada mientras los hijos pagan seguros e impuestos. Con los mismos bienes dentro de un trust revocable, la herencia habría pasado en pocas semanas y sin una sola audiencia.</p></div>
+
+  <h2>Qué cambia con un living trust en California</h2>
+
+  <p>El living trust, que en corto le decimos fideicomiso revocable <GlossaryTerm term="fideicomiso revocable" definition="Estructura legal donde pones tus bienes a nombre del trust durante tu vida, tú conservas el control, puedes modificarlo o cancelarlo, y al fallecer los bienes pasan a tus beneficiarios sin pasar por el probate." />, mueve tus bienes al nombre del trust mientras vives. La casa, las cuentas, lo que tú decidas. Tú sigues al mando, y este punto me parece el más importante. Vendes, refinancias, usas el dinero, o lo cancelas todo si un día quieres. Un fideicomiso en California no es una figura rara, es la misma estructura que las familias de aquí ya usan hace décadas. Lo único que cambia es el destino de tus bienes cuando faltas, que llega directo a tus beneficiarios, tal como lo escribiste, sin una sola audiencia.</p>
+
+  <p>Tu casa dentro del trust sigue siendo tu casa, con los mismos impuestos y exenciones que ya tenías. Sobre pasar esa protección a los hijos, la Prop 19 cambió esas reglas y siguen en ajuste, revisa tu caso con la regla vigente.</p>
+
+  <p>¿Y el idioma del documento? Un fideicomiso puede escribirse y firmarse por completo en español, y así funciona nuestro proceso. El matiz es que el idioma oficial de las cortes del estado es el inglés, por eso la versión más sólida para una familia hispana es bilingüe. El cuerpo en español, para que todos entiendan lo que firmaron, y los elementos clave también alineados al inglés.</p>
+
+  <p>¿Y el testamento? Sirve de respaldo cuando hay bienes fuera del trust, pero por sí solo no saca tu herencia de la corte. La comparación completa está en <a href="/blog/trust-vs-testamento/">trust vs testamento</a>.</p>
+
+  <h2>Tres errores que vemos en familias de California</h2>
+
+  <ol>
+    <li><strong>Creer que el probate es solo para familias millonarias.</strong> Con los precios de este estado, la línea de $184,500 se cruza con una casa normal. Familias trabajadoras, de barrio, están por encima de ese límite sin saberlo.</li>
+    <li><strong>Pasar la casa a nombre de un hijo "para resolverlo anticipado".</strong> Parece atajo y trae enredos propios. Pierdes el control de tu propia casa, y si a tu hijo le va mal, con deudas o con un divorcio, tu casa queda del lado equivocado. Hay caminos más limpios.</li>
+    <li><strong>Confundir el trámite de herencia pequeña con una solución para siempre.</strong> Esa salida sirve en su momento, para casos límite. El día que la casa sube de valor o aparecen más bienes, vuelve el probate con todo y tarifas.</li>
+  </ol>
+
+  <div class="callout-tip"><p class="callout-icon">💡</p><div><strong>Dato que tranquiliza:</strong> un trust bien armado no cambia tu vida diaria. Sigues viviendo y usando tus bienes igual que ahora. Lo que cambia es el día que tu familia te necesita. Ahí el ahorro se mide en meses de corte y en miles de dólares que no se van en tarifas.</div></div>
+
+  <div class="inline-cta"><p>¿Cómo quedan tus números en California? Evalúa tu caso en 3 minutos, en español.</p><a href="/evaluacion/" class="btn btn-primary">Comenzar evaluación →</a></div>
+  <EmailCapture />
+
+  <div class="faq-section">
+    <h2>Preguntas frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Qué pasa con mi casa en California si fallezco sin trust?</h3>
+      <p>Si tu patrimonio completo, casa incluida, queda por debajo de $184,500, tus herederos pueden usar el trámite simplificado de herencia pequeña y evitar el probate. Si pasa ese límite, lo más común en California por el valor de las casas, la herencia entra al probate, con sus tarifas y sus meses de espera. Para que tu casa pase sin ese rodeo, debe estar dentro de un trust.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Funciona mi trust de California si me mudo a otro estado?</h3>
+      <p>Sí. Los demás estados reconocen un trust válido de California. Al mudarte, actualiza tu dirección en los documentos y pon las propiedades del nuevo estado dentro del trust, para que también queden fuera del probate allá. El trust sigue funcionando y no hay que crearlo desde cero.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Debo crear el trust en california en español o en inglés?</h3>
+      <p>Un fideicomiso escrito en español es legalmente válido en California. El matiz es que el idioma oficial de las cortes del estado es el inglés. Por eso recomendamos la versión bilingüe, con el cuerpo del documento en español para que toda la familia lo entienda y los elementos clave también alineados al inglés para cualquier trámite futuro. Así nadie depende de traducciones en el momento que más importa.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Cuánto tarda el probate de California frente a un trust?</h3>
+      <p>El probate en California toma normalmente de 12 a 18 meses, y puede alargarse cuando hay casa, desacuerdos entre herederos o bienes en otros estados. Con un trust revocable, la sucesión no pasa por la corte. Los bienes llegan a los beneficiarios en semanas o pocos meses, tal como el documento lo indica.</p>
+    </div>
+  </div>
+
+  <h2>Así que, ¿conviene un trust en California?</h2>
+
+  <p>En la mayoría de los casos con casa, sí. La herencia sin plan no se pierde, se gasta, en tarifas cobradas dos veces, en meses de corte, en noches mal dormidas. Un trust revierte esa ecuación, una decisión tomada una vez, desde tu casa y en tu idioma, para que la herencia llegue completa a quien la construyó.</p>
+
+  <p>Si me preguntas por dónde empezar, empieza por <a href="/evaluacion/">crear tu trust en California con tu evaluación gratuita</a>. En 3 minutos, sin compromiso, ves qué necesita tu familia, qué costaría y qué pasos siguen.</p>
+
+  <p><em>Este artículo es información general y no constituye asesoría legal para un caso específico.</em></p>
+<TrustQuiz />
+
+</BlogArticleLayout>
